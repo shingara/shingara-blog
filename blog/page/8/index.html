@@ -1,0 +1,1130 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Voulant tenter de faire des screencasts, j&#8217;ai jeté mon dévolu juste xvidcap. Durant, mon test, je n&#8217;arrivais pas à faire de capture du &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/blog/page/8">
+  <link href="/shingara-blog/favicon.png" rel="icon">
+  <link href="/shingara-blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/shingara-blog/javascripts/modernizr-2.0.js"></script>
+  <script src="/shingara-blog/javascripts/ender.js"></script>
+  <script src="/shingara-blog/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/shingara-blog/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/shingara-blog/">Blog</a></li>
+  <li><a href="/shingara-blog/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/04/18/activer-la-capture-du-son-sous-linux-pour-xvidcap/">Activer La Capture Du Son Sous Linux Pour Xvidcap</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-18T00:00:00+02:00" pubdate data-updated="true">Apr 18<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Voulant tenter de faire des screencasts, j&#8217;ai jeté mon dévolu juste <a href="http://xvidcap.sourceforge.net/">xvidcap</a>. Durant, mon test, je n&#8217;arrivais pas à faire de capture du son. J&#8217;avais bien branché mon micro et je pouvais l&#8217;entendre dans les enceintes. Mais il n&#8217;était pas capturé. je vais donc indiquer toutes les modifications que j&#8217;ai réalisé pour que ça marche, car ce n&#8217;est pas la première fois que j&#8217;ai ce genre de problème.</p>
+
+<h3>XvidCap n&#8217;écoute que OSS</h3>
+
+<p>En effet, xvidcap n&#8217;écoute que le point /dev/dsp, il faut donc réaliser la compatibilité OSS si vous utilisez alsa.</p>
+
+<h3>Activer la capture du micro</h3>
+
+<p>Ensuite, il faut penser à vérifier que la capture du son soit bien activé dans alsamixer. Pour cela, il suffit d&#8217;aller sur la partie Capture d&#8217;alsamixer. Pour y arriver, une petite tabulation suffit. Le screenshot suivant montre le cas de capture désactivé.</p>
+
+<p style="text-align: center;">
+<img src="http://blog.shingara.fr/files/alsamixer-capture-desabled.png" alt="screenshot d alsamixer avec la capture son desactive" >
+</p>
+
+<p>Il suffit ensuite d&#8217;aller sur les éléments désactivés et d&#8217;appuyer sur espace pour valider la capture. On obtient ainsi l&#8217;écran suivant :</p>
+
+
+<p style="text-align: center;">
+<img src="http://blog.shingara.fr/files/alsamixer-capture-activate.png" alt="screenshot d alsamixer avec la capture son active" >
+</p>
+
+<p>J&#8217;ai ainsi pu enfin réussir mon test de screencast pour réaliser les screencasts que je souhaite.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/04/07/loader-toutes-les-fixtures-avec-les-story-de-rspec/">Loader Toutes Les Fixtures Avec Les Story De Rspec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-07T00:00:00+02:00" pubdate data-updated="true">Apr 7<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Dans un article précédent, j&#8217;ai décrit <a href="http://blog.shingara.fr/articles/2008/04/03/et-si-on-ecrivait-une-histoire-a-rails">comment utiliser les stories de Rspec avec Rails</a>. Mais j&#8217;ai indiqué qu&#8217;il n&#8217;y avait pas la possibilité d&#8217;utiliser la méthode fixtures directement. Mais ce n&#8217;est pas pour ça qu&#8217;on ne peux pas loader les fixtures. Je vais vous expliquer comment faire.
+</p>
+
+<h3>Définir où se trouve les fixtures.</h3>
+
+Dans le helper.rb, on peux définir où se trouve le dossier contenant les fixtures :
+
+<typo:code lang="ruby">
+ENV[&#8220;RAILS_ENV&#8221;] = &#8220;test&#8221;
+require File.expand_path(File.dirname(__FILE__) + &#8220;/../config/environment&#8221;)
+require &#8216;spec/rails/story_adapter&#8217;
+
+Spec::Runner.configure do |config|
+  # If you&#8217;re not using ActiveRecord you should remove these
+  # lines, delete config/database.yml and disable :active_record
+  # in your config/boot.rb
+  config.use_transactional_fixtures = true
+  config.use_instantiated_fixtures  = false
+  config.fixture_path = RAILS_ROOT + &#8216;/spec/fixtures/&#8217;
+end
+</typo:code>
+
+<p>La configuration fixture_path permet ainsi de définir où se trouve le dossier contenant les fixtures. Dans mon cas c&#8217;est le dossier de fixtures de Rspec.</p>
+
+<h3>Définir des steps qui load les fixtures</h3>
+
+<p>On peux faire une étape qui permette de loader toutes les fixtures :</p>
+
+<typo:code lang="ruby">
+  Given &#8220;load all fixtures&#8221; do
+    [&#8220;galleries&#8221;, &#8220;pictures&#8221;, &#8220;thumbnails&#8221;, &#8220;users&#8221;, &#8220;settings&#8221;].each { |fixture|
+      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixture)
+    }
+  end
+</typo:code>
+
+<p>En appelant &#8220;load all fixtures&#8221; on chargera ainsi toutes les fixtures définis dans la liste. On les appelles de la même manière qu&#8217;avec la méthode fixtures</p>
+
+<p>On peux aussi faire une steps qui ne load qu&#8217;une fixtures en particulier</p>
+
+<typo:code lang="ruby">
+  Given &#8220;load fixtures &#8216;$fixture&#8217;&#8221; do |fixtures|
+      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixtures)
+  end
+</typo:code>
+
+<h3>Appeler les étapes dans son histoire</h3>
+
+<p>
+Une fois ces étapes définis on peux ainsi facilement les utiliser dans ses stories en plain-text.
+</p>
+
+<typo:code>
+Story: Mon Histoire
+
+  Scenario: Une beau scénario
+
+     Given load all fixtures
+     When we go to &#8216;/&#8217;
+     Then we are redirect to &#8216;/login&#8217;
+
+  Scenario: Un autre scénario
+
+     Given load fixtures &#8216;galleries&#8217;
+     And load fixtures &#8216;users&#8217;
+     When we go to &#8216;/&#8217;
+     Then we are redirect to &#8216;/login&#8217;     
+</typo:code>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/04/06/gestion-des-dependances-des-gems-directement-dans-rails/">Gestion Des Dépendances Des Gems Directement Dans Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-06T00:00:00+02:00" pubdate data-updated="true">Apr 6<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Suivant toujours les évolutions de Rails dans sa version edge, je vais commencer une série de billet pour vous informer de quelques nouveautés pour Rails 2.1. Je trouve ces évolutions assez sympathiques.
+</p>
+
+<p>La première que je vais vous montrer est la gestion des dépendances de gems</p>
+
+<p>
+On pourra définir directement dans le fichier d&#8217;environnement de Rails les gems qui sont en dépendance de notre application. On peux ainsi y définir le nom, la version et même le dépôt de notre gems. Très pratique pour gérer ses dépendances. Plus besoin de forcement, copier les gems directement dans ton /vendor/. Voici un exemple de configuration :
+</p>
+
+<typo:code>
+Rails::Initializer.run do |config| 
+
+  # Necessite la derniere version du gem HAML
+  config.gem &#8220;haml&#8221;
+
+  # Necessite la version 0.2.3 de chronic
+  config.gem &#8220;chronic&#8221;, :version => &#8216;0.2.3&#8217;
+
+  #Necessite le hpricot a partir d&#8217;un depot specifique
+  config.gem &#8220;hpricot&#8221;, :source => &#8220;http://code.whytheluckystiff.net&#8221;
+
+  # Necessite un gem particulier qui necessite une ligne differente de require
+  # I.e. Si vous loader normalement le gem avec require &#8216;aws/s3&#8217; au lieu de
+  # require &#8216;aws-s3&#8217; alors vous devez le specifier dans l&#8217;option :lib
+  config.gem &#8220;aws-s3&#8221;, :lib => &#8220;aws/s3&#8221; 
+end 
+</typo:code>
+
+<p>
+Avec cette fonctionnalité de nouvelles tâches rake ont été ajoutées :
+</p>
+
+<ul>
+<li>
+rake gems:install => permet d&#8217;installer tous les gems nécessaire
+</li>
+<li>
+rake gems => permet de lister tous les gems nécessaires à l&#8217;application
+</li>
+<li>
+rake gems:unpack => Copie tous les gems en dépendance dans le dossier /vendor/gems
+</li>
+<li>
+rake gems:unpack GEM=hpricot => Supprime le gems hrpicot du dossier /vendor/gems
+</li>
+<li>
+rake gems:build => construit les gems qui ont des extensions native.
+</li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/04/03/et-si-on-ecrivait-une-histoire-a-rails/">Et Si on écrivait Une Histoire à Rails ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-03T00:00:00+02:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Sous ce titre particulier, je voudrais parler un peu des <a href="http://rspec.info/documentation/stories.html">stories de Rspec</a>. En effet, depuis la version 1.0 de <a href="http://rspec.info/">RSpec</a>, les stories ont été ajouté à Rspec. Ce système de story peux tout à fait être utilisé au sein de Rails pour permettre de créer des test d&#8217;intégrations. En effet, avec les spec traditionnels, nous ne pouvons pas réellement réaliser de test d&#8217;intégration. Avec les story nous pouvons le faire très facilement, que ca soit lisible et surtout très facilement répétable et modifiable. Mais le mieux est de vous montrer comment l&#8217;intégrer et l&#8217;utiliser à Rails.
+</p>
+
+<p>Si vous avez installer Rspec pour Rails et lancé la génération de rspec alors vous devez avoir dans votre arborescence un dossier stories. C&#8217;est en général dans ce dossier que nous mettons les stories.</p>
+
+<h3>Votre première histoire</h3>
+
+<p>Nous allons supposer que vous avez un petit système de login et que vous voulez le tester. Il suffit de créer le fichier login_story.rb comme ci-dessous</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_story.rb">
+Story &#8220;Un Utilisateur s&#8217;authentifie&#8221;, %{
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+}, :type => RailsStory do
+  
+  Scenario &#8220;Logged successful&#8221; do
+    Given &#8220;un login&#8221;, &#8220;shingara&#8221; do |login|
+      @login = login
+    end
+    
+    And &#8220;un mot de passe&#8221;, &#8220;mon_password&#8221; do |password|
+      @password = password
+    end
+    
+    And &#8220;l&#8217;utilisateur est creer&#8221; do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When &#8220;je vais sur&#8221;, &#8220;/&#8221; do |page|
+      get page
+    end
+    
+    Then &#8220;je suis redirige vers la page de login&#8221; do
+      response.should redirect_to &#8216;/login&#8221;
+      follow_redirect!
+    end
+
+   When &#8220;Je me log&#8221; do
+     post &#8220;/login&#8221;, :login => @login, :password => @password
+   end
+
+   Then &#8220;Je suis redirige vers &#8220;, &#8220;/&#8221; do |path|
+      response.should redirect_to (&#8220;/&#8221;)
+      follow_redirect!
+   end
+  end
+</typo:code>
+
+<p>Voici donc un test de story avec Rails. Il faut bien penser à utiliser le type RailsStory pour que Story soit un Objet qui hérite de ActionController::IntegrationTest et puisse ainsi avoir toutes les méthodes utilent comme le follow_redirect!. Par contre, il faut faire attention, car le load des fixtures n&#8217;existent pas dans les Story, il faut créer soit-même un étape qui le fasse pour que cela soit possible.</p>
+
+<h3>Et en plus répétable ?</h3>
+
+<p>Maintenant une autre grande fonctionnalité des Story de Rspec est la possibilité de faire des stories en plain-text. Ainsi notre story précédente deviendrait tout simplement :</p>
+
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s&#8217;authentifie
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+</typo:code>
+
+<p>A ce moment là plus besoin d&#8217;être développeur pour comprendre ce que fait le test. Pour cela en fait il faut créer toute une batterie de jeu d&#8217;étapes. Les étapes sont de 3 Types :</p>
+
+<ul>
+<li>Given : qui sont les données de base ou postulat</li>
+<li>When : qui sont les actions</li>
+<li>Then : qui sont les résultats</li>
+</ul>
+
+<p>
+Il suffit donc de créer un fichier d&#8217;étapes qui comprenne toutes les étapes indiqués dans le fichier texte :
+</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_steps.rb">
+steps_for(:gallery) do
+
+    Given &#8220;un login $login&#8221; do |login|
+      @login = login
+    end
+    
+    And &#8220;un mot de passe $password&#8221; do |password|
+      @password = password
+    end
+    
+    And &#8220;l&#8217;utilisateur est creer&#8221; do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When &#8220;je vais sur $page do |page|
+      get page
+    end
+    
+    Then &#8220;je suis redirige vers la page de login&#8221; do
+      response.should redirect_to &#8216;/login&#8221;
+      follow_redirect!
+    end
+
+   When &#8220;Je me log&#8221; do
+     post &#8220;/login&#8221;, :login => @login, :password => @password
+   end
+
+   Then &#8220;Je suis redirige vers  $path&#8221; do |path|
+      response.should redirect_to (&#8220;/&#8221;)
+      follow_redirect!
+   end
+end
+</typo:code>
+
+<p>En indiquant que le fichier texte prend appui sur ce fichier d&#8217;étape, Rspec fait tout le reste. On appelle notre test de la façon suivante :</p>
+
+<typo:code lang="ruby" linenumber="true" title="all.rb">
+require File.join(File.dirname(__FILE__), *%w[helper])
+
+with_steps_for(:login) do
+  run File.join(File.dirname(__FILE__), &#8220;login_story&#8221;, :type => RailsStory
+end
+
+</typo:code>
+
+<p>Ce qui est vraiment génial dans tout ça c&#8217;est la possibilité du coup de changer l&#8217;ordre des étapes voir de leur paramètres. Ainsi le test suivant peux être réalisé sans nouveau code ruby d&#8217;ajouté : </p>
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s&#8217;authentifie
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+
+  Scenario: Je vais directement sur la page de login et j&#8217;y reste
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /login
+   And Je me log
+
+   Then Je suis redirige vers /login
+
+</typo:code>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/03/23/yoolink-sidebar-pour-typo/">Yoolink-sidebar Pour Typo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-23T00:00:00+01:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis quelque temps, j&#8217;ai commencé à utiliser <a href="http://yoolink.fr">yoolink</a> pour remplacer <a href="http://del.icio.us/">del.icio.us</a>. Yoolink est exactement comme del.icio.us dans son concept. Mais il a une interface beaucoup plus sympathique et avec des nouvelles fonctionnalités plus interressante. J&#8217;utilisais sur ce blog propulsé par <a href="http://typosphere.org"">Typo</a> le plugin del.icio.us pour afficher les derniers bookmarks que j&#8217;ai ajouté sur del.icio.us. Mais n&#8217;utilisant plus ce service et utilisant yoolink à la place, j&#8217;ai décidé d&#8217;adapter le plugin del.icio.us pour yoolink.</p>
+
+<p>Voici comment vous pouvez l&#8217;installer :</p>
+
+<ol>
+<li>Récupérer le plugin en le téléchargeant sur <a href="http://github.com">Github</a> : <a href="http://github.com/shingara/yoolink-typo-sidebar/tarball/yoolink-sidebar-0.1.0">Yoolink-sidebar-0.1.0</a></li>
+<li>Copier le contenu du plugin dans le dossier /vendor/plugins</li>
+<li>Redémarrer Typo</li>
+<li>Dans l&#8217;administration, vous pouvez désormais placé le plugin yoolink.</li>
+<li>
+<span>Configurer le plugin yoolink :</span>
+<ul>
+<li>Login : indiquez votre login yoolink</li>
+<li>items limit : indiquez le nombre de bookmark afficher par le plugin</li>
+<li>groups link by days : Groupez les bookmarks par date avec celle-ci d&#8217;afficher</li>
+<li>Allow links in description : Permettre les hyperliens dans les descriptions des bookmark. Par défaut, ils sont désactivés</li>
+</ul>
+</li>
+</ol>
+
+<p>Au niveau des CSS, le plugin est contenu dans une balise div avec comme id &#8220;yoolink&#8221;. De base, c&#8217;est celle utilisé par votre thème.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/03/18/pictrails-0-2-2-released/">Pictrails 0.2.2 Released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ça y est, un peu moins de 2 mois après la sortie de <a href="http://blog.shingara.fr/articles/2008/01/27/pictrails-0-1-0-sortie-pour-une-premiere-alpha">pictrails 0.1.0</a>, voici la version 0.2.2 de <a href="http://pictrails.rubyforge.org/">Pictrails</a>. Cette version est cette fois ci considéré comme une version Beta. Je pense qu&#8217;il y en aura ainsi beaucoup car la liste des fonctionnalités de Pictrails ne cesse d&#8217;augmenter comme vous pouvez le constater sur <a href="http://dev.shingara.fr/projects/roadmap/3">la roadmap</a> que je tiens à jour régulièrement en l&#8217;agrémentant de toutes idées et remarques que l&#8217;on peux me faire.</p>
+
+<p>
+Cette version 0.2.x a déjà eu deux releases avant que je ne l&#8217;annonce ici, suite a des découvertes de bugs que je considérais comme majeur. Que ce soit pour la suppression du cache qui ne se faisait pas forcement quand il le fallait ou pour une condition de requête non générique. Je viens même de redécouvrir encore un bug dans une suppression de cache. Je vais donc encore hélas releaser une version 0.2.3. J&#8217;en suis vraiment désolé. Ça prouve en tout cas la nécessité absolu de faire plus de test d&#8217;intégration, qui vérifie les suppressions de cache. Je vais réaliser ces tâches directement en <a href="http://rspec.info/documentation/stories.html">Stories</a> de <a href="http://rspec.info/">Rspec</a>. j&#8217;en parlerais ainsi plus profondément dans un futur article je pense.
+</p>
+
+<p>Au sujet des fonctionnalités apportés par la release 0.2.x, vous pouvez voir :</p>
+
+<ul>
+<li>Utilisation massive du système de cache sur toute la partie public pour ainsi avoir les meilleures performances possible (ce qui a entraîné les erreurs que j&#8217;ai soulignés et les nombreuses releases).</li>
+<li>Refontes graphique complète de la partie d&#8217;administration. Si vous utilisez <a href="http://typosphere.org">Typo 5.0.x</a>, vous verrez facilement l&#8217;inspiration que j&#8217;ai eu.</li>
+<li>Ajout de la possibilité de définir une titre et un sous-titre à la galerie dans la partie d&#8217;administration.</li>
+<li>Ajout d&#8217;un système de mass_upload à partir d&#8217;un répertoire directement présent sur le serveur. Vous indiquez l&#8217;emplacement de ce répertoire et tout les images seront intégrés dans une nouvelle galerie</li>
+<li>Ajout de la pagination dans la liste des galeries ainsi que la liste de images. Cette pagination est définissable directement dans l&#8217;administration</li>
+<li>Possibilité de définir la taille des thumbnails et des images originales qu&#8217;il y aura.</li>
+<li>Suppression de l&#8217;utilisation de splash.image. Désormais, il n&#8217;y a plus aucune ligne de javascript dans Pictrails. Il reviendra dans le futur. Je voulais une compatibilité maximum avec les utilisateurs désactivant le Javascript.</li>
+</ul>
+
+<p>
+Pour fêter cette sortie, j&#8217;ai décidé de mettre en place une version de <a href="http://pictrails.shingara.fr/">démo de pictrails</a> qui tourne actuellement sur la version 0.2.x. Vous pouvez allez l&#8217;admirer et lui faire subir tous les sévices. Pour vous logger sur <a href="http://pictrails.shingara.fr/admin">la partie d&#8217;administration</a>, les user/password sont : admin/pictrails. Un script la mettra à jours toutes les semaines pour éviter un engorgement et permettre de nouveau test. Cette version tourne derrière un serveur Nginx avec un daemon thin et une base de donnée PostGreSQL.
+</p>
+
+<p>
+Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par contre, j&#8217;ai migrer de Mercurial vers GIT. Vous pouvez bien-sur cloner le <a href="http://github.com/shingara/pictrails/tree/master">dépot pictrails</a>. Pour faire des rapports de bugs et suivre l&#8217;évolutions de ceux-ci, vous pouvez allez sur <a href="http://dev.shingara.fr/projects/show/3">la platforme de développement de pictrails</a>.
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/03/13/mise-a-jour-des-options-dattachment_fu-dans-un-model/">Mise à Jour Des Options D&#8217;attachment_fu Dans Un Model</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-13T00:00:00+01:00" pubdate data-updated="true">Mar 13<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://github.com/technoweenie/attachment_fu/tree/master">Attachment_fu</a> est un magnifique plugin rails à utiliser pour tout formulaire qui doit faire un upload de fichier. Je l&#8217;utilise ainsi dans mon projet <a href="http://pictrails.rubyforge.org/">pictrails</a>. Au niveau du README d&#8217;attachment_fu, il faut appeler la méthode ActiveRecord#has_attachment dans le model pour configurer l&#8217;utilisation de ce plugin. J&#8217;ai voulu mettre à jour cette propriété à la volé dans pictrails. J&#8217;ai donc commencé à rappeler la méthode ActiveRecord#has_attachment en lui passant les paramètres qui ont changés. J&#8217;ai d&#8217;abord pensé que ça m&#8217;étais à jour les options en conservant les anciennes. Mais après quelques tests, j&#8217;ai constaté que ce n&#8217;était pas le cas. Si on voulait mettre à jour les propriétés d&#8217;attachment_fu par cette méthode, il fallait rappeler toute les options.</p>
+
+<p>C&#8217;est alors qu&#8217;après une rapide investigation directement dans le code d&#8217;attachment_fu, j&#8217;ai constaté la présence de la variable attachment_options. Cette variable n&#8217;est en fait qu&#8217;un Hash reprenant tous les paramètre du model. En le modifiant, on pouvait donc conserver les anciennes options et modifier celle que l&#8217;on souhaite. Pour exemple, le commit <a href="http://github.com/shingara/pictrails/commit/c47be9d8590ea911f0c1fbd14401fef83e0081e6">c47be9d8590ea911f0c1fbd14401fef83e0081e6</a>, fait la modification d&#8217;option avec attachment_options au lieu de has_attachment</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/03/08/git-submodule-presque-le-svn-externals-de-git/">Git-submodule, Presque Le Svn:externals De GIT</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-08T00:00:00+01:00" pubdate data-updated="true">Mar 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Depuis le 27 février 2008, j&#8217;ai finalement décidé d&#8217;abandonner l&#8217;utilisation de mercurial dans mon projet Pictrails. J&#8217;ai fini par migré vers GIT. En effet, GIT est énormément utilisé par la communauté Ruby et c&#8217;est un très bon SCM. Un peu plus rapide que Mercurial et avec de meilleurs outils annexe comme par exemple git-svn. Voici par exemple un autre point qui me fait pencher un peu pour GIT. Il s&#8217;agit de git-submodule.
+</p>
+
+<p>
+Un des gros points fort de SVN est la propriété svn:externals, qui permet de faire pointé un répertoire vers un autre repository SVN. Cette fonctionnalité n&#8217;existe pas à ma connaissance sous mercurial. Mais sous GIT, il y a git-submodule. C&#8217;est pas aussi bien que svn:externals, mais c&#8217;est déjà pas mal. En effet, le seul défaut de git-submodule est de ne pas pouvoir récupérer qu&#8217;une partie du dépôt GIT, comme un dossier en particulier. On est obligé de tout récupéré. svn:externals pouvait limiter la dépendance par contre. Je trouverais peut-être un palliatif.
+</p>
+
+<p>
+Comment utiliser git-submodule ? Il faut d&#8217;abord trouver le repository GIT que l&#8217;on veux dupliquer dans son projet GIT. Un fois celui-ci trouvé, il faut l&#8217;ajouter comme submodule :
+</p>
+
+<pre>
+$ git submodule add &lt;&lt;repo&gt;&gt; /directory/
+</pre>
+
+<p>Une fois que c&#8217;est fait, un dossier .gitsubmodule est créé et il faut donc l&#8217;ajouter au versionning, le commiter et le push.</p>
+
+<p>Par contre, si vous faite un pull du repository GIT qui contient ce submodule, le téléchargement des sous-modules ne se fait pas automatiquement. En conséquence, il faut penser a réaliser un init et un  update des submodules.</p>
+
+<pre>
+$ git submodule init
+$ git submodule update
+</pre>
+
+<p>Pareil, la mise à jour des submodules ne se fait pas automatiquement. Il faut faire un petit update de temps en temps.</p>
+
+<pre>$ git submodule update</pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/02/27/thin-le-buzz-qui-se-justifie/">Thin, Le Buzz Qui Se Justifie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-27T00:00:00+01:00" pubdate data-updated="true">Feb 27<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>C&#8217;est quoi Thin ?</h3>
+
+<p>Depuis maintenant 3 mois seulement un nouveau gem est apparu comme webserver. Sa logique est simple. Prendre tout ce qu&#8217;il y a de meilleur partout, de compiler tout çà et d&#8217;en faire un meilleur produit. Ce gem, c&#8217;est <a href="http://code.macournoyer.com/thin/">Thin</a>. Il se dit &#8220;Yet Another WebServer&#8221;. Je pense que le titre est en référence à YARV. Mais je n&#8217;en ai aucune preuve.</p>
+
+<p>Depuis la version 0.7.0 de thin, le buzz a pris de l&#8217;ampleur sur les bienfaits de ce WebServer. Étant un peu aventurier, j&#8217;ai décidé de tenter l&#8217;aventure. J&#8217;ai migré mes 3 applications de mongrel_cluster vers Thin. Voici donc comment faire cette migration car il n&#8217;y a rien de plus simple.</p>
+
+<h3>Installer Thin</h3>
+
+<p>Il faut déjà installer le gem thin</p>
+
+<pre>
+#gem install thin
+</pre>
+
+<p>Le meilleur moyen pour lancer les commandes de lancement de Thin, il faut allez dans le répertoire de son application Rails. Dans ce répertoire, faire :</p>
+
+<pre>
+$thin config -C config/thin.yml
+</pre>
+
+<p>Avec cette commande thin va préparer un fichier de configuration complet il ne vous restera plus qu&#8217;à le modifier. J&#8217;ai mis ce fichier dans config/thin.yml pour être homogène avec mongrel_cluster. Il n&#8217;y a aucune obligation de nomage ou d&#8217;emplacement. Le fichier de base est du type suivant :</p>
+
+<pre>
+---
+pid: tmp/pids/thin.pid
+log: log/thin.log
+port: 3000
+max_conns: 1024
+timeout: 30
+environment: development
+max_persistent_conns: 512
+chdir: /var/rails/typo-5-0-stable
+address: 0.0.0.0
+</pre>
+
+<p>Il ressemble ainsi très fortement au fichier de mongrel_cluster.yml. Il ne reste plus qu&#8217;a le modifier pour qu&#8217;il fasse ce que l&#8217;on souhaite. En général, on modifie le port et l&#8217;environnement. Ensuite, on peux définir le nombre d&#8217;instance de thin dédiés à cette application. Pour cela on a juste à rajouter la clé <code>servers:</code> et donner le nombre d&#8217;instance. Mon fichier est ainsi devenu :</p>
+
+<pre>
+---
+pid: tmp/pids/thin.pid
+log: log/thin.log
+port: 44000
+max_conns: 1024
+timeout: 30
+environment: production
+max_persistent_conns: 512
+chdir: /var/rails/typo-5-0-stable
+address: 0.0.0.0
+servers: 2
+</pre>
+
+<p>Enfin pour démarrer ou arreter ces instances, rien de plus simple.</p>
+
+<p>démarrage :</p>
+<pre>
+$ thin start -C config/thin.yml
+</pre>
+
+<p>arrêt :</p>
+<pre>
+$ thin stop -C config/thin.yml
+</pre>
+
+<p>Et maintenant l&#8217;intérêt ?</p>
+
+<h3>Intérêt de thin</h3>
+
+<p>Au niveau de la mémoire, il n&#8217;y a pas vraiment de différence entre mongrel et thin. Ils utilisent a peu près la même mémoire d&#8217;après ce que j&#8217;ai pu constater. Par contre, au niveau de la vitesse de réponse, thin est un peu plus rapide. Ainsi voici les résultats d&#8217;un benchmark rapide que j&#8217;ai réalisé sur ma dédibox.</p>
+
+
+<h4>Pour mongrel</h4>
+
+<pre>
+hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
+This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Copyright 2006 The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking dev.shingara.fr (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Finished 1000 requests
+
+
+Server Software:        nginx/0.6.26
+Server Hostname:        dev.shingara.fr
+Server Port:            80
+
+Document Path:          /
+Document Length:        4640 bytes
+
+Concurrency Level:      10
+Time taken for tests:   81.920747 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      4995000 bytes
+HTML transferred:       4640000 bytes
+Requests per second:    12.21 [#/sec] (mean)
+Time per request:       819.207 [ms] (mean)
+Time per request:       81.921 [ms] (mean, across all concurrent requests)
+Transfer rate:          59.53 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       36   38   1.5     38      76
+Processing:    94  778 726.4    644    4108
+Waiting:       92  774 723.3    641    4106
+Total:        131  816 726.4    681    4146
+
+Percentage of the requests served within a certain time (ms)
+  50%    681
+  66%   1273
+  75%   1344
+  80%   1382
+  90%   1669
+  95%   1924
+  98%   2634
+  99%   3011  
+ 100%   4146 (longest request)
+</pre>
+
+<h4>Pour thin</h4>
+
+<pre>
+hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
+This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Copyright 2006 The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking dev.shingara.fr (be patient)
+Completed 100 requests                                                                                                                                 
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Finished 1000 requests
+
+
+Server Software:        nginx/0.6.26
+Server Hostname:        dev.shingara.fr
+Server Port:            80
+
+Document Path:          /
+Document Length:        4640 bytes
+
+Concurrency Level:      10
+Time taken for tests:   67.245564 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      4986008 bytes
+HTML transferred:       4646330 bytes
+Requests per second:    14.87 [#/sec] (mean)
+Time per request:       672.456 [ms] (mean)
+Time per request:       67.246 [ms] (mean, across all concurrent requests)
+Transfer rate:          72.41 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       36   44 133.9     38    3035
+Processing:    93  621 462.3    518    1946
+Waiting:       91  548 389.6    473    1665
+Total:        132  666 483.9    561    4278
+
+Percentage of the requests served within a certain time (ms)
+  50%    561
+  66%    878
+  75%   1017
+  80%   1098
+  90%   1309
+  95%   1580
+  98%   1703
+  99%   1795
+ 100%   4278 (longest request)
+</pre>
+
+<h4>Ca veux dire quoi ?</h4>
+
+<p>Il y a une petite avance pour thin qui permet de faire 14,87 requêtes par seconde contre 12,21 requêtes pour mongrel. Tout cela avec 10 instances simultanés et un total de 1000 requêtes. Mais après tout thin n&#8217;a que 3 mois. Il est encore jeune et n&#8217;a pas de version 1.0. Ça devrait pouvoir encore s&#8217;améliorer.</p>
+
+<h3>Coté parano ?</h3>
+
+<p>Je n&#8217;ai pas encore pu tester la stabilité de thin. En effet, on peux se demander à juste titre si il est vraiment stable. Pour cela il faudra attendre.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/02/26/quand-la-vue-modifie-son-layout/">Quand La Vue Modifie Son Layout</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-26T00:00:00+01:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Cas d&#8217;utilisation</h3>
+
+<p>Dans l&#8217;administration de Typo, en fonction du controller appelé, voir de l&#8217;action, il faut modifier la partie indiquant le sous-menu. On a donc 3 possibilités pour réaliser cette partie dynamique.</p>
+
+<ol>
+  <li>Mettre la partie variable directement dans la vue et l&#8217;enlever du template.</li>
+  <li>Mettre les informations directement dans le controller ou l&#8217;action et c&#8217;est cette information qui sera lu par le template</li>
+  <li>Utiliser content_for directement dans la vue en utilisant le yield dans le template</li>
+</ol>
+
+<p>Bien sûr la meilleur méthode est la troisième. Mais je vais expliquer pourquoi et comment on peux mettre en oeuvre.</p>
+
+<h3>Mettre la partie variable directement dans la vue et l&#8217;enlever du template</h3>
+
+<p>
+Cette méthode est de loin la plus simple qui soit. On sait que notre partie n&#8217;est pas toujours affiché pour le layout indiqué, donc on la met pas dans le template. Mais voilà, si on a du code entre notre partie dynamique et le vrai contenu de notre vue, on a pas le choix il faut dupliquer cette partie et ainsi on se retrouve à faire plein de copier coller et comme on sait le copier coller c&#8217;est pas DRY. Il faut donc essayer de proscrire cette méthode. Le cas le plus horrible est bien sur la modification de la partie que vous avez mis dans chaque vue et ceux sur vos 100 vues. Bonne chance.
+</p>
+
+<h3>Mettre les informations directement dans le controller</h3>
+
+<p>Cette technique est un peu plus évolué que la précédente car elle permet d&#8217;être plus DRY. En effet, si on a du code entre sa partie &#8220;dynamique&#8221; et sa vue, on est pas obligé de l&#8217;intégrer dans chaque vue. Ce qui permet d&#8217;avoir un template plus important et des vues plus légères. Mais l&#8217;inconvénient de cette technique et qu&#8217;il faut gérer l&#8217;affichage et des techniques visuel directement dans le controller. Par exemple le nom des liens, etc.. Ce n&#8217;est pas du tout dans la logique MVC, car une partie de la vue est généré et controllé par le controlleur. Le controlleur ne doit que définir quel vue utiliser et donner les variables issues d&#8217;une ressources externes.</p>
+
+<h3>Utiliser content_for directement dans la vue en utilisant le yield dans le template</h3>
+
+<p>Pour que ça soit la vue qui gère le contenu dans le template sans que le controller s&#8217;en mêle, la meilleur technique est d&#8217;utiliser content_for. Cette méthode permet de mettre en interne un bloc de code HTML. Ce bloc de code HTML n&#8217;est lu que par l&#8217;utilisation d&#8217;un yield :le_nom_du_bloc. On peux ainsi définir le bloc dans la vue et donner sa position directement dans le layout. Si ensuite vous voulez réutiliser le même bloc de code, un render :partial permettra de factoriser encore le code. Voici un exemple d&#8217;utilisation de cette méthode avec un template et une vue.</p>
+
+<p>Template :</p>
+
+<typo:code lang="html">
+<html>
+  <head>
+    <title>;Ma page</title>
+  </head>
+  <div id="menu">
+   <ul>
+    <%= yield :menu %>
+  </ul>
+  </div>
+  <p>un peu de texte au milieu</p>
+  <div id="content">
+    <%= yield %>
+  </div>
+</html>
+</typo:code>
+
+<p>Vue :</p>
+
+<typo:code lang="html">
+<% content_for :menu do %>
+  <li><% link_to 'Voir', page_url %></li>
+<% end %>
+
+<p>Ma vue compléte</p>
+
+</typo:code>
+
+
+<p>Vous trouvez pas ça génial ?</p>
+
+<p>Sinon pour les anciens qui connaissaient la technique avant Rails 2.0 et qui utilisait @content_for_mon_block cette technique est déprécié. Il faut utiliser plutôt le yield depuis la version 2.0.x</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/shingara-blog/blog/page/9/">&larr; Older</a>
+    
+    <a href="/shingara-blog/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/shingara-blog/blog/page/7/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

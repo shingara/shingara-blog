@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Dernièrement, je me tente à migrer ma dédibox sur le serveur Web Nginx à la place d&#8217;Apache. Nginx est le serveur web qui buzz un peu partout &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/blog/page/12">
+  <link href="/shingara-blog/favicon.png" rel="icon">
+  <link href="/shingara-blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/shingara-blog/javascripts/modernizr-2.0.js"></script>
+  <script src="/shingara-blog/javascripts/ender.js"></script>
+  <script src="/shingara-blog/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/shingara-blog/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/shingara-blog/">Blog</a></li>
+  <li><a href="/shingara-blog/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/09/06/lister-un-re%CC%81pertoire-avec-nginx/">Lister Un Répertoire Avec Nginx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-06T00:00:00+02:00" pubdate data-updated="true">Sep 6<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Dernièrement, je me tente à migrer ma dédibox sur le serveur Web <a href="http://nginx.net/">Nginx</a> à la place d&#8217;Apache. Nginx est le serveur web qui buzz un peu partout dans le milieu des framework Web en Python et Ruby.</p>
+
+<p>
+Dans ma migration, j&#8217;ai voulu définir une URL qui permette de lister un répertoire et naviguer dedans. Ayant eu quelques petites difficultés et constatant que la documentation française étant très pauvre, je vous livre ma recherche.
+</p>
+
+<p>
+Pour lister un répertoire il faut utiliser le <a href="http://wiki.codemongers.com/NginxHttpAutoindexModule">module AutoIndex</a>. Dans ce module la directive autoindex à &#8220;on&#8221; permet de lister le repertoire. Pour définir l&#8217;URL qui pointera sur ce répertoire, il faut utiliser la directive location en indiquant l&#8217;URL que l&#8217;on souhaite. Enfin pour définir le répertoire qui sera listé sur cette url il faut utiliser la <a href="http://wiki.codemongers.com/NginxHttpCoreModule#alias">directive alias</a> et donner en paramètre le chemin du répertoire.
+</p>
+
+<p>Voici un exemple de configuration a mettre dans votre fichier de conf Nginx.</p>
+
+
+<pre>
+location /votre_path {
+  alias /votre_repertoire/sous_repertoire/; 
+  autoindex  on;
+}
+</pre>
+
+<p>Je trouve que même cette fonctionnalité est plus rapide que sous Apache. Je suis vraiment content d&#8217;Nginx. En plus je comprend enfin la documentation d&#8217;un serveur Web.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/08/31/pas-de-chance-avec-weechat/">Pas De Chance Avec Weechat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-31T00:00:00+02:00" pubdate data-updated="true">Aug 31<span>st</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/">weechat</a> qui me permettrait d&#8217;avoir le même comportement que le <a href="http://da.weeno.net/code/irssi/jabber_hilight_notify/">plugin irssi de Davux permettant un highlight par XMPP</a>. Mais voilà alors que j&#8217;ai créé un script qui me semble fonctionner, je tombe sur un bug de weechat. En effet, en loadant mon script ruby, il bloque sur le require de  <a href="http://home.gna.org/xmpp4r/">XMPP4R</a> qui me permet de faire ma notification XMPP.
+</p>
+
+<p>J&#8217;ai donc réalisé un <a href="https://savannah.nongnu.org/bugs/?20945">bug</a> sur le bugtracking de Weechat. En espérant qu&#8217;il sera résolu au plus vite.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/08/28/qt4-pour-ruby-sous-windows/">QT4 Pour Ruby Sous Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-28T00:00:00+02:00" pubdate data-updated="true">Aug 28<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Adepte du Ruby, j&#8217;essaye de l&#8217;utiliser pour tout ce que je développe. A l&#8217;heure actuel, je développe principalement des applications web, donc je suis fortement tourné vers RubyOnRails. Mais voilà, j&#8217;ai aussi parfois des envies de Desktop. Je n&#8217;en ai jamais trop fait à part avec Swing en Java. Je me suis donc dit que ca pourrait être sympa d&#8217;utiliser <a href="http://trolltech.com/products/qt">QT4</a> en Ruby.</p>
+
+<p>il existe un <a href="http://rubyforge.org/projects/korundum/">binding de QT4 pour Ruby</a>. Mais j&#8217;ai hélas la possibilité de ne développé que sous Windows et sur le support Officiel, il n&#8217;y a aucune version pour Windows.</p>
+
+<p>Heureusement jzkey a réaliser un <a href="http://www.jzkey.com/qtruby/">binaire complet comprennant QT4 et QTRuby4</a>. Je viens de le testé et il marche pas trop mal sur le tutorial et d&#8217;autres samples. Certain n&#8217;ont hélas pas marché, mais je n&#8217;en connais pas la raison. Je vais décrire ici la procédure pour installer QTRuby4 sous windows.</p>
+
+<ul>
+<li>Télécharger le zip complet comprenant QT4 et le binding Ruby sur le site de <a href="http://www.jzkey.com/qtruby/">jzkey</a></li>
+<li>Dezipper le tout dans votre arborescence. Ensuite il faut faire plusieurs copier coller. (C&#8217;est en tout cas la technique que j&#8217;ai employé)</li>
+<li>Copier tous les fichiers (*.exe et *.dll) qui se trouve dans le dossier /bin/ et les mettres dans le dossiers /bin/ de votre dossier Ruby</li>
+<li>Copier le dossier /lib/ruby/site_ruby/1.8/Qt/ dans /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier les fichier QT4.rb, QT3.rb et QT.rb dans le dossier /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier le fichier qtruby4.so qui se trouve dans /lib/ruby/site_ruby/1.8/i386-msvcrt/ dans le dossier /lib/ruby/site_ruby/1.8/i386-msvcrt/ de votre répertoire Ruby</li>
+</ul>
+
+<p>Voilà, normalement vous pouvez lancer vos applications Ruby avec le require QT4. Pour test, lancer le tutorial /samples/qt/tutorial/t14/t14.rb. Si vous arrivez à jouer au petit jeu de tir, alors l&#8217;installation à réussi et vous pouvez maintenant coder directement vos applications QT4 sous Windows.</p>
+
+<p>Bien-sûr, je vous conseille toujours de développez sous Linux</p>
+
+<p>Edit du 07 Août 2009 : Quelqu&#8217;un m&#8217;ayant fait remarqué que le lien sur jzkey n&#8217;existe plus, j&#8217;ai constaté que sur rubyforge, un binding windows pour qt4 est désormais disponible (http://rubyforge.org/frs/?group_id=181&release_id=32620) et même un gem. N&#8217;utilisant plus windows, je n&#8217;ai pas pu tester.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/08/22/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option/">Comment Faire Croire Que Notre Librairie Ruby a Sa Propre Option ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-22T00:00:00+02:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d&#8217;implémentation qui m&#8217;a fait sourire.</p>
+
+<p>J&#8217;ai trouvé dans mes lib ruby un fichier qui s&#8217;appele ubygem.rb. Je me suis posé la question de savoir à quoi servait ce fichier. En l&#8217;éditant, j&#8217;ai compris son utilité en lisant le commentaire :</p>
+
+<pre>
+# This file allows for the running of rubygems with a nice
+# command line look-and-feel: ruby -rubygems foo.rb
+</pre>
+
+<p>En fait ce fichier ne sert qu&#8217;à permettre de faire un require de rubygems en faisant croire que rubygem était une option de ruby. En effet dans les paramètres de ruby il y a le -r auquel on colle le nom de la librairie à require.</p>
+
+<p>Moralité, vous rédigez une librairie qui comment par r, créez un fichier sans ce r et mettez juste la ligne <code>require rxxx</code>. Ca fait toujours bien d&#8217;avoir sa librairie qui est comme une option sur ruby</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/23/sortie-de-capistrano-2-0/">Sortie De Capistrano 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-23T00:00:00+02:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Dans un <a href="http://shingara.free.fr/blog/index.php/?2007/07/20/203-les-nouveautes-de-capistrano-2">billet</a> très récent, j&#8217;avais parlé des nouveautés de Capistrano 2 indiquant sa sortie très proche. Et bien il est sorti le lendemain de mon post, le 20 Juillet 2007. En effet, il a été <a href="http://dev.rubyonrails.org/changeset/7207">taggé dans le dépôt SVN</a>. Sur le <a href="http://capify.org">site officiel de Capitrano</a>, il n&#8217;est pas encore complétement marqué comme étant la version stable. Mais je pense que cela sera mis à jour très prochainement.</p>
+
+<p>Pour toutes mises à jours de Capistrano pensez à regarder la <a href="http://capify.org/upgrade">documentation de mise à jour</a>. Pour tous les nouveaux projets, pensez à utiliser directement Capistrano 2 qui est beaucoup plus évolué que ca première version.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/21/trouver-lurl-du-player-de-la-webradio-rfm/">Trouver L&#8217;url Du Player De La Webradio RFM</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-21T00:00:00+02:00" pubdate data-updated="true">Jul 21<span>st</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Avec ma copine, on écoute régulièrement <a href="http://www.rfm.fr/">RFM</a> autrement que par leur diffusion FM. Le seul système qu&#8217;on avait été de se connecter sur leur site et d&#8217;utiliser leur «player» intégré au navigateur. Ayant marre d&#8217;utiliser ce système qui ne faisait que faire ramer mon navigateur, j&#8217;ai entrepris une recherche de l&#8217;url lu par la page pour diffuser la radio. J&#8217;ai fini par la trouver et je vous la livre ici pour vous éviter de la rechercher. Et moi aussi par la même occasion si je dois la rechercher à nouveau.</p>
+
+<pre>http://player.rfm.fr/V4/player_rfm/rfm.asx</pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/20/les-nouveaute%CC%81s-de-capistrano-2/">Les Nouveautés De Capistrano 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-20T00:00:00+02:00" pubdate data-updated="true">Jul 20<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aujourd&#8217;hui, je viens de lire une <a
+href="http://woss.name/2007/07/20/capistrano-2-rocks-my-world/">présentation</a>
+sur les nouveautés qu&#8217;apportent capistrano dans sa version 2. Je suis
+complétement bluffé. j&#8217;ai juste utilisé un peu capistrano dans sa
+première version et j&#8217;avais trouvé ça vraiment très interressant et
+j&#8217;avais constaté que ca permettais beaucoup de chose. Là avec cette
+nouvelle version, on peux faire encore plus de chose et ça permet
+d&#8217;administrer plusieurs machine en même temps. On pourrait presque
+l&#8217;utiliser pour faire des checks sur plusieurs machine en parallèle
+sans ouvrir plusieurs shell.</p>
+
+<p>La fonctionnalité qui m&#8217;a le plus impressionner et le fait de
+lancer la même commande sur plusieurs host en parallèle et voir la
+sortie de chacun. Je vais donc faire une migration immédiate sur
+capistrano 2 et arreter d&#8217;étudier capistrano 1. Autant prendre tout de
+suite les devants.</p>
+
+<p>Par contre c&#8217;est vrai que son utilisation est surtout nécessaire
+dans un environnement clusterisé avec plusieurs machine. Dans un
+contexte avec une seule machine, ca sert beaucoup moi dû fait des
+tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/17/nouveau-converter-de-dotclear-vers-typo/">Nouveau Converter De Dotclear Vers Typo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-17T00:00:00+02:00" pubdate data-updated="true">Jul 17<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ma migration vers un blog sous <a href="http://typosphere.org/">Typo</a> approchant et étant actuellement, sous Dotclear, j&#8217;ai créé un nouveau plugin pour Typo. Ce plugin est une copie du converter de Mephisto pour Typo. En effet, le système de conversion de Mephisto me semble beaucoup plus performant et plus adapatable que celui de Typo. Typo étant un projet libre, j&#8217;ai donc créer un ticket pour proposer mon patch. J&#8217;attend de voir la réaction des développeurs sur ce plugins. Le ticket de submission est le <a href="http://trac.typosphere.org/ticket/1132">ticket 1132</a>.</p>
+
+<p>
+Je vais vous faire la traduction de mon mauvais anglais.
+</p>
+
+<p>J&#8217;ai créer un nouveau système pour convertir la base de donnée d&#8217;un autre blog en en base de donnée Typo. Mon nouveau système est basé sur le converter de Mephisto. C&#8217;est un plugin et il utilise complétement ActiveRecord. Pour récupérer les informations d&#8217;un autre blog et les poster dans Typo.
+</p>
+
+<p>Actuellement le converter fonctionne uniquement avec Dotclear, mais une interface est écrite et vous pouvez l&#8217;utiliser pour d&#8217;autre moteur de blog en créant un autre adapter.</p>
+
+<p>Pour commencer la migration de dotclear, vous avez besoin de compléter le config/database.yml avec une configuration qui a pour clé dv and toutes les information sur où trouver la base de donnée récupérer par un SQLDump de votre moteur de blog. Après cette configuration vous pouvez commencer la migration avec la commande suivante :</p>
+
+<pre>./script/runner 'TypoPlugins.convert_from :dotclear'</pre>
+
+<p>Par défaut vous pouvez migrer tous les articles, mais vous pouvez aussi migrer uniquement les articles de catégories défini.</p>
+
+<pre>./script/runner "TypoPlugins.convert_from :dotclear, {:categorie => ['ruby', 'rails', 'dev']}"</pre>
+
+<p>Conseil : Pour accélerer grandement la migration vous pouvez commenter la ligne suivante dans le config/environement.rb</p>
+
+<pre>#config.active_record.observers = :email_notifier, :web_notifier</pre>
+
+<p>Edit : 10min avant la soumission de mon patch, le script de migration disponible sur <a href="http://rubyfr.org/">RubyFR</a> avait été mis à jour. Quel hasard. <a href="http://fredix.freemonk.org/articles/2007/07/17/migration-dotclear-vers-typo">L&#8217;annonce de cette mise à jour</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/05/faire-un-profil-dune-me%CC%81thode-de-controller-rails/">Faire Un Profil D&#8217;une Méthode De &#8220;Controller&#8221; Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-05T00:00:00+02:00" pubdate data-updated="true">Jul 5<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Je me suis retrouvé confronter à une méthode d&#8217;un &#8220;controller&#8221; de Ruby On Rails que je trouvais particulièrement longue sachant qu&#8217;elle faisait plus d&#8217;une seconde et que ce n&#8217;était ni le temps du &#8220;render&#8221;, ni le temps de la Base de donnée. La meilleure méthode pour optimiser ce genre de méthode, c&#8217;est tout simplement de faire un profile du traitement effectué. Mais voilà, comment faire un profile ?
+</p>
+
+<p>
+Et bien c&#8217;est très simple, il faut utiliser le profiler Ruby (disponible avec le require &#8216;profiler&#8217;). Un fois le require effectué un <code>Profiler__::start_profile</code>, puis un <code>Profiler__::stop_profile</code> englobe le code a profiler. Enfin un <code>Profiler__::print_profile STDOUT</code> permet une sortie du profil dans le STDOUT. Ce qui permet ainsi d&#8217;être utilisé comme cela dans notre &#8220;controller&#8221;.
+</p>
+
+<pre>
+require 'profiler'
+class MyController < ApplicationController
+  def my_method
+    Profiler__::start_profile
+    
+    # Mon code à profiler
+
+    Profiler__::stop_profile
+    Profiler__::print_profile STDOUT
+  end
+end
+</pre>
+
+<p>
+Après une petite étude du code du script de &#8220;profiler&#8221; fournit par rails dans <code>/script/performance/profiler</code>, j&#8217;ai pu constater qu&#8217;il existait une gem permettant d&#8217;améliorer le &#8220;profiling&#8221; avec un &#8220;profiler&#8221; plus rapide et de plus belle sortie, en autre en HTML. Il s&#8217;agit de <a href="http://ruby-prof.rubyforge.org/">ruby-prof</a>. L&#8217;utilisation est là même que précédemment, c&#8217;est juste les appels qui sont différent.
+</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2007/07/05/et-pourquoi-pas-avec-around_filter/">Et Pourquoi Pas Avec Around_filter ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-05T00:00:00+02:00" pubdate data-updated="true">Jul 5<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Après encore de petites recherches, j&#8217;ai fini par trouver une méthode encore plus propre. Cette méthode est tout simplement basé sur le filter around_filter. Ce filtre est tout bête et totalement génial. Il permet de réaliser des traitements avant et après ton controller. Mais bien sûr après et avant les filtres de before_filter et after_filter. On peux ainsi mettre notre profiler directement dans cette méthode. Voici un exemple de code qu&#8217;on peut utiliser cette fois ci avec le profiler ruby-prof.
+</p>
+
+<pre>
+class MyController < ApplicationController
+  around_filter(:only => :my_method) do |controller, action_block|
+    require 'ruby-prof'
+    RubyProf.clock_mode = RubyProf::WALL_TIME
+    RubyProf.start
+    action_block.call
+    results = RubyProf.stop
+    printer = RubyProf::FlatPrinter.new results
+    printer.print(STDOUT, 0)
+  end
+
+  def my_method
+     #implement this method
+  end
+end
+</pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/shingara-blog/blog/page/13/">&larr; Older</a>
+    
+    <a href="/shingara-blog/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/shingara-blog/blog/page/11/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

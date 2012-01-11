@@ -1,0 +1,858 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Traduction de l&#8217;article de Ryan Daigle, What&#8217;s new in edge rails
+: Shallow routes Le système des routes avec Rails est assez malin. Dans &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/blog/page/5">
+  <link href="/shingara-blog/favicon.png" rel="icon">
+  <link href="/shingara-blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/shingara-blog/javascripts/modernizr-2.0.js"></script>
+  <script src="/shingara-blog/javascripts/ender.js"></script>
+  <script src="/shingara-blog/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/shingara-blog/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/shingara-blog/">Blog</a></li>
+  <li><a href="/shingara-blog/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-les-shallow-routes/">Quelles Nouvelles Dans Rails Edge : Les Shallow Routes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de l&#8217;article de <a href="http://ryandaigle.com/">Ryan Daigle</a>, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-shallow-routes">What&#8217;s new in edge rails
+: Shallow routes</a></p>
+                                                                            
+<p>Le système des routes avec Rails est assez malin. Dans une optique d&#8217;être  
+le plus descriptif possible, la description des ressources est fait au niveau
+des URL avec une DSL spécifique pour les routes :</p>
+                       
+<typo:code lang='ruby'>       
+map.resources :users do |user|         
+  user.resources :articles do |article|
+    article.resourcs :comments
+  end
+end         
+</typo:code>                                                                  
+                                                                              
+<p>Néanmoins, si cette configuration permet de voir les articles disponibles à
+l&#8217;URL <code>/users/1/articles</code> et les commentaires à l&#8217;URL                          
+<code>/users/1/articles/1/comments</code>, il y a des cas où on voudrais outrepasser cette
+hiérarchie et accéder directement à la ressource en question. Désormais avec                                               
+l&#8217;option des <a                                                                                                            
+href="http://github.com/rails/rails/commit/83c6ba18899a9f797d79726ca0078bdf618ec3d4">shallow route</a>, vous le pouvez.</p>
+                       
+<typo:code lang='ruby'>                          
+map.resources :users, :shallow => true do |user|
+  user.resources :articles do |article|
+    article.resources :comments
+  end
+end         
+</typo:code>
+                                          
+<p>Cette configuration permet de conserver les routes imbriquées et vous donne 
+accès directement au route comme ceci:</p>
+                       
+<typo:code lang="ruby">      
+articles_path #=> &#8216;/articles&#8217;                             
+comments_path #=> &#8216;/comments&#8217;                             
+article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
+</typo:code>
+                                                                                                                                                                         
+<p>Plus besoin de déclarer séparement les routes directes en plus des routes imbriquées. l&#8217;option <code>:shallow</code> fait tout les routes nécessaires automatiquement pour vous.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails/">Quelles Nouvelles Dans Rails Edge : Les Layouts Pour Les Mails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de l&#8217;article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-mailer-layouts">What&#8217;s new in edge rails
+: Mailer Layouts</a></p>
+<p>Rails a ajouté la possibilité <a href="http://github.com/rails/rails/commit/e9a8e0053be3b293ab89fb584f1d660063f107aa">d&#8217;utiliser des layouts pour les mails</a>
+exactements comme il est actuellement possible pour leurs grand frère les
+vues. Il faut juste noté que pour qu&#8217;un layout de mail soit automatiquement
+reconnu, il doit se finir par _mailer. Donc pour un mail:</p>
+
+<typo:code lang='ruby'>
+Cass UserMailer < ActionMailer::Base
+  def registration(user)
+    subject    "You've registered"
+    from       "system@example.com"
+  end
+end
+</typo:code>
+
+<p>vous n&#8217;aurait besoin que d&#8217;un layout à <code>layouts/user_mailer.html.erb</code>. Si vous spécifiez explicitement le layout vous n&#8217;avez pas besoin du suffix _mailer. Ainsi, dans l&#8217;exemple suivant, un layout à <code>layouts/email.html.erb</code> suffit:</p>
+
+<typo:code lang='ruby'>
+class UserMailer < ActionMailer::Base
+  layout 'email'
+  ...
+end
+</typo:code>
+
+<p>A partir de maintenant, vous pouvez faire de joli petit email. Vous avez désormais tous les outils.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-connection-pools/">Quelles Nouvelles Dans Rails Edge : Connection Pools</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de l&#8217;article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-connection-pools">What&#8217;s new in edge rails : Connection Pools</a></p>
+
+<p>Avec la venue prochaine de <a href="http://weblog.rubyonrails.org/2008/8/16/josh-peek-officially-joins-the-rails-core">Rails thread-safe</a>, il était nécessaire d&#8217;ajouter 
+le <a href="http://github.com/rails/rails/commit/6f932b4790371e548c0df9033da96b2cf8f51dcc">pool de connection à la base de donnée</a>. Moins qu&#8217;une fonctionnalité, mais 
+un détail d&#8217;implémentation caché. Vous avez la possibilité de définir la 
+taille de ce pool. Cette configuration est dans le fichier 
+<code>database.yml</code> avec le mot clé pool:</p>
+                      
+<typo:code lang='ruby'>
+development:   
+  adapter: mysql
+  username: root    
+  database: myapp_dev
+  pool: 10 
+</typo:code>
+                                      
+<p>Vous voilà avec un pool de connection. Facile</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/03/profiler-une-requete-rails/">Profiler Une Requête Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T00:00:00+02:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pour découvrir le bug dont j&#8217;ai <a 
+href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur">reporté précédement les
+effets</a>, j&#8217;ai voulu
+réaliser un profile de la requête executée. Ca devait me permettre de voir ce
+qui prenait vraiment beaucoup de temps dans l&#8217;execution de cette page.</p>
+
+<h3>Utilisation du script Request Profiler</h3>
+
+<p>Depuis Rails 2.0, un nouveau script a été ajouté,
+    <code>script/performance/request</code>. Ce script permet de réaliser un
+    profile d&#8217;une ou plusieurs requête internet.</p>
+
+<p>Pour indiquer les requêtes à executer il suffit de réaliser un petit fichier
+de script avec le même format que les tests d&#8217;intégrations. Voici un exemple
+issue du changelog de rails.</p>
+
+<typo:code lang="ruby">
+get_with_redirect &#8216;/&#8217;
+say &#8220;GET / => #{path}&#8221;
+post_with_redirect &#8216;/sessions&#8217;, :username => &#8216;john&#8217;, :password => &#8216;doe&#8217;
+say &#8220;POST /sessions => #{path}&#8221;
+</typo:code>
+
+<p>Une fois le script réalisé, il suffit de lancer la commande en définissant
+le nombre de requêtes qui seront effectuées</p>
+
+<pre>
+$ ./script/performance/request -n 10 login_session.rb
+</pre>
+
+<p>Par contre, il faut faire très attention, il n&#8217;y a aucune solution (ou tout
+        du moins à ma connaissance) pour définir les valeurs de la session. La 
+session est vierge à chaque lancement de script. Il
+faut donc réaliser la connection de login au préalable pour avoir un
+utilisateur loggé par exemple.</p>
+
+<h3>Incompatibilité Rails 2.1 et ruby-prof</h3>
+
+<p>Alors que j&#8217;avais indiqué <a 
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">l&#8217;ajout d&#8217;un nouveau script dans Rails Edge qui
+nécessitait ruby-prof 0.6.1</a>, je pensais que c&#8217;était le seul endroit qui
+nécessitait cette version de <a 
+href="http://ruby-prof.rubyforge.org/">ruby-prof</a> qui n&#8217;existe pas encore 
+(dernière version stable : 0.6.0 en téléchargement sur rubyforge). Hélas, ce
+n&#8217;est pas le cas. Depuis la version 2.1 de Rails, le script
+performance/request nécessite aussi ruby-prof 0.6.1. Mais cette version, n&#8217;est
+toujours pas encore sortie officielement. Il faut donc générer et installer ce
+gem pour arriver à avoir cette fonctionnalité. En effet, même en modifiant la
+version de ruby-prof des méthodes n&#8217;existent pas dans les versions antérieurs à
+la version 0.6.1</p>
+
+<h3>Génération et installation de ruby-prof-0.6.1</h3>
+
+<p>Il faut d&#8217;abord récupérer les sources directements à partir du svn de
+ruby-prof</p>
+
+<pre>
+svn co http://ruby-prof.rubyforge.org/svn/
+</pre>
+
+<p>Ensuite, il faut générer le gem</p>
+
+<pre>$ rake package</pre>
+
+<p>Enfin, il suffit d&#8217;installer le gem.</p>
+
+<pre># gem install pkg/ruby-prof-0.6.1.gem</pre>
+
+<p>Désormais, ruby-prof 0.6.1 est installé et vous pouvez utiliser pleinement
+le script performance/request.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-09-03-profile-a-request-in-rails.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/02/et-si-jecrivais-aussi-un-peu-en-anglais/">Et Si J&#8217;écrivais Aussi Un Peu en Anglais ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-02T00:00:00+02:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ce que j&#8217;écris en français peut par le plus grand des hasard avoir un intérêt pour des personnes anglophile. J&#8217;ai donc décidé de traduire certain de mes articles directement en anglais. Typo n&#8217;ayant pas encore de support pour le multi-blog (en prévision), j&#8217;ai donc voulu avoir un blog vraiment léger. Pour cela, rien de plus simple, j&#8217;ai décidé d&#8217;utiliser <a href="http://rassmalog.rubyforge.org/">rassmalog</a>.</p>
+
+<p>Si vous voulez donc lire ma prose anglaise <a href="http://blog.shingara.fr/en/index.html">suivez le guide</a>. Bien sûr toute correction est la bienvenue au vu de mon pauvre niveau d&#8217;anglais.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/09/01/migration-sur-typo-5-1-3-et-mise-a-jours-du-script-capistrano/">Migration Sur Typo-5.1.3 Et Mise à Jours Du Script Capistrano</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-01T00:00:00+02:00" pubdate data-updated="true">Sep 1<span>st</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Voilà, aussitôt sortie aussitôt installée. Alors que <a href="http://blog.typosphere.org/2008/08/31/typo-5-1-3-cartier-bresson-bugfix-is-out">Typo-5.1.3</a> est sortie dimanche, j&#8217;ai mis à jour ce blog. Comment faire une migration si rapide ? Simple un bon script Capistrano :</p>
+
+<typo:code lang="ruby">
+require &#8216;mongrel_cluster/recipes&#8217;
+
+set :application, &#8220;typo&#8221;
+set :repository,  &#8220;http://svn.typosphere.org/typo/trunk&#8221;
+set :domain, &#8220;shingara.fr&#8221;
+
+# If you aren&#8217;t deploying to /u/apps/#{application} on the target
+# servers (which is the default), you can specify the actual location
+# via the :deploy_to variable:
+set :deploy_to, &#8220;/var/rails/blog-typo&#8221;
+
+# If you aren&#8217;t using Subversion to manage your source code, specify
+# your SCM below:
+set :scm, :subversion
+
+set :runner, &#8220;rails&#8221;
+set :user, &#8220;rails&#8221;
+set :use_sudo, false
+set :mongrel_conf, &#8220;#{current_path}/config/mongrel_cluster.yml&#8221;
+
+role :app, domain
+role :web, domain
+role :db,  domain, :primary => true
+
+task :update_config, :roles => [:app] do
+  run &#8220;cp -Rf #{shared_path}/config/* #{release_path}/config/&#8221;
+  run &#8220;ln -s #{shared_path}/files #{release_path}/public/files&#8221;
+end
+
+after &#8220;deploy:update_code&#8221;, :update_config
+</typo:code>
+
+<p>Il ne suffit plus que d&#8217;avoir dans le dossier /shared/ le dossier /config/ comprenant les fichiers de configurations : <code>database.yml</code> et <code>mongrel_cluster.yml</code>. Après à chaque mises à jours de typo : <code>cap deploy:migrations</code>. Tout sera fait pour toi.</p>
+
+<p>C&#8217;est pas beau la vie en Ruby ?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/08/29/Le-rubyFlow-FR-disponible/">Le rubyFlow FR Disponible</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-29T00:00:00+02:00" pubdate data-updated="true">Aug 29<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Après que Peter Cooper ait libéré le code original de <a href="http://www.rubyflow.com/">rubyflow</a>, <a href="http://blog.menfin.info">Bruno Michel</a> a pris les choses en mains pour traduire l&#8217;application. <a href="http://rubyfrance.org">L&#8217;association RubyFrance</a> a ensuite hébergé le tout. Nous voilà donc maintenant avec notre propre <a href="http://flow.rubyfrance.org/">rubyflow FR</a>. Bravo pour cette initiative.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur/">Gettext Avec Rails, Ca Peux être Long Pour Un Formulaire en Erreur</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-28T00:00:00+02:00" pubdate data-updated="true">Aug 28<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aujourd&#8217;hui, j&#8217;ai passé la journée à essayer de comprendre un problème que j&#8217;avais sur l&#8217;application que je réalise dans le cadre de mon nouveau travail. Ce bug est très simple. Durant la validation d&#8217;un formulaire, si celui-ci n&#8217;était pas valide, je retournais sur la même page qui m&#8217;indiquait les champs en erreur. Dans la pratique, ceci est très simple. Mais dans notre cas, la page mettait pas moins de 40 secondes à se renderer. Car la latence n&#8217;avait pas lieu dans le controlleur, mais bel est bien durant le rendering de la page.</p>
+
+<p>Pour essayer de comprendre la cause de tout ça, j&#8217;ai fini par réaliser un profile de ma requête avec le script </code>/script/performance/request</code> qu&#8217;il a déjà fallu faire fonctionner, mais ceci fera l&#8217;objet d&#8217;un autre billet. Une fois le profilling réalisé, j&#8217;ai constaté que ce qui me posait problème était une recherche incessante de traduction des messages d&#8217;erreurs. Après de longues recherche dans le code, j&#8217;ai fini par découvrir la vraie cause du problème.</p>
+
+<p>Dans Rails, durant chaque création de tag, il y a une demande de récupération de <code>errors.on</code> pour connaitre là où les erreurs sont et ainsi mettre en surbrillance le champs ou non. Mais là où normalement dans Rails, ce n&#8217;est qu&#8217;un appel vers un valeur figée, Gettext a décoré la méthode pour réaliser une traduction de la chaine. Bien sûr si ce n&#8217;était que ça, ça pourrait encore passer, car finalement c&#8217;est le comportement en production. Les chaines étant misent en cache, l&#8217;accès est quasiment aussi rapide que sans gettext. Mais dans le cas d&#8217;un environnement en Développement, il n&#8217;y a aucun cache des chaines de Gettext. Ainsi à chaque tentative de traduction le mo file est chargé et une itération à lieu sur tout ce fichiers pour trouver la chaine à traduire. C&#8217;est ces itérations incessantes qui entrainait un temps de traitement extrêmement long de ma requête.</p>
+
+<p>Ce phénomène n&#8217;a lieu uniquement qu&#8217;en environnement de développement, car il y a un test sur le nom de l&#8217;environnement. Dans tous les autres cas autre que développement, les mo sont mis en cache.</p>
+
+<p>Pour résoudre ce problème, soit vous changez le nom de votre environnement par défaut, par exemple dev au lieu de développement, où alors mettre le code <code>GetText.cached = true</code> dans votre environnement.rb. Cela implique par contre que si vous modifiez les fichiers mo, il faudra redémarrer le serveur pour avoir les nouvelles entrées.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-08-01-gettext-with-rails-can-be-long-in-an-error-form.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/08/13/travailler-avec-rails-fait-trouver-des-bugs/">Travailler Avec Rails Fait Trouver Des Bugs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-13T00:00:00+02:00" pubdate data-updated="true">Aug 13<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que j&#8217;ai commencé à travailler professionnelement parlant avec Rails
+depuis mon départ de CapGemini et mon arrivée à JTEK. En une semaine et demi,
+je constate 1 bug sur rails 2.1, un bug sur Edge et un comportement ajouté en
+Rails 2.1 qui disparaitra en Rails 2.2 (déjà disparu sur Edge)</p>
+
+<h1><code>#has_one</code> demande la validation de sa liaison</h1>
+
+<p>Durant la migration de l&#8217;application développé au sein de Jtek de Rails
+1.2 à 2.1, j&#8217;ai constaté que les éléments <code>#has_one</code> sont désormais
+validé durant la validation du parent. En effet, ce comportement n&#8217;était pas
+présent dans les versions antérieurs à Rails 2.1. Par contre, la validation du
+<code>#has_many</code> est quand à elle effectuée depuis plusieurs version de
+Rails.<p>
+
+<p>Par contre après une lecture du code de Rails edge, actuellement, ce
+comportement disparaitra complétement en Rails 2.2. En effet, une option
+<code>:validate</code> a été ajouté au méthode <code>#has_many</code>,
+<code>#has_and_belongs_to_many</code> et <code>#has_one</code>. J&#8217;ai parlé de
+ce comportement dans une <a
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">news
+Vivre avec Rails</a>.</p>
+
+<p>Pour palier ce problème, j&#8217;ai créé un petit plugin rails qui permet de
+couper la validation sur le <code>#has_one</code>. Vous pouvez trouver les
+sources sur le <a href="http://github.com/jtek">github de JTek</a>.</p>
+
+<h1>Bug de logger dans le Runner de Rails-2.1</h1>
+
+<p>Sur ce point j&#8217;ai reporté un bug sur le lighthouse de Rails. En effet, j&#8217;ai
+constaté que si on utilisait le logger par défaut de Rails, et qu&#8217;on réalisait
+un log dans le code executé par script/runner il ne se retrouvait pas loggé
+dans le fichier production.log en mode production. Par contre en mode
+développement, tout se passait bien. En fait, le problème vient du nouveau
+Logger par défaut de rails qui est une surcouche au Logger de Ruby. Ainsi, il
+contient un buffer qui est flushé régulièrement. Mais en fait en mode
+production, le flush est désactivé. On peux ainsi retrouvé différent moment de
+flush dans le code de rails pour vider ce buffer. Mais voilà, avec
+script/runner, on peux se retrouver à ne pas avoir flusher tout le logger à la
+fin de sa tâche. Pour palier le problème, il suffit de faire un
+<code>RAILS_DEFAULT_LOGGER.flush</code> à la fin du fichier script/runner.
+Sinon vous pouvez essayer de faire bouger le <a
+href="http://rails.lighthouseapp.com/projects/8994/tickets/803">rapport de bug</a> que j&#8217;ai
+ouvert</p>
+
+<h1>Eager Loading empêchant la migration en production</h1>
+
+<p>Voulant testé un peu Pictrails avec Edge, pour reporté le bug précédent, je
+me suis retrouvé bettement à ne pas pouvoir réaliser la migration en mode
+Production de Pictrails. J&#8217;ai ainsi trouvé la cause qui est en fait le eager
+loading des models durant l&#8217;initialisation. Dans mon model Pictures, il se
+trouve que je fait une demande d&#8217;information sur un autre model. Du coup Rails
+tente de faire une requête SQL avant de réaliser la migration. Forcement, ca
+peux pas fonctionner. La seule méthode pour éviter ca est de mettre l&#8217;option
+config.classe_cache à false dans le fichier de configuration. J&#8217;ai bien sûr
+<a href="http://rails.lighthouseapp.com/projects/8994/tickets/802">reporté un bug à ce sujet</a>.
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2008/08/04/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-3/">Vivre Avec Edge (Ou Quoi De Neuf Dans Rails Edge) #3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-04T00:00:00+02:00" pubdate data-updated="true">Aug 4<span>th</span>, 2008</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>traduction de <a
+href="http://weblog.rubyonrails.com/2008/7/6/living-on-the-edge-3">Vivre
+avec Edge #3</a></p>
+
+<p>Il n&#8217;y a pas grand chose à noter comme gros changements ou fonctionnalités
+dernièrement dans edge Rails, alors je vais parler des <a
+href="http://github.com/rails/rails/commits/master">commits
+rails</a>
+concernant quelques bugs fixes et changements mineurs que je n&#8217;ai pas indiqué
+précédement. Il y a eu un travail en cours avec un refactoring et
+multithreading de ActionPack ainsi qu&#8217;un peu d&#8217;activité sur <a
+href="http://github.com/rails/rails/tree/master/activemodel">ActiveModel</a>,
+mais rien de réelement concret encore (c&#8217;est toujours en cours de
+        travaux).</p>
+
+<p>Comme d&#8217;habitude n&#8217;hésitez pas à laisser des critiques ou suggestions dans
+les commentaires.</p>
+
+<h4>Support de Thin avec script/server</h4>
+
+<p><code>script/server</code> vérifie désormais la disponibilité de <a
+href="http://code.macournoyer.com/thin/">Thin</a> et l&#8217;utilise. Pratique si
+vous utilisez Thin comme serveur de production (et voulez lancer avec le même
+        serveur durant le développement). Vous devez ajouter <code>config.gem
+'hin'</code> en premier dans votre <code>environment.rb</code> pour que cela
+fonctionne.</p>
+
+<p>Ce patch est une contribution d&#8217;un des gars de <a
+href="http://fluxin.com/">fluxin</a>.</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/a93ea88c0623b4f65af98c0eb55924c335bb3ac1">Changeset</a></p>
+
+
+<h4>String#humanize peux être configurable par les régles d&#8217;inflection</h4>
+
+
+<p>La méthode d&#8217;extension du core <code>String#humanize</code> est utilisé
+pour convertir les string avec des underscores en texte lisible plus
+facilement (utilisé pour les noms des colonnes). Par exemple,</p>
+
+<typo:code lang="ruby">&#8220;actor_salary&#8221;.humanize
+=> &#8220;Actor salary&#8221;
+&#8220;anime_id&#8221;.humanize
+=> &#8220;Anime&#8221;</typo:code>
+
+<p>Parfois cela ne fonctionne pas aussi bien, quand vous avez des héritages de
+tables ou des noms de colonnes &#8220;inhumain&#8221; comme &#8220;act_sal_money&#8221; (qui est
+        réellement &#8220;Actor salary&#8221;, mais qui sera <code>#humaize-d</code> en
+        &#8220;Act Sal Money&#8221;).</p>
+
+<p>Vous pouvez désormais spécifier une régle d&#8217;inflection (exactement comme
+        pour les règles de mots pluriel/singulier/irrégulier/invariable).</p>
+
+
+<typo:code lang="ruby">Inflector.inflections do |inflect|
+  inflect.human /_cnt$/, &#8216;\1_count&#8217;
+  inflect.human &#8216;act_sal_money&#8217;, &#8216;Actor Salary&#8217;
+end</typo:code>
+
+<p>Remarquez que vous pouvez aussi utiliser une expression régulière pour
+convertir une colonne comme &#8220;click_cnt&#8221; en &#8220;Click count&#8221;.</p>
+
+<p>Merci à <a href="http://www.dcmanges.com/">Dan Manges</a> et <a
+href="http://rails.lighthouseapp.com/users/19954">Pascal Ehlert</a> pour ce
+patch.</p>
+
+    <p><a href="http://github.com/rails/rails/commit/4f75840d72b96fff34d65b59480da7d6c7494120">Changeset</a></p>
+
+<h4>Possibilité de spécifier des conditions sur des tables multiples en
+utilisant un hash.</h4>
+
+<p>Pratik a commité un petit (mais très pratique) changement d&#8217;ActiveRecord
+qui permet de spécifier des conditions sur les jointure dans leur propre hash.
+Un exemple sera plus explicite:</p>
+
+
+<typo:code lang="ruby">Anime.all(
+  :joins => :character,
+  :conditions => {
+    :active => true,
+    :characters => { :gender => &#8216;female&#8217; }
+  }
+)
+
+</typo:code>
+
+<p>La requête ActiveRecord précédent permet de trouver tous les anime &#8220;actif&#8221;
+qui comme charactère une &#8220;femme&#8221;.</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/cd994eff9a343df376bfaec59de5b24a2ab51256">Changeset</a></p>
+
+    <h4>Outro</h4>
+
+<p>C&#8217;est tout pour cette semaine dans &#8220;Living on the Edge&#8221;. Faites moi savoir
+si vous désirez voir plus d&#8217;information sur les changement et bug fixes
+mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/shingara-blog/blog/page/6/">&larr; Older</a>
+    
+    <a href="/shingara-blog/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/shingara-blog/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

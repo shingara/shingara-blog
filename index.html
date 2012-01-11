@@ -9,7 +9,7 @@
   <meta name="author" content="Your Name">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="Le 21 Juin se tiendra à Paris un événement auquel je vous invite à venir. Cet événement sera dédié à MongoDB, le MongoFR. J&#8217;ai la chance de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,7 +65,800 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une Journée Dédiée à MongoDB</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-19T00:00:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://blog.shingara.fr/files/badge-mongofr-large.png" alt="mongoFR badges"/></p>
+
+<p>Le 21 Juin se tiendra à Paris un événement auquel je vous invite à venir. Cet événement sera dédié à <a href="http://mongodb.com">MongoDB</a>, le <a href="http://www.10gen.com/conferences/event_mongofr_21june10">MongoFR</a>.</p>
+
+<p>J&#8217;ai la chance de pouvoir proposer une petite conférence sur un retour d&#8217;expérience : ma migration de SQL à MongoDB sur <a href="http://oupsnow.rubyforge.org">Oupsnow</a>.
+Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y aura que des Rubyists.</p>
+
+<p>Selon moi, cette nouvelle technologie qu&#8217;est MongoDB est assez prometteuse.</p>
+
+<p>Pour découvrir MongoDB, venez nombreux <a href="http://www.10gen.com/conferences/event_mongofr_21june10">le 21 Juin</a> !</p>
+
+<p><a href="http://blog-en.shingara.fr/one-day-dedicated-to-mongodb.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer De EventMachine, Le Cron Simplifié</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-27T00:00:00+01:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://rubyeventmachine.com/">EventMachine</a> est une des meilleures librairies Ruby,
+tout en étant une des plus sous-estimées et mal connues.</p>
+
+<p>J&#8217;ai donc commencé à regarder un peu dans quels cas utiliser EventMachine.
+La première application que j&#8217;en ai trouvé c&#8217;est tout simplement le <a href="http://eventmachine.rubyforge.org/EventMachine/PeriodicTimer.html">PeriodicTimer</a>.</p>
+
+<p>Son utilisation la plus simple est le remplacement d&#8217;une cronjob.</p>
+
+<p>Je m&#8217;explique : une cronjob est vraiment une très bonne chose. On peut définir très précisément l&#8217;heure à laquelle on souhaite qu&#8217;une tâche s&#8217;exécute. Celle-ci s&#8217;exécute alors à ce moment précis. Cron est vraiment un outil magnifique. Cependant, dans
+le cas d&#8217;une tâche récurrente qui doit être effectuée régulièrement, l&#8217;utilisation d&#8217;un cronjob peut avoir un gros inconvénient.</p>
+
+<p>Cron n&#8217;a aucune gestion de queue. Ainsi on peut se retrouver très simplement avec une quantité astronomique de tâches essayant de s&#8217;exécuter en même temps. Votre « load » explose et il faut redémarrer votre serveur. Bien sûr cela n&#8217;arrive que si vous lancez une tâche plus fréquemment que son temps d&#8217;exécution.</p>
+
+<p>La seule solution serait d&#8217;avoir une petite application - comme : <a href="http://forge.bearstech.com/trac/wiki/JobQueue">jobq</a> - qui gére pour vous un système de queue. Bien sûr, si le fait d&#8217;avoir une queue ne sert strictement à rien, cette solution peut être un peu overkill.</p>
+
+<p>L&#8217;avantage de PeriodicTimer est que les tâches sont exécutées après un temps défini. Il n&#8217;y a aucune gestion d&#8217;heure de lancement. Il y a juste un lancement de la tâche après X secondes une fois que la précédente tâche est finie et qu&#8217;aucune autre tâche ne soit en cours d&#8217;exécution. Cela entraîne effectivement un glissement progressif de l&#8217;heure de lancement. Mais globalement, ça ne pose aucun problème. L&#8217;important est que la tâche soit exécutée régulièrement. C&#8217;est le cas, par exemple dans le cas de récupération de statistique.</p>
+
+<p>Voici <a href="http://gist.github.com/345000">un exemple de code</a> qui utilise
+PeriodicTimer</p>
+
+<p>&lt;typo:code lang=&#8221;ruby&#8221;>
+require &#8216;eventmachine&#8217;
+require &#8216;timeout&#8217;
+EventMachine.run {
+ EventMachine::PeriodicTimer.new(10) do
+   puts &#8220;#{Time.now} : I am 10&#8221;
+   sleep 10
+ end</p>
+
+<p> EventMachine::PeriodicTimer.new(1) do
+   puts Time.now
+ end
+}
+&lt;/typo:code></p>
+
+<p>Voici la sortie qui est effectuée si on lance l&#8217;application pendant 50s.</p>
+
+<p>&lt;typo:code lang=&#8221;plain&#8221;>
+$ ruby em_periodic.rb
+Fri Mar 26 16:07:39 +0100 2010
+Fri Mar 26 16:07:40 +0100 2010
+Fri Mar 26 16:07:41 +0100 2010
+Fri Mar 26 16:07:42 +0100 2010
+Fri Mar 26 16:07:43 +0100 2010
+Fri Mar 26 16:07:44 +0100 2010
+Fri Mar 26 16:07:45 +0100 2010
+Fri Mar 26 16:07:46 +0100 2010
+Fri Mar 26 16:07:47 +0100 2010
+Fri Mar 26 16:07:48 +0100 2010 : I am 10
+Fri Mar 26 16:07:58 +0100 2010
+Fri Mar 26 16:07:59 +0100 2010
+Fri Mar 26 16:08:00 +0100 2010
+Fri Mar 26 16:08:01 +0100 2010
+Fri Mar 26 16:08:02 +0100 2010
+Fri Mar 26 16:08:03 +0100 2010
+Fri Mar 26 16:08:04 +0100 2010
+Fri Mar 26 16:08:05 +0100 2010
+Fri Mar 26 16:08:06 +0100 2010
+Fri Mar 26 16:08:08 +0100 2010
+Fri Mar 26 16:08:08 +0100 2010 : I am 10
+Fri Mar 26 16:08:18 +0100 2010
+Fri Mar 26 16:08:19 +0100 2010
+Fri Mar 26 16:08:20 +0100 2010
+Fri Mar 26 16:08:21 +0100 2010
+Fri Mar 26 16:08:22 +0100 2010
+Fri Mar 26 16:08:23 +0100 2010
+Fri Mar 26 16:08:25 +0100 2010
+Fri Mar 26 16:08:26 +0100 2010
+Fri Mar 26 16:08:27 +0100 2010
+Fri Mar 26 16:08:28 +0100 2010
+Fri Mar 26 16:08:28 +0100 2010 : I am 10
+&lt;/typo:code></p>
+
+<p>On peut constater que la tâche qui doit s&#8217;exécuter toutes les
+secondes le fait bien. Par contre la tâche qui s&#8217;exécute au bout de 10
+secondes effectue un lock sur le thread. Ainsi la tâche qui s&#8217;exécute toutes
+les secondes attend que le lock soit libéré. Une fois terminée,
+l&#8217;exécution de la tâche toutes les secondes recommence. La tache qui doit s&#8217;exécuter toutes les 10
+secondes attendra, quand à elle, 10 nouvelles secondes après avoir été terminée.</p>
+
+<p>C&#8217;est là une grande puissance de PeriodicTimer. On a facilement une succession
+de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utilise plus que</p>
+
+<p>cette solution pour créer des scripts de récupération de données.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 Est Sortie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-15T00:00:00+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, j&#8217;ai presque pris un cycle de release pas trop mauvais. Ainsi après seulement un mois après la version 0.4.1 de <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, voici la version 0.5.0. Cette version apporte quelque feature, mais marque surtout un moment de stabilité dans le code.</p>
+
+<h2>Les nouveautés</h2>
+
+<ul>
+<li>Ajout d&#8217;un filtre sur la recherche des tickets pour ne voir que les tickets fermé ou non</li>
+<li>Possibilité d&#8217;éditer une milestone pour les admin d&#8217;un projet</li>
+<li>Possibilité de définir une milestone comme actuelle. Par défaut, c&#8217;est la première milestone créée</li>
+<li>Possibilité de récupérer son password par email</li>
+<li>Possibilité de rester connecter avec un remember_me</li>
+<li>Ajout d&#8217;information concernant le nombre de tickets filtrés ou vues</li>
+<li>Possibilité pour chaque utilisateur loggé de suivre un ticket. Un utilisateur qui suit un ticket recevra ainsi à chaque mise à jour de ce ticket un email concernant cette modification.</li>
+<li>Les utilisateurs ne peuvent plus changer leur email.</li>
+</ul>
+
+
+<p>Enfin comme d&#8217;habitude voici mon fichier capistrano de déployement pour faciliter celui-ci.</p>
+
+<h2>Ficher de déployement capistrano</h2>
+
+<p>&lt;typo:code lang=&#8221;ruby&#8221;>
+set :application, &#8220;oupsnow&#8221;
+set :repository,  &#8220;git://github.com/shingara/oupsnow.git&#8221;
+set :domain, &#8220;dev.shingara.fr&#8221;</p>
+
+<h1>If you aren&#8217;t deploying to /u/apps/#{application} on the target</h1>
+
+<h1>servers (which is the default), you can specify the actual location</h1>
+
+<h1>via the :deploy_to variable:</h1>
+
+<p>set :deploy_to, &#8220;XXXXXXXXX&#8221;</p>
+
+<h1>If you aren&#8217;t using Subversion to manage your source code, specify</h1>
+
+<h1>your SCM below:</h1>
+
+<h1>set :scm, :subversion</h1>
+
+<p>set :scm, :git
+set :git_enable_submodules, 1</p>
+
+<p>set :runner, &#8220;xxxx&#8221;
+set :user, &#8220;xxxx&#8221;
+set :use_sudo, false</p>
+
+<p>set :thin_conf, &#8220;/etc/thin/#{domain}.yml&#8221;</p>
+
+<p>set :rails_env, &#8220;production&#8221;</p>
+
+<p>role :app, domain
+role :web, domain
+role :db,  domain, :primary => true</p>
+
+<p>task :update_config, :roles => [:app] do
+  run &#8220;ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml&#8221;
+  run &#8220;ln -s #{shared_path}/config/email.yml #{release_path}/config/email.yml&#8221;
+  run &#8220;ln -s #{shared_path}/config/initializers/errornot.rb #{release_path}/config/initializers/errornot.rb&#8221;
+  run &#8220;cd #{release_path} &amp;&amp; echo &#8216;GOOGLE_ANALYTICS=&#34;XXXXXXXX&#34;&#8217; >> config/environment.rb&#8221;
+end</p>
+
+<p>namespace :deploy do
+  task :start, :roles => [:app] do</p>
+
+<pre><code>run "thin -C #{thin_conf} start"
+</code></pre>
+
+<p>  end</p>
+
+<p>  task :stop, :roles => [:app] do</p>
+
+<pre><code>run "thin -C #{thin_conf} stop"
+</code></pre>
+
+<p>  end</p>
+
+<p>  task :restart, :roles => [:app] do</p>
+
+<pre><code>run "thin -C #{thin_conf} restart"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>task :update_db do
+  run &#8220;cd #{current_path} &amp;&amp; RAILS_ENV=#{rails_env} rake db:update&#8221;
+end</p>
+
+<p>after &#8220;deploy:update_code&#8221;, :update_config
+after &#8220;deploy:symlink&#8221;, :update_db
+&lt;/typo:code></p>
+
+<p><a href="http://blog.shingara.fr/en/2010-03-13-oupsnow-0-5-0-released.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby Et Ruby on Rails Dans Le Développement D&#8217;application Web ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-27T00:00:00+01:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Cette question a été posée dernièrement sur la Mailling List de RailsFrance. Effectivement, si on veut promouvoir Ruby dans le monde informatique français, il faut pouvoir argumenter pourquoi on trouve que c&#8217;est une bonne idée.
+</p>
+
+<p>
+Tout le monde est en droit de se poser la question. Voici donc, pour moi, l&#8217;avantage de Ruby par rapport aux autres technologies à l&#8217;heure actuelle.
+</p>
+
+<h4>Ruby c&#8217;est fun</h4>
+
+<p>
+Matz, quand il a créé Ruby, a voulu faire un langage fun avec lequel il pourrait s&#8217;amuser à coder. Aujourd&#8217;hui tous les développeurs Ruby diront à peu près la même chose. Coder en Ruby est plaisant. L&#8217;avantage de ce point est qu&#8217;un développeur Ruby est plus détendu. Un développeur détendu est un développeur plus heureux. Un développeur plus heureux est motivant pour une équipe. Un développeur heureux essayera de faire son travail proprement. L&#8217;ambiance d&#8217;une équipe de développeur Ruby peut ainsi être agréable. Moins de stress sur un projet, c&#8217;est un projet qui part avec un peu plus de chances de réussir.
+</p>
+
+<h4>Ruby aime les tests</h4>
+
+<p>
+La communauté Ruby actuelle est convaincue de l&#8217;utilité des tests unitaires. Ainsi, chaque librairie est poussée par la communauté à avoir des tests. Beaucoup de développeurs, moi y compris, privilégierons une librairie avec des tests unitaires plutôt qu&#8217;une sans aucun tests.
+</p>
+<p>
+Cette philosophie permet d&#8217;avoir un environnement de développement de test simplifié directement dans Rails. Pas besoin de se prendre la tête pour faire des tests. Si vous ne faites pas de tests de base : soit vous ne voulez pas en faire, ce que je ne recommande pas, soit vous le faites exprès.
+</p>
+
+
+<h4>Ruby aime le cloud</h4>
+
+<p>
+En ce moment, l&#8217;évolution logique du net est le Cloud Computing. L&#8217;idée du Cloud Computing est simple. Nos sites internet ne sont plus hébergés sur une seule machine. Les services sont séparés pour améliorer la scallabilité. Au sein de la communauté Ruby, les développeurs sont très attachés à cette idée. Ainsi beaucoup d&#8217;utilitaires pour gérer et utiliser son cloud commencent à voir le jour comme Chef. L&#8217;architecture même de Rails permet de facilement sortir de Ruby On Rails pour ainsi utiliser son Cloud. ActiveRessource en est la preuve.
+</p>
+<p>
+Mais coder dans un Cloud implique de coder plusieurs briques. Le Ruby a des bindings pour tous ces utilitaires, comme les systèmes de queues ou les bases de Données Non-Relationnelle. Je ne dis pas que les autres ne peuvent pas le faire. Mais là encore c&#8217;est un effet de groupe. Chaque développeur ruby a envie de jouer avec un Cloud. On pense de plus en plus en cloud.
+</p>
+<h4>Les plugins de Rails</h4>
+<p>
+Ruby On Rails possède une très grande quantité de plugins. On peut ainsi facilement trouver la petite brique que l&#8217;on cherche pour sa propre utilisation. C&#8217;est plus que l&#8217;utilisation d&#8217;un module Drupal. Car là nous sommes dans un environement facilement modifiable et sans aucune limitation. Chose que Drupal peut vite avoir.
+</p>
+
+<h4>Les Ressources</h4>
+<p>
+Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rails, c&#8217;est le manque de ressources. Effectivement, les ressources de développeurs Ruby sont plus faibles que pour d&#8217;autres langages. Mais ceci est selon moi un faux problème. L&#8217;apprentissage de Ruby et Ruby On Rails est assez simple si on connait la logique Objet. Ainsi, n&#8217;importe quel développeur Java peut tout à fait se mettre à Ruby et Ruby On Rails. Donc avec un expert Ruby/Rails, on peut former facilement une équipe complète et compétente.
+</p>
+
+<p>Cet argumentaire n&#8217;engage bien sûr que moi et peut donc être sujet à caution.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que Cherche Un Développeur Dans Une Offre D&#8217;emploi ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-23T00:00:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>On m&#8217;a posé dernièrement cette question. Ça peut sembler bête au premier abord, mais après quelques secondes de réflexion on se rappelle que toutes les offres d&#8217;emplois sont pleines d&#8217;interrogation.</p>
+
+<h4>Donc qu&#8217;est ce que j&#8217;attends dans une offre d&#8217;emploi ?</h4>
+
+<ul>
+
+<li>Le nom de l&#8217;entreprise :<br/>
+<p>Le nom de l&#8217;entreprise est toujours pratique ne serait-ce que pour zapper l&#8217;annonce si on aime pas cette entreprise. Ou alors rigoler encore plus en lisant l&#8217;offre d&#8217;emploi.</p>
+</li>
+
+<li>Le cœur de métier de l&#8217;entreprise :<br/>
+<p>C&#8217;est toujours agréable de savoir si on va travailler pour une entreprise qui fait du beurre ou des sites Web. On peut ainsi éviter certains entretiens inutiles.</p>
+</li>
+
+<li>Le nombre de développeurs dans l&#8217;entreprise :<br />
+<p>C&#8217;est une question plutôt inhabituelle pour un recruteur, mais avoir cette information permet de savoir tout de suite si on sera le geek dans son coin qui sera interrompu pour faire de l&#8217;assistance Words alors qu&#8217;il n&#8217;a plus touché à un windows depuis 3 ans. Au contraire, si on voit qu&#8217;il y a une majorité de développeurs, on pourra se dire que ça sera la fête aux trolls. Un développeur aime les Trolls \o/.</p>
+</li>
+
+<li>Les personnes connues :<br />
+<p>Comme dans tous métiers, on connaît certaines personnes de réputation. Cela peut facilement aider un développeur à choisir cette offre d&#8217;emploi si une personne connue y est. En revanche, c&#8217;est aussi à double tranchant. Certains feront l&#8217;entretien juste pour voir cette personne. D&#8217;autres zapperont encore plus l&#8217;offre d&#8217;emploi à cause de cette même personne.</p>
+</li>
+
+<li>L&#8217;environnement de travail :<br />
+<p>L&#8217;OS utilisé en majorité par les développeurs de la société peut être un très bon indicateur parfois. Typiquement chez AF83 où je travaille encore en ce moment, tous les développeurs sont sous UNIX, soit GNU/Linux, soit MacOSX. Pour beaucoup, cela prouve la qualité des développeurs. Et là encore la guerre aux trolls pourra facilement être ouverte.</p>
+</li>
+
+<li>La contribution Open source possible et faite par l&#8217;entreprise :<br />
+<p>Avoir du temps pour faire de l&#8217;Open Source selon notre désir est un plus non négligeable selon moi. J&#8217;ai énormément de projets open source en cours que je fais en parallèle de mon emploi, mais si je pouvais les faire aussi durant une partie de celui-ci, je serais vraiment heureux. Ensuite le fait que la société produise du code Open Source, peut facilement permettre au développeur de jauger de la qualité du code de cette société. En effet, pourquoi est-ce toujours la société qui doit vérifier le code de ses futurs employés ?</p>
+</li>
+</ul>
+
+<p>Selon, moi ces 6 points ne sont hélas pas toujours renseignés dans une offre d&#8217;emploi et cela serait un plus non négligeable.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2009/12/21/sortie-de-typo-5-4-0/">Sortie De Typo 5.4.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-21T00:00:00+01:00" pubdate data-updated="true">Dec 21<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ça y est, une nouvelle version de <a href="http://typosphere.org">Typo</a> est lancée dans la nature. Je n&#8217;ai
+hélas que très peu participé à cette nouvelle version faute de
+motivation/temps. Mais je suis toujours très content de voir une nouvelle
+version de ce blog sortir.</p>
+
+<p>A chaque release, une nouvelle admin fait son apparition, mais à chaque
+fois elle est meilleure que la précédente, donc c&#8217;est une excellente chose.</p>
+
+<p>J&#8217;ai bien-sûr mis à jour ce blog et j&#8217;ai aussi switché sur le nouveau thème
+par défaut. Je suis toujours aussi nul en design.</p>
+
+<p>En petit cadeau, voici mon fichier <a href="http://capify.org/">capistrano</a> que j&#8217;utilise pour déployer
+ce blog. Ça peux toujours vous servir. On ne sait jamais.</p>
+
+<typo:code lang="ruby">
+set :application, &#8220;typo&#8221;
+set :repository,  &#8220;git://github.com/fdv/typo.git&#8221;
+set :domain, &#8220;blog.shingara.fr&#8221;
+
+# If you aren&#8217;t deploying to /u/apps/#{application} on the target
+# # servers (which is the default), you can specify the actual location
+# # via the :deploy_to variable:
+set :deploy_to, &#8220;/var/rails/blog-typo&#8221;
+#
+# # If you aren&#8217;t using Subversion to manage your source code, specify
+# # your SCM below:
+set :scm, :git
+
+set :runner, &#8220;rails&#8221;
+set :user, &#8220;rails&#8221;
+set :use_sudo, false
+
+set :thin_conf, &#8220;/etc/thin/#{domain}.yml&#8221;
+
+role :app, domain
+role :web, domain
+role :db,  domain, :primary => true
+
+task :update_config, :roles => [:app] do
+  run &#8220;cp -Rf #{shared_path}/config/* #{release_path}/config/&#8221;
+  run &#8220;ln -s #{shared_path}/files #{release_path}/public/files&#8221;
+end
+
+task :update_gems, :roles => [:app] do
+  run &#8220;cd #{release_path} && RAILS_ENV=production rake gems:install&#8221;
+end
+
+
+after &#8220;deploy:update_code&#8221;, :update_config
+after &#8220;deploy:update_code&#8221;, :update_gems
+
+
+namespace :deploy do
+  task :start, :roles => [:app] do
+    run &#8220;thin -C #{thin_conf} start&#8221;
+  end
+
+  task :stop, :roles => [:app] do
+    run &#8220;thin -C #{thin_conf} stop&#8221;
+  end
+
+  task :restart, :roles => [:app] do
+    run &#8220;thin -C #{thin_conf} restart&#8221;
+  end
+end
+
+task :clear_cache, :roles => [:app] do
+  run &#8220;cd #{current_path} && RAILS_ENV=production rake sweep_cache&#8221;
+  run &#8220;cd #{current_path} && RAILS_ENV=production rake tmp:cache:clear&#8221;
+end
+
+after &#8220;deploy:restart&#8221;, :clear_cache
+after &#8220;deploy:start&#8221;, :clear_cache
+</typo:code>
+
+<p><a href="http://blog.shingara.fr/en/2009-12-21-typo-5-4-0-released.html">English Translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2009/12/01/sortie-de-oupsnow-0-4-0/">Sortie De Oupsnow 0.4.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-01T00:00:00+01:00" pubdate data-updated="true">Dec 1<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, cette version est désormais en Rails/MongoDB. Le back-end et le serveur ont changé.</p>
+
+<p>Cette nouvelle version, outre son refactoring comprend aussi l&#8217;ajout de quelques nouvelles fonctionnalités.</p>
+
+<ul>
+<li>Ajout d&#8217;un filtre par Status dans la recherche de ticket</li>
+<li>Ajout de la possibilité de changer la fonction de tous les membres d&#8217;un project</li>
+<li>Ajout de la preview des tickets et commentaires sur les tickets</li>
+<li>Ajout de la visualisation de la milestone courante dans la visualisation d&#8217;un ticket</li>
+<li>Possibilité d&#8217;ordonner tous les champs de recherche dans la vue des tickets</li>
+<li>Login par l&#8217;email et plus par le pseudo</li>
+</ul>
+
+<p>Vous pouvez télécharger cette version sur <a href="http://rubyforge.org/frs/?group_id=7685">rubyforge</a></p>
+
+<p>Si vous souhaitez tester cette version, une <a href="http://oupsnow.shingara.fr/">version de demo de oupsnow</a> est en ligne. Les login/mdp sont : admin@admin.com/oupsnow. Amusez vous bien.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2009/11/30/comment-tester-devise-reelement/">Comment Tester Devise ? Réélement ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-30T00:00:00+01:00" pubdate data-updated="true">Nov 30<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que j&#8217;ai cherché comment tester facilement <a href="http://github.com/plataformatec/devise">Devise</a>. J&#8217;ai indiqué une technique dans <a href="http://blog.shingara.fr/devise-cest-bien-mais-il-faut-le-tester.html">mon précédent post</a>. Mais cette technique est loin d&#8217;être la meilleure. Voici donc la nouvelle solution, la solution officielle.</p>
+
+<p>Il suffit d&#8217;inclure <code>Devise::TestHelpers</code>. Ensuite pour se logger avec un utilisateur, on utilise la méthode <code>sign_in</code>. La méthode <code>sign_out</code> existe aussi.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2009/11/19/devise-cest-bien-mais-il-faut-le-tester/">Devise ? C&#8217;est Bien, Mais Il Faut Le Tester.</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-19T00:00:00+01:00" pubdate data-updated="true">Nov 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que j&#8217;ai évoqué ma <a href="http://blog.shingara.fr/oupsnow-de-merb-i-rails.html">migration de Merb à Rails pour
+Oupsnow</a>, il a
+fallu trouver un système d&#8217;authentification ORM Agnostique.</p>
+
+<p>Le plugin d&#8217;authentification le plus connu à l&#8217;heure actuel est <a
+href="http://rdoc.info/projects/binarylogic/authlogic">Authlogic</a>.
+Ce plugin est vraiment très performant, mais tous les essais de le rendre ORM
+Agnostique ont été vain. C&#8217;est alors qu&#8217;au même moment, durant le <a
+href="http://www.railssummit.com.br/">Rails Summit 2009</a>,
+George Guimarães et Carlos Antonio annoncent la sortie de <a
+href="http://github.com/plataformatec/devise">Devise</a>, un plugin Rails au
+dessus de <a href="http://github.com/hassox/warden">Warden</a> (
+Rack middleware d&#8217;authentification). C&#8217;est exactement, ce qu&#8217;il me faut, un
+nouveau système d&#8217;authentification a tester et peut-être une possibilité
+d&#8217;ajouter une couche d&#8217;ORM Agnostique dedans. En plus Warden étant un
+RackMiddleware, je pourrais un peu tester ce que ça donne.</p>
+
+<p>J&#8217;installe donc Devise et commence à l&#8217;utiliser dans Oupsnow. Tout se passe
+à merveille, jusqu&#8217;au moment où il faut faire les tests. Tout de suite le bât
+blesse. Les tests controlleurs de Rails ne communiquent pas avec la couche Rack
+qui n&#8217;est pas initialisée. On se retrouve donc avec une impossibilité de
+définir si un utilisateur est loggé ou non et si oui, qui est cet
+utilisateur.</p>
+
+<p>Après de nombreux tests et essais. J&#8217;ai fini par trouver comment faire.
+Warden ajoute à la requête une variable d&#8217;environment dans la requête. On peux
+y accéder par
+<code>request.env['warden']</code>. Il suffit donc de remplir cette
+variable.</p>
+
+<p>Pour avoir un utilisateur non loggé, il faut faire :</p>
+
+<typo:code lang="ruby">
+def unlogged
+  request.env[&#8216;warden&#8217;] = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable],:silence_missing_strategies => true})
+end
+</typo:code>
+
+<p>Pour se logger avec un utilisateur en particulier il faut faire :</p>
+
+<typo:code lang="ruby">
+def logged_as(user)
+  proxy = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable], :silence_missing_strategies => true})
+  proxy.set_user(user, :store => true, :scope => :user)
+  request.env[&#8216;warden&#8217;] = proxy
+end
+</typo:code>
+
+<p>Personnellement, j&#8217;aime beaucoup <a href="http://github.com/plataformatec/devise">devise</a>. A tel point que j&#8217;ai permis de le
+rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/mongomapper/">MongoMapper</a>.</p>
+
+<p>EDIT du 30 Novembre 2009: la technique indiquée ici n&#8217;est pas optimum et ne marche pas avec les dernières versions de Devise. utilisez plutôt la technique décrite dans mon ticket <a href="http://blog.shingara.fr/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/shingara-blog/blog/2009/11/18/oupsnow-de-merb-i-rails/">Oupsnow De Merb à Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-18T00:00:00+01:00" pubdate data-updated="true">Nov 18<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Dernièrement, j&#8217;ai fini par me décider de migrer <a
+href="http://oupsnow.rubyforge.org">Oupsnow</a>, de Merb à Rails.</p>
+
+<p>Alors que je
+finissais une migration de SQL à MongoDB, j&#8217;en entame une nouvelle. Celle-ci
+beaucoup plus profonde.</p>
+
+<p>La raison de ma migration ?</p>
+
+<p>Rails 3. En
+effet, depuis Décembre 2008, soit presque un an, Merb s&#8217;est figé.
+Certain me diront que la communauté Merb est en train de revivre et c&#8217;est tout
+à fait vrai. J&#8217;en suis même ravi. Mais Merb a pris un immense retard en
+presque un an. Même si Rails n&#8217;a pas vraiment avancé dans sa version stable,
+sa version Edge a elle énormément avancée.</p>
+
+<p>Voulant toujours tester les
+nouvelles technologies en Ruby, je voudrais tester Rails 3. Mais aucun système
+n&#8217;existe pour passer de Merb à Rails 3. Un rapide test m&#8217;a montré que la
+différence était par contre minime entre Rails 2.3.x et Rails 3. La
+migration de Rails 2.3.x à Rails 3 en sera donc d&#8217;autant plus simple.</p>
+
+<p>Voulant vraiment sortir une version stable le plus vite possible, j&#8217;ai
+donc pris la décision de migrer Oupsnow vers Rails 2.3.x pour ensuite migrer
+sur Rails 3 pour cette fois sortir une version de Oupsnow compatible Rails 3.</p>
+
+<p>Oupsnow devient donc un projet Rails/MongoMapper et non plus
+Merb/DataMapper comme sa dernière version. Toute aide est bien-sûr la
+bienvenue.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-11-19-oupsnow-from-merb-to-rails.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/shingara-blog/blog/page/2/">&larr; Older</a>
     
     <a href="/shingara-blog/blog/archives">Blog Archives</a>
     
@@ -76,6 +869,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
+      </li>
     
   </ul>
 </section>

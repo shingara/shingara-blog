@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CookieStorage système par defaut de sauvegarde de session dans Rails 2.0 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Je suis actuellement en train de tenter de faire la migration de Redmine vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/blog/2007/10/04/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0">
+  <link href="/shingara-blog/favicon.png" rel="icon">
+  <link href="/shingara-blog/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/shingara-blog/javascripts/modernizr-2.0.js"></script>
+  <script src="/shingara-blog/javascripts/ender.js"></script>
+  <script src="/shingara-blog/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/shingara-blog/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/shingara-blog/">Blog</a></li>
+  <li><a href="/shingara-blog/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CookieStorage Système Par Defaut De Sauvegarde De Session Dans Rails 2.0</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-04T00:00:00+02:00" pubdate data-updated="true">Oct 4<span>th</span>, 2007</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Je suis actuellement en train de tenter de faire la migration de <a href="http://redmine.org">Redmine</a> vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de contribuer à ce projet que j&#8217;adore.</p>
+
+<p>Durant cette migration, je suis tombé sur une exception que je ne comprenais pas :</p>
+
+<pre>
+CGI::Session::CookieStore::CookieOverflow (CGI::Session::CookieStore::CookieOverflow)
+</pre>
+
+<p>J&#8217;ai donc lancé une recherche pour comprendre pourquoi j&#8217;avais cette erreur. J&#8217;ai ainsi découvert que cette exception est dû à la taille de ma session. En effet, les sessions de redmine peuvent parfois être supérieures à 4Ko car elle englobe pas mal d&#8217;information. Hors il y a une limitation de cette taille de session à 4Ko. En faite cette limitation n&#8217;a lieu qu&#8217;avec les sessions enregistrés dans les Cookies. Hors ce nouveau système de stockage de session est une des améliorations de Rails 2.0 et il a été mis par défaut.</p>
+
+<p>Pensez donc à changer ce mode de stockage de Session si vous avez de grosses sessions à stocker. Pour revenir à un mode de stockage par fichier vous pouvez mettre dans votre fichier environnement.rb :</p>
+
+<pre>
+config.action_controller.session_store = :PStore
+</pre>
+
+<p>Voici quelque lien intéressant traitant de ce sujet :</p>
+
+<ul>
+<li><a href="http://ryandaigle.com/articles/2007/2/21/what-s-new-in-edge-rails-cookie-based-sessions">What&#8217;s New in Edge Rails: Cookie Based Sessions are the New Default (en)</a></li>
+<li><a href="http://dev.rubyonrails.org/changeset/6184">Révision intégrant le système de Session par Cookies</a></li>
+<li><a href="http://www.caboo.se/articles/2007/2/21/new-controversial-default-rails-session-storage-cookies">Discussion sur la controverse lié à ce système de session (en)</a></li>
+</ul>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-04T00:00:00+02:00" pubdate data-updated="true">Oct 4<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/blog/2007/10/04/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0/" data-via="" data-counturl="http://shingara.github.com/shingara-blog/blog/2007/10/04/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/shingara-blog/blog/2007/10/02/rails-2-0-erreur-a-eviter/" title="Previous Post: Rails 2.0 erreur à éviter">&laquo; Rails 2.0 erreur à éviter</a>
+      
+      
+        <a class="basic-alignment right" href="/shingara-blog/blog/2007/10/09/technique-de-mise-en-maintenance-avec-rails-et-nginx/" title="next Post: Technique de mise en maintenance avec Rails et Nginx">Technique de mise en maintenance avec Rails et Nginx &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
