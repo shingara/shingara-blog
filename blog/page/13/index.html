@@ -88,6 +88,8 @@
 
 <time datetime="2007-07-03T00:00:00+02:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/07/03/sortie-unique-de-rails-computer-checker-en-version-0-1-0/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -128,6 +130,8 @@ Pour l&#8217;√©cole, j&#8217;ai du r√©aliser avec d&#8217;autres personnes une a
 
 <time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/06/29/utiliser-un-screen-dans-un-screen/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -163,6 +167,8 @@ Pour l&#8217;√©cole, j&#8217;ai du r√©aliser avec d&#8217;autres personnes une a
 
 
 <time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/06/29/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes/#disqus_thread">Comments</a>
         
       </p>
     
@@ -205,6 +211,8 @@ Si par hasard vous souhaitez d√©j√† l&#8217;utiliser, c&#8217;est assez facile. 
 
 
 <time datetime="2007-06-15T00:00:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/06/15/ajouter-des-headers-http-dans-ses-re%CC%81ponses-rails/#disqus_thread">Comments</a>
         
       </p>
     
@@ -251,6 +259,8 @@ response.headers['Location'] = 'new/url'
 
 
 <time datetime="2007-06-13T00:00:00+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/06/13/each-vs-for/#disqus_thread">Comments</a>
         
       </p>
     
@@ -378,6 +388,8 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;√
 
 <time datetime="2007-06-11T00:00:00+02:00" pubdate data-updated="true">Jun 11<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/06/11/la-pagination-de-rails-supprime%CC%81e/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -414,6 +426,8 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;√
 
 <time datetime="2007-06-08T00:00:00+02:00" pubdate data-updated="true">Jun 8<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/06/08/compter-avec-rails/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -449,6 +463,8 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;√
 
 
 <time datetime="2007-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/05/26/ruby-nest-pas-bugge%CC%81-cest-moi/#disqus_thread">Comments</a>
         
       </p>
     
@@ -488,6 +504,8 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;√
 
 
 <time datetime="2007-04-29T00:00:00+02:00" pubdate data-updated="true">Apr 29<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/04/29/sortie-de-whois-0-4-0/#disqus_thread">Comments</a>
         
       </p>
     
@@ -535,6 +553,8 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;√
 
 
 <time datetime="2007-04-26T00:00:00+02:00" pubdate data-updated="true">Apr 26<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/04/26/ruby-a-t-il-un-bug-sur-ipaddr/#disqus_thread">Comments</a>
         
       </p>
     
@@ -667,6 +687,35 @@ Est-ce un bug ou pas ?
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -685,7 +734,29 @@ Est-ce un bug ou pas ?
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

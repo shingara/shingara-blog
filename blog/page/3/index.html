@@ -88,6 +88,8 @@
 
 <time datetime="2009-02-10T00:00:00+01:00" pubdate data-updated="true">Feb 10<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/02/10/sortie-de-oupsnow-0-2-0-avec-mise-en-production/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -141,6 +143,8 @@
 
 
 <time datetime="2009-01-25T00:00:00+01:00" pubdate data-updated="true">Jan 25<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/01/25/sortie-de-typo-5-2/#disqus_thread">Comments</a>
         
       </p>
     
@@ -238,6 +242,8 @@ before &#8220;deploy:migrations&#8221;, :dump_before
 
 
 <time datetime="2009-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/01/21/sortie-de-la-premiere-version-de-oupsnow-0-1-0/#disqus_thread">Comments</a>
         
       </p>
     
@@ -337,6 +343,8 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
 <time datetime="2009-01-19T00:00:00+01:00" pubdate data-updated="true">Jan 19<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/01/19/les-merb-pretty-url/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -376,6 +384,8 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
 
 <time datetime="2009-01-18T00:00:00+01:00" pubdate data-updated="true">Jan 18<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/01/18/gestion-des-dependances-avec-merb/#disqus_thread">Comments</a>
         
       </p>
     
@@ -520,6 +530,8 @@ end
 
 <time datetime="2008-12-31T00:00:00+01:00" pubdate data-updated="true">Dec 31<span>st</span>, 2008</time>
         
+         | <a href="/shingara-blog/blog/2008/12/31/dev-shingara-fr-mis-i-jour-avec-redmine-0-8/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -588,6 +600,8 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
 <time datetime="2008-12-26T00:00:00+01:00" pubdate data-updated="true">Dec 26<span>th</span>, 2008</time>
         
+         | <a href="/shingara-blog/blog/2008/12/26/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -625,6 +639,8 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
 
 <time datetime="2008-12-24T00:00:00+01:00" pubdate data-updated="true">Dec 24<span>th</span>, 2008</time>
+        
+         | <a href="/shingara-blog/blog/2008/12/24/le-noel-de-la-fusion-entre-merb-et-rails-quen-penser/#disqus_thread">Comments</a>
         
       </p>
     
@@ -677,6 +693,8 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
 
 <time datetime="2008-12-20T00:00:00+01:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+        
+         | <a href="/shingara-blog/blog/2008/12/20/envoyer-un-email-dans-un-model-datamapper/#disqus_thread">Comments</a>
         
       </p>
     
@@ -735,6 +753,8 @@ class Member
 
 
 <time datetime="2008-12-03T00:00:00+01:00" pubdate data-updated="true">Dec 3<span>rd</span>, 2008</time>
+        
+         | <a href="/shingara-blog/blog/2008/12/03/les-named_scope-en-pratique-sur-une-recherche/#disqus_thread">Comments</a>
         
       </p>
     
@@ -839,6 +859,35 @@ class Article
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -857,7 +906,29 @@ class Article
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

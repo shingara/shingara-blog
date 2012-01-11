@@ -88,6 +88,8 @@
 
 <time datetime="2009-11-04T00:00:00+01:00" pubdate data-updated="true">Nov 4<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/11/04/rabbitmq-ne-marche-pas-avec-mac-os/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -131,6 +133,8 @@
 
 
 <time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/10/21/le-logger-ruby-avec-son-bloc/#disqus_thread">Comments</a>
         
       </p>
     
@@ -185,6 +189,8 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
 
 
 <time datetime="2009-10-04T00:00:00+02:00" pubdate data-updated="true">Oct 4<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/10/04/pourquoi-rspec-au-lieu-de-test-unit/#disqus_thread">Comments</a>
         
       </p>
     
@@ -253,6 +259,8 @@ Rspec dispose d&#8217;une possibilité sous estimés, les tests partagés. En ef
 
 <time datetime="2009-09-17T00:00:00+02:00" pubdate data-updated="true">Sep 17<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/09/17/losdc-fr-2009-jy-serais/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -295,6 +303,8 @@ retrouver.</p>
 
 
 <time datetime="2009-08-08T00:00:00+02:00" pubdate data-updated="true">Aug 8<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/08/08/open-notification-v0-1-0-est-sortie/#disqus_thread">Comments</a>
         
       </p>
     
@@ -351,6 +361,8 @@ La méthode de déploiement est assez compliqué je l&#8217;avoue car il n&#8217
 
 
 <time datetime="2009-07-24T00:00:00+02:00" pubdate data-updated="true">Jul 24<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/07/24/dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl/#disqus_thread">Comments</a>
         
       </p>
     
@@ -438,6 +450,8 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
 
 <time datetime="2009-06-14T00:00:00+02:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/06/14/observer-vs-callback/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -492,6 +506,8 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
 
 
 <time datetime="2009-05-24T00:00:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/05/24/cucumber-0-3-4-et-merb-la-dure-cohabitation/#disqus_thread">Comments</a>
         
       </p>
     
@@ -558,6 +574,8 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
 
 <time datetime="2009-03-10T00:00:00+01:00" pubdate data-updated="true">Mar 10<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/03/10/watchman-en-alpha-par-jtek/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -594,6 +612,8 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
 
 
 <time datetime="2009-03-09T00:00:00+01:00" pubdate data-updated="true">Mar 9<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/03/09/railscampparis-2-jy-etais-et-cetait-sympa/#disqus_thread">Comments</a>
         
       </p>
     
@@ -663,6 +683,35 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -681,7 +730,29 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

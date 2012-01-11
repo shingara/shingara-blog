@@ -88,6 +88,8 @@
 
 <time datetime="2010-05-19T00:00:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2010</time>
         
+         | <a href="/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -134,6 +136,8 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
 
 
 <time datetime="2010-03-27T00:00:00+01:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+         | <a href="/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/#disqus_thread">Comments</a>
         
       </p>
     
@@ -253,6 +257,8 @@ de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utili
 
 
 <time datetime="2010-03-15T00:00:00+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2010</time>
+        
+         | <a href="/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/#disqus_thread">Comments</a>
         
       </p>
     
@@ -382,6 +388,8 @@ after &#8220;deploy:symlink&#8221;, :update_db
 
 <time datetime="2010-01-27T00:00:00+01:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
         
+         | <a href="/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -459,6 +467,8 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
 
 <time datetime="2010-01-23T00:00:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2010</time>
         
+         | <a href="/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -525,6 +535,8 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
 
 
 <time datetime="2009-12-21T00:00:00+01:00" pubdate data-updated="true">Dec 21<span>st</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/12/21/sortie-de-typo-5-4-0/#disqus_thread">Comments</a>
         
       </p>
     
@@ -637,6 +649,8 @@ after &#8220;deploy:start&#8221;, :clear_cache
 
 <time datetime="2009-12-01T00:00:00+01:00" pubdate data-updated="true">Dec 1<span>st</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/12/01/sortie-de-oupsnow-0-4-0/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -688,6 +702,8 @@ after &#8220;deploy:start&#8221;, :clear_cache
 
 <time datetime="2009-11-30T00:00:00+01:00" pubdate data-updated="true">Nov 30<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/11/30/comment-tester-devise-reelement/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -725,6 +741,8 @@ after &#8220;deploy:start&#8221;, :clear_cache
 
 
 <time datetime="2009-11-19T00:00:00+01:00" pubdate data-updated="true">Nov 19<span>th</span>, 2009</time>
+        
+         | <a href="/shingara-blog/blog/2009/11/19/devise-cest-bien-mais-il-faut-le-tester/#disqus_thread">Comments</a>
         
       </p>
     
@@ -813,6 +831,8 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
 
 <time datetime="2009-11-18T00:00:00+01:00" pubdate data-updated="true">Nov 18<span>th</span>, 2009</time>
         
+         | <a href="/shingara-blog/blog/2009/11/18/oupsnow-de-merb-i-rails/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -893,6 +913,35 @@ bienvenue.</p>
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -911,7 +960,29 @@ bienvenue.</p>
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

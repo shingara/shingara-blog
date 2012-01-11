@@ -88,6 +88,8 @@
 
 <time datetime="2007-02-09T00:00:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/02/09/gwn-du-27-novembre-2006/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -138,6 +140,8 @@
 
 <time datetime="2007-02-06T00:00:00+01:00" pubdate data-updated="true">Feb 6<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/02/06/plugin-irssi-highlight_sound/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -181,6 +185,8 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
 
 
 <time datetime="2007-02-01T00:00:00+01:00" pubdate data-updated="true">Feb 1<span>st</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/02/01/retour-a%CC%80-gentoo/#disqus_thread">Comments</a>
         
       </p>
     
@@ -230,6 +236,8 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
 
 <time datetime="2007-01-25T00:00:00+01:00" pubdate data-updated="true">Jan 25<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/01/25/de%CC%81sactiver-le-beep-syste%CC%80me-dans-son-noyau-linux/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -273,6 +281,8 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
 
 
 <time datetime="2007-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/01/21/java-6-sur-debian/#disqus_thread">Comments</a>
         
       </p>
     
@@ -325,6 +335,8 @@ Sinon je rappelle que sun a voulu que Java soit compatible de façon ascendante.
 
 
 <time datetime="2007-01-16T00:00:00+01:00" pubdate data-updated="true">Jan 16<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/01/16/hibernate-et-les-mappings/#disqus_thread">Comments</a>
         
       </p>
     
@@ -430,6 +442,8 @@ Donc si vous avez une idée sur la meilleur solution à employer et aussi commen
 
 <time datetime="2007-01-02T00:00:00+01:00" pubdate data-updated="true">Jan 2<span>nd</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/01/02/ladaptation-par-le-python/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -467,6 +481,8 @@ J&#8217;ai trouvé avec le <a href="http://uname.tuxaco.net/">blog de Jadawin</a
 
 
 <time datetime="2006-12-21T00:00:00+01:00" pubdate data-updated="true">Dec 21<span>st</span>, 2006</time>
+        
+         | <a href="/shingara-blog/blog/2006/12/21/diffe%CC%81rence-entre-netbeans-et-eclipse-episode-2/#disqus_thread">Comments</a>
         
       </p>
     
@@ -509,6 +525,8 @@ Ce qui m&#8217;amène au problème que je ressens avec Eclipse et son support SV
 
 
 <time datetime="2006-12-20T00:00:00+01:00" pubdate data-updated="true">Dec 20<span>th</span>, 2006</time>
+        
+         | <a href="/shingara-blog/blog/2006/12/20/netbeans-et-eclipse-pour-du-j2ee/#disqus_thread">Comments</a>
         
       </p>
     
@@ -563,6 +581,8 @@ En tout cas après une soirée de tentative de mise en place d&#8217;un projet J
 
 
 <time datetime="2006-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2006</time>
+        
+         | <a href="/shingara-blog/blog/2006/12/15/et-si-rails-e%CC%81tait-si-ge%CC%81nial/#disqus_thread">Comments</a>
         
       </p>
     
@@ -620,6 +640,35 @@ En tout cas après une soirée de tentative de mise en place d&#8217;un projet J
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -638,7 +687,29 @@ En tout cas après une soirée de tentative de mise en place d&#8217;un projet J
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

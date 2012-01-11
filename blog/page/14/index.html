@@ -88,6 +88,8 @@
 
 <time datetime="2007-03-29T00:00:00+02:00" pubdate data-updated="true">Mar 29<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/03/29/premier-patch-sur-un-projet-libre/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -125,6 +127,8 @@
 
 
 <time datetime="2007-03-22T00:00:00+01:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/03/22/sortie-de-whois-0-3-0/#disqus_thread">Comments</a>
         
       </p>
     
@@ -170,6 +174,8 @@
 
 <time datetime="2007-03-20T00:00:00+01:00" pubdate data-updated="true">Mar 20<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/03/20/ssh-et-le-host-deny/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -205,6 +211,8 @@
 
 
 <time datetime="2007-03-20T00:00:00+01:00" pubdate data-updated="true">Mar 20<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/03/20/sortie-de-whois-0-2-0/#disqus_thread">Comments</a>
         
       </p>
     
@@ -243,6 +251,8 @@
 
 
 <time datetime="2007-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/03/18/pizza-on-rails-premie%CC%80re-a%CC%80-lille/#disqus_thread">Comments</a>
         
       </p>
     
@@ -287,6 +297,8 @@
 
 
 <time datetime="2007-03-07T00:00:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/03/07/technique-de-controleurs-entre-hibernate-et-struts/#disqus_thread">Comments</a>
         
       </p>
     
@@ -416,6 +428,8 @@ le nécessaire et éviter ainsi le superflu.
 
 <time datetime="2007-03-07T00:00:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/03/07/rubyforge-accepte-mon-whois/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -453,6 +467,8 @@ le nécessaire et éviter ainsi le superflu.
 
 
 <time datetime="2007-02-18T00:00:00+01:00" pubdate data-updated="true">Feb 18<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/02/18/traduction-des-gwn-du-11-18-et-25-de%CC%81cembre-2006-et-du-1-et-8-janvier-2007/#disqus_thread">Comments</a>
         
       </p>
     
@@ -559,6 +575,8 @@ La traduction est disponible <a href="http://www.gentoo.org/news/fr/gwn/20070108
 
 <time datetime="2007-02-12T00:00:00+01:00" pubdate data-updated="true">Feb 12<span>th</span>, 2007</time>
         
+         | <a href="/shingara-blog/blog/2007/02/12/traduction-de-la-gentoo-weekly-news-du-4-de%CC%81cembre-2006/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -606,6 +624,8 @@ La traduction est disponible <a href="http://www.gentoo.org/news/fr/gwn/20070108
 
 
 <time datetime="2007-02-10T00:00:00+01:00" pubdate data-updated="true">Feb 10<span>th</span>, 2007</time>
+        
+         | <a href="/shingara-blog/blog/2007/02/10/highlight_sound-a-sa-propre-page/#disqus_thread">Comments</a>
         
       </p>
     
@@ -661,6 +681,35 @@ La traduction est disponible <a href="http://www.gentoo.org/news/fr/gwn/20070108
   </ul>
 </section>
 
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/shingara-blog/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -679,7 +728,29 @@ La traduction est disponible <a href="http://www.gentoo.org/news/fr/gwn/20070108
 </footer>
   
 
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 
 
