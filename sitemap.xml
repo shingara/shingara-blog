@@ -1,1007 +1,883 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/05/26/mon-premier-script-perl/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/mon-premier-script-perl.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/06/07/la-difference-entre-linformatique-materiel-et-logiciel/
+            http://shingara.github.com/shingara-blog/la-difference-entre-linformatique-materiel-et-logiciel.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/07/08/login-magazine-et-leurs-boulettes/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/login-magazine-et-leurs-boulettes.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2005/07/12/debian-et-udev/</loc>
+        <loc>http://shingara.github.com/shingara-blog/debian-et-udev.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/07/13/lamabilite%CC%81-des-de%CC%81veloppeurs-debian/
+            http://shingara.github.com/shingara-blog/lamabilite%CC%81-des-de%CC%81veloppeurs-debian.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/08/03/release-de-gestshin-0-1/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/release-de-gestshin-0-1.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/10/04/le-retour-a%CC%80-gentoo/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/le-retour-a%CC%80-gentoo.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2005/10/28/recherche-de-projet-java/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/recherche-de-projet-java.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/02/24/setopaque-true-or-false/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/setopaque-true-or-false.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/03/09/installation-java-sdk-1-5-sous-debian-en-manuelle/
+            http://shingara.github.com/shingara-blog/installation-java-sdk-1-5-sous-debian-en-manuelle.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/03/10/installation-plugin-java-1-5-sur-firefox/
+            http://shingara.github.com/shingara-blog/installation-plugin-java-1-5-sur-firefox.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/04/01/fluxbox-fsetbg-et-debian/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/fluxbox-fsetbg-et-debian.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/05/08/telecharger-les-informations-de-france-2/
+            http://shingara.github.com/shingara-blog/telecharger-les-informations-de-france-2.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/05/10/template-python-pour-vim/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/template-python-pour-vim.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/05/17/xorg-7-et-les-accents-sur-un-clavier-us-qwerty/
+            http://shingara.github.com/shingara-blog/xorg-7-et-les-accents-sur-un-clavier-us-qwerty.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2006/07/09/ecriture-dun-article/</loc>
+        <loc>http://shingara.github.com/shingara-blog/ecriture-dun-article.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/08/11/astuce-mplayer-comment-chercher-et-de%CC%81finir-une-langue-en-lisant-un-dvd-avec-mplayer/
+            http://shingara.github.com/shingara-blog/astuce-mplayer-comment-chercher-et-de%CC%81finir-une-langue-en-lisant-un-dvd-avec-mplayer.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2006/09/01/nouvel-ordinateur/</loc>
+        <loc>http://shingara.github.com/shingara-blog/nouvel-ordinateur.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/09/04/subversion-et-le-svn-ignore/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/subversion-et-le-svn-ignore.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2006/09/09/merci-marco-ditri/</loc>
+        <loc>http://shingara.github.com/shingara-blog/merci-marco-ditri.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/10/07/plugin-sound-pl-de-weechat/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/plugin-sound-pl-de-weechat.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/11/07/html2latex-et-ses-options-miracles/
+            http://shingara.github.com/shingara-blog/html2latex-et-ses-options-miracles.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/12/08/schemaspy-aide-les-de%CC%81veloppeurs/
+            http://shingara.github.com/shingara-blog/schemaspy-aide-les-de%CC%81veloppeurs.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/12/15/et-si-rails-e%CC%81tait-si-ge%CC%81nial/
+            http://shingara.github.com/shingara-blog/et-si-rails-e%CC%81tait-si-ge%CC%81nial.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/12/20/netbeans-et-eclipse-pour-du-j2ee/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/netbeans-et-eclipse-pour-du-j2ee.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2006/12/21/diffe%CC%81rence-entre-netbeans-et-eclipse-episode-2/
+            http://shingara.github.com/shingara-blog/diffe%CC%81rence-entre-netbeans-et-eclipse-episode-2.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/01/02/ladaptation-par-le-python/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/ladaptation-par-le-python.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/01/16/hibernate-et-les-mappings/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/hibernate-et-les-mappings.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/01/21/java-6-sur-debian/</loc>
+        <loc>http://shingara.github.com/shingara-blog/java-6-sur-debian.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/01/25/de%CC%81sactiver-le-beep-syste%CC%80me-dans-son-noyau-linux/
+            http://shingara.github.com/shingara-blog/de%CC%81sactiver-le-beep-syste%CC%80me-dans-son-noyau-linux.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/02/01/retour-a%CC%80-gentoo/</loc>
+        <loc>http://shingara.github.com/shingara-blog/retour-a%CC%80-gentoo.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/02/06/plugin-irssi-highlight_sound/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/plugin-irssi-highlight_sound.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/02/09/gwn-du-27-novembre-2006/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/gwn-du-27-novembre-2006.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/02/10/highlight_sound-a-sa-propre-page/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/highlight_sound-a-sa-propre-page.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/02/12/traduction-de-la-gentoo-weekly-news-du-4-de%CC%81cembre-2006/
+            http://shingara.github.com/shingara-blog/traduction-de-la-gentoo-weekly-news-du-4-de%CC%81cembre-2006.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/02/18/traduction-des-gwn-du-11-18-et-25-de%CC%81cembre-2006-et-du-1-et-8-janvier-2007/
+            http://shingara.github.com/shingara-blog/traduction-des-gwn-du-11-18-et-25-de%CC%81cembre-2006-et-du-1-et-8-janvier-2007.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/03/07/rubyforge-accepte-mon-whois/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/rubyforge-accepte-mon-whois.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/03/07/technique-de-controleurs-entre-hibernate-et-struts/
+            http://shingara.github.com/shingara-blog/technique-de-controleurs-entre-hibernate-et-struts.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/03/18/pizza-on-rails-premie%CC%80re-a%CC%80-lille/
+            http://shingara.github.com/shingara-blog/pizza-on-rails-premie%CC%80re-a%CC%80-lille.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/03/20/sortie-de-whois-0-2-0/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-whois-0-2-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/03/20/ssh-et-le-host-deny/</loc>
+        <loc>http://shingara.github.com/shingara-blog/ssh-et-le-host-deny.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/03/22/sortie-de-whois-0-3-0/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-whois-0-3-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/03/29/premier-patch-sur-un-projet-libre/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/premier-patch-sur-un-projet-libre.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/04/26/ruby-a-t-il-un-bug-sur-ipaddr/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/ruby-a-t-il-un-bug-sur-ipaddr.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/04/29/sortie-de-whois-0-4-0/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-whois-0-4-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/05/26/ruby-nest-pas-bugge%CC%81-cest-moi/
+            http://shingara.github.com/shingara-blog/ruby-nest-pas-bugge%CC%81-cest-moi.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/06/08/compter-avec-rails/</loc>
+        <loc>http://shingara.github.com/shingara-blog/compter-avec-rails.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/06/11/la-pagination-de-rails-supprime%CC%81e/
+            http://shingara.github.com/shingara-blog/la-pagination-de-rails-supprime%CC%81e.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/06/13/each-vs-for/</loc>
+        <loc>http://shingara.github.com/shingara-blog/each-vs-for.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/06/15/ajouter-des-headers-http-dans-ses-re%CC%81ponses-rails/
+            http://shingara.github.com/shingara-blog/ajouter-des-headers-http-dans-ses-re%CC%81ponses-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/06/29/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes/
+            http://shingara.github.com/shingara-blog/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/06/29/utiliser-un-screen-dans-un-screen/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/utiliser-un-screen-dans-un-screen.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/03/sortie-unique-de-rails-computer-checker-en-version-0-1-0/
+            http://shingara.github.com/shingara-blog/sortie-unique-de-rails-computer-checker-en-version-0-1-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/05/et-pourquoi-pas-avec-around_filter/
+            http://shingara.github.com/shingara-blog/et-pourquoi-pas-avec-around_filter.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/05/faire-un-profil-dune-me%CC%81thode-de-controller-rails/
+            http://shingara.github.com/shingara-blog/faire-un-profil-dune-me%CC%81thode-de-controller-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/17/nouveau-converter-de-dotclear-vers-typo/
+            http://shingara.github.com/shingara-blog/nouveau-converter-de-dotclear-vers-typo.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/20/les-nouveaute%CC%81s-de-capistrano-2/
+            http://shingara.github.com/shingara-blog/les-nouveaute%CC%81s-de-capistrano-2.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/21/trouver-lurl-du-player-de-la-webradio-rfm/
+            http://shingara.github.com/shingara-blog/trouver-lurl-du-player-de-la-webradio-rfm.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/07/23/sortie-de-capistrano-2-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-capistrano-2-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/08/22/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option/
+            http://shingara.github.com/shingara-blog/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/08/28/qt4-pour-ruby-sous-windows/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/qt4-pour-ruby-sous-windows.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/08/31/pas-de-chance-avec-weechat/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/pas-de-chance-avec-weechat.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/06/lister-un-re%CC%81pertoire-avec-nginx/
+            http://shingara.github.com/shingara-blog/lister-un-re%CC%81pertoire-avec-nginx.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/14/replacehtml-plus-rapide-que-innerhtml/
+            http://shingara.github.com/shingara-blog/replacehtml-plus-rapide-que-innerhtml.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/14/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81/
+            http://shingara.github.com/shingara-blog/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/25/une-bonne-ame%CC%81lioration-pour-firefox-3/
+            http://shingara.github.com/shingara-blog/une-bonne-ame%CC%81lioration-pour-firefox-3.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/27/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse/
+            http://shingara.github.com/shingara-blog/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/27/un-nouveau-logger-dans-rails-edge/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/un-nouveau-logger-dans-rails-edge.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/28/deployer-un-blog-typo-grace-a-capistrano2/
+            http://shingara.github.com/shingara-blog/deployer-un-blog-typo-grace-a-capistrano2.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/29/un-script-pour-tester-votre-application-pour-rails-2-0/
+            http://shingara.github.com/shingara-blog/un-script-pour-tester-votre-application-pour-rails-2-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/09/30/script-generate-directement-dans-svn/
+            http://shingara.github.com/shingara-blog/script-generate-directement-dans-svn.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/01/creer-une-authentification-http-avec-nginx/
+            http://shingara.github.com/shingara-blog/creer-une-authentification-http-avec-nginx.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/01/rails-2-0-preview-release-est-sortie/
+            http://shingara.github.com/shingara-blog/rails-2-0-preview-release-est-sortie.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/02/rails-2-0-erreur-a-eviter/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/rails-2-0-erreur-a-eviter.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/04/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0/
+            http://shingara.github.com/shingara-blog/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/09/technique-de-mise-en-maintenance-avec-rails-et-nginx/
+            http://shingara.github.com/shingara-blog/technique-de-mise-en-maintenance-avec-rails-et-nginx.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/16/with_scope-passe-en-protected-dans-rails-2-0/
+            http://shingara.github.com/shingara-blog/with_scope-passe-en-protected-dans-rails-2-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/17/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0/
+            http://shingara.github.com/shingara-blog/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/29/mise-a-jour-de-pam-dans-gentoo/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/mise-a-jour-de-pam-dans-gentoo.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/10/30/bienvenue-au-nouveau-logo-de-ruby/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/bienvenue-au-nouveau-logo-de-ruby.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/11/09/redmine-0-6-est-sortie/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/redmine-0-6-est-sortie.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/11/14/mise-a-jour-de-ma-platforme-de-dev-sous-redmine-0-6-0/
+            http://shingara.github.com/shingara-blog/mise-a-jour-de-ma-platforme-de-dev-sous-redmine-0-6-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/11/22/sortie-de-whotowho-0-1-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-whotowho-0-1-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2007/11/23/sortie-de-whois-0-4-1/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-whois-0-4-1.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/11/25/quel-avenir-pour-les-applications-web-libres/
+            http://shingara.github.com/shingara-blog/quel-avenir-pour-les-applications-web-libres.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/11/27/ar-backup-cool-et-patche/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/ar-backup-cool-et-patche.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2007/12/18/hoe-laide-de-diffusion-de-gem-sur-rubyforge/
+            http://shingara.github.com/shingara-blog/hoe-laide-de-diffusion-de-gem-sur-rubyforge.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/06/moins-de-log-pour-actionmailer-et-un-compte-gmail/
+            http://shingara.github.com/shingara-blog/moins-de-log-pour-actionmailer-et-un-compte-gmail.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/06/whotowho-0-2-0-est-sortie/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/whotowho-0-2-0-est-sortie.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/08/desactiver-les-contraintes-d-integrites-sous-rails-2-0/
+            http://shingara.github.com/shingara-blog/desactiver-les-contraintes-d-integrites-sous-rails-2-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/11/migration-vers-typo-5-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/migration-vers-typo-5-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/21/rubinius-a-fond-sur-la-communaute-et-les-commiters/
+            http://shingara.github.com/shingara-blog/rubinius-a-fond-sur-la-communaute-et-les-commiters.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/01/27/pictrails-0-1-0-sortie-pour-une-premiere-alpha/
+            http://shingara.github.com/shingara-blog/pictrails-0-1-0-sortie-pour-une-premiere-alpha.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/02/26/quand-la-vue-modifie-son-layout/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/quand-la-vue-modifie-son-layout.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/02/27/thin-le-buzz-qui-se-justifie/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/thin-le-buzz-qui-se-justifie.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/03/08/git-submodule-presque-le-svn-externals-de-git/
+            http://shingara.github.com/shingara-blog/git-submodule-presque-le-svn-externals-de-git.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/03/13/mise-a-jour-des-options-dattachment_fu-dans-un-model/
+            http://shingara.github.com/shingara-blog/mise-a-jour-des-options-dattachment_fu-dans-un-model.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/03/18/pictrails-0-2-2-released/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/pictrails-0-2-2-released.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/03/23/yoolink-sidebar-pour-typo/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/yoolink-sidebar-pour-typo.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/03/et-si-on-ecrivait-une-histoire-a-rails/
+            http://shingara.github.com/shingara-blog/et-si-on-ecrivait-une-histoire-a-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/06/gestion-des-dependances-des-gems-directement-dans-rails/
+            http://shingara.github.com/shingara-blog/gestion-des-dependances-des-gems-directement-dans-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/07/loader-toutes-les-fixtures-avec-les-story-de-rspec/
+            http://shingara.github.com/shingara-blog/loader-toutes-les-fixtures-avec-les-story-de-rspec.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/18/activer-la-capture-du-son-sous-linux-pour-xvidcap/
+            http://shingara.github.com/shingara-blog/activer-la-capture-du-son-sous-linux-pour-xvidcap.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/18/suivi-des-evolutions-des-objets-model/
+            http://shingara.github.com/shingara-blog/suivi-des-evolutions-des-objets-model.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/22/screencast-francais-sur-la-realisation-dune-application-rails/
+            http://shingara.github.com/shingara-blog/screencast-francais-sur-la-realisation-dune-application-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/23/migration-basee-sur-lheure-utc-et-plus-incremental/
+            http://shingara.github.com/shingara-blog/migration-basee-sur-lheure-utc-et-plus-incremental.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/24/vivre-avec-rails-edge-17/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-17.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/25/screencast-de-presentation-rails/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/screencast-de-presentation-rails.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/04/29/vivre-avec-rails-edge-18/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-18.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/05/05/vivre-avec-rails-edge-19/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-19.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/05/13/vivre-avec-rails-edge-20/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-20.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/05/21/vivre-avec-rails-edge-21/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-21.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/05/26/vivre-avec-rails-edge-22/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/vivre-avec-rails-edge-22.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/13/ou-compiler-ses-fichiers-c-issue-de-rubyinline/
+            http://shingara.github.com/shingara-blog/ou-compiler-ses-fichiers-c-issue-de-rubyinline.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/14/avoir-le-plugin-java-pour-firefox-sur-debian-amd64/
+            http://shingara.github.com/shingara-blog/avoir-le-plugin-java-pour-firefox-sur-debian-amd64.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/15/publication-de-pictrails-0-3-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/publication-de-pictrails-0-3-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/17/le-piege-des-routes-a-eviter/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/le-piege-des-routes-a-eviter.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/27/afficher-les-log-sql-avec-merb-et-datamapper/
+            http://shingara.github.com/shingara-blog/afficher-les-log-sql-avec-merb-et-datamapper.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances/
+            http://shingara.github.com/shingara-blog/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/28/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes/
+            http://shingara.github.com/shingara-blog/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/06/29/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-2-amelioration-des-performances/
+            http://shingara.github.com/shingara-blog/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-2-amelioration-des-performances.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/07/22/upgrade-de-typo-en-Typo-5-1-1/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/upgrade-de-typo-en-Typo-5-1-1.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/08/04/sortie-de-pictrails-0-4-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-pictrails-0-4-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/08/04/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-3/
+            http://shingara.github.com/shingara-blog/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-3.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/08/13/travailler-avec-rails-fait-trouver-des-bugs/
+            http://shingara.github.com/shingara-blog/travailler-avec-rails-fait-trouver-des-bugs.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur/
+            http://shingara.github.com/shingara-blog/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/08/29/Le-rubyFlow-FR-disponible/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/Le-rubyFlow-FR-disponible.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/01/migration-sur-typo-5-1-3-et-mise-a-jours-du-script-capistrano/
+            http://shingara.github.com/shingara-blog/migration-sur-typo-5-1-3-et-mise-a-jours-du-script-capistrano.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/02/et-si-jecrivais-aussi-un-peu-en-anglais/
+            http://shingara.github.com/shingara-blog/et-si-jecrivais-aussi-un-peu-en-anglais.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/03/profiler-une-requete-rails/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/profiler-une-requete-rails.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-connection-pools/
+            http://shingara.github.com/shingara-blog/quelles-nouvelles-dans-rails-edge-connection-pools.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails/
+            http://shingara.github.com/shingara-blog/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/09/08/quelles-nouvelles-dans-rails-edge-les-shallow-routes/
+            http://shingara.github.com/shingara-blog/quelles-nouvelles-dans-rails-edge-les-shallow-routes.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/10/04/sortie-de-pictrails-0-5-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-pictrails-0-5-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/03/activer-un-compte-redmine-par-la-console-rails/
+            http://shingara.github.com/shingara-blog/activer-un-compte-redmine-par-la-console-rails.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/04/supprimer-tous-les-messages-danonyme-du-forum-redmine/
+            http://shingara.github.com/shingara-blog/supprimer-tous-les-messages-danonyme-du-forum-redmine.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/18/sortie-de-pictrails-0-6-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-pictrails-0-6-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/21/la-before-paris-on-rails-cest-la-rails-party-le-30-novembre-2008/
+            http://shingara.github.com/shingara-blog/la-before-paris-on-rails-cest-la-rails-party-le-30-novembre-2008.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/30/je-suis-devenu-contributeur-rails/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/je-suis-devenu-contributeur-rails.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/11/30/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root/
+            http://shingara.github.com/shingara-blog/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/02/la-rails-party-fini-voici-les-slides/
+            http://shingara.github.com/shingara-blog/la-rails-party-fini-voici-les-slides.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/02/lupcase-daccent-cest-possible-avec-activesupport/
+            http://shingara.github.com/shingara-blog/lupcase-daccent-cest-possible-avec-activesupport.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/02/ma-technique-pour-suivre-twitter/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/ma-technique-pour-suivre-twitter.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/03/les-named_scope-en-pratique-sur-une-recherche/
+            http://shingara.github.com/shingara-blog/les-named_scope-en-pratique-sur-une-recherche.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/20/envoyer-un-email-dans-un-model-datamapper/
+            http://shingara.github.com/shingara-blog/envoyer-un-email-dans-un-model-datamapper.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/24/le-noel-de-la-fusion-entre-merb-et-rails-quen-penser/
+            http://shingara.github.com/shingara-blog/le-noel-de-la-fusion-entre-merb-et-rails-quen-penser.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/26/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file/
+            http://shingara.github.com/shingara-blog/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2008/12/31/dev-shingara-fr-mis-i-jour-avec-redmine-0-8/
+            http://shingara.github.com/shingara-blog/dev-shingara-fr-mis-i-jour-avec-redmine-0-8.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/01/18/gestion-des-dependances-avec-merb/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/gestion-des-dependances-avec-merb.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2009/01/19/les-merb-pretty-url/</loc>
+        <loc>http://shingara.github.com/shingara-blog/les-merb-pretty-url.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/01/21/sortie-de-la-premiere-version-de-oupsnow-0-1-0/
+            http://shingara.github.com/shingara-blog/sortie-de-la-premiere-version-de-oupsnow-0-1-0.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2009/01/25/sortie-de-typo-5-2/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-typo-5-2.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/02/10/sortie-de-oupsnow-0-2-0-avec-mise-en-production/
+            http://shingara.github.com/shingara-blog/sortie-de-oupsnow-0-2-0-avec-mise-en-production.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/03/09/railscampparis-2-jy-etais-et-cetait-sympa/
+            http://shingara.github.com/shingara-blog/railscampparis-2-jy-etais-et-cetait-sympa.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/03/10/watchman-en-alpha-par-jtek/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/watchman-en-alpha-par-jtek.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/05/24/cucumber-0-3-4-et-merb-la-dure-cohabitation/
+            http://shingara.github.com/shingara-blog/cucumber-0-3-4-et-merb-la-dure-cohabitation.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2009/06/14/observer-vs-callback/</loc>
+        <loc>http://shingara.github.com/shingara-blog/observer-vs-callback.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/07/24/dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl/
+            http://shingara.github.com/shingara-blog/dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/08/08/open-notification-v0-1-0-est-sortie/
+            http://shingara.github.com/shingara-blog/open-notification-v0-1-0-est-sortie.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/09/17/losdc-fr-2009-jy-serais/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/losdc-fr-2009-jy-serais.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/10/04/pourquoi-rspec-au-lieu-de-test-unit/
+            http://shingara.github.com/shingara-blog/pourquoi-rspec-au-lieu-de-test-unit.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/10/21/le-logger-ruby-avec-son-bloc/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/le-logger-ruby-avec-son-bloc.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/11/04/rabbitmq-ne-marche-pas-avec-mac-os/
+            http://shingara.github.com/shingara-blog/rabbitmq-ne-marche-pas-avec-mac-os.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/11/18/oupsnow-de-merb-i-rails/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/oupsnow-de-merb-i-rails.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/11/19/devise-cest-bien-mais-il-faut-le-tester/
+            http://shingara.github.com/shingara-blog/devise-cest-bien-mais-il-faut-le-tester.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/11/30/comment-tester-devise-reelement/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/comment-tester-devise-reelement.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2009/12/01/sortie-de-oupsnow-0-4-0/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-oupsnow-0-4-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>http://shingara.github.com/shingara-blog/blog/2009/12/21/sortie-de-typo-5-4-0/</loc>
+        <loc>http://shingara.github.com/shingara-blog/sortie-de-typo-5-4-0.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2010/01/23/que-cherche-un-developpeur-dans-une-offre-demploi/
+            http://shingara.github.com/shingara-blog/que-cherche-un-developpeur-dans-une-offre-demploi.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2010/01/27/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web/
+            http://shingara.github.com/shingara-blog/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2010/03/15/oupsnow-0-5-0-est-sortie/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/oupsnow-0-5-0-est-sortie.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
         <loc>
-            http://shingara.github.com/shingara-blog/blog/2010/03/27/periodictimer-de-eventmachine-le-cron-simplifie/
+            http://shingara.github.com/shingara-blog/periodictimer-de-eventmachine-le-cron-simplifie.html
         </loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>
-        <loc>
-            http://shingara.github.com/shingara-blog/blog/2010/05/19/une-journee-dediee-i-mongodb/
-        </loc>
+        <loc>http://shingara.github.com/shingara-blog/une-journee-dediee-i-mongodb.html</loc>
         <lastmod>2012-01-11T11:28:28+01:00</lastmod>
     </url>
     <url>

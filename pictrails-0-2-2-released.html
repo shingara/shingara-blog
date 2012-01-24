@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Pictrails 0.2.2 released - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Ça y est, un peu moins de 2 mois après la sortie de pictrails 0.1.0, voici la version 0.2.2 de Pictrails. Cette version est cette fois ci considéré &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/pictrails-0-2-2-released.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Pictrails 0.2.2 Released</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ça y est, un peu moins de 2 mois après la sortie de <a href="http://blog.shingara.fr/articles/2008/01/27/pictrails-0-1-0-sortie-pour-une-premiere-alpha">pictrails 0.1.0</a>, voici la version 0.2.2 de <a href="http://pictrails.rubyforge.org/">Pictrails</a>. Cette version est cette fois ci considéré comme une version Beta. Je pense qu&#8217;il y en aura ainsi beaucoup car la liste des fonctionnalités de Pictrails ne cesse d&#8217;augmenter comme vous pouvez le constater sur <a href="http://dev.shingara.fr/projects/roadmap/3">la roadmap</a> que je tiens à jour régulièrement en l&#8217;agrémentant de toutes idées et remarques que l&#8217;on peux me faire.</p>
+
+<p>
+Cette version 0.2.x a déjà eu deux releases avant que je ne l&#8217;annonce ici, suite a des découvertes de bugs que je considérais comme majeur. Que ce soit pour la suppression du cache qui ne se faisait pas forcement quand il le fallait ou pour une condition de requête non générique. Je viens même de redécouvrir encore un bug dans une suppression de cache. Je vais donc encore hélas releaser une version 0.2.3. J&#8217;en suis vraiment désolé. Ça prouve en tout cas la nécessité absolu de faire plus de test d&#8217;intégration, qui vérifie les suppressions de cache. Je vais réaliser ces tâches directement en <a href="http://rspec.info/documentation/stories.html">Stories</a> de <a href="http://rspec.info/">Rspec</a>. j&#8217;en parlerais ainsi plus profondément dans un futur article je pense.
+</p>
+
+<p>Au sujet des fonctionnalités apportés par la release 0.2.x, vous pouvez voir :</p>
+
+<ul>
+<li>Utilisation massive du système de cache sur toute la partie public pour ainsi avoir les meilleures performances possible (ce qui a entraîné les erreurs que j&#8217;ai soulignés et les nombreuses releases).</li>
+<li>Refontes graphique complète de la partie d&#8217;administration. Si vous utilisez <a href="http://typosphere.org">Typo 5.0.x</a>, vous verrez facilement l&#8217;inspiration que j&#8217;ai eu.</li>
+<li>Ajout de la possibilité de définir une titre et un sous-titre à la galerie dans la partie d&#8217;administration.</li>
+<li>Ajout d&#8217;un système de mass_upload à partir d&#8217;un répertoire directement présent sur le serveur. Vous indiquez l&#8217;emplacement de ce répertoire et tout les images seront intégrés dans une nouvelle galerie</li>
+<li>Ajout de la pagination dans la liste des galeries ainsi que la liste de images. Cette pagination est définissable directement dans l&#8217;administration</li>
+<li>Possibilité de définir la taille des thumbnails et des images originales qu&#8217;il y aura.</li>
+<li>Suppression de l&#8217;utilisation de splash.image. Désormais, il n&#8217;y a plus aucune ligne de javascript dans Pictrails. Il reviendra dans le futur. Je voulais une compatibilité maximum avec les utilisateurs désactivant le Javascript.</li>
+</ul>
+
+<p>
+Pour fêter cette sortie, j&#8217;ai décidé de mettre en place une version de <a href="http://pictrails.shingara.fr/">démo de pictrails</a> qui tourne actuellement sur la version 0.2.x. Vous pouvez allez l&#8217;admirer et lui faire subir tous les sévices. Pour vous logger sur <a href="http://pictrails.shingara.fr/admin">la partie d&#8217;administration</a>, les user/password sont : admin/pictrails. Un script la mettra à jours toutes les semaines pour éviter un engorgement et permettre de nouveau test. Cette version tourne derrière un serveur Nginx avec un daemon thin et une base de donnée PostGreSQL.
+</p>
+
+<p>
+Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par contre, j&#8217;ai migrer de Mercurial vers GIT. Vous pouvez bien-sur cloner le <a href="http://github.com/shingara/pictrails/tree/master">dépot pictrails</a>. Pour faire des rapports de bugs et suivre l&#8217;évolutions de ceux-ci, vous pouvez allez sur <a href="http://dev.shingara.fr/projects/show/3">la platforme de développement de pictrails</a>.
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/pictrails-0-2-2-released.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/pictrails-0-2-2-released.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/mise-a-jour-des-options-dattachment_fu-dans-un-model.html" title="Previous Post: Mise à jour des options d'attachment_fu dans un model ">&laquo; Mise à jour des options d'attachment_fu dans un model </a>
+      
+      
+        <a class="basic-alignment right" href="/yoolink-sidebar-pour-typo.html" title="next Post: Yoolink-sidebar pour Typo">Yoolink-sidebar pour Typo &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

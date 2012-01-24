@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Gestion des dépendances avec Merb - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Utilisant de plus en plus Merb sur mon temps personnel et dans mes projets open source, j&#8217;ai dû étudier un peu plus profondément le système de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/gestion-des-dependances-avec-merb.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Gestion Des Dépendances Avec Merb</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-18T00:00:00+01:00" pubdate data-updated="true">Jan 18<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Utilisant de plus en plus Merb sur mon temps personnel et dans mes projets open source, j&#8217;ai dû étudier un peu plus profondément le système de dépendances de Merb.</p>
+
+<p>Merb est par essence un framework basé sur les gems. Dans cette logique il pousse à n&#8217;utiliser que des gems et uniquement ceux ci.</p>
+
+<h1>Utilisation des gems avec Merb</h1>
+
+<p>Pour utiliser un gem avec Merb, rien de plus simple car tout est prévu pour. Que ce soit avec votre répertoire local de gem ou alors avec un freeze du gems.</p>
+
+<h2>Utilisation de votre répository gem local</h2>
+
+<p>Si vous ne voulez utiliser que cette technique, alors rien de plus simple, modifier le fichier <code>/config/dependencies.rb</code> pour indiquer les gems à charger dans votre application. Voici par exemple le fichier <code>dépendencies.rb</code> d&#8217;une application installer de frais.</p>
+
+<typo:code lang='ruby'>
+# dependencies are generated using a strict version, don&#8217;t forget to edit the dependency versions when upgrading.
+merb_gems_version = &#8220;1.0.7.1&#8221;
+dm_gems_version   = &#8220;0.9.8&#8221;
+
+# For more information about each component, please read http://wiki.merbivore.com/faqs/merb_components
+dependency &#8220;merb-action-args&#8221;, merb_gems_version
+dependency &#8220;merb-assets&#8221;, merb_gems_version  
+dependency &#8220;merb-cache&#8221;, merb_gems_version   
+dependency &#8220;merb-helpers&#8221;, merb_gems_version 
+dependency &#8220;merb-mailer&#8221;, merb_gems_version  
+dependency &#8220;merb-slices&#8221;, merb_gems_version  
+dependency &#8220;merb-auth-core&#8221;, merb_gems_version
+dependency &#8220;merb-auth-more&#8221;, merb_gems_version
+dependency &#8220;merb-auth-slice-password&#8221;, merb_gems_version
+dependency &#8220;merb-param-protection&#8221;, merb_gems_version
+dependency &#8220;merb-exceptions&#8221;, merb_gems_version
+ 
+dependency &#8220;dm-core&#8221;, dm_gems_version         
+dependency &#8220;dm-aggregates&#8221;, dm_gems_version   
+dependency &#8220;dm-migrations&#8221;, dm_gems_version   
+dependency &#8220;dm-timestamps&#8221;, dm_gems_version   
+dependency &#8220;dm-types&#8221;, dm_gems_version        
+dependency &#8220;dm-validations&#8221;, dm_gems_version  
+
+dependency &#8220;merb_datamapper&#8221;, merb_gems_version
+dependency &#8220;do_sqlite3&#8221; # If using another database, replace this
+</typo:code>
+
+<p>On y liste ainsi tous les gems de merb et Datamapper que l&#8217;on souhaite utiliser. Si on veux en utiliser de nouveau, il suffit d&#8217;en ajouter à cette liste. Vous pouvez aussi en supprimer de cette liste pour diminuer ainsi le nombre de gem chargé dans votre application.</p>
+
+<h2>Utilisation d&#8217;un repository de gems local à votre application</h2>
+
+<p>Voici un point qui différe grandement de RubyOnRails. Mais à mon sens, là encore il est beaucoup mieux conçu que Rails. En effet, l&#8217;idée est très simple. Rubygems permet de définir le dossier où se trouve vos gems. Pourquoi ce répertoire ne serait pas simplement dans votre application ?</p>
+
+<p>Pour mettre en place cette technique, il faut au préalable créer le dossier <code>/gems/</code> dans votre arborescence. Ensuite utiliser les tâches <code>thor</code> pour installer les gems que vous désirez directement dans votre nouveau répository gems. Ainsi pour installer merb-core et datamapper, il vous suffit de faire :</p>
+
+<typo:code>
+$ thor merb:gem:install merb-core dm-core
+</typo:code>
+
+<p>Une fois fait de même pour toutes vos dépendances. Vous avez freezé votre application avec tous les gems utilisés.</p>
+
+<p>Si vous utilisez un gestionnaire de source, il faudra alors n&#8217;ajouter à votre repository que le dossier /gems/cache/ en effet, ce dossier contient les <code>.gem</code> que vous utilisez. Les autre dossiers seront générés. Ensuite si quelqu&#8217;un récupére vos sources, il lui suffira de réaliser la commande <code>thor</code> de redéploiement :</p>
+
+<typo:code>
+$ thor merb:gem:redeploy
+</typo:code>
+
+<p>Tous les gems dans le dossier cache seront ainsi installé dans votre dossier gems. Là où je trouve que ce système est meilleur que celui de Rails est que si vous avez un gem avec un extension C vous pouvez le freezer avec Merb. Chose que vous ne pouvez pas faire avec Rails.</p>
+
+<h1>Mais et si je veux utiliser les versions de développement ?</h1>
+
+<p>Voici selon moi le point faible de Merb face à Rails. En effet, avec rails, rien de plus simple. On met les sources dans le dossier <code>/vendor/</code> soit <code>/gems/</code> soit <code>/plugins/</code> et roulez jeunesse, tout fonctionne sans changement. Un simple git-submodule permet de suivre l&#8217;évolution du tout. Mais Merb ne permet pas ça. Merb ne loadera que des gems et uniquement des gems.</p>
+
+<h2>Technique recommendée par la core-team</h2>
+
+<p>La technique que finalement la core-team recommende est encore une fois de se baser sur les gems. Pour cela, rien de plus simple, il suffit de créer le gem correspondant à votre version de développement, l&#8217;ajouter dans le dossier <code>gems/cache</code> et ainsi l&#8217;utiliser. Des tâches utilitaires existent pour aider à tout ça. Par exemple pour installer la version de développement de Datamapper, vous pouvez faire :</p>
+
+<typo:code>
+$ thor merb:source:install dm-core
+</typo:code>
+
+<p>Cette tâche créera un clone du repository dm-core dans votre dossier <code>/src/</code>, générera le gem et installera dans votre dossier /gem/. Vous pouvez aussi faire de même en installant les sources directement dans le dossier <code>/src/</code> et utiliser le nom de votre dossier. Ca lancera la tâche <code>rake package</code> et installera le gem généré.</p>
+
+<p>Ce que je trouve dommage avec cette technique est l&#8217;impossibilité de savoir réellement quel est la version utilisée. En effet, gem utilise un numéro de version fixe et on n&#8217;a pas forcement l&#8217;information du commit qui a généré ce gem. J&#8217;aime bien pouvoir juste en clonant un projet savoir exactement la source exact du gem que j&#8217;utilise. Donc soit sa version, soit son numéro de commit.</p>
+
+<h2>Ma technique pour permettre de contourner le problème</h2>
+
+<p>La technique que j&#8217;ai ainsi trouvé fonctionne, mais n&#8217;est hélas pas complétement optiminum. Dans mon fichier <code>config/init.rb</code>, j&#8217;ai créé une petite méthode :</p>
+
+<typo:code lang='ruby'>
+def load_from_source(src)
+  $:.unshift File.join(Merb.root, &#8220;src/#{src}/lib&#8221;)
+  require &#8220;src/#{src}/init.rb&#8221;
+end
+</typo:code>
+
+<p>Ensuite dans le callback before_app_loads, j&#8217;ai pu faire appel à ma méthode</p>
+
+<typo:code lang="ruby">
+Merb::BootLoader.before_app_loads do
+  # This will get executed after dependencies have been loaded but before your app&#8217;s classes have loaded.
+  load_from_source(&#8216;will_paginate&#8217;)
+end
+</typo:code>
+
+<p>Avec un clone du repository will_paginate dans mon dossier <code>/src/</code> will_paginate est ainsi chargé automatiquement avant le load de l&#8217;application et après le load de toutes les dépendances.</p>
+
+<p>Par contre cette technique à un gros défaut que je n&#8217;ai pas réussi à palier sauf en proposant un patch à Merb (ce que je ferais peut-être, même si Merb en tant que tel est mort :&#8217;(). En effet, on ne peux loader à partir des sources qu&#8217;après le load des <code>dependancies</code>. Si vous voulez loader au milieu des dépendances, vous ne pouvez pas. Il faudra obligatoirement passer par le système des gems.</p>
+
+<h2>Ce qu&#8217;il ne faut pas faire</h2>
+
+<p>Je vous rassure, je l&#8217;ai fait, ce qui me permet de vous dire de ne pas le faire. Ainsi, il ne faut pas ajouter le require directement dans le <code>dependencies.rb</code>. En effet, le chargement des dépendences ne se fait pas à ce moment là. Ce n&#8217;est qu&#8217;un chargement d&#8217;une liste gems à charger. Si vous faites votre require à ce moment vous pourrez ainsi vous retrouver avec des problèmes d&#8217;ordre de chargement.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-01-20-manage-your-dependencies-with-merb.html">English translation</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-18T00:00:00+01:00" pubdate data-updated="true">Jan 18<span>th</span>, 2009</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/gestion-des-dependances-avec-merb.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/gestion-des-dependances-avec-merb.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/dev-shingara-fr-mis-i-jour-avec-redmine-0-8.html" title="Previous Post: dev.shingara.fr mis à jour avec Redmine 0.8">&laquo; dev.shingara.fr mis à jour avec Redmine 0.8</a>
+      
+      
+        <a class="basic-alignment right" href="/les-merb-pretty-url.html" title="next Post: Les Merb pretty URL">Les Merb pretty URL &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Profiler une requête rails - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Pour découvrir le bug dont j&#8217;ai <a href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur"> &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/profiler-une-requete-rails.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Profiler Une Requête Rails</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T00:00:00+02:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Pour découvrir le bug dont j&#8217;ai <a 
+href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur">reporté précédement les
+effets</a>, j&#8217;ai voulu
+réaliser un profile de la requête executée. Ca devait me permettre de voir ce
+qui prenait vraiment beaucoup de temps dans l&#8217;execution de cette page.</p>
+
+<h3>Utilisation du script Request Profiler</h3>
+
+<p>Depuis Rails 2.0, un nouveau script a été ajouté,
+    <code>script/performance/request</code>. Ce script permet de réaliser un
+    profile d&#8217;une ou plusieurs requête internet.</p>
+
+<p>Pour indiquer les requêtes à executer il suffit de réaliser un petit fichier
+de script avec le même format que les tests d&#8217;intégrations. Voici un exemple
+issue du changelog de rails.</p>
+
+<typo:code lang="ruby">
+get_with_redirect &#8216;/&#8217;
+say &#8220;GET / => #{path}&#8221;
+post_with_redirect &#8216;/sessions&#8217;, :username => &#8216;john&#8217;, :password => &#8216;doe&#8217;
+say &#8220;POST /sessions => #{path}&#8221;
+</typo:code>
+
+<p>Une fois le script réalisé, il suffit de lancer la commande en définissant
+le nombre de requêtes qui seront effectuées</p>
+
+<pre>
+$ ./script/performance/request -n 10 login_session.rb
+</pre>
+
+<p>Par contre, il faut faire très attention, il n&#8217;y a aucune solution (ou tout
+        du moins à ma connaissance) pour définir les valeurs de la session. La 
+session est vierge à chaque lancement de script. Il
+faut donc réaliser la connection de login au préalable pour avoir un
+utilisateur loggé par exemple.</p>
+
+<h3>Incompatibilité Rails 2.1 et ruby-prof</h3>
+
+<p>Alors que j&#8217;avais indiqué <a 
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">l&#8217;ajout d&#8217;un nouveau script dans Rails Edge qui
+nécessitait ruby-prof 0.6.1</a>, je pensais que c&#8217;était le seul endroit qui
+nécessitait cette version de <a 
+href="http://ruby-prof.rubyforge.org/">ruby-prof</a> qui n&#8217;existe pas encore 
+(dernière version stable : 0.6.0 en téléchargement sur rubyforge). Hélas, ce
+n&#8217;est pas le cas. Depuis la version 2.1 de Rails, le script
+performance/request nécessite aussi ruby-prof 0.6.1. Mais cette version, n&#8217;est
+toujours pas encore sortie officielement. Il faut donc générer et installer ce
+gem pour arriver à avoir cette fonctionnalité. En effet, même en modifiant la
+version de ruby-prof des méthodes n&#8217;existent pas dans les versions antérieurs à
+la version 0.6.1</p>
+
+<h3>Génération et installation de ruby-prof-0.6.1</h3>
+
+<p>Il faut d&#8217;abord récupérer les sources directements à partir du svn de
+ruby-prof</p>
+
+<pre>
+svn co http://ruby-prof.rubyforge.org/svn/
+</pre>
+
+<p>Ensuite, il faut générer le gem</p>
+
+<pre>$ rake package</pre>
+
+<p>Enfin, il suffit d&#8217;installer le gem.</p>
+
+<pre># gem install pkg/ruby-prof-0.6.1.gem</pre>
+
+<p>Désormais, ruby-prof 0.6.1 est installé et vous pouvez utiliser pleinement
+le script performance/request.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-09-03-profile-a-request-in-rails.html">English translation</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T00:00:00+02:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2008</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/profiler-une-requete-rails.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/profiler-une-requete-rails.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/et-si-jecrivais-aussi-un-peu-en-anglais.html" title="Previous Post: Et si j'écrivais aussi un peu en anglais ?">&laquo; Et si j'écrivais aussi un peu en anglais ?</a>
+      
+      
+        <a class="basic-alignment right" href="/quelles-nouvelles-dans-rails-edge-connection-pools.html" title="next Post: Quelles nouvelles dans Rails Edge : Connection pools">Quelles nouvelles dans Rails Edge : Connection pools &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

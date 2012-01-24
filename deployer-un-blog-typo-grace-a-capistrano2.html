@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Deployer un blog Typo grâce à Capistrano2 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Voulant utiliser capistrano2 et mettre en place un blog Typo, j&#8217;ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/deployer-un-blog-typo-grace-a-capistrano2.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Deployer Un Blog Typo Grâce à Capistrano2</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-28T00:00:00+02:00" pubdate data-updated="true">Sep 28<span>th</span>, 2007</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Voulant utiliser <a href="http://www.capify.org/">capistrano2</a> et mettre en place un blog <a href="http://typosphere.org/">Typo</a>, j&#8217;ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici toutes les étapes que j&#8217;ai effectuées. Ce post aura ainsi un double intérêt.</p>
+
+<ul>
+<li>Expliquer comment deployer une application Typo avec Capistrano2</li>
+<li>Expliquer par l&#8217;exemple d&#8217;une utilisation de Capistrano2</li>
+</ul>
+
+<p>Pour commencer Capistrano2 est vraiment très dépendant d&#8217;un système de versionning. Dans mon cas j&#8217;ai utilisé le dépôt subversion de Typo et comme je voulais utiliser leur version 4.1, j&#8217;ai récupérer l&#8217;url suivante qui est le tag de la version 4.1:</p>
+
+<pre>
+http://svn.typosphere.org/typo/tags/release_4_1/
+</pre>
+
+<h2>Préparation de l&#8217;application à déployer</h2>
+
+<h3>Préparation en local</h3>
+
+<p>Il faut commencer d&#8217;abord par faire un checkout complet de la version que l&#8217;on désire déployer. Ca permet surtout d&#8217;avoir une sorte de miroir de la version qui sera sur le serveur et ainsi faire des modifications sur cette version pour testé et ensuite les déployer sur le serveur.</p>
+
+<p>On va maintenant commencer à créer un projet capistrano2. Pour cela, il suffit d&#8217;aller à la racine du répertoire de checkout et de lancer la commande :</p>
+
+<pre>capify</pre>
+
+<p>Grâce à cette commande le fichier <code>config/deploy.rb</code> est crée. C&#8217;est lui qui nous permettra de définir la configuration de notre application sur le serveur distant. Le fichier <code>Capfile</code> est lui aussi crée à la racine et il permet d&#8217;ajouter des tâches. Il suffit de le considérer comme une sorte de fichier de RakeFile.</p>
+
+<p>Voici ce que j&#8217;ai mis dans mon fichier deploy.rb. Bien sur, il n&#8217;y avait pas ces informations à la base</p>
+
+<pre>
+set :application, "typoblog-dev"
+set :repository,  "http://svn.typosphere.org/typo/tags/release_4_1/"
+
+# If you aren't deploying to /u/apps/#{application} on the target
+# servers (which is the default), you can specify the actual location
+# via the :deploy_to variable:
+set :deploy_to, "/var/rails/#{application}"
+
+# If you aren't using Subversion to manage your source code, specify
+# your SCM below:
+#set :scm, :subversion
+
+role :app, "shingara.fr"
+role :web, "shingara.fr"
+role :db,  "shingara.fr", :primary => true
+</pre>
+
+<p>Voici une explication de chaque champs</p>
+
+<ul>
+<li>set :application => Défini le nom de l&#8217;application qu&#8217;on va être déployé. C&#8217;est surtout utilisé pour le nom du répertoire de déploiement.</li>
+<li>set :repository => le chemin du dépôt Subversion qui sera récupéré lors du déploiement.</li>
+<li>set :deploy_to => Défini le répertoire sur le serveur distant où seront placés les sources de l&#8217;application</li>
+<li>set :scm => Le type de système de versionning qui permettra de récupérer les sources. Par défaut il s&#8217;agit de subversion.</li>
+<li>role :xxx => permet de définir les serveur où seront chaque rôle. serveur web, mysql et fichier. Dans mon cas il s&#8217;agit du même serveur.</li>
+</ul>
+
+<p>Il ne reste plus qu&#8217;à voir pour le fichier Capfile, mais je le ferais dans un second temps.</p>
+
+<h3>Préparation sur le serveur</h3>
+
+<p>Il faut penser à préparer la base de donnée qui recevra les informations de notre blog. Il faut donc que la base et les accès soient prêts. C&#8217;est la seule manipulation réelle à effectuer sur le serveur.</p>
+
+<h2>Déploiement</h2>
+
+<p>On pourrait faire simple pour déployer notre application et faire ainsi :</p>
+
+<pre>
+$cap deploy:setup
+$cap deploy:migrations
+</pre>
+
+<p>La première tâche permettant de préparer le terrain en créant les répertoires de base. La deuxième permettant que :</p>
+
+<ul>
+<li>les sources soient déposées sur le serveur distant </li>
+<li>rake db:migrate soit lancé</li>
+<li>le serveur est lancé en fastcgi</li>
+</ul>
+
+<p>Mais voilà, rien ne fonctionnera, car il n&#8217;y a pas de fichier database.yml sur le serveur car il n&#8217;existe pas sur le dépôt subversion. Il va donc falloir en ajouter un sur le serveur.</p>
+
+<h3>Création de tâches personnalisées</h3>
+
+<p>Voici le fichier CapFile que j&#8217;ai ainsi créé.</p>
+
+<pre>
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+load 'config/deploy'
+
+
+after 'deploy:symlink', 'deploy:upload_database_config'
+after 'deploy:symlink', 'deploy:upload_mongrel_cluster'
+
+namespace :deploy do
+
+  desc 'Upload the config database file in release path'
+  task :upload_database_config do
+    #Define a database file
+    database = {'production' => {
+            'database' => 'typo',
+            'adapter' => 'postgresql',
+            'host' => 'localhost',
+            'username' => 'xxxx',
+            'password' => 'xxxx'
+        }
+    }
+    #upload
+    put database.to_yaml, "#{current_path}/config/database.yml", :mode => 0444
+  end
+
+end
+</pre>
+
+<p>Dans ce fichier j&#8217;ai ainsi créé une nouvelle tâche. Cette tâche me permettra de créer un fichier database.yml sur le serveur et ainsi en avoir un spécifique à mon serveur. J&#8217;ai aussi défini que cette tâche sera toujours lancée après la tâche deploy:symlink. Tâche qui est réalisée lors de la tâche deploy.</p>
+
+<p>Pour créer la tâche d&#8217;envoi sur le serveur du fichier database.yml, j&#8217;ai utilisé la méthode &#8220;put&#8221; de Capistrano. Elle se base sur le système de connexion au serveur pour envoyer des fichiers dessus. Avec la variable #{current_path}, j&#8217;ai pu définir le chemin vers le dossier contenant les sources utilisées pour lancer l&#8217;application.</p>
+
+<p>Pour définir que cette tâche se lance après une autre tâche Capistrano, il suffit tout simplement d&#8217;appeler la méthode after.</p>
+
+<p>Ca y est maintenant si vous relancez toute la procédure que je vous ai indiquée précédemment avec les tâches Cap vous aurez votre application qui démarrera avec FastCGI.</p>
+
+<h2>Et avec Mongrel_Rails et Nginx</h2>
+
+<p>Personnellement, je ne passe pas par FastCGHI, j&#8217;utilise mongrel_rails et Nginx. Donc voici les modifications que j&#8217;ai réalisées pour que tout passe de la même manière.</p>
+
+<p>J&#8217;ai tout d&#8217;abord ajouté des tâches Cap:</p>
+
+<pre>
+
+after 'deploy:symlink', 'deploy:upload_mongrel_cluster'
+namespace deploy do
+  desc 'Upload the mongrel_cluster.yml in release path'
+  task :upload_mongrel_cluster do
+    mongrel_conf = {'environment' => 'production',
+        'port' => 44000,
+        'pid_file' => "#{shared_path}/pids/mongrel.pid",
+        'servers' => 4,
+        'log_file' => "#{shared_path}/log/mongrel.log"}
+    put mongrel_conf.to_yaml, "#{current_path}/config/mongrel_cluster.yml"
+  end
+  
+  desc 'Start mongrel_rails'
+  task :start do
+    run "cd #{current_path} && mongrel_rails cluster::start"
+  end
+  
+  desc 'Stop mongrel_rails'
+  task :stop do
+    run "cd #{current_path} && mongrel_rails cluster::stop"
+  end
+  
+  desc 'Restart mongrel_rails'
+  task :restart do
+    run "cd #{current_path} && mongrel_rails cluster::stop && mongrel_rails cluster::start"
+  end
+end
+</pre>
+
+<p>Une tâche qui permet d&#8217;envoyer mon fichier mongrel_cluster.yml sur le serveur. Une tâche qui démarre le serveur avec mongrel_cluster, une tâche qui arrête le serveur et une tâche qui le redémarre. La tâche d&#8217;envoi est bien sûr après la tâche de symlink. Par contre, pour les trois autres tâches, elle remplace en fait les originales qui lancaient FastCGI.</p>
+
+<p>Enfin il ne reste plus que la conf de nginx</p>
+
+<pre>
+     upstream mongrel_blog_dev {
+        server 127.0.0.1:44000;
+        server 127.0.0.1:44001;
+        server 127.0.0.1:44002;
+        server 127.0.0.1:44003;
+    }
+
+    server {
+        listen      80; 
+        server_name blog.shingara.fr;
+            
+            
+        location /log_typo {  
+            alias /var/rails/typoblog-dev/log/;
+            autoindex  on; 
+        }   
+            
+        location / { 
+            root /var/rails/typoblog-dev/current/public;
+            # needed to forward user's IP address to rails
+                proxy_set_header  X-Real-IP  $remote_addr;
+            
+            # needed for HTTPS
+            proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_redirect false;
+            proxy_max_temp_file_size 0;
+
+            #redirect blog to Feedburner
+            if ($http_user_agent !~ FeedBurner) {
+                rewrite  ^/xml/rss20/feed.xml$ http://feeds.feedburner.com/ProgDreamShiny;
+                rewrite  ^/xml/rss20/comments/feed.xml$ http://feeds.feedburner.com/ProgDreamShinyComments;
+            }
+    
+            # If the file exists as a static file serve it directly without
+            # running all the other rewite tests on it
+            if (-f $request_filename) {
+                break;
+            }
+            if (!-f $request_filename){
+                proxy_pass  http://mongrel_blog_dev;
+            }
+
+
+        }
+    } 
+
+</pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-28T00:00:00+02:00" pubdate data-updated="true">Sep 28<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/deployer-un-blog-typo-grace-a-capistrano2.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/deployer-un-blog-typo-grace-a-capistrano2.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/un-nouveau-logger-dans-rails-edge.html" title="Previous Post: Un nouveau Logger dans Rails Edge">&laquo; Un nouveau Logger dans Rails Edge</a>
+      
+      
+        <a class="basic-alignment right" href="/un-script-pour-tester-votre-application-pour-rails-2-0.html" title="next Post: Un script pour tester votre application pour Rails 2.0">Un script pour tester votre application pour Rails 2.0 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

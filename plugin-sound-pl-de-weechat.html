@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Plugin sound.pl de weechat - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Avec un ami, nous utilisons tous les deux le logiciel weechat.
+J&#8217;ai adopté ce logiciel pour quatre points : Son environnement ncurse, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/plugin-sound-pl-de-weechat.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Plugin sound.pl De Weechat</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-07T00:00:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>
+Avec un ami, nous utilisons tous les deux le logiciel <a href="http://weechat.flashtux.org">weechat</a>.
+J&#8217;ai adopté ce logiciel pour quatre points :
+</p>
+
+<ul>
+<li>Son environnement ncurse, environnement que j&#8217;utilisais déjà avec IRSSI.</li>
+<li>Sa rapidité de développement. En effet ce projet a de fréquente release. On
+  me dira que c&#8217;est normal vu que irssi a déjà tout et donc il n&#8217;a plus rien à ajouter.
+  Mais cela serait un énorme troll et ce n&#8217;est pas mon but ici.</li>
+<li>La possibilité de voir le nom des personnes connectés sur le salon</li>
+<li>sa facilité de configuration à partir d&#8217;un simple fichier de configuration.</li>
+</ul>
+
+<p>
+Comme je fais tourner ce logiciel dans un screen, j&#8217;ai voulu que pour chaque Highlight et
+message en privé, un son me soit envoyé pour ainsi pouvoir répondre si le temps me le permet.
+</p>
+<p>
+Après quelque recherche sur le site de weechat, j&#8217;ai découvert un plugin déjà existant qui permettait
+de faire cela. Il s&#8217;agit du script sound.pl. Il est réalisé en perl. Après m&#8217;être battu sur sa configuration
+et avoir
+constaté que mon ami ce battait aussi sur le même problème, j&#8217;ai pris le taureau par les cornes et
+j&#8217;ai décidé de voir où était le problème et le patcher le cas échéant.
+</p>
+<p>
+Voici donc le symptôme que j&#8217;ai constaté :
+</p>
+<p>
+Si le script est lancé une fois sans avoir été modifié au préalable, nous
+  avons beau modifier le fichier sound.pl pour indiquer les nouvelles valeurs de commande,
+  celle-ci ne sont pas prise en compte. J&#8217;ai donc découvert que dans le fichier ~/.weechat/plugin.rc,
+  les valeurs pour les commandes à effectuer en cas de highlight sont celle d&#8217;origine et non celle indiqué
+  dans mon fichier. Si je modifie ces valeurs directement dans le fichier ~/.weechat/plugin.rc, les
+  commandes sont effectuées lors du highlight suivant.
+</p>
+<p>
+Mes connaissances en perl sont limité, mais je pensais bien que le problème constaté devait avoir une
+raison assez simple. En éditant le code, j&#8217;ai donc trouvé les lignes incriminés. Il s&#8217;agit des lignes 41, 42 et 43.
+</p>
+<p>
+Sur ces lignes, le programme va chercher si les valeurs cmd_highlight, cmd_pv et cmd_ctcp existent et
+si elles n&#8217;existent pas, le programme va les créer et les initialiser avec les valeurs définis plus haut dans le programme.
+Par contre, il n&#8217;y a aucune vérification d&#8217;un changement de valeur. En effet si cette fois-ci nous rajoutons un
+test de vérification de changement de valeur, les valeurs sont changé. Ainsi l&#8217;utilisateur une fois avoir redéfini
+ses valeurs dans le fichier sound.pl devra juste relancer le script et les nouvelles valeurs seront remplacées dans le
+~/.weechat/plugin.rc
+</p>
+<p>
+Voici donc le patch que je préconise :
+</p>
+
+<pre>
+--- sound.pl    2006-10-06 23:46:22.000000000 +0200
++++ sound-0.4.pl        2006-10-06 23:46:06.000000000 +0200
+@@ -39,8 +39,11 @@
+
+ weechat::register("Sound", $version, "", "Sound for highlights/privates & CTCP sound events");
+ weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") eq "");
++weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") ne $default_cmd_highlight);
+ weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") eq "");
++weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") ne $default_cmd_pv );
+ weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") eq "");
++weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") ne $default_cmd_ctcp);
+
+ weechat::add_message_handler("PRIVMSG", "sound");
+ weechat::add_message_handler("weechat_highlight", "highlight");
+</pre>
+
+<p>
+ Je vais soumettre ce patch à l&#8217;auteur du script. En tout cas, j&#8217;espère que cette petite explication permettra au
+ prochain utilisateur de weechat avec son plugin sound.pl de moins bloquer sur la configuration du plugin.
+</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-07T00:00:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/plugin-sound-pl-de-weechat.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/plugin-sound-pl-de-weechat.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/merci-marco-ditri.html" title="Previous Post: Merci Marco d'Itri">&laquo; Merci Marco d'Itri</a>
+      
+      
+        <a class="basic-alignment right" href="/html2latex-et-ses-options-miracles.html" title="next Post: Html2Latex et ses options miracles">Html2Latex et ses options miracles &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

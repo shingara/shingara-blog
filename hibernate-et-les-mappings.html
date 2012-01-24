@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Hibernate et les mappings - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Salut, Je fais appel au net pour une logique de conception Java et surtout une aide sur Hibernate. En effet sans système de mapping Hibernate j&# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://shingara.github.com/shingara-blog/hibernate-et-les-mappings.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/shingara-blog/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/shingara-blog/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:shingara.github.com/shingara-blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Hibernate Et Les Mappings</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-16T00:00:00+01:00" pubdate data-updated="true">Jan 16<span>th</span>, 2007</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>
+Salut, Je fais appel au net pour une logique de conception Java et surtout une aide sur Hibernate. En effet sans système de mapping Hibernate j&#8217;aurais trouvé la solution que je veux, mais là je veux utiliser au maximum de les possibilités d&#8217;Hibernate. Voici ce que je désire faire :
+</p>
+
+<p>
+J&#8217;ai des listes avec un nom. Dans chaque listes, il y a des produits. Mais pour chaque listes il peux y avoir plusieurs fois le même produit. Voici les deux solutions que j&#8217;ai au niveau SQL pur :
+</p>
+
+<h2>Tout en SQL</h2>
+
+<p>Cette solution se base sur le comptage du nombre de lien entre une liste et un produit.</p>
+
+<pre>
+CREATE TABLE List (
+  id INT PRIMARY KEY,
+  name VARCHAR,
+);
+
+CREATE TABLE Product (
+  id INT PRIMARY KEY,
+  name VARCHAR,
+);
+
+CREATE TABLE ListToProduct (
+  id int PRIMARY KEY,
+  Product_id int,
+  List_id int,
+);
+</pre>
+
+<p>Sur cette table pour savoir le nombre de produit A dans la liste B il faut faire en SQL pur une requête de type <code>SELECT COUNT(*) FROM ListToProduct WHERE Product_id='A' AND List_id='B'</code> où A et B sont les id respectif de notre produit et liste.</p>
+
+<p>Au niveau d&#8217;hibernate, j&#8217;ai trouvé comment faire un mapping assez simple pour obtenir la liste des Produits d&#8217;un liste :</p>
+
+<pre>
+    &lt;list name="listsName" table="ListToProduct" &gt;
+	&lt;key column="product_id" /&gt;
+        &lt;index column="list_name_to_product_id" /&gt;
+        &lt;many-to-many column="list_id" class="List" /&gt;
+    &lt;/list>
+</pre>
+
+<p>Au niveau du type de retour dans mon POJO, j&#8217;ai un attribut du type List&lt;Produit&gt;. Ca marche très bien dans un système de navigation entre mes produits et listes. Mais je me suis trouvé confronté au problème du comptage. Combien il y a de Produit A dans ma liste B. La seule solution est de faire :</p>
+<ul>
+<li>Soit une requete SQL par ligne avec un COUNT(*)</li>
+<li>Soit un parcours de ma liste pour compter le nombre d&#8217;occurrence.</li>
+</ul>
+
+<p>Je ne pense pas qu&#8217;aucune de ces deux techniques soit très performante. De même je n&#8217;ai trouvé aucun système au sein d&#8217;hibernate pour avoir immédiatement le résultat. Comme dans une sous-requête avec un DISTINCT peut-être ?</p>
+
+<h2>Faire le comptage directement en base de Donnée</h2>
+
+<p>Normalement en SQL pur et propre il est recommandé de ne pas faire de calcul directement dans la Base de donnée. On ne doit rien stocker qui est potentiellement calculable. Dans notre cas, l&#8217;ajout du nombre de Produit dans la liste au niveau de la table de liaison permet de diminuer potentiellement le nombre de ligne d&#8217;enregistrement tout en augmentant le nombre de colonne. Théoriquement l&#8217;amélioration peux peux-être interressante si toutes nos listes ont en moyenne plus de 3 produits.</p>
+
+<p>La nouvelle base de donnée serait donc identique à la précédente sauf la table ListToProduct qui serait la suivante :</p>
+
+<pre>
+CREATE TABLE ListToProduct (
+  id int PRIMARY KEY,
+  Product_id int,
+  List_id int,
+  count int,
+);
+</pre>
+
+<p>Avec cette technique, au lieu de rajouter une ligne dans la table de liaison au moment de l&#8217;ajout d&#8217;un produit existant dans une liste, le compteur est incrémenté. Il ne reste donc ensuite qu&#8217;à lire la valeur dans count pour savoir le nombre exacte de Produit du type A dans la liste B. Cette technique me semble assez intéressantes. Mais voilà, je suis incapable de la mettre en place avec un mapping hibernate. J&#8217;ai testé les components, les many-to-one. Mais rien n&#8217;y fait. Il doit vraiment y avoir un truc que je n&#8217;ai pas compris et je ne sais pas quoi. C&#8217;est aussi pour ca que je fais appel à tous.</p>
+
+<p>
+Donc si vous avez une idée sur la meilleur solution à employer et aussi comment la mettre en place avec Hibernate, je suis preneur.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-16T00:00:00+01:00" pubdate data-updated="true">Jan 16<span>th</span>, 2007</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://shingara.github.com/shingara-blog/hibernate-et-les-mappings.html" data-via="" data-counturl="http://shingara.github.com/shingara-blog/hibernate-et-les-mappings.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/ladaptation-par-le-python.html" title="Previous Post: L'adaptation par le Python">&laquo; L'adaptation par le Python</a>
+      
+      
+        <a class="basic-alignment right" href="/java-6-sur-debian.html" title="next Post: Java 6 sur Debian">Java 6 sur Debian &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+      <li class="post">
+        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d'emploi ?</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
