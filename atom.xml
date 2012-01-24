@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://shingara.github.com/shingara-blog/atom.xml" rel="self"/>
-  <link href="http://shingara.github.com/shingara-blog/"/>
-  <updated>2012-01-24T10:07:45+01:00</updated>
-  <id>http://shingara.github.com/shingara-blog/</id>
+  <title><![CDATA[Shiny happy people coding]]></title>
+  <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr//"/>
+  <updated>2012-01-24T11:12:52+01:00</updated>
+  <id>http://blog.shingara.fr//</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
-    
+    <name><![CDATA[Cyril Mougel]]></name>
+    <email><![CDATA[cyril.mougel@gmail.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[Une journée dédiée à MongoDB]]></title>
-    <link href="http://shingara.github.com/shingara-blog/une-journee-dediee-i-mongodb.html"/>
+    <link href="http://blog.shingara.fr//une-journee-dediee-i-mongodb.html"/>
     <updated>2010-05-19T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/une-journee-dediee-i-mongodb</id>
+    <id>http://blog.shingara.fr//une-journee-dediee-i-mongodb</id>
     <content type="html"><![CDATA[<p><img src="http://blog.shingara.fr/files/badge-mongofr-large.png" alt="mongoFR badges"/></p>
 
 <p>Le 21 Juin se tiendra à Paris un événement auquel je vous invite à venir. Cet événement sera dédié à <a href="http://mongodb.com">MongoDB</a>, le <a href="http://www.10gen.com/conferences/event_mongofr_21june10">MongoFR</a>.</p>
@@ -35,9 +35,9 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
   
   <entry>
     <title type="html"><![CDATA[PeriodicTimer de EventMachine, le cron simplifié]]></title>
-    <link href="http://shingara.github.com/shingara-blog/periodictimer-de-eventmachine-le-cron-simplifie.html"/>
+    <link href="http://blog.shingara.fr//periodictimer-de-eventmachine-le-cron-simplifie.html"/>
     <updated>2010-03-27T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/periodictimer-de-eventmachine-le-cron-simplifie</id>
+    <id>http://blog.shingara.fr//periodictimer-de-eventmachine-le-cron-simplifie</id>
     <content type="html"><![CDATA[<p><a href="http://rubyeventmachine.com/">EventMachine</a> est une des meilleures librairies Ruby,
 tout en étant une des plus sous-estimées et mal connues.</p>
 
@@ -127,9 +127,9 @@ de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utili
   
   <entry>
     <title type="html"><![CDATA[Oupsnow 0.5.0 est sortie]]></title>
-    <link href="http://shingara.github.com/shingara-blog/oupsnow-0-5-0-est-sortie.html"/>
+    <link href="http://blog.shingara.fr//oupsnow-0-5-0-est-sortie.html"/>
     <updated>2010-03-15T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/oupsnow-0-5-0-est-sortie</id>
+    <id>http://blog.shingara.fr//oupsnow-0-5-0-est-sortie</id>
     <content type="html"><![CDATA[<p>Ca y est, j&#8217;ai presque pris un cycle de release pas trop mauvais. Ainsi après seulement un mois après la version 0.4.1 de <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, voici la version 0.5.0. Cette version apporte quelque feature, mais marque surtout un moment de stabilité dans le code.</p>
 
 <h2>Les nouveautés</h2>
@@ -228,9 +228,9 @@ after &#8220;deploy:symlink&#8221;, :update_db
   
   <entry>
     <title type="html"><![CDATA[Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?]]></title>
-    <link href="http://shingara.github.com/shingara-blog/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html"/>
+    <link href="http://blog.shingara.fr//pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html"/>
     <updated>2010-01-27T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web</id>
+    <id>http://blog.shingara.fr//pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web</id>
     <content type="html"><![CDATA[<p>Cette question a été posée dernièrement sur la Mailling List de RailsFrance. Effectivement, si on veut promouvoir Ruby dans le monde informatique français, il faut pouvoir argumenter pourquoi on trouve que c&#8217;est une bonne idée.
 </p>
 
@@ -278,9 +278,9 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
   
   <entry>
     <title type="html"><![CDATA[Que cherche un développeur dans une offre d'emploi ?]]></title>
-    <link href="http://shingara.github.com/shingara-blog/que-cherche-un-developpeur-dans-une-offre-demploi.html"/>
+    <link href="http://blog.shingara.fr//que-cherche-un-developpeur-dans-une-offre-demploi.html"/>
     <updated>2010-01-23T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/que-cherche-un-developpeur-dans-une-offre-demploi</id>
+    <id>http://blog.shingara.fr//que-cherche-un-developpeur-dans-une-offre-demploi</id>
     <content type="html"><![CDATA[<p>On m&#8217;a posé dernièrement cette question. Ça peut sembler bête au premier abord, mais après quelques secondes de réflexion on se rappelle que toutes les offres d&#8217;emplois sont pleines d&#8217;interrogation.</p>
 
 <h4>Donc qu&#8217;est ce que j&#8217;attends dans une offre d&#8217;emploi ?</h4>
@@ -318,9 +318,9 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
   
   <entry>
     <title type="html"><![CDATA[Sortie de Typo 5.4.0]]></title>
-    <link href="http://shingara.github.com/shingara-blog/sortie-de-typo-5-4-0.html"/>
+    <link href="http://blog.shingara.fr//sortie-de-typo-5-4-0.html"/>
     <updated>2009-12-21T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/sortie-de-typo-5-4-0</id>
+    <id>http://blog.shingara.fr//sortie-de-typo-5-4-0</id>
     <content type="html"><![CDATA[<p>Ça y est, une nouvelle version de <a href="http://typosphere.org">Typo</a> est lancée dans la nature. Je n&#8217;ai
 hélas que très peu participé à cette nouvelle version faute de
 motivation/temps. Mais je suis toujours très content de voir une nouvelle
@@ -402,9 +402,9 @@ after &#8220;deploy:start&#8221;, :clear_cache
   
   <entry>
     <title type="html"><![CDATA[Sortie de Oupsnow 0.4.0]]></title>
-    <link href="http://shingara.github.com/shingara-blog/sortie-de-oupsnow-0-4-0.html"/>
+    <link href="http://blog.shingara.fr//sortie-de-oupsnow-0-4-0.html"/>
     <updated>2009-12-01T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/sortie-de-oupsnow-0-4-0</id>
+    <id>http://blog.shingara.fr//sortie-de-oupsnow-0-4-0</id>
     <content type="html"><![CDATA[<p>Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, cette version est désormais en Rails/MongoDB. Le back-end et le serveur ont changé.</p>
 
 <p>Cette nouvelle version, outre son refactoring comprend aussi l&#8217;ajout de quelques nouvelles fonctionnalités.</p>
@@ -426,9 +426,9 @@ after &#8220;deploy:start&#8221;, :clear_cache
   
   <entry>
     <title type="html"><![CDATA[Comment tester devise ? réélement ?]]></title>
-    <link href="http://shingara.github.com/shingara-blog/comment-tester-devise-reelement.html"/>
+    <link href="http://blog.shingara.fr//comment-tester-devise-reelement.html"/>
     <updated>2009-11-30T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/comment-tester-devise-reelement</id>
+    <id>http://blog.shingara.fr//comment-tester-devise-reelement</id>
     <content type="html"><![CDATA[<p>Alors que j&#8217;ai cherché comment tester facilement <a href="http://github.com/plataformatec/devise">Devise</a>. J&#8217;ai indiqué une technique dans <a href="http://blog.shingara.fr/devise-cest-bien-mais-il-faut-le-tester.html">mon précédent post</a>. Mais cette technique est loin d&#8217;être la meilleure. Voici donc la nouvelle solution, la solution officielle.</p>
 
 <p>Il suffit d&#8217;inclure <code>Devise::TestHelpers</code>. Ensuite pour se logger avec un utilisateur, on utilise la méthode <code>sign_in</code>. La méthode <code>sign_out</code> existe aussi.</p>
@@ -437,9 +437,9 @@ after &#8220;deploy:start&#8221;, :clear_cache
   
   <entry>
     <title type="html"><![CDATA[Devise ? c'est bien, mais il faut le tester.]]></title>
-    <link href="http://shingara.github.com/shingara-blog/devise-cest-bien-mais-il-faut-le-tester.html"/>
+    <link href="http://blog.shingara.fr//devise-cest-bien-mais-il-faut-le-tester.html"/>
     <updated>2009-11-19T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/devise-cest-bien-mais-il-faut-le-tester</id>
+    <id>http://blog.shingara.fr//devise-cest-bien-mais-il-faut-le-tester</id>
     <content type="html"><![CDATA[<p>Alors que j&#8217;ai évoqué ma <a href="http://blog.shingara.fr/oupsnow-de-merb-i-rails.html">migration de Merb à Rails pour
 Oupsnow</a>, il a
 fallu trouver un système d&#8217;authentification ORM Agnostique.</p>
@@ -497,9 +497,9 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
   
   <entry>
     <title type="html"><![CDATA[Oupsnow de Merb à Rails]]></title>
-    <link href="http://shingara.github.com/shingara-blog/oupsnow-de-merb-i-rails.html"/>
+    <link href="http://blog.shingara.fr//oupsnow-de-merb-i-rails.html"/>
     <updated>2009-11-18T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/oupsnow-de-merb-i-rails</id>
+    <id>http://blog.shingara.fr//oupsnow-de-merb-i-rails</id>
     <content type="html"><![CDATA[<p>Dernièrement, j&#8217;ai fini par me décider de migrer <a
 href="http://oupsnow.rubyforge.org">Oupsnow</a>, de Merb à Rails.</p>
 
@@ -536,9 +536,9 @@ bienvenue.</p>
   
   <entry>
     <title type="html"><![CDATA[RabbitMQ ne marche pas avec Mac OS ?]]></title>
-    <link href="http://shingara.github.com/shingara-blog/rabbitmq-ne-marche-pas-avec-mac-os.html"/>
+    <link href="http://blog.shingara.fr//rabbitmq-ne-marche-pas-avec-mac-os.html"/>
     <updated>2009-11-04T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/rabbitmq-ne-marche-pas-avec-mac-os</id>
+    <id>http://blog.shingara.fr//rabbitmq-ne-marche-pas-avec-mac-os</id>
     <content type="html"><![CDATA[<p>Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j&#8217;ai eu un gros problème. Alors qu&#8217;il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n&#8217;ayant pas un besoin urgent de RabbitMQ, j&#8217;ai repoussé la recherche du problème.</p>
 
 <p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j&#8217;ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
@@ -553,9 +553,9 @@ bienvenue.</p>
   
   <entry>
     <title type="html"><![CDATA[Le logger ruby avec son bloc]]></title>
-    <link href="http://shingara.github.com/shingara-blog/le-logger-ruby-avec-son-bloc.html"/>
+    <link href="http://blog.shingara.fr//le-logger-ruby-avec-son-bloc.html"/>
     <updated>2009-10-21T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/le-logger-ruby-avec-son-bloc</id>
+    <id>http://blog.shingara.fr//le-logger-ruby-avec-son-bloc</id>
     <content type="html"><![CDATA[<p>Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous :</p>
 
 <typo:code lang="ruby">
@@ -580,9 +580,9 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
   
   <entry>
     <title type="html"><![CDATA[Pourquoi Rspec au lieu de Test::Unit?]]></title>
-    <link href="http://shingara.github.com/shingara-blog/pourquoi-rspec-au-lieu-de-test-unit.html"/>
+    <link href="http://blog.shingara.fr//pourquoi-rspec-au-lieu-de-test-unit.html"/>
     <updated>2009-10-04T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/pourquoi-rspec-au-lieu-de-test-unit</id>
+    <id>http://blog.shingara.fr//pourquoi-rspec-au-lieu-de-test-unit</id>
     <content type="html"><![CDATA[<p>Dernièrement, on m&#8217;a posé la question toute bête :</p>
 
  <p><strong>Pourquoi Rspec au lieu de Test::Unit ?</strong>
@@ -620,9 +620,9 @@ Rspec dispose d&#8217;une possibilité sous estimés, les tests partagés. En ef
   
   <entry>
     <title type="html"><![CDATA[l'OSDC.fr 2009, j'y serais]]></title>
-    <link href="http://shingara.github.com/shingara-blog/losdc-fr-2009-jy-serais.html"/>
+    <link href="http://blog.shingara.fr//losdc-fr-2009-jy-serais.html"/>
     <updated>2009-09-17T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/losdc-fr-2009-jy-serais</id>
+    <id>http://blog.shingara.fr//losdc-fr-2009-jy-serais</id>
     <content type="html"><![CDATA[<p>Le 2 et 3 Octobre aura lieu en première française, un rassemblement de
 codeur d&#8217;environnement différent, <a href="http://act.osdc.fr/osdc2009fr/">l&#8217;OSDC.fr</a>. Cette conférence est organisé par les                                                     
 associations françaises de Ruby (RubyFrance), Python (AFPy) et Perl (Mongueurs
@@ -636,9 +636,9 @@ retrouver.</p>
   
   <entry>
     <title type="html"><![CDATA[Open-notification v0.1.0 est sortie]]></title>
-    <link href="http://shingara.github.com/shingara-blog/open-notification-v0-1-0-est-sortie.html"/>
+    <link href="http://blog.shingara.fr//open-notification-v0-1-0-est-sortie.html"/>
     <updated>2009-08-08T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/open-notification-v0-1-0-est-sortie</id>
+    <id>http://blog.shingara.fr//open-notification-v0-1-0-est-sortie</id>
     <content type="html"><![CDATA[<p>
 Il y a maintenant un mois, j&#8217;ai commencé à jouer avec <a href="http://github.com/ezmobius/nanite">nanite</a>. Pour essayer un peu cette technologie, j&#8217;ai réaliser une mini application en sinatra et un agent nanite qui envoi des notifications par Jabber.
 </p>
@@ -665,9 +665,9 @@ La méthode de déploiement est assez compliqué je l&#8217;avoue car il n&#8217
   
   <entry>
     <title type="html"><![CDATA[DM-sweatshop, le petit truc en plus par rapport à Factory Girl]]></title>
-    <link href="http://shingara.github.com/shingara-blog/dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl.html"/>
+    <link href="http://blog.shingara.fr//dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl.html"/>
     <updated>2009-07-24T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl</id>
+    <id>http://blog.shingara.fr//dm-sweatshop-le-petit-truc-en-plus-par-rapport-a-factory-girl</id>
     <content type="html"><![CDATA[<p>En jouant avec <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, j&#8217;ai découvert une astuce sur <a href="http://github.com/datamapper/dm-more/tree/master/dm-sweatshop">DM-sweatshop</a> qui est vraiment génial. Aucun exemple n&#8217;indique ça et pourtant, c&#8217;est selon moi révolutionnaire et même un atout face à <a href="http://dev.thoughtbot.com/factory_girl/">Factory Girl</a>.</p>
 
 <h2>dm-sweatshop</h2>
@@ -724,9 +724,9 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
   
   <entry>
     <title type="html"><![CDATA[Observer Vs Callback]]></title>
-    <link href="http://shingara.github.com/shingara-blog/observer-vs-callback.html"/>
+    <link href="http://blog.shingara.fr//observer-vs-callback.html"/>
     <updated>2009-06-14T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/observer-vs-callback</id>
+    <id>http://blog.shingara.fr//observer-vs-callback</id>
     <content type="html"><![CDATA[<p>Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
 
 <h2>L&#8217;Observeur</h2>
@@ -752,9 +752,9 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
   
   <entry>
     <title type="html"><![CDATA[Cucumber>=0.3.4 et Merb. La dure cohabitation]]></title>
-    <link href="http://shingara.github.com/shingara-blog/cucumber-0-3-4-et-merb-la-dure-cohabitation.html"/>
+    <link href="http://blog.shingara.fr//cucumber-0-3-4-et-merb-la-dure-cohabitation.html"/>
     <updated>2009-05-24T00:00:00+02:00</updated>
-    <id>http://shingara.github.com/shingara-blog/cucumber-0-3-4-et-merb-la-dure-cohabitation</id>
+    <id>http://blog.shingara.fr//cucumber-0-3-4-et-merb-la-dure-cohabitation</id>
     <content type="html"><![CDATA[<p>Depuis la sortie de <a href="http://cukes.info/">Cucumber</a> 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation avec Merb. En effet, si on peux lire dans le <a href="http://github.com/aslakhellesoy/cucumber/blob/master/History.txt">History.txt</a> de Cucumber :</p>
 
 <typo:code>
@@ -790,9 +790,9 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
   
   <entry>
     <title type="html"><![CDATA[Watchman en Alpha par JTEK]]></title>
-    <link href="http://shingara.github.com/shingara-blog/watchman-en-alpha-par-jtek.html"/>
+    <link href="http://blog.shingara.fr//watchman-en-alpha-par-jtek.html"/>
     <updated>2009-03-10T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/watchman-en-alpha-par-jtek</id>
+    <id>http://blog.shingara.fr//watchman-en-alpha-par-jtek</id>
     <content type="html"><![CDATA[<p>Un de mes projets chez JTEK est la cr&eacute;ation de <a href="http://watchman.jtek.fr">Watchman</a>. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit&eacute; de son serveur.</p>
 <p><a href="http://www.jtek.fr/2009/03/09/watchman-automatiser-la-gestion-des-failles">Une annonce officielle</a> a ainsi ouvert Watchman en Alpha. N&#8217;h&eacute;sitez pas &agrave; le tester.</p>
 ]]></content>
@@ -800,9 +800,9 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
   
   <entry>
     <title type="html"><![CDATA[RailsCampParis 2, j'y étais et c'était sympa]]></title>
-    <link href="http://shingara.github.com/shingara-blog/railscampparis-2-jy-etais-et-cetait-sympa.html"/>
+    <link href="http://blog.shingara.fr//railscampparis-2-jy-etais-et-cetait-sympa.html"/>
     <updated>2009-03-09T00:00:00+01:00</updated>
-    <id>http://shingara.github.com/shingara-blog/railscampparis-2-jy-etais-et-cetait-sympa</id>
+    <id>http://blog.shingara.fr//railscampparis-2-jy-etais-et-cetait-sympa</id>
     <content type="html"><![CDATA[<p>Ca y est le RailsCamp Paris 2, c&#8217;est terminé hier avec un mashpit sur Merb. Je ne l&#8217;ai pas annoncé sur ce blog, mais j&#8217;étais bien sûr présent. Les locaux de Sun où nous avons pu faire ce RailsCamp était vraiment très beau et spacieux. Nous avons pu y avoir de très bonne discussion. Merci à <a href="http://www.typouype.org/">Yannick</a> d&#8217;avoir tenu le bar et à Jean-François Tran d&#8217;avoir organisé cet événement.:).</p>
 
 <p>Au niveau des présentations, étant depuis décembre un fervent défenseur de Merb/DataMapper, j&#8217;ai fait de petite présentation sur ces deux outils merveilleux. En voici les slides :</p>
