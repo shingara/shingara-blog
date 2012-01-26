@@ -1,0 +1,6 @@
+---
+layout: post
+title: Compter avec Rails
+typo_id: 51
+---
+<p>Alors que je voulais tout simplement avoir le nombre de lignes dans une table, avec ActiveRecord, j'ai recherché dans la documentation la méthode qu'il me fallait. Mais hélas, je n'ai rien trouvé à part <code>User.find(:all).count</code>. Le problème de cette requête est que la requête exécuté par le SGBD était <code>select * from user;</code>, or ne voulant pas tous les résultats, cette requête était trop pour moi. C'est alors que j'ai tout simplement testé User.count dans la console Rails et qu'elle ne fut pas ma surprise de constater que ca me renvoyait tout simplement le nombre de ligne avec la requête que je désirais sur mon SGBD. Il y a pas à dire, Il faut parfois tout simplement testé en plus de regarder la doc. Tu as des chances pour que ca marche.</p>

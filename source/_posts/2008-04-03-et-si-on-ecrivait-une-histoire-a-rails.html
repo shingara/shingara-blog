@@ -1,0 +1,167 @@
+---
+layout: post
+title: Et si on écrivait une histoire à Rails ?
+typo_id: 106
+---
+<p>
+Sous ce titre particulier, je voudrais parler un peu des <a href="http://rspec.info/documentation/stories.html">stories de Rspec</a>. En effet, depuis la version 1.0 de <a href="http://rspec.info/">RSpec</a>, les stories ont été ajouté à Rspec. Ce système de story peux tout à fait être utilisé au sein de Rails pour permettre de créer des test d'intégrations. En effet, avec les spec traditionnels, nous ne pouvons pas réellement réaliser de test d'intégration. Avec les story nous pouvons le faire très facilement, que ca soit lisible et surtout très facilement répétable et modifiable. Mais le mieux est de vous montrer comment l'intégrer et l'utiliser à Rails.
+</p>
+
+<p>Si vous avez installer Rspec pour Rails et lancé la génération de rspec alors vous devez avoir dans votre arborescence un dossier stories. C'est en général dans ce dossier que nous mettons les stories.</p>
+
+<h3>Votre première histoire</h3>
+
+<p>Nous allons supposer que vous avez un petit système de login et que vous voulez le tester. Il suffit de créer le fichier login_story.rb comme ci-dessous</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_story.rb">
+Story "Un Utilisateur s'authentifie", %{
+  Je suis un utilisateur et je veux m'authentifier
+  Alors j'y arrive
+}, :type => RailsStory do
+  
+  Scenario "Logged successful" do
+    Given "un login", "shingara" do |login|
+      @login = login
+    end
+    
+    And "un mot de passe", "mon_password" do |password|
+      @password = password
+    end
+    
+    And "l'utilisateur est creer" do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When "je vais sur", "/" do |page|
+      get page
+    end
+    
+    Then "je suis redirige vers la page de login" do
+      response.should redirect_to '/login"
+      follow_redirect!
+    end
+
+   When "Je me log" do
+     post "/login", :login => @login, :password => @password
+   end
+
+   Then "Je suis redirige vers ", "/" do |path|
+      response.should redirect_to ("/")
+      follow_redirect!
+   end
+  end
+</typo:code>
+
+<p>Voici donc un test de story avec Rails. Il faut bien penser à utiliser le type RailsStory pour que Story soit un Objet qui hérite de ActionController::IntegrationTest et puisse ainsi avoir toutes les méthodes utilent comme le follow_redirect!. Par contre, il faut faire attention, car le load des fixtures n'existent pas dans les Story, il faut créer soit-même un étape qui le fasse pour que cela soit possible.</p>
+
+<h3>Et en plus répétable ?</h3>
+
+<p>Maintenant une autre grande fonctionnalité des Story de Rspec est la possibilité de faire des stories en plain-text. Ainsi notre story précédente deviendrait tout simplement :</p>
+
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s'authentifie
+  Je suis un utilisateur et je veux m'authentifier
+  Alors j'y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l'utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+</typo:code>
+
+<p>A ce moment là plus besoin d'être développeur pour comprendre ce que fait le test. Pour cela en fait il faut créer toute une batterie de jeu d'étapes. Les étapes sont de 3 Types :</p>
+
+<ul>
+<li>Given : qui sont les données de base ou postulat</li>
+<li>When : qui sont les actions</li>
+<li>Then : qui sont les résultats</li>
+</ul>
+
+<p>
+Il suffit donc de créer un fichier d'étapes qui comprenne toutes les étapes indiqués dans le fichier texte :
+</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_steps.rb">
+steps_for(:gallery) do
+
+    Given "un login $login" do |login|
+      @login = login
+    end
+    
+    And "un mot de passe $password" do |password|
+      @password = password
+    end
+    
+    And "l'utilisateur est creer" do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When "je vais sur $page do |page|
+      get page
+    end
+    
+    Then "je suis redirige vers la page de login" do
+      response.should redirect_to '/login"
+      follow_redirect!
+    end
+
+   When "Je me log" do
+     post "/login", :login => @login, :password => @password
+   end
+
+   Then "Je suis redirige vers  $path" do |path|
+      response.should redirect_to ("/")
+      follow_redirect!
+   end
+end
+</typo:code>
+
+<p>En indiquant que le fichier texte prend appui sur ce fichier d'étape, Rspec fait tout le reste. On appelle notre test de la façon suivante :</p>
+
+<typo:code lang="ruby" linenumber="true" title="all.rb">
+require File.join(File.dirname(__FILE__), *%w[helper])
+
+with_steps_for(:login) do
+  run File.join(File.dirname(__FILE__), "login_story", :type => RailsStory
+end
+
+</typo:code>
+
+<p>Ce qui est vraiment génial dans tout ça c'est la possibilité du coup de changer l'ordre des étapes voir de leur paramètres. Ainsi le test suivant peux être réalisé sans nouveau code ruby d'ajouté : </p>
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s'authentifie
+  Je suis un utilisateur et je veux m'authentifier
+  Alors j'y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l'utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+
+  Scenario: Je vais directement sur la page de login et j'y reste
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l'utilisateur est creer
+    
+    When je vais sur /login
+   And Je me log
+
+   Then Je suis redirige vers /login
+
+</typo:code>

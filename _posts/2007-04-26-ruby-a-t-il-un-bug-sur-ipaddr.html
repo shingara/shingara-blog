@@ -1,0 +1,85 @@
+---
+layout: post
+title: Ruby a-t-il un bug sur IPAddr ?
+typo_id: 47
+---
+<p>Je me pose une question toute bête depuis tout à l'heure et j'avoue ne pas
+comprendre. Mon interrogation se pose sur ce mini bout de code ruby :</p>
+
+<pre>
+require 'ipaddr'
+
+IPAddr.new '2002:0000:1234:4561'
+</pre>
+
+<p>
+En effet ce code me léve une exception :
+</p>
+
+<pre>
+/usr/lib64/ruby/1.8/ipaddr.rb:422:in `initialize': invalid address (ArgumentError)
+</pre>
+
+<p>
+Mais voilà, l'adresse que je donne en paramètre est valide syntaxiquement en
+tant que Ipv6. Mes recherches mon amené à la conclusion suivante :
+</p>
+<p>
+IPAddr considére mon IP comme une addresse invalide car elle n'a pas de
+résolution de nom. En effet la ligne toute simple qui me léve
+une exception est la ligne qui fait :
+</p>
+      
+<pre>             
+IPSocket.getaddress(prefix)
+</pre>
+
+<p>
+Dans mon cas prefix est '2002:0000:1234:4561', car jamais modifié au
+préalable (vérifié avec debuggueur). Effectivement les commandes suivante le 
+prouve :
+</p>
+
+<pre>
+hello% host 2002:0000:1234:4561
+Host 2002:0000:1234:4561 not found: 3(NXDOMAIN)
+</pre>
+
+<p>ou en irb :</p>
+<pre>
+hello% irb                  
+irb(main):001:0> require 'socket'
+=> true
+irb(main):002:0> IPSocket.getaddress('2002:0000:1234:4561')
+SocketError: getaddrinfo: Name or service not known
+    from (irb):2:in `getaddress'
+    from (irb):2
+</pre>
+<p>
+Hors, il n'est précisé nulle part qu'une IPAddr doit être "valide" pour être
+utilisé. De plus si on regarde un peu plus le code du fichier <a href="http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/lib/ipaddr.rb
+">ipaddr.rb</a>,
+nous constaterons qu'en tout premier il y a :
+</p>
+<pre>
+unless Socket.const_defined? "AF_INET6"
+</pre>
+
+<p>
+Mais voilà, maintenant les nouvelles versions de Ruby définissent cette
+variable. Ainsi, la surcharge de la méthode getaddress faites plus bas n'est
+jamais réalisée. Nous pouvons ainsi constater que dans cette nouvelle méthode
+surchargé, on voit :
+</p>
+<pre>                                             
+return true if /\A[\dA-Fa-f]{1,4}(:[\dA-Fa-f]{1,4})*\Z/ =~ addr
+</pre>
+<p>
+ce qui rend ainsi notre Ipv6 précédente valide.
+</p>
+<p>
+La question que je me pose est donc la suivante :
+</p>
+<p>
+Est-ce un bug ou pas ?
+</p>

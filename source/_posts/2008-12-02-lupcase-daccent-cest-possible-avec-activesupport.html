@@ -1,0 +1,33 @@
+---
+layout: post
+title: l'upcase d'accent c'est possible avec ActiveSupport
+typo_id: 183
+---
+<p>Alors que sur IRC quelqu'un demande, comment faire un upcase sur des accents et conserver ces accents en majuscule, je lui répond que ce n'est pas possible car Ruby 1.8 ne supporte pas l'UTF8.</p>
+
+<p>Je propose donc une solution peu élégante. Lister chaque éléments qui soient considéré comme non modifié par upcase et faire une liste de gsub comme ceci</p>
+
+<typo:code>
+irb(main):002:0> puts "aéèb".gsub("é", "É").gsub("è", "È").upcase
+AÉÈB
+=> nil
+</typo:code>
+
+<p>C'est alors que <a href="http://farzy.org">Farzy</a> nous fournit un bout de code qui évite mon code peu pratique et surtout fonctionne avec tous les caractères unicode. </p>
+
+<typo:code>
+% irb
+>> $KCODE = 'u'
+=> "u"
+>> "éè".upcase
+=> "éè"
+>> require 'activesupport'
+=> true
+>> "éè".chars.upcase.to_s
+=> "ÉÈ"
+>> RUBY_VERSION
+=> "1.8.5"
+>>
+</typo:code>
+
+<p>Il faut effectivement utiliser la librairie ActiveSupport qui fournit un support UTF8, mais cela fonctionne parfaitement. Merci à lui pour cet petite astuce.</p>

@@ -1,0 +1,57 @@
+---
+layout: post
+title: Les named_scope en pratique sur une recherche
+typo_id: 186
+---
+<p>J'ai longtemps été sceptique sur l'intérêt des <a href="http://api.rubyonrails.org/classes/ActiveRecord/NamedScope/ClassMethods.html#M001906">named_scope de Ruby On Rails</a>. Ça permet d'avoir une lecture plus simple. Mais ne voyant pas un système d'eager loading si on ne les utilisait pas immédiatement, je trouvais cela dommage. Finalement après une grosse recherche, j'ai fini par en créer un exemple que je pense vraiment intéressant d'utilisation des named_scope. La mise en pratique a eu lieu sur <a href="http://typosphere.org">Typo</a> avec un <a href="http://github.com/fdv/typo/commit/6f8ecf60f8d3ab3645f4f29766372b06dd66ef78">commit de refactoring</a>. Voici donc un extra de code qui parle de lui même.</p>
+
+<typo:code lang="ruby">
+class Article
+
+   named_scope :published_at_like, lambda {|date_at| {:conditions => ['published_at LIKE ? ', "%#{date_at}%"]}}
+   named_scope :user_id, lambda {|user_id| {:conditions => ['user_id = ?', user_id]}}
+   named_scope :published, {:conditions => ['published = ?', true]}
+   named_scope :not_published, {:conditions => ['published = ?', false]}
+   named_scope :category, lambda {|category_id| {:conditions => ['categorizations.category_id = ?', category_id], :include => 'categorizations'}}
+   named_scope :draft, {:conditions => ['state = ?', 'draft']}
+   named_scope :no_draft, {:conditions => ['state <> ?', 'draft'], :order => 'created_at DESC'}
+   named_scope :searchstring, lambda {|search_string|
+     tokens = search_string.split.collect {|c| "%#{c.downcase}%"}
+     {:conditions => [(['(LOWER(body) LIKE ? OR LOWER(extended) LIKE ? OR LOWER(title) LIKE ?)']*tokens.size).join(' AND '),
+                       *tokens.collect{ |token| [token] * 3 }.flatten]}
+   }
+
+   def self.search_no_draft_paginate(search_hash, paginate_hash)
+      list_function  = ["Article.no_draft"]
+      if search_hash.nil?
+        search_hash = {}
+      end
+      
+      if search_hash[:searchstring]
+        list_function << 'searchstring(search_hash[:searchstring])'
+      end
+      
+      if search_hash[:published_at] and %r{(\d\d\d\d)-(\d\d)} =~ search_hash[:published_at]
+        list_function << 'published_at_like(search_hash[:published_at])'
+      end
+      
+      if search_hash[:user_id] && search_hash[:user_id].to_i > 0
+        list_function << 'user_id(search_hash[:user_id])'
+      end
+      
+      if search_hash[:published]
+        list_function << 'published' if search_hash[:published].to_s == '1'
+        list_function << 'not_published' if search_hash[:published].to_s == '0'
+      end
+      
+      if search_hash[:category] and search_hash[:category].to_i > 0
+        list_function << 'category(search_hash[:category])'
+      end
+      
+      paginate_hash[:order] = 'created_at DESC'
+      list_function << "paginate(paginate_hash)"
+      eval(list_function.join('.'))                                                                                        
+    end
+</typo:code>
+
+<p>Par contre si vous avez encore une meilleur méthode, je suis preneur. C'est surtout le eval qui m'embête un peu :(</p>

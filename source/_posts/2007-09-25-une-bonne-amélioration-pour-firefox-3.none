@@ -1,0 +1,10 @@
+---
+layout: post
+title: Une bonne amélioration pour Firefox 3
+typo_id: 68
+---
+<p>Ca y est c'est officiel, Firefox sera meilleur en terme de fuite de mémoire et autre consommation excessive. On peux ainsi lire l'annonce sur le <a href="http://www.squarefree.com/2007/09/20/firefox-memory-usage-and-memory-leak-news/">blog de Jesse Ruderman</a>.</p>
+
+<p>Cette annonce a ainsi été relayé par <a href="http://slashdot.org/article.pl?sid=07/09/24/1521240">Slashdot</a> et <a href="http://standblog.org/blog/post/2007/09/21/Sortie-de-Gran-Paradiso-Alpha-8">Tristan Nitot</a>.</p>
+
+<p>Je suis vraiment content que cette annonce ait été faite. En effet, j'aime beaucoup Firefox et surtout l'utilisation de ses nombreux plugins. Mais le fait de devoir régulièrement redémarrer cette application était un peu désagréable surtout avec l'utilisation actuelle de site internet de plus en plus puissance en terme de Javascript.</p>

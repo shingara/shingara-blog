@@ -1,0 +1,24 @@
+---
+layout: post
+title: Afficher les Log SQL avec Merb et DataMapper
+typo_id: 152
+---
+<p>Depuis peu, je tente d'utiliser <a href="http://merbivore.org">Merb et <a href="http://datamapper.org">DataMapper</a>. Une différence notable entre Merb et Rails est le système de log. Comme Merb est ORM Agnostique, il n'affiche pas de base les logs SQL. J'ai cherché plusieurs fois comment avoir mes logs SQL de DataMapper directement dans ma console. J'ai fini par la trouvé sur le wiki de DataMapper. Je vous livre donc l'astuce :</p>
+
+<typo:code lang="ruby">
+Merb::BootLoader.after_app_loads do
+  DataObjects::SQlite3.logger = DataObjects::Logger.new(STDOUT, :debug) 
+end
+</typo:code>
+
+<p>Vous pouvez bien-sûr modifier le SQlite3 par Postgres ou MySQL. Cette comment fait une sortie en mode debug sur STDOUT. On aurait aussi pu mettre un fichier ('log/dm.log').</p>
+
+<p>Pour connaitre la liste des niveaux de logs, la voici :</p>
+
+<ul>
+<li>fatal</li>
+<li>error</li>
+<li>warn</li>
+<li>info</li>
+<li>debug</li>
+</ul>

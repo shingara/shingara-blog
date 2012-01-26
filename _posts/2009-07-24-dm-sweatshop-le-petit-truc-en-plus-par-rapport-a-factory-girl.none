@@ -1,0 +1,56 @@
+---
+layout: post
+title: DM-sweatshop, le petit truc en plus par rapport à Factory Girl
+typo_id: 200
+---
+<p>En jouant avec <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, j'ai découvert une astuce sur <a href="http://github.com/datamapper/dm-more/tree/master/dm-sweatshop">DM-sweatshop</a> qui est vraiment génial. Aucun exemple n'indique ça et pourtant, c'est selon moi révolutionnaire et même un atout face à <a href="http://dev.thoughtbot.com/factory_girl/">Factory Girl</a>.</p>
+
+<h2>dm-sweatshop</h2>
+
+<p>
+Pour ceux qui ne le savent pas dm-sweatshop est un gem de génération de donnée, inspiré de Factory Girl.
+</p>
+
+<p>
+Factory Girl a été conçu pour éviter les fixtures dans Rails. Il a aussi l'avantage de permettre une meilleure vue des données présentes dans sa base de donnée durant son test. Je conseille tout à fait son utilisation et migre progressivement tous mes tests à l'utilisation de ce genre d'outil.
+</p>
+
+<p>
+dm-sweatshop est le Factory Girl dédié à <a href="http://datamapper.github.com/">DataMapper</a>, même si Factory Girl peux tout à fait être utilisable avec DataMapper.
+</p>
+
+<h2>Son petit plus</h2>
+
+<p>
+dm-sweatshop contrairement à Factory gril, génére un Hash d'attribut, qu'il surcharge avec les données fournis et génére un objet à partir de ce hash. Ceci entraine par exemple, l'impossibilité d'utiliser les méthodes d'association, il faut directement associer les identifiants.
+</p>
+
+<p>
+Mais là où est son petit plus est que justement à cause de cette génération d'un Hash, il y a un Proc qui est généré et rien n'empêche de mettre du code ruby pour générer d'autre objets ou récupérer des objets déjà existant. On peux ainsi écrire l'exemple suivant :
+</p>
+
+<typo:code lang="ruby">
+Member.fixture {
+ user = User.first(:login.not => 'admin') || User.gen!
+ project = Project.first || Project.gen!
+ not_project_id = []
+ while project.has_member?(user)
+   not_project_id << project.id
+   project = Project.first(:id.not => not_project_id) || Project.gen!
+ end
+ { :user_id => user.id,
+ :project_id => project.id,
+ :function_id => (Function.first ? Function.first.id : Function.gen.id),}
+}
+</typo:code>
+
+<p>
+Dans cette exemple, je crée un objet Membre qui est la liaison entre un Projet et un User. Mais au préalable, j'ai récupéré et créé des éléments Projet et User si rien n'existait.
+</p>
+
+<p>
+Grâce à dm-sweatshop, c'est enfin fini, les problèmes de multiples liaisons qui avec Factory Girl ne peuvent être contourné (d'après mon expérience en tout cas) ce qui entrainait la création de méthode complète pour créer tout ça. Désormais tout est au même endroit.
+</p>
+<p>
+Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet DataMapper à la place de Factory Girl.
+</p>

@@ -1,0 +1,10 @@
+---
+layout: post
+title: AR-Backup cool et patché
+typo_id: 89
+---
+<p>Il y a un petit plugin que j'affectionne de par son utilité. Il s'agit de <a href="http://code.google.com/p/ar-backup/">ar-backup</a>. Il a été réalisé par <a href="http://railsontherun.com/">Matt Aimonetti</a> qui est un des contributeurs français à Rails.</p>
+
+<p>Mais voilà, j'ai eu quelques difficultés avec ce plugin. En effet, ma locale par défaut est le français et il y avait une erreur de récupération de la révision SVN dû a un pattern dans la tâche ajouté par le plugin. Ce pattern supposait la locale anglaise et non une autre locale. Ainsi il n'arrivait pas à récupérer le numéro de version adéquate.</p>
+
+<p>J'ai tout d'abord reporté ce <a href="http://code.google.com/p/ar-backup/issues/detail?id=3">bug</a> sur la page du projet et réfléchis à une meilleur méthode. J'ai ainsi pu créer un <a href="http://code.google.com/p/ar-backup/issues/attachment?aid=-5493910150559502548&name=AR-backup_fix-search-revision.patch">patch</a> qui devrait permettre de faire fonctionner correctement ce plugin dans toutes les locales. En effet, il se base sur les fichiers de configuration directement intégré au dossier .svn et non à la commande. Même au niveau des performances, je pense que c'est un peu amélioré. En tout cas pour moi il fonctionne. Attendons de voir la réaction de Matt.</p>

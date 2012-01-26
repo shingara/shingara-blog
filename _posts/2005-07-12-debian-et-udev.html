@@ -1,0 +1,21 @@
+---
+layout: post
+title: debian et udev
+typo_id: 6
+---
+<p>J'adore Debian, mais dès fois, il y a vraiment de gros probleme avec, du fait même de sont systême de gestion communautaire.<br />
+En effet, aujourd'hui je voulais monter un petit DVD sur ma debian et je fais mon classique $mount /media/dvd. Mais voila que ca marche pas. Je me demande un peu pourquoi et d'un coup, je constate que dans mon repertoire /dev/, il n'y a plus du tout de pointeur sur /dev/dvd, le pointeur sur mon DVD.<br />
+Immediatement je soupconne évidemment udev d'être en tord. Je le soupconne de ne pas être lancé ou quelque chose comme ca. Je cherche donc dans les services qui tournent sur ma machine le service udev :</p>
+<code>
+shingara:/home/shingara# ps aux |grep udev<br />
+root      9399  0.0  0.0   3288   712 pts/4    R+   00:32   0:00 grep udev<br />
+</code>
+<p>Aucun service lancé pour udev. Je décide donc de le lancer manuellement par sont script de démarrage :</p>
+<code>shingara:/home/shingara# /etc/init.d/udev start<br />
+udev requires a kernel >= 2.6.12, not started.<br />
+</code>
+<p>
+Mince, voilà le probleme. il faut le noyau 2.6.12 pour faire tourner udev. A que cela ne tienne. Je cherche dans les sources apt le noyau 2.6.12, mais à ma grande surprise celui-ci n'existe pas :(.<br />
+En effet, actuellement, dans la version sid, on ne peux pas utiliser udev dans sa dernière version avec le dernier noyau qui existe dans cette même version. Nous sommes comdamné à attendre que le problème se resolve avec la sortie dans incomming du kernel-source-2.6.12 ou alors télécharger les sources directement sur kernel.org.</p>
+
+<p>Sinon, voilà un petit lien parlant de ce probleme :) <a href="http://www.fooishbar.org/blog/tech/debian/udev-2005-07-11-21-25.html">ici</a></p>

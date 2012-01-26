@@ -1,0 +1,21 @@
+---
+layout: post
+title: Subversion et le svn:ignore
+typo_id: 22
+---
+<p>Depuis quelque temps, je cherchais désespérement comment faire un svn:ignore efficace en ligne de commande. Je savais les commandes à utiliser, mais pas trop comment les utiliser. Je vais donc expliquer ce que j'ai finalement fini par comprendre.</p>
+
+<ul>
+<li>Ne pas committer le fichier que l'on veux ignorer. Si il est commité, ce n'est pas la peine de tenter de l'ignorer. Il faut le supprimer du versionning et ensuite l'ignorer.</li>
+<li>Ce mettre dans le dossier où le ou les fichiers à ignorer se trouve, pour une question de simplicité plus qu'autre chose.</li>
+<li>Ajouter une propriété de svn:ignore dans le dossier courant avec la commande : <code>$ svn propset svn:ignore file .</code> Il ne faut pas oublier le point à la fin, c'est le dossier pour lequel la propriété est défini. Le mot file est à remplacer par le nom de votre fichier à ignorer</li>
+</ul>
+
+<p>Si vous n'avez qu'un seul fichier à ignorer, cette procédure suffit. Mais si vous désirez rajouter des fichiers à ignorer, voici ce qu'il faut faire :</p>
+
+<ul>
+<li>Utiliser la commande propedit comme ceci : <code>$ svn propedit svn:ignore .</code>. Encore une fois, n'oubliez pas le point qui défini le dossier dans lequel la propriété s'exerce.</li>
+<li>Une fois cette commande effectué, si vous avez déjà mis un fichier dans votre propriété, un éditeur de texte s'ouvre avec dedans écrit le fichier précédement indiqué. Il vous suffit donc d'ajouter sur chaque ligne, le fichier que vous voulez ignorer. Une fois fini, fermez votre éditeur et votre propriété sera mis à jour.</li>
+</ul>
+
+<p>Dans votre svn:ignore, vous pouvez mettre comme nom, tout type de nom comme lors d'une recherche dans un shell avec le charactère * comme charactère joker. Après chaque mis à jour de votre propriété svn, n'oubliez pas de committer pour prendre tout ça en compte.</p>

@@ -1,0 +1,34 @@
+---
+layout: post
+title: Moins de log pour ActionMailer et un compte Gmail
+typo_id: 91
+---
+<p>Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le <a href="http://comscreens.free.fr/screens.php?act=see&scr=1609090355">post de Stephen Chu sur l'utilisation de votre compte Gmail avec ActionMailer.</a>. J'ai ainsi mis sa classe dans mon <a href="http://whotowho.rubyforge.org">WhoToWho</a> avec une option qui permet de l'utiliser le cas échéant.</p>
+
+<p>Mais voilà, par défaut il y a pas mal de logs qui sorte sur la sortie d'erreur STDERR. J'ai donc cherché comment la limiter voir la supprimer. J'ai ainsi trouvé les 2 lignes qui affichent ces logs. Il s'agit de la ligne suivante qui est répété deux fois. :</p>
+
+<pre>
+@socket.debug_output = STDERR #@debug_output
+</pre>
+
+</p>Après avoir commenté ces lignes, je n'ai plus eu de logs. J'ai bien sûr pour WhoToWho permis de les afficher avec l'option -v.</p>
+
+<p>Avec un peu de chance je devrais sortir une nouvelle version de WhoToWho très bientôt.</p>
+
+<p>En lisant dans les commentaires du post de Stephen, j'ai ainsi lu que quelqu'un avait tout simplement utilisé le gem tlsmail et avait simplement ajouté la ligne suivante :</p>
+
+<pre>
+require 'tlsmail'
+Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+ActionMailer::Base.server_settings = {
+:address => 'smtp.gmail.com',
+:port => 587,
+:domain => 'yourdomain.com',
+:authentication => :plain,
+:user_name => 'username',
+:password => 'password'
+}
+</pre>
+
+<p>C'est à tester :)</p>

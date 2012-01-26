@@ -1,0 +1,46 @@
+---
+layout: post
+title: ! 'Vivre avec Rails Edge #21'
+typo_id: 141
+---
+<p>Traduction de la <a href="http://blog.codefront.net/2008/05/18/living-on-the-edge-of-rails-21/">news #21</a></p>
+
+<p>C'est une autre semaine au ralenti (seulement 2 changements à noter selon
+        moi) après la <a
+href="http://www.rubyinside.com/rails-21-released-891.html">sortie de la première Release candidate (RC1) de Rails
+2.1</a>.
+Suivez ce lien pour les instructions d'installation - Mais si vous lisez ce
+blog n'ayez pas peur (parce que vous savez « vivre avec edge »). Vous pouvez
+ainsi reporter tous les bugs que vous rencontré lors de la migration vers 2.1
+et edge sur le  <a
+href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">bug
+tracker de rails</a> - il s'agit d'une RC  donc tous les rapports de bugs sont
+les bienvenue et seront utiles!</p>
+
+<p>Le rapport de cette semaine couvre les changements du 12 Mai 2008 au 18 Mai 2008 (jour correspondant à l'enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<h3>caches_action peux être conditionels</h3>
+
+<p><code>caches_action</code> peux désormais prendre une option <code>:if</code> (exactement comme <a href="http://blog.codefront.net/2008/04/20/living-on-the-edge-of-rails-17/">caches_page le fait</a>). Par exemple:</p>
+
+<typo:code lang="ruby">caches_action :index, :if => Proc.new { |c| !c.request.format.json? }</typo:code>
+
+<p>Cette petite amélioration est gentiement apporté par José Valim.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/7708650f73ddb4db300ea2059c60c1d907a4384e">http://github.com/rails/rails/commit/7708650f73ddb4db300ea2059c60c1d907a4384e</a></p>
+
+<h3>Bugfix: :select option est désormais parcouru dans les finders d'ActiveRecord en s'assurant que les tables nécessaires sont inclus dans le SQL généré</h3>
+
+<typo:code lang="ruby">Post.find(:all, :include => :author, :select => 'posts.*, authors.id as "author_id"', :limit => 2)</typo:code>
+
+<p>Cela générerais la requête SQL suivante:</p>
+
+<typo:code lang="sql">SELECT posts.*, authors.id as "author_id" FROM "posts" LIMIT 2</typo:code>
+
+<p>Constaté que la table <code>authors</code> n'est pas jointe. Cette erreur est désormais résolu.</p>
+
+<p>Merci à John Devine pour ce bugfix.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/b28b54cab090bed8f099ef375b419a8f92390dd4">http://github.com/rails/rails/commit/b28b54cab090bed8f099ef375b419a8f92390dd4</a></p>
+
+<p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vivre avec Rails.</p>

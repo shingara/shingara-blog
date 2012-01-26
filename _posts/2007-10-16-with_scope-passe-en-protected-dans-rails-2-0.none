@@ -1,0 +1,14 @@
+---
+layout: post
+title: with_scope passé en protected dans Rails 2.0
+typo_id: 79
+---
+<p>Toujours en train de m'amuser à la migration de <a href="http://redmine.org">Redmine</a> sur Rails 2.0, j'ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet, j'ai découvert que la méthode with_scope a été déplacé en "protected". Elle n'est donc plus accessible en public.</p>
+
+<p>Cette modification a fait suite au <a href="http://dev.rubyonrails.org/ticket/8524">ticket 8524</a> et a été mis à jours dans la <a href="http://dev.rubyonrails.org/changeset/6909">révision 6909</a>.</p>
+
+<p>Bien sûr DHH a fait la remarque de cette modification dans son <a href="http://weblog.rubyonrails.org/2007/9/30/rails-2-0-0-preview-release">annonce sur la Release de Rails 2.0 PR</a>.</p>
+
+<p>Je vais vous faire une rapide traduction du passage concernant with_scope.</p>
+
+<quote>ActiveRecord::Base.with_scope a été déplacé en "protected" pour décourager son utilisation dans les controllers et en particulier dans les filtres. Désormais il est encouragé de l'utiliser uniquement dans le modèle lui-même. Ce pourquoi il a été initialement conçut et d'où il ne devrait pas sortir. Bien sûr, c'est tout ce qui concerne l'encouragement et le découragement. Si vous avez pesé le pour et les contres de l'utilisation de with_scope en dehors du modèle, vous pouvez toujours l'appeler de la manière suivante :  <code>.send(:with_scope)</code></quote>

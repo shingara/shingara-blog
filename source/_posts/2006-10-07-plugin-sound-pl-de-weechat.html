@@ -1,0 +1,78 @@
+---
+layout: post
+title: Plugin sound.pl de weechat
+typo_id: 24
+---
+<p>
+Avec un ami, nous utilisons tous les deux le logiciel <a href="http://weechat.flashtux.org">weechat</a>.
+J'ai adopté ce logiciel pour quatre points :
+</p>
+
+<ul>
+<li>Son environnement ncurse, environnement que j'utilisais déjà avec IRSSI.</li>
+<li>Sa rapidité de développement. En effet ce projet a de fréquente release. On
+  me dira que c'est normal vu que irssi a déjà tout et donc il n'a plus rien à ajouter.
+  Mais cela serait un énorme troll et ce n'est pas mon but ici.</li>
+<li>La possibilité de voir le nom des personnes connectés sur le salon</li>
+<li>sa facilité de configuration à partir d'un simple fichier de configuration.</li>
+</ul>
+
+<p>
+Comme je fais tourner ce logiciel dans un screen, j'ai voulu que pour chaque Highlight et
+message en privé, un son me soit envoyé pour ainsi pouvoir répondre si le temps me le permet.
+</p>
+<p>
+Après quelque recherche sur le site de weechat, j'ai découvert un plugin déjà existant qui permettait
+de faire cela. Il s'agit du script sound.pl. Il est réalisé en perl. Après m'être battu sur sa configuration
+et avoir
+constaté que mon ami ce battait aussi sur le même problème, j'ai pris le taureau par les cornes et
+j'ai décidé de voir où était le problème et le patcher le cas échéant.
+</p>
+<p>
+Voici donc le symptôme que j'ai constaté :
+</p>
+<p>
+Si le script est lancé une fois sans avoir été modifié au préalable, nous
+  avons beau modifier le fichier sound.pl pour indiquer les nouvelles valeurs de commande,
+  celle-ci ne sont pas prise en compte. J'ai donc découvert que dans le fichier ~/.weechat/plugin.rc,
+  les valeurs pour les commandes à effectuer en cas de highlight sont celle d'origine et non celle indiqué
+  dans mon fichier. Si je modifie ces valeurs directement dans le fichier ~/.weechat/plugin.rc, les
+  commandes sont effectuées lors du highlight suivant.
+</p>
+<p>
+Mes connaissances en perl sont limité, mais je pensais bien que le problème constaté devait avoir une
+raison assez simple. En éditant le code, j'ai donc trouvé les lignes incriminés. Il s'agit des lignes 41, 42 et 43.
+</p>
+<p>
+Sur ces lignes, le programme va chercher si les valeurs cmd_highlight, cmd_pv et cmd_ctcp existent et
+si elles n'existent pas, le programme va les créer et les initialiser avec les valeurs définis plus haut dans le programme.
+Par contre, il n'y a aucune vérification d'un changement de valeur. En effet si cette fois-ci nous rajoutons un
+test de vérification de changement de valeur, les valeurs sont changé. Ainsi l'utilisateur une fois avoir redéfini
+ses valeurs dans le fichier sound.pl devra juste relancer le script et les nouvelles valeurs seront remplacées dans le
+~/.weechat/plugin.rc
+</p>
+<p>
+Voici donc le patch que je préconise :
+</p>
+
+<pre>
+--- sound.pl    2006-10-06 23:46:22.000000000 +0200
++++ sound-0.4.pl        2006-10-06 23:46:06.000000000 +0200
+@@ -39,8 +39,11 @@
+
+ weechat::register("Sound", $version, "", "Sound for highlights/privates & CTCP sound events");
+ weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") eq "");
++weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") ne $default_cmd_highlight);
+ weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") eq "");
++weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") ne $default_cmd_pv );
+ weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") eq "");
++weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") ne $default_cmd_ctcp);
+
+ weechat::add_message_handler("PRIVMSG", "sound");
+ weechat::add_message_handler("weechat_highlight", "highlight");
+</pre>
+
+<p>
+ Je vais soumettre ce patch à l'auteur du script. En tout cas, j'espère que cette petite explication permettra au
+ prochain utilisateur de weechat avec son plugin sound.pl de moins bloquer sur la configuration du plugin.
+</p>

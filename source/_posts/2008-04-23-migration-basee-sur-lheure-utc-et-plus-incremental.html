@@ -1,0 +1,28 @@
+---
+layout: post
+title: Migration basée sur l'heure utc et plus incremental
+typo_id: 126
+---
+<p>Depuis la <a href="http://dev.rubyonrails.org/changeset/9122">revision
+r9122</a>, les migrations de Ruby on rails ne sont plus
+incrémentale comme précédemment. En effet, elles sont désormais basé sur le
+temps UTC. Cette évolution a comme principale intérêt d'éviter les problèmes
+de conflits entre différentes branches de développement grâce à un prefix
+unique.</p>
+
+<p>Désormais lors de la création d'un fichier de migration vous aurez ainsi
+ceci :</p>
+
+<typo:code>
+$ ./script/generate migration create_user
+      create  db/migrate/20080422122512_create_user.rb
+</typo:code>
+
+<p>Pour compléter cette évolution, il y a eu l'ajout de 2 nouvelles tâches
+rake. <code>rake db:migrate:up</code> et <code>rake db:migrate:down</code>. Il faut adjoindre à ces tâche la  la variable VERSION étant le numero de la VERSION a ajouter(up) ou
+enlever(down). Les versions peuvent ainsi être ajoutées ou supprimées
+indépendamments.</p>
+
+<p>On pouvait avoir cette fonctionnalité dans la version 2.0 de rails avec le
+plugin <a
+href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rails.html">enhanced migrations plugin</a></p>

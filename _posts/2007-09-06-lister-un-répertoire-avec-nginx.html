@@ -1,0 +1,26 @@
+---
+layout: post
+title: lister un répertoire avec Nginx
+typo_id: 65
+---
+<p>Dernièrement, je me tente à migrer ma dédibox sur le serveur Web <a href="http://nginx.net/">Nginx</a> à la place d'Apache. Nginx est le serveur web qui buzz un peu partout dans le milieu des framework Web en Python et Ruby.</p>
+
+<p>
+Dans ma migration, j'ai voulu définir une URL qui permette de lister un répertoire et naviguer dedans. Ayant eu quelques petites difficultés et constatant que la documentation française étant très pauvre, je vous livre ma recherche.
+</p>
+
+<p>
+Pour lister un répertoire il faut utiliser le <a href="http://wiki.codemongers.com/NginxHttpAutoindexModule">module AutoIndex</a>. Dans ce module la directive autoindex à "on" permet de lister le repertoire. Pour définir l'URL qui pointera sur ce répertoire, il faut utiliser la directive location en indiquant l'URL que l'on souhaite. Enfin pour définir le répertoire qui sera listé sur cette url il faut utiliser la <a href="http://wiki.codemongers.com/NginxHttpCoreModule#alias">directive alias</a> et donner en paramètre le chemin du répertoire.
+</p>
+
+<p>Voici un exemple de configuration a mettre dans votre fichier de conf Nginx.</p>
+
+
+<pre>
+location /votre_path {
+  alias /votre_repertoire/sous_repertoire/; 
+  autoindex  on;
+}
+</pre>
+
+<p>Je trouve que même cette fonctionnalité est plus rapide que sous Apache. Je suis vraiment content d'Nginx. En plus je comprend enfin la documentation d'un serveur Web.</p>

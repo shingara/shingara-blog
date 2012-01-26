@@ -1,0 +1,22 @@
+---
+layout: post
+title: Java 6 sur Debian
+typo_id: 33
+---
+<p>
+Java 6 est sorti depuis quelques temps et il est aussi disponible sur debian. Je vais donc expliquer rapidement comment l'installer et surtout le mettre en place :)
+</p>
+
+<ul>
+<li>Se connecter en tant que root</li>
+<li>Installer java 6 : <code># aptitude install sun-java6-jdk</code></li>
+<li>Définir Java 6 comme la JVM par défaut de votre debian : <code># update-java-alternatives -s java-6-sun</code></li>
+</ul>
+
+<p>
+La commande update-java-alternative permet de mettre à jour et définir votre environnement JVM. C'est une commande très simple et ca vous permet de basculer d'une version à l'autre très facilement.
+</p>
+
+<p>
+Sinon je rappelle que sun a voulu que Java soit compatible de façon ascendante. En conséquence, il n'y a aucun risque sur vos applications développé en Java 1.4 ou Java 5. elles fonctionneront. J'ai ainsi par exemple lancé tomcat 5.5 et mon site Web que je crée en Java et je n'ai eu aucun problème.
+</p>

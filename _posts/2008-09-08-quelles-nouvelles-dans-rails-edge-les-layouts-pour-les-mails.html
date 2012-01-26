@@ -1,0 +1,31 @@
+---
+layout: post
+title: ! 'Quelles nouvelles dans Rails Edge : Les layouts pour les mails'
+typo_id: 171
+---
+<p>Traduction de l'article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-mailer-layouts">What's new in edge rails
+: Mailer Layouts</a></p>
+<p>Rails a ajouté la possibilité <a href="http://github.com/rails/rails/commit/e9a8e0053be3b293ab89fb584f1d660063f107aa">d'utiliser des layouts pour les mails</a>
+exactements comme il est actuellement possible pour leurs grand frère les
+vues. Il faut juste noté que pour qu'un layout de mail soit automatiquement
+reconnu, il doit se finir par _mailer. Donc pour un mail:</p>
+
+<typo:code lang='ruby'>
+Cass UserMailer < ActionMailer::Base
+  def registration(user)
+    subject    "You've registered"
+    from       "system@example.com"
+  end
+end
+</typo:code>
+
+<p>vous n'aurait besoin que d'un layout à <code>layouts/user_mailer.html.erb</code>. Si vous spécifiez explicitement le layout vous n'avez pas besoin du suffix _mailer. Ainsi, dans l'exemple suivant, un layout à <code>layouts/email.html.erb</code> suffit:</p>
+
+<typo:code lang='ruby'>
+class UserMailer < ActionMailer::Base
+  layout 'email'
+  ...
+end
+</typo:code>
+
+<p>A partir de maintenant, vous pouvez faire de joli petit email. Vous avez désormais tous les outils.</p>

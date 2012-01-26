@@ -1,0 +1,21 @@
+---
+layout: post
+title: Sortie de Oupsnow 0.4.0
+typo_id: 209
+---
+<p>Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, cette version est désormais en Rails/MongoDB. Le back-end et le serveur ont changé.</p>
+
+<p>Cette nouvelle version, outre son refactoring comprend aussi l'ajout de quelques nouvelles fonctionnalités.</p>
+
+<ul>
+<li>Ajout d'un filtre par Status dans la recherche de ticket</li>
+<li>Ajout de la possibilité de changer la fonction de tous les membres d'un project</li>
+<li>Ajout de la preview des tickets et commentaires sur les tickets</li>
+<li>Ajout de la visualisation de la milestone courante dans la visualisation d'un ticket</li>
+<li>Possibilité d'ordonner tous les champs de recherche dans la vue des tickets</li>
+<li>Login par l'email et plus par le pseudo</li>
+</ul>
+
+<p>Vous pouvez télécharger cette version sur <a href="http://rubyforge.org/frs/?group_id=7685">rubyforge</a></p>
+
+<p>Si vous souhaitez tester cette version, une <a href="http://oupsnow.shingara.fr/">version de demo de oupsnow</a> est en ligne. Les login/mdp sont : admin@admin.com/oupsnow. Amusez vous bien.</p>

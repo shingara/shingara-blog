@@ -1,0 +1,45 @@
+---
+layout: post
+title: ! 'Quelles nouvelles dans Rails Edge : Les Shallow routes'
+typo_id: 170
+---
+<p>Traduction de l'article de <a href="http://ryandaigle.com/">Ryan Daigle</a>, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-shallow-routes">What's new in edge rails
+: Shallow routes</a></p>
+                                                                            
+<p>Le système des routes avec Rails est assez malin. Dans une optique d'être  
+le plus descriptif possible, la description des ressources est fait au niveau
+des URL avec une DSL spécifique pour les routes :</p>
+                       
+<typo:code lang='ruby'>       
+map.resources :users do |user|         
+  user.resources :articles do |article|
+    article.resourcs :comments
+  end
+end         
+</typo:code>                                                                  
+                                                                              
+<p>Néanmoins, si cette configuration permet de voir les articles disponibles à
+l'URL <code>/users/1/articles</code> et les commentaires à l'URL                          
+<code>/users/1/articles/1/comments</code>, il y a des cas où on voudrais outrepasser cette
+hiérarchie et accéder directement à la ressource en question. Désormais avec                                               
+l'option des <a                                                                                                            
+href="http://github.com/rails/rails/commit/83c6ba18899a9f797d79726ca0078bdf618ec3d4">shallow route</a>, vous le pouvez.</p>
+                       
+<typo:code lang='ruby'>                          
+map.resources :users, :shallow => true do |user|
+  user.resources :articles do |article|
+    article.resources :comments
+  end
+end         
+</typo:code>
+                                          
+<p>Cette configuration permet de conserver les routes imbriquées et vous donne 
+accès directement au route comme ceci:</p>
+                       
+<typo:code lang="ruby">      
+articles_path #=> '/articles'                             
+comments_path #=> '/comments'                             
+article_comments_path(@article) #=> '/articles/1/comments'
+</typo:code>
+                                                                                                                                                                         
+<p>Plus besoin de déclarer séparement les routes directes en plus des routes imbriquées. l'option <code>:shallow</code> fait tout les routes nécessaires automatiquement pour vous.</p>

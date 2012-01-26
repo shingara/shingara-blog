@@ -1,0 +1,29 @@
+---
+layout: post
+title: Nouveau converter de Dotclear vers Typo
+typo_id: 59
+---
+<p>Ma migration vers un blog sous <a href="http://typosphere.org/">Typo</a> approchant et étant actuellement, sous Dotclear, j'ai créé un nouveau plugin pour Typo. Ce plugin est une copie du converter de Mephisto pour Typo. En effet, le système de conversion de Mephisto me semble beaucoup plus performant et plus adapatable que celui de Typo. Typo étant un projet libre, j'ai donc créer un ticket pour proposer mon patch. J'attend de voir la réaction des développeurs sur ce plugins. Le ticket de submission est le <a href="http://trac.typosphere.org/ticket/1132">ticket 1132</a>.</p>
+
+<p>
+Je vais vous faire la traduction de mon mauvais anglais.
+</p>
+
+<p>J'ai créer un nouveau système pour convertir la base de donnée d'un autre blog en en base de donnée Typo. Mon nouveau système est basé sur le converter de Mephisto. C'est un plugin et il utilise complétement ActiveRecord. Pour récupérer les informations d'un autre blog et les poster dans Typo.
+</p>
+
+<p>Actuellement le converter fonctionne uniquement avec Dotclear, mais une interface est écrite et vous pouvez l'utiliser pour d'autre moteur de blog en créant un autre adapter.</p>
+
+<p>Pour commencer la migration de dotclear, vous avez besoin de compléter le config/database.yml avec une configuration qui a pour clé dv and toutes les information sur où trouver la base de donnée récupérer par un SQLDump de votre moteur de blog. Après cette configuration vous pouvez commencer la migration avec la commande suivante :</p>
+
+<pre>./script/runner 'TypoPlugins.convert_from :dotclear'</pre>
+
+<p>Par défaut vous pouvez migrer tous les articles, mais vous pouvez aussi migrer uniquement les articles de catégories défini.</p>
+
+<pre>./script/runner "TypoPlugins.convert_from :dotclear, {:categorie => ['ruby', 'rails', 'dev']}"</pre>
+
+<p>Conseil : Pour accélerer grandement la migration vous pouvez commenter la ligne suivante dans le config/environement.rb</p>
+
+<pre>#config.active_record.observers = :email_notifier, :web_notifier</pre>
+
+<p>Edit : 10min avant la soumission de mon patch, le script de migration disponible sur <a href="http://rubyfr.org/">RubyFR</a> avait été mis à jour. Quel hasard. <a href="http://fredix.freemonk.org/articles/2007/07/17/migration-dotclear-vers-typo">L'annonce de cette mise à jour</a></p>

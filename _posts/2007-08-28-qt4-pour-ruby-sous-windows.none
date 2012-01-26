@@ -1,0 +1,25 @@
+---
+layout: post
+title: QT4 pour Ruby sous Windows
+typo_id: 63
+---
+<p>Adepte du Ruby, j'essaye de l'utiliser pour tout ce que je développe. A l'heure actuel, je développe principalement des applications web, donc je suis fortement tourné vers RubyOnRails. Mais voilà, j'ai aussi parfois des envies de Desktop. Je n'en ai jamais trop fait à part avec Swing en Java. Je me suis donc dit que ca pourrait être sympa d'utiliser <a href="http://trolltech.com/products/qt">QT4</a> en Ruby.</p>
+
+<p>il existe un <a href="http://rubyforge.org/projects/korundum/">binding de QT4 pour Ruby</a>. Mais j'ai hélas la possibilité de ne développé que sous Windows et sur le support Officiel, il n'y a aucune version pour Windows.</p>
+
+<p>Heureusement jzkey a réaliser un <a href="http://www.jzkey.com/qtruby/">binaire complet comprennant QT4 et QTRuby4</a>. Je viens de le testé et il marche pas trop mal sur le tutorial et d'autres samples. Certain n'ont hélas pas marché, mais je n'en connais pas la raison. Je vais décrire ici la procédure pour installer QTRuby4 sous windows.</p>
+
+<ul>
+<li>Télécharger le zip complet comprenant QT4 et le binding Ruby sur le site de <a href="http://www.jzkey.com/qtruby/">jzkey</a></li>
+<li>Dezipper le tout dans votre arborescence. Ensuite il faut faire plusieurs copier coller. (C'est en tout cas la technique que j'ai employé)</li>
+<li>Copier tous les fichiers (*.exe et *.dll) qui se trouve dans le dossier /bin/ et les mettres dans le dossiers /bin/ de votre dossier Ruby</li>
+<li>Copier le dossier /lib/ruby/site_ruby/1.8/Qt/ dans /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier les fichier QT4.rb, QT3.rb et QT.rb dans le dossier /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier le fichier qtruby4.so qui se trouve dans /lib/ruby/site_ruby/1.8/i386-msvcrt/ dans le dossier /lib/ruby/site_ruby/1.8/i386-msvcrt/ de votre répertoire Ruby</li>
+</ul>
+
+<p>Voilà, normalement vous pouvez lancer vos applications Ruby avec le require QT4. Pour test, lancer le tutorial /samples/qt/tutorial/t14/t14.rb. Si vous arrivez à jouer au petit jeu de tir, alors l'installation à réussi et vous pouvez maintenant coder directement vos applications QT4 sous Windows.</p>
+
+<p>Bien-sûr, je vous conseille toujours de développez sous Linux</p>
+
+<p>Edit du 07 Août 2009 : Quelqu'un m'ayant fait remarqué que le lien sur jzkey n'existe plus, j'ai constaté que sur rubyforge, un binding windows pour qt4 est désormais disponible (http://rubyforge.org/frs/?group_id=181&release_id=32620) et même un gem. N'utilisant plus windows, je n'ai pas pu tester.</p>

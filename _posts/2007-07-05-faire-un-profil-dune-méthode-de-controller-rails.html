@@ -1,0 +1,30 @@
+---
+layout: post
+title: Faire un profil d'une méthode de "controller" Rails
+typo_id: 57
+---
+<p>
+Je me suis retrouvé confronter à une méthode d'un "controller" de Ruby On Rails que je trouvais particulièrement longue sachant qu'elle faisait plus d'une seconde et que ce n'était ni le temps du "render", ni le temps de la Base de donnée. La meilleure méthode pour optimiser ce genre de méthode, c'est tout simplement de faire un profile du traitement effectué. Mais voilà, comment faire un profile ?
+</p>
+
+<p>
+Et bien c'est très simple, il faut utiliser le profiler Ruby (disponible avec le require 'profiler'). Un fois le require effectué un <code>Profiler__::start_profile</code>, puis un <code>Profiler__::stop_profile</code> englobe le code a profiler. Enfin un <code>Profiler__::print_profile STDOUT</code> permet une sortie du profil dans le STDOUT. Ce qui permet ainsi d'être utilisé comme cela dans notre "controller".
+</p>
+
+<pre>
+require 'profiler'
+class MyController < ApplicationController
+  def my_method
+    Profiler__::start_profile
+    
+    # Mon code à profiler
+
+    Profiler__::stop_profile
+    Profiler__::print_profile STDOUT
+  end
+end
+</pre>
+
+<p>
+Après une petite étude du code du script de "profiler" fournit par rails dans <code>/script/performance/profiler</code>, j'ai pu constater qu'il existait une gem permettant d'améliorer le "profiling" avec un "profiler" plus rapide et de plus belle sortie, en autre en HTML. Il s'agit de <a href="http://ruby-prof.rubyforge.org/">ruby-prof</a>. L'utilisation est là même que précédemment, c'est juste les appels qui sont différent.
+</p>

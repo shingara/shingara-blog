@@ -1,0 +1,27 @@
+---
+layout: post
+title: Activer la capture du son sous Linux pour xvidcap
+typo_id: 110
+---
+<p>Voulant tenter de faire des screencasts, j'ai jeté mon dévolu juste <a href="http://xvidcap.sourceforge.net/">xvidcap</a>. Durant, mon test, je n'arrivais pas à faire de capture du son. J'avais bien branché mon micro et je pouvais l'entendre dans les enceintes. Mais il n'était pas capturé. je vais donc indiquer toutes les modifications que j'ai réalisé pour que ça marche, car ce n'est pas la première fois que j'ai ce genre de problème.</p>
+
+<h3>XvidCap n'écoute que OSS</h3>
+
+<p>En effet, xvidcap n'écoute que le point /dev/dsp, il faut donc réaliser la compatibilité OSS si vous utilisez alsa.</p>
+
+<h3>Activer la capture du micro</h3>
+
+<p>Ensuite, il faut penser à vérifier que la capture du son soit bien activé dans alsamixer. Pour cela, il suffit d'aller sur la partie Capture d'alsamixer. Pour y arriver, une petite tabulation suffit. Le screenshot suivant montre le cas de capture désactivé.</p>
+
+<p style="text-align: center;">
+<img src="http://blog.shingara.fr/files/alsamixer-capture-desabled.png" alt="screenshot d alsamixer avec la capture son desactive" >
+</p>
+
+<p>Il suffit ensuite d'aller sur les éléments désactivés et d'appuyer sur espace pour valider la capture. On obtient ainsi l'écran suivant :</p>
+
+
+<p style="text-align: center;">
+<img src="http://blog.shingara.fr/files/alsamixer-capture-activate.png" alt="screenshot d alsamixer avec la capture son active" >
+</p>
+
+<p>J'ai ainsi pu enfin réussir mon test de screencast pour réaliser les screencasts que je souhaite.</p>

@@ -1,0 +1,18 @@
+---
+layout: post
+title: script/generate directement dans svn
+typo_id: 73
+---
+<p>A chaque fois que j'utilisais le script de génération de code de Ruby On Rails, je devais lancer ensuite un ajout des sources dans subversion avec un petit <code>svn add</code>.</p>
+
+<p>Mais voilà, je viens de découvrir que cette commande est tout à fait inutile. En effet, le script de génération comprend une option qui nous permet d'éviter ce genre de manipulation inutile. Il y a l'option -c.</p>
+
+<pre>
+$ ./script/generate migration -c change_type_format
+      exists  db/migrate
+      create  db/migrate/030_change_type_format.rb
+A         db/migrate/030_change_type_format.rb
+
+</pre>
+
+<p>J'adore l'implémentation de Subversion dans Ruby On Rails</p>

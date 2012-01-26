@@ -1,0 +1,9 @@
+---
+layout: post
+title: ! 'Quelque nouvelles dans Rails Edge : Render(:file => ''/path/to/file'') devient
+  render(''/path/to/file'')'
+typo_id: 189
+---
+<p>Comme tout nos efforts sont désormais à consacrer à Rails. Voici la dernière nouveauté que je viens de trouver dans les commits. Hier le render a été simplifié. En effet, quand vous souhaitez faire un render de fichier il fallait faire : <code>render (:file => '/path/to/file')</code>. Désormais avec <a href="http://github.com/rails/rails/commit/061952392afd1dae1aa97a816e9a0c79df7c4514">ce nouveau commit</a>, un simple <code>render('/path/to/file')</code> suffira pour rendre le fichier donné.</p>
+
+<p>Par contre attention, pour que ce path sont considéré valide, il faut absolument le / au début. Mais heureusement ce code <code>render(Rails.root('/public/404.html'))</code> fonctionnera, grâce à <a href="http://blog.shingara.fr/2008/11/30/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root">un précédent commit</a>

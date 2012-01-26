@@ -1,0 +1,65 @@
+---
+layout: post
+title: quand la vue modifie son layout
+typo_id: 98
+---
+<h3>Cas d'utilisation</h3>
+
+<p>Dans l'administration de Typo, en fonction du controller appelé, voir de l'action, il faut modifier la partie indiquant le sous-menu. On a donc 3 possibilités pour réaliser cette partie dynamique.</p>
+
+<ol>
+  <li>Mettre la partie variable directement dans la vue et l'enlever du template.</li>
+  <li>Mettre les informations directement dans le controller ou l'action et c'est cette information qui sera lu par le template</li>
+  <li>Utiliser content_for directement dans la vue en utilisant le yield dans le template</li>
+</ol>
+
+<p>Bien sûr la meilleur méthode est la troisième. Mais je vais expliquer pourquoi et comment on peux mettre en oeuvre.</p>
+
+<h3>Mettre la partie variable directement dans la vue et l'enlever du template</h3>
+
+<p>
+Cette méthode est de loin la plus simple qui soit. On sait que notre partie n'est pas toujours affiché pour le layout indiqué, donc on la met pas dans le template. Mais voilà, si on a du code entre notre partie dynamique et le vrai contenu de notre vue, on a pas le choix il faut dupliquer cette partie et ainsi on se retrouve à faire plein de copier coller et comme on sait le copier coller c'est pas DRY. Il faut donc essayer de proscrire cette méthode. Le cas le plus horrible est bien sur la modification de la partie que vous avez mis dans chaque vue et ceux sur vos 100 vues. Bonne chance.
+</p>
+
+<h3>Mettre les informations directement dans le controller</h3>
+
+<p>Cette technique est un peu plus évolué que la précédente car elle permet d'être plus DRY. En effet, si on a du code entre sa partie "dynamique" et sa vue, on est pas obligé de l'intégrer dans chaque vue. Ce qui permet d'avoir un template plus important et des vues plus légères. Mais l'inconvénient de cette technique et qu'il faut gérer l'affichage et des techniques visuel directement dans le controller. Par exemple le nom des liens, etc.. Ce n'est pas du tout dans la logique MVC, car une partie de la vue est généré et controllé par le controlleur. Le controlleur ne doit que définir quel vue utiliser et donner les variables issues d'une ressources externes.</p>
+
+<h3>Utiliser content_for directement dans la vue en utilisant le yield dans le template</h3>
+
+<p>Pour que ça soit la vue qui gère le contenu dans le template sans que le controller s'en mêle, la meilleur technique est d'utiliser content_for. Cette méthode permet de mettre en interne un bloc de code HTML. Ce bloc de code HTML n'est lu que par l'utilisation d'un yield :le_nom_du_bloc. On peux ainsi définir le bloc dans la vue et donner sa position directement dans le layout. Si ensuite vous voulez réutiliser le même bloc de code, un render :partial permettra de factoriser encore le code. Voici un exemple d'utilisation de cette méthode avec un template et une vue.</p>
+
+<p>Template :</p>
+
+<typo:code lang="html">
+<html>
+  <head>
+    <title>;Ma page</title>
+  </head>
+  <div id="menu">
+   <ul>
+    <%= yield :menu %>
+  </ul>
+  </div>
+  <p>un peu de texte au milieu</p>
+  <div id="content">
+    <%= yield %>
+  </div>
+</html>
+</typo:code>
+
+<p>Vue :</p>
+
+<typo:code lang="html">
+<% content_for :menu do %>
+  <li><% link_to 'Voir', page_url %></li>
+<% end %>
+
+<p>Ma vue compléte</p>
+
+</typo:code>
+
+
+<p>Vous trouvez pas ça génial ?</p>
+
+<p>Sinon pour les anciens qui connaissaient la technique avant Rails 2.0 et qui utilisait @content_for_mon_block cette technique est déprécié. Il faut utiliser plutôt le yield depuis la version 2.0.x</p>

@@ -1,0 +1,8 @@
+---
+layout: post
+title: Sortie de Whois-0.4.1
+typo_id: 87
+---
+<p>Il faut croire que c'est le moment des <a href="http://blog.shingara.fr/articles/tag/annonce">releases</a> pour moi.</p>
+
+<p>Je viens de faire une toute petite mise à jour de ma petite librairie de <a href="http://rubyforge.org/projects/whois/">Whois Ruby</a>. La seule modification est la mise à jour de la liste de correspondance des serveurs Whois. J'ai mis à jour cette liste en concordance avec la liste de Marco d'Itri et son programme en ligne de commande <a href="http://ftp.debian.org/debian/pool/main/w/whois/">Whois-4.2.27</a>. Ça faisait longtemps que je devais mettre cette liste à jour. C'est enfin fait.</p>

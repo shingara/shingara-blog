@@ -1,0 +1,18 @@
+---
+layout: post
+title: Ma technique pour suivre twitter
+typo_id: 184
+---
+<p>Ce soir durant l'apéro ruby, j'ai expliqué ma technique personnel pour suivre twitter. Il doit y avoir autant de technique que d'utilisateur mais je vous explique la mienne.</p>
+
+<p>Premièrement, il faut utiliser le gem <a href="http://twitter.rubyforge.org/">twitter</a>. Ce gem fourni un petit binaire qui permet de poster et vérifier les updates sur son compte twitter. Couplé à une base de donnée en SQLITE, il nous informe que des nouveaux updates.</p>
+
+<p>Enfin, il suffit de coupler ce gem avec un cron en un pipe sur mail pour pouvoir récupérer régulièrement les updates dans sa messagerie mail. Comme dirais Jean-François Tran, je suis un pro-logger. Je log tout. Mais bon, ça me permet de suivre plus facilement une longue liste d'update de tweet avec un mail par heure.</p>
+
+<p>Voici ma ligne cron :</p>
+
+<typo:code>
+42 * * * * twitter timeline | mail -s 'twitter timeline' cyril.mougel@gmail.com
+</typo:code>
+
+<p>Simple et efficace. Pourquoi s'encombrer avec OSX :p</p>

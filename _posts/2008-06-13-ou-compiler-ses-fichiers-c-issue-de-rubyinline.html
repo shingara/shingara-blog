@@ -1,0 +1,10 @@
+---
+layout: post
+title: Où compiler ses fichiers C issue de RubyInline
+typo_id: 144
+---
+<p><a href="http://www.zenspider.com/ZSS/Products/RubyInline/">RubyInline</a> est un joli petit gem qui permet de générer du code C a partir de code Ruby. Ce code C est ensuite compilé et réutilisé durant les appels futurs de la méthode.</p>
+
+<p>Par défaut, RubyInline compile tout dans votre dossier <code>$HOME/.inline</code>. Mais comment faire si l'utilisateur n'a pas de HOME par exemple, où tout simplement qu'il souhaite mettre la compilation dans le dossier <code>$RAILS_ROOT/tmp/inline</code> qui pourrait être une place tout à fait raisonnable.</p>
+
+<p>N'ayant pas trouvé l'information dans la documentation de ce gem, j'ai donc chercher un peu dans le code. J'ai ainsi découvert que le dossier de compilation des fichiers C est géré par la variable d'environnement INLINEDIR. Il suffit donc de définir cette variable dans votre fichier d'environnement.rb pour choisir où sera compilé les fichiers générés par RubyInline.</p>

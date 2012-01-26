@@ -1,0 +1,55 @@
+---
+layout: post
+title: ! 'Astuce Mplayer : Comment chercher et définir une langue en lisant un DVD
+  avec mplayer'
+typo_id: 20
+---
+<p>Aujourd'hui, je voulais voir le très bon film "Taxi Driver". Ma copine l'a en DVD. Mais pour voir au mieux ce film, je voulais le voir en anglais avec sous-titrage en français. Alors, comme je regarde mes DVD avec Mplayer, j'ai fait :</p>
+
+<pre>$mplayer dvd://</pre>
+
+<p>Mon ordinateur étant par défaut en français, le film a commencé en français. Ce n'est hélas pas ce que je voulais.</p>
+<p>Mplayer n'a pas de menus de DVD dans son implémentation. Alors, j'ai cherché comme faire et j'ai trouvé. Avec le mode verbeux de Mplayer, quand on commence un DVD, nous pouvons voir toutes les langues et sous-titrage de notre DVD, comme montré ci-après :</p>
+
+<pre>shingara@shalamarette ~ $ mplayer dvd:// -v
+[...]
+[open] audio stream: 0 audio format: ac3 (stereo) language: en aid: 128
+[open] audio stream: 1 audio format: ac3 (stereo) language: fr aid: 129
+[open] audio stream: 2 audio format: ac3 (stereo) language: de aid: 130
+[open] number of audio channels on disk: 3.
+[open] subtitle ( sid ): 0 language: en
+[open] subtitle ( sid ): 1 language: fr
+[open] subtitle ( sid ): 2 language: de
+[open] subtitle ( sid ): 3 language: nl
+[open] subtitle ( sid ): 4 language: cs
+[open] subtitle ( sid ): 5 language: da
+[open] subtitle ( sid ): 6 language: fi
+[open] subtitle ( sid ): 7 language: el
+[open] subtitle ( sid ): 8 language: iw
+[open] subtitle ( sid ): 9 language: hi
+[open] subtitle ( sid ): 10 language: hu
+[open] subtitle ( sid ): 11 language: is
+[open] subtitle ( sid ): 12 language: no
+[open] subtitle ( sid ): 13 language: pl
+[open] subtitle ( sid ): 14 language: sv
+[open] subtitle ( sid ): 15 language: tr
+[open] number of subtitles on disk: 16
+[...]
+</pre>
+
+<p>Maintenant avec ces informations, nous pouvons choisir notre langue audio et sous-titre. Avec l'option -aid, nous définissons le nombre de la langue et avec l'option -sid, le nombre du sous-titrage.</p>
+
+<p>Exemple :</p>
+
+<ul>
+
+<li>Audio en anglais et sous-titre en français.<br />
+<pre>$mplayer dvd:// -aid 128 -sid 1</pre>
+</li>
+
+<li>Audio en français<br />
+<pre>$mplayer dvd:// -aid=129</pre>
+</li>
+</ul>
+
+<p>If you see this article in english, go <a href="http://shingara.free.fr/blog_en/index.php?2006/08/11/2-mplayer-tips-how-search-and-define-the-language-to-dvd-with-mplayer">here</a></p>

@@ -1,0 +1,46 @@
+---
+layout: post
+title: ! 'Vivre avec Rails Edge #18'
+typo_id: 136
+---
+<p>Traduction de la <a href="http://blog.codefront.net/2008/04/27/living-on-the-edge-of-rails-18/">news #18</a></p>
+
+<p>Le rapport de cette semaine couvre les changement du 21 Avril 2008 au 27 Avril 2008 (Jour correspondant à l'enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<p>Très peu de chose interressant dans le rapport de cette semaine. Il y a eu
+principalement un paquet de résolutions de bug et des <a href="http://github.com/rails/rails/commits/master">commits</a> pour la compatibilité avec Ruby 1.8.7.</p>
+
+<h3>Introduction d'ActiveResource::Base.timeout et récupération de
+Timeout::Error dans ActionResource::Connection</h3>
+
+<p>I y a <a href="http://github.com/rails/rails/commit/105910429d5873dce677ef32eef5f705e0625d86">2</a>
+<a href="http://github.com/rails/rails/commit/cf32baf915442ffe153ec0e4d8148f147776c30a">changements</a>
+qui ont <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">été
+expliqué par Chu Yeow</a> la semaine dernière
+et ne seront donc pas détaillé. Lisez donc l'article <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">ActiveResource
+timeouts and why it matters (en)</a></p>
+
+<h3>Le type entier inteligent pour l'adaptater MySQL dans les migrations</h3>
+
+<p>L'adaptater MySQL dans Rails fait correspondre la colonne de type
+<code>integer</code> dans vos migrations aux type smalling, int ou biging
+dépendant de l'option :limit.</p>
+
+<p>Cela signifie qu'une migration comme ceci:</p>
+
+<typo:code lang="ruby">
+def self.up
+  create_table :searches do |t|
+    t.integer :foo, :limit => 2
+  end
+end
+</typo:code>
+<p>
+Créera la colonne <code>foo</code> comme un type <code>smallint(2)</code>
+dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement). (Plus d'information sur <a href="http://dev.mysql.com/doc/refman/5.0/en/numeric-types.html">les types numériques MySQL</a>
+<p>
+
+<p>Ce path a été réalisé par DHH.</p>
+
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8">http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8</a></p>
+<p>Comme toujours, vous pouvez laissez tout suggestion pour améliorer cette série de Vive avec Rails.</p>

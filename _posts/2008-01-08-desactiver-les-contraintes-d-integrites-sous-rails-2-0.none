@@ -1,0 +1,8 @@
+---
+layout: post
+title: Désactiver les contraintes d'intégrités sous Rails 2.0
+typo_id: 93
+---
+<p>Suite à une petite discussion sur IRC sur le chan #rubyonrails.fr, j'ai constaté qu'une nouvelle méthode avait été ajouté dans Rails 2.0 et que je l'avais utilisé.</p>
+
+<p>Cette nouvelle méthode est <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/AbstractAdapter.html#M001287">AbastractAdapter#disable_referential_integrity</a>. Elle permet tout simplement désactiver les contraintes d'intégrités dans le bloc de code donné en paramètre de cette méthode. C'est vraiment une méthode très pratique dans le cas où on veux réaliser un gros INSERT dans la base de donnée. Ainsi elle est utilisée dans la classe Fixture pour insérer les données.</p>

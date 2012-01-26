@@ -1,0 +1,11 @@
+---
+layout: post
+title: setOpaque true or false ?
+typo_id: 11
+---
+<p>
+La méthode <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/swing/JComponent.html#setOpaque(boolean)">setOpaque</a> de la Classe Jcomponent a un comportement particulier. En effet, j'ai pris juste deux petites heures à trouver comment mettre un JLabel avec une couleur de fond. Une fois la métode setBackground(Color) utilisé, je ne constatais aucun résultat. J'ai donc quand même fini par comprendre.
+</p>
+<p>
+En effet, la méthode setOpaque est à "false" dans le cas d'un JLabel, il n'est à true que pour les JButton. Maintenant que je le sais, je ne referais plus cette erreur.
+</p>

@@ -1,0 +1,12 @@
+---
+layout: post
+title: Sortie de WhoToWho 0.1.0
+typo_id: 86
+---
+<p>Après avoir passé une bonne soirée avec des amis à moi, il a été décidé de se faire un repas ensemble pour Noël. Pour avoir un maximum l'esprit de Noël. Il fallait s'offrir des cadeaux. Mais voilà, nous n'avons pas des moyens financiers illimités. Pour palier à ce problème nous avons décidé de faire un tirage au sort. Chacun de nous doit piocher un nom et offrir un cadeau à cette personne. Il ne faut pas que le nom de cette personne soit connu. C'est un secret. Mais voilà une nouvelle problématique est arrivée. Nous ne nous voyons que rarement maintenant. Il fallait un système où nous n'étions pas obligé de se voir. C'est là que j'ai proposé de réaliser un programme qui ferait tout ça. C'est ainsi qu'est né l'idée de WhoToWho.</p>
+
+<p>Aujourd'hui, j'en sors la version 0.1.0 qui n'est qu'en ligne de commande et qui n'a que l'exclusion de soit même. Dans la prochaine version, on pourra définir une liste de personne à exclure.</p>
+
+<p>Si vous êtes intéressé par le projet vous pouvez visitez ma <a href="http://dev.shingara.fr/projects/show/4">plate-forme de dev</a></p>
+
+<p>Cette version est releaser en gem et par archive tar sur <a href="http://rubyforge.org/projects/whotowho">rubyforge</a></p>

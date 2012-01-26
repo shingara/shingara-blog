@@ -1,0 +1,14 @@
+---
+layout: post
+title: Installation plugin Java 1.5 sur firefox
+typo_id: 13
+---
+<p>
+Suite à mon précédent billet expliquant comment installer java à partir des sources sur sa debian, je vais expliquer maintenant comment mettre le plugin java sur firefox. C'est toujours pratique.
+</p>
+<p>
+Je vais supposer que le dossier où est java est le dossier <code>/opt/jdk1.5_0_6/</code>. Pour mettre en place le plug-in, il suffit juste de faire un lien symbolique dessus comme ceci :
+</p>
+<ul>
+<li><code>#ln -s /opt/jdk1.5.0_06/jre/plugin/i386/ns7/libjavaplugin_oji.so /usr/lib/firefox/plugins/</code></li>
+</ul>

@@ -1,0 +1,18 @@
+---
+layout: post
+title: Le piege des routes à éviter
+typo_id: 148
+---
+<p>Alors, que je testais <a href="http://pictrails.rubyforge.org/">Pictrails</a> pour la <a href="http://blog.shingara.fr/articles/2008/06/15/publication-de-pictrails-0-3-0">release en version 0.3</a>, j'ai par hasard créé une galerie s'appelant "new". Ayant implémenté un système de PrettyURL pour pictrails, j'ai changé les routes REST pour non pas afficher l'id de la galerie dans l'url mais son nom. Ainsi, comme ma galerie s'appele "new", je devais allez sur l'URL : /galleries/new.</p>
+
+<p>Mais voilà comme galerie était une ressource REST, la route /galleries/new est déjà réservé et je me suis donc retrouvé sur l'url de création d'une Gallerie et non sur l'url de visualisation de la galerie new. C'est ainsi que je suis tombé dans le piège des routes à éviter.</p>
+
+<p>Maintenant, que j'ai trouvé le bug il a fallu trouvé la solution et plus que de trouver la solution, il fallait trouver une solution propre. En effet, basiquement, on peux créer un validateur qui vérifie que le nom n'est pas "new", mais cette technique ne me semblait pas idéal surtout pour l'avenir et le maintient à terme de cette solution. J'ai donc commencé à en discuter avec les personnes présentent sur le chan #rubyonrails.fr. C'est ainsi que <a href="http://lifeisdead.net">webs</a> m'a proposé une solution tout à fait élégante en me donnant un code de <a href="http://sunfox.org/">sunny</a>. La vérification directe de l'existence ou non de la route. Voici le bout de code qui permet cette vérification :</p>
+
+<typo:code lang="ruby">
+permalinks = ActionController::Routing::Routes.routes.collect {|r|
+   r.generation_structure.match(/"\/galleries\/([\w]+)/)[1] rescue nil
+}.uniq.compact
+</typo:code>
+
+<p>On récupère ainsi tous les mots utilisés dans nos routes et commençant par galleries. Sur Pictrails, nous obtenons ainsi "pages" et "new". Il suffit ensuite d'empêcher la création de galerie avec ces noms.</p>

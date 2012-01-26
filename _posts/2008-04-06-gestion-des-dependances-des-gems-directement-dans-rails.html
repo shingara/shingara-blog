@@ -1,0 +1,55 @@
+---
+layout: post
+title: Gestion des dépendances des gems directement dans Rails
+typo_id: 107
+---
+<p>
+Suivant toujours les évolutions de Rails dans sa version edge, je vais commencer une série de billet pour vous informer de quelques nouveautés pour Rails 2.1. Je trouve ces évolutions assez sympathiques.
+</p>
+
+<p>La première que je vais vous montrer est la gestion des dépendances de gems</p>
+
+<p>
+On pourra définir directement dans le fichier d'environnement de Rails les gems qui sont en dépendance de notre application. On peux ainsi y définir le nom, la version et même le dépôt de notre gems. Très pratique pour gérer ses dépendances. Plus besoin de forcement, copier les gems directement dans ton /vendor/. Voici un exemple de configuration :
+</p>
+
+<typo:code>
+Rails::Initializer.run do |config| 
+
+  # Necessite la derniere version du gem HAML
+  config.gem "haml"
+
+  # Necessite la version 0.2.3 de chronic
+  config.gem "chronic", :version => '0.2.3'
+
+  #Necessite le hpricot a partir d'un depot specifique
+  config.gem "hpricot", :source => "http://code.whytheluckystiff.net"
+
+  # Necessite un gem particulier qui necessite une ligne differente de require
+  # I.e. Si vous loader normalement le gem avec require 'aws/s3' au lieu de
+  # require 'aws-s3' alors vous devez le specifier dans l'option :lib
+  config.gem "aws-s3", :lib => "aws/s3" 
+end 
+</typo:code>
+
+<p>
+Avec cette fonctionnalité de nouvelles tâches rake ont été ajoutées :
+</p>
+
+<ul>
+<li>
+rake gems:install => permet d'installer tous les gems nécessaire
+</li>
+<li>
+rake gems => permet de lister tous les gems nécessaires à l'application
+</li>
+<li>
+rake gems:unpack => Copie tous les gems en dépendance dans le dossier /vendor/gems
+</li>
+<li>
+rake gems:unpack GEM=hpricot => Supprime le gems hrpicot du dossier /vendor/gems
+</li>
+<li>
+rake gems:build => construit les gems qui ont des extensions native.
+</li>
+</ul>

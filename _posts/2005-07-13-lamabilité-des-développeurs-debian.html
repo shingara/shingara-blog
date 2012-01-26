@@ -1,0 +1,33 @@
+---
+layout: post
+title: l'amabilité des développeurs debian
+typo_id: 7
+---
+<p>Mon précédent billet parlait d'un problème avec Debian. Mais en ce moment, faut vraiment croire que c'est la crise. Un nouveau "problème" m'est encore arrivé</p>
+
+<p>Alors que je mettais à jour mon système, le logiciel de communication "gaim" n'a plus voulu redémarrer. J'ai bien sur chercher à comprendre l'origine de ce problème. Commencant à maitriser un peu le système de gestion des paquets de debian, j'ai découvert que le problème venait d'une librairie, "libaspell15c2". J'ai voulu donc l'installé pour permettre le démarrage de Gaim. Mais à ma grande supprise, je constate que l'installation de cette librairie supprimerait tous les logiciels de développement KDE que j'utilise. En conséquence, je n'installe pas cette librairie et reste sans Gaim.</p>
+
+<p>Dans un esprit de compréhension, je décide de mailler les mainteneurs de Gaim et de cette libraire pour savoir si ils connaissaient le problème et si un reportbug s'imposait ou pas ? Je leur ai envoyé le mail suivant (en anglais :p) :<br />
+<blockquote>
+Hi,<br />
+<br />
+I write you, because I can't install gaim since the 1.1.4 version. My problem is the depends of libaspell15c2. For Gaim, he need a version >=0.60. but the libaspell15c2 (0.60) is conflict with libaspell15. So apt want remove this package and so I have a lot of package which remove too :<br />
+<br />
+    cervisia dbus-qt-1 k3b k3blibs kcontrol kdebase-bin kdelibs-bin kdelibs4<br />
+    kdevelop3 kdevelop3-data kdevelop3-plugins kfilereplace klinkstatus<br />
+    kommander kompare libaspell15 libcvsservice0 quanta<br />
+<br />
+I must can a bugreport or not ?<br />
+<br />
+The problem is plan to closed ?<br />
+<br />
+Thank for your answer.<br />
+</blockquote>
+</p>
+<p>
+Mais a ma grande surprise j'ai obtenu la réponse suivante du mainteneur de cette librairie :<br /> 
+<blockquote>If you don't know, you *really* should not be running unstable...</blockquote>
+J'ai été assez énervé de lire ca, car je pense vraiment connaitre ce système et que mon but était l'aide plutôt que d'embêter. Enfin, je me suis retenu de répondre par politesse. Mais voilà que l'on me montre ce <a href="http://bignachos.com/?p=15">billet</a> fait par cette personne qui m'avait presque insulté. Cette fois ci je trouve vraiment ca très déplacé et je me tate vraiment à répondre carrement à ce billet.
+</p>
+
+Les civilités se perdent dans la communauté debian :(

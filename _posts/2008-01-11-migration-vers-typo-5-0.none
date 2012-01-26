@@ -1,0 +1,100 @@
+---
+layout: post
+title: Migration vers Typo 5.0
+typo_id: 94
+---
+<p>Ca y est ce blog a été migré vers la branche 5.0 Stable de <a href="http://www.typosphere.org/">Typo</a>. Cette nouvelle version apporte <a href="http://fredericdevillamil.com/sortie-de-typo-5-0-eugene-atget-pour-rails-2-0">énormément de changement</a> que je ne détaillerais pas ici, car elles ont tout à fait bien été décrite.</p>
+
+<p>J'ai même eu la chance d'avoir vu <a href="http://trac.typosphere.org/search?q=shingara&ticket=on">plusieurs de mes patchs</a> <a href="http://trac.typosphere.org/changeset/1587">intégrés</a> à cette version.</p>
+
+<p>Pour effectuer la migration vers cette nouvelle version de Typo, j'ai dû hélas faire quelques petites modifications. En effet, j'ai appris par <a href="http://fredericdevillamil.com/">Frédéric</a>, qu'il y avait un petit bug à l'heure actuel. <a href="http://trac.typosphere.org/ticket/1110">Les tags ne peuvent pas avoir de point dans leur nom</a>. J'ai ainsi indiqué sur ce ticket la modification ci-jointe que j'ai réalisé pour faire passer la pillule à Typo. Hélas cela n'est qu'un contournement. Il suffit donc d'utiliser la magie de la console Rails pour éviter le problème en supprimant le point dans son tag.</p>
+
+<pre>
+rails@shinydedi /var/rails/typoblog-dev/current $ ./script/console production
+Loading production environment.
+>> t = Tag.find_by_name "rubyonrails2.0"
+=> #<Tag:0xb70bb848 @attributes={"name"=>"rubyonrails2.0", "updated_at"=>"2007-09-29 23:48:11.980446", "id"=>"18", "display_name"=>"rubyonrails2.0", "created_at"=>"2007-09-29 23:48:11.980446"}>
+>> t.name "rubyonrails-2-0"
+=> "rubyonrails2.0"
+>> t.display_name = "rubyonrails-2-0"
+=> "rubyonrails-2-0"
+>> t.name = "rubyonrails-2-0"
+=> "rubyonrails-2-0"
+>> t
+=> #<Tag:0xb70bb848 @attributes={"name"=>"rubyonrails-2-0", "updated_at"=>"2007-09-29 23:48:11.980446", "id"=>"18", "display_name"=>"rubyonrails-2-0", "created_at"=>"2007-09-29 23:48:11.980446"}>
+>> t.save
+=> true
+</pre>
+
+<p>J'ai ensuite eu un nouveau petit problème lors du lancement de la tâche de migration de la base de donnée. Il me manquait le gem Rcov. Comme le serveur est mon serveur de production, j'ai préféré enlevé le fichier qui me demandait cette dépendance que d'installer ce gem. Par contre j'ai récupéré les sources du SVN de Typo. Donc peut-être que sur les versions releasés, ce fichier a été enlevé.</p>
+
+<pre>
+rails@shinydedi /var/rails/typo-5-0-stable $ rm lib/tasks/rcov.rake
+</pre>
+
+<p>Et après tout est passé. A part ma petite erreur d'oubli de changement de localisation du dossier static pour mon serveur. Mais là c'est que de l'administration pur et dur.</p>
+
+<p>Enfin au niveau des modifications, j'ai aussi changé de thème pour conserver le nouveau thème par défaut de Typo. J'ai juste réalisé quelques modifications au niveau du fichier CSS pour que ça corresponde plus à mes envies. Je vous fournis les modifications pour les curieux.</p>
+
+<pre>
+Index: themes/dirtylicious/stylesheets/application.css
+===================================================================
+--- themes/dirtylicious/stylesheets/application.css     (révision 1624)
++++ themes/dirtylicious/stylesheets/application.css     (copie de travail)
+@@ -21,8 +21,8 @@
+
+ li {list-style: none;}
+
+-h1 {font: normal 1.8em Tahoma,sans-serif;}
+-h2 {font: normal 1.6em sans-serif;}
++h1 {font: normal 2.3em Tahoma,sans-serif;}
++h2 {font: normal 2em sans-serif;}
+ h3 {font: bold 1em Tahoma,sans-serif;}
+
+ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
+@@ -167,6 +167,16 @@
+     color: #654;
+ }
+
++#sidebar #categories li a {
++    display: inline;
++    padding: 0 0 0 5%;
++}
++
++#sidebar #archives li a {
++    display: inline;
++    padding: 0 0 0 5%;
++}
++
+ /* footer */
+ #footer {
+     background: #949490;
+@@ -325,3 +335,26 @@
+ #sidebar table tfoot #next a {text-align:center;}
+
+ #searchform {padding: 10px;}
++
++#delicious {
++    border: 4px solid rgb(188, 204, 235);
++    padding-left: 5%;
++    padding-right: 2%;
++    padding-bottom: 10px;
++}                                                   
++
++pre {
++    background-color: black;
++    color: white;
++    font-size: 1.3em;
++    padding: 2%;
++}
++
++.content h1 {
++    font-size:1.6em;
++}
++
++.content h2 {
++    font-size: 1.4em;
++    padding-left: 5%;
++}
+
+</pre>

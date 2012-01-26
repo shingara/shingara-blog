@@ -1,0 +1,33 @@
+---
+layout: post
+title: Git-submodule, presque le svn:externals de GIT
+typo_id: 101
+---
+<p>
+Depuis le 27 février 2008, j'ai finalement décidé d'abandonner l'utilisation de mercurial dans mon projet Pictrails. J'ai fini par migré vers GIT. En effet, GIT est énormément utilisé par la communauté Ruby et c'est un très bon SCM. Un peu plus rapide que Mercurial et avec de meilleurs outils annexe comme par exemple git-svn. Voici par exemple un autre point qui me fait pencher un peu pour GIT. Il s'agit de git-submodule.
+</p>
+
+<p>
+Un des gros points fort de SVN est la propriété svn:externals, qui permet de faire pointé un répertoire vers un autre repository SVN. Cette fonctionnalité n'existe pas à ma connaissance sous mercurial. Mais sous GIT, il y a git-submodule. C'est pas aussi bien que svn:externals, mais c'est déjà pas mal. En effet, le seul défaut de git-submodule est de ne pas pouvoir récupérer qu'une partie du dépôt GIT, comme un dossier en particulier. On est obligé de tout récupéré. svn:externals pouvait limiter la dépendance par contre. Je trouverais peut-être un palliatif.
+</p>
+
+<p>
+Comment utiliser git-submodule ? Il faut d'abord trouver le repository GIT que l'on veux dupliquer dans son projet GIT. Un fois celui-ci trouvé, il faut l'ajouter comme submodule :
+</p>
+
+<pre>
+$ git submodule add &lt;&lt;repo&gt;&gt; /directory/
+</pre>
+
+<p>Une fois que c'est fait, un dossier .gitsubmodule est créé et il faut donc l'ajouter au versionning, le commiter et le push.</p>
+
+<p>Par contre, si vous faite un pull du repository GIT qui contient ce submodule, le téléchargement des sous-modules ne se fait pas automatiquement. En conséquence, il faut penser a réaliser un init et un  update des submodules.</p>
+
+<pre>
+$ git submodule init
+$ git submodule update
+</pre>
+
+<p>Pareil, la mise à jour des submodules ne se fait pas automatiquement. Il faut faire un petit update de temps en temps.</p>
+
+<pre>$ git submodule update</pre>

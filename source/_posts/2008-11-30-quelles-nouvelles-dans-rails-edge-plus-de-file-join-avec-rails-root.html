@@ -1,0 +1,10 @@
+---
+layout: post
+title: ! 'Quelles nouvelles dans Rails Edge : Plus de File.join avec Rails.root'
+typo_id: 180
+---
+<p>Si comme moi, vous avez besoin d'atteindre des dossier dans votre Rails.root. Un des nouveautés de Rails 2.3 intégrée dans ce <a href="http://github.com/rails/rails/commit/fdfcdf467387c4db3d79c1f46eadbb55a88ef814">commit</a>, vous réduira le travail.</p>
+
+<typo:code lang="ruby">
+Rails.root('public', 'files', 'foo') == File.join(Rails.root, 'public', 'files', 'foo')
+</typo:code>

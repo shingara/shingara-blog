@@ -1,0 +1,74 @@
+---
+layout: post
+title: Hibernate et les mappings
+typo_id: 32
+---
+<p>
+Salut, Je fais appel au net pour une logique de conception Java et surtout une aide sur Hibernate. En effet sans système de mapping Hibernate j'aurais trouvé la solution que je veux, mais là je veux utiliser au maximum de les possibilités d'Hibernate. Voici ce que je désire faire :
+</p>
+
+<p>
+J'ai des listes avec un nom. Dans chaque listes, il y a des produits. Mais pour chaque listes il peux y avoir plusieurs fois le même produit. Voici les deux solutions que j'ai au niveau SQL pur :
+</p>
+
+<h2>Tout en SQL</h2>
+
+<p>Cette solution se base sur le comptage du nombre de lien entre une liste et un produit.</p>
+
+<pre>
+CREATE TABLE List (
+  id INT PRIMARY KEY,
+  name VARCHAR,
+);
+
+CREATE TABLE Product (
+  id INT PRIMARY KEY,
+  name VARCHAR,
+);
+
+CREATE TABLE ListToProduct (
+  id int PRIMARY KEY,
+  Product_id int,
+  List_id int,
+);
+</pre>
+
+<p>Sur cette table pour savoir le nombre de produit A dans la liste B il faut faire en SQL pur une requête de type <code>SELECT COUNT(*) FROM ListToProduct WHERE Product_id='A' AND List_id='B'</code> où A et B sont les id respectif de notre produit et liste.</p>
+
+<p>Au niveau d'hibernate, j'ai trouvé comment faire un mapping assez simple pour obtenir la liste des Produits d'un liste :</p>
+
+<pre>
+    &lt;list name="listsName" table="ListToProduct" &gt;
+	&lt;key column="product_id" /&gt;
+        &lt;index column="list_name_to_product_id" /&gt;
+        &lt;many-to-many column="list_id" class="List" /&gt;
+    &lt;/list>
+</pre>
+
+<p>Au niveau du type de retour dans mon POJO, j'ai un attribut du type List&lt;Produit&gt;. Ca marche très bien dans un système de navigation entre mes produits et listes. Mais je me suis trouvé confronté au problème du comptage. Combien il y a de Produit A dans ma liste B. La seule solution est de faire :</p>
+<ul>
+<li>Soit une requete SQL par ligne avec un COUNT(*)</li>
+<li>Soit un parcours de ma liste pour compter le nombre d'occurrence.</li>
+</ul>
+
+<p>Je ne pense pas qu'aucune de ces deux techniques soit très performante. De même je n'ai trouvé aucun système au sein d'hibernate pour avoir immédiatement le résultat. Comme dans une sous-requête avec un DISTINCT peut-être ?</p>
+
+<h2>Faire le comptage directement en base de Donnée</h2>
+
+<p>Normalement en SQL pur et propre il est recommandé de ne pas faire de calcul directement dans la Base de donnée. On ne doit rien stocker qui est potentiellement calculable. Dans notre cas, l'ajout du nombre de Produit dans la liste au niveau de la table de liaison permet de diminuer potentiellement le nombre de ligne d'enregistrement tout en augmentant le nombre de colonne. Théoriquement l'amélioration peux peux-être interressante si toutes nos listes ont en moyenne plus de 3 produits.</p>
+
+<p>La nouvelle base de donnée serait donc identique à la précédente sauf la table ListToProduct qui serait la suivante :</p>
+
+<pre>
+CREATE TABLE ListToProduct (
+  id int PRIMARY KEY,
+  Product_id int,
+  List_id int,
+  count int,
+);
+</pre>
+
+<p>Avec cette technique, au lieu de rajouter une ligne dans la table de liaison au moment de l'ajout d'un produit existant dans une liste, le compteur est incrémenté. Il ne reste donc ensuite qu'à lire la valeur dans count pour savoir le nombre exacte de Produit du type A dans la liste B. Cette technique me semble assez intéressantes. Mais voilà, je suis incapable de la mettre en place avec un mapping hibernate. J'ai testé les components, les many-to-one. Mais rien n'y fait. Il doit vraiment y avoir un truc que je n'ai pas compris et je ne sais pas quoi. C'est aussi pour ca que je fais appel à tous.</p>
+
+<p>
+Donc si vous avez une idée sur la meilleur solution à employer et aussi comment la mettre en place avec Hibernate, je suis preneur.</p>

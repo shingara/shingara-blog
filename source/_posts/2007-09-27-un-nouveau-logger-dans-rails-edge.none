@@ -1,0 +1,10 @@
+---
+layout: post
+title: Un nouveau Logger dans Rails Edge
+typo_id: 70
+---
+<p>Depuis 2 jours le logger de RubyOnRails dans la version Edge a changé à partir de la révision <a href="http://dev.rubyonrails.org/changeset/7626">r7626</a>. En effet avant il y avait une classe logger qui a été remplacé par un <a href="http://dev.rubyonrails.org/browser/trunk/activesupport/lib/active_support/buffered_logger.rb">BufferLogger</a>.</p>
+
+<p>Ce nouveau Logger est inspiré des travaux de <a href="http://brainspl.at">Ezra Zygmuntowicz</a>, qui a réalisé le <a href="http://merb.rubyforge.org">framework web merb</a>. Ce nouveau logger devrait améliorer les performances de log.</p>
+
+<p>Je trouve que c'est une très bonne chose que la CoreTeam de Rails regarde aussi un peu à coté vers les nombreux framework Web en Ruby pour en prendre le meilleur.</p>

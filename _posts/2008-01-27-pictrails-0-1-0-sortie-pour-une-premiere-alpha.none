@@ -1,0 +1,14 @@
+---
+layout: post
+title: Pictrails 0.1.0 sortie pour une première alpha
+typo_id: 96
+---
+<p>Ca y est, j'ai enfin sortie une première version de <a href="http://pictrails.rubyforge.org/">Pictrails</a>.</p>
+
+<p>Pictrails est une application réalisé avec Rails 2.0. Elle permet de gérer des albums photos.</p>
+
+<p>Pictrails est venue du constat qu'aucune application libre réalisé avec RubyOnRails n'était plus à jour sur la création d'une galerie personnel de photo. Il existe bien des sites internet qui fournissent ce service comme Flikr, mais cela pose la question de la diffusion de ses données. Grâce à des applications libre comme Pictrails, vous êtes le seuls maitre de vos données.</p>
+
+<p>Actuellement Pictrails est encore en alpha. Il n'y a aucun test unitaire de réalisé dessus ce qui peux entrainer de grosses erreurs. Je vais immédiatement réaliser tous ces tests pour que la prochaine version ait une couverture de code de 100%</p>
+
+<p>Toutes personnes souhaitant contribuer à ce projet est la bienvenue. J'ai mis en place un projet sur <a href="http://dev.shingara.fr/">mon redmine personnel</a> pour gérer <a href="http://dev.shingara.fr/projects/show/3">pictrails</a>. Vous pouvez y poster des bugs ou améliorations que vous souhaitez. Un <a href="http://hg.shingara.fr/">repository mercurial</a> est lui aussi en place pour le contrôle de source. Ma plus grosse difficultés étant le graphisme, toutes propositions est la bienvenue.</p>

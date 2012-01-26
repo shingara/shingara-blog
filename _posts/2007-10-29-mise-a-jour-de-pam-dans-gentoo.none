@@ -1,0 +1,26 @@
+---
+layout: post
+title: Mise à jour de PAM dans Gentoo
+typo_id: 81
+---
+<p>Le serveur qui héberge ce blog et mes sites tournent sous la distribution <a href="http://www.gentoo.org/">Gentoo</a>. Le choix de cette distribution est un débat que je veux éviter.</p>
+
+<p>Le 24 Octobre PAM a changé de version en stable. Comme l'indique le changelog :</p>
+
+<pre>
+24 Oct 2007; Dawid Węgliński <cla@gentoo.org> pam-0.99.8.1-r1.ebuild:
+Stable on x86 for bug #196409
+</pre>
+
+<p>Par contre cette mise à jour entraîne certain problème avec les paquets dépendants de PAM et plus précisément ceux qui utilise le USE=pam.</p>
+
+<p>Un revdep-rebuild ne détectant pas cette mise à jour je vous conseille la manipulation suivante (que j'ai fait sur ce serveur).</p>
+
+<ol>
+<li>Dans le make.conf mettre -pam comme use</li>
+<li>Faire un emerge de tous les paquets avec cet USE : emerge -auvDN world</li>
+<li>Une fois l'emerge fini, remettre pam dans le USE du make.conf</li>
+<li>Relancer l'emerge de tous les paquets avec cet USE : emerge -auvDN world</li>
+</ol>
+
+<p>Après cette procédure, vous avez remis à plat tous les paquets dépendant de PAM.</p>

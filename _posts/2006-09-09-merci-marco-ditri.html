@@ -1,0 +1,16 @@
+---
+layout: post
+title: Merci Marco d'Itri
+typo_id: 23
+---
+<p>Je voulais faire un petit billet, pour remercier ce très cher Marco d'Itri. Grâce à lui, je me suis retrouvé ce matin avec un ordinateur inutilisable. En effet, cette gentille personne est le mainteneur du paquet debian udev. Pour ceux qui ne le savent pas, udev est maintenant une pierre de voute de linux. Grâce à lui, les modules du noyau necessaire sont chargé. Ainsi, sans udev, on se retrouve comme moi ce matin :</p>
+
+<ul>
+<li>Plus de reseau car carte réseau non détecté</li>
+<li>Plus de X, car xorg ne détecte pas ma souris</li>
+<li>Plus de possibilité de lire une clé usb</li>
+</ul>
+
+<p>Pour réparer ce problème, ma seule solution fut un downgrade de udev, de la version 0.100-1 à la version 0.093-2.</p>
+
+<p>Ainsi, je vous le dit, n'upgradez pas la version 0.100-1, vous risqueriez des problèmes. Pour marco, je lui conseillerais de passer un peu par expérimentale de temps en temps.</p>

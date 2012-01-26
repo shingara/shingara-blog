@@ -1,0 +1,80 @@
+---
+layout: post
+title: SchemaSpy aide les développeurs
+typo_id: 26
+---
+<p>
+Ca faisait quelque temps, au niveau de mon stage, j'utilise une Base de donnée avec plusieurs dizaines de Tables différentes. Mais voilà, aucun document n'a été réalisé pour suivre l'évolution de cette Base de Donnée et la seule solution que j'avais pour la consulter, c'était de me connecter sur la BDD et de faire mes requêtes directement. J'ai finalement décidé de me prendre en main et de faire ce document. Mais en tant que bon informaticien, je suis flemmard et j'ai donc cherché une application qui me permettait de tout faire à ma place. Après plusieurs recherche infructueuse, j'ai fini par trouver mon bonheur. Il s'agit de <a href="http://schemaspy.sourceforge.net/">SchemaSpy</a>. Vous pouvez voir un exemple sur leur <a href="http://schemaspy.sourceforge.net/sample/">site</a>. Ce programme est un programme Java et il génére les graphiques à l'aide de <a href="http://www.graphviz.org/">Graphviz</a>.
+</p>
+
+<p>
+Après plusieurs essais infructueux, j'ai découvert que ce projet manquait par contre d'une documentation plus ou moins simple et explicite. Je vais donc expliquer brievement ici comment faire.
+</p>
+
+<ul>
+<li>Installer le JRE 5.0 sur le site internet de Sun</li>
+<li>
+Télécharger le jar driver de la Base de Donnée que vous voulez consulter. Dans mon cas j'utilise <a href="http://mysql.com">MySQL</a> et vous pouvez le télécharger <a href="http://dev.mysql.com/downloads/connector/j/5.0.html">ici</a>
+</li>
+<li>Installer Graphviz si vous désirez la création des graphiques</li>
+</ul>
+
+<p>Maintenant la ligne de commande pour analyser une base de donnée MySQL il faut faire :</p>
+
+<pre>$java -jar schemaspy -t mysql  -host localhost -db mydatabase -u user -p password -o output</pre>
+
+<p>
+Mais voilà pour moi cela n'a pas marché. j'ai donc lu le source du jar et compris comment créer un fichier de configuration pour schemaSpy. Je vais vous expliquer comment en faire un. Voici le fichier que j'ai appelé <b>mymysql.properties</b>
+</p>
+
+<pre>
+# note that MySQL tables must be of type 'InnoDB' or they won't
+# have foreign key relationships
+description=MySQL
+
+# connection spec
+#  text between &lt;&gt;'s will be prompted for on the command line
+#    e.g. if &lt;host&gt; is in connectionSpec then you must have -host on the command line
+#  if you're missing a required parameter then you're be prompted with the text
+#  that's associated with that paramter
+#    e.g. missing -db then you'll be prompted for 'database name'
+# expected format: jdbc:mysql://[hostname][:port]/dbname
+connectionSpec=jdbc:mysql://localhost/
+#host=hostname[:port] (possibly just localhost)
+db=databasename
+
+driver=com.mysql.jdbc.Driver
+
+# point this to whatever is appropriate on your machine...let me know if there's a standard path/jar
+# you can use the -cp command line option if you prefer
+# The driver should be available at www.mysql.com/products/connector/j/
+driverPath=mysql-connector-java-3.1.13-bin.jar
+
+# if your driver returns failures like "stream already closed" then its metadata
+# services probably aren't thread safe and you'll have to uncomment this line
+# or specify "-dbThreads 1" on the command line.
+#dbThreads=1
+
+# the following SQL is optional
+# fill it in if you want to see the SQL used to create your views or your check constraints
+# send it back to schemaspy.sourceforge.net if it works
+# these named parameters are supported: :schema, :owner, :table and :view
+
+# return text that represents a specific :view / :schema
+#selectViewSql=
+
+# return table_name, constraint_name and text for a specific :schema
+#selectCheckConstraintsSql=
+
+# return table_name, comments for a specific :schema (which MySQL doesn't have, so the db name will be used)
+# useful if db driver doesn't return this info
+selectTableCommentsSql=select table_name, table_comment comments from information_schema.tables where table_schema=:schema
+
+# return table_name, column_name, comments for a specific :schema
+# useful if db driver doesn't return this info
+#selectColumnCommentsSql=select table_name, column_name, column_comment comments from information_schema.columns where table_schema=:schema
+</pre>
+
+<p>Sur le fichier précédent, vous n'avez qu'à changer le lien de votre jar MysqlConnector et le nom de la Base de donnée que vous voulez consulter. Une fois ce fichier créer, il suffit de faire comme appele au programme schemaspy la commande suivante :</p>
+
+<pre>$java -jar schemaspy -t mymysql -u user -p password -o output</pre>

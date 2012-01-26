@@ -1,0 +1,10 @@
+---
+layout: post
+title: Les Merb pretty URL
+typo_id: 192
+---
+<p>Si comme moi vous être un fan des pretty URL, vous savez surement comment faire avec RubyOnRails. Il suffit de modifier le retour de la méthode <code>to_params</code>. Utilisant Merb, j'ai voulu faire de même avec Merb. J'ai bien sûr commencé par modifier la méthode <code>to_params</code>. Hélas, ce n'est pas du tout la bonne méthode à suivre avec Merb. Mais finalement, la méthode est encore plus simple. Ce qu'il faut c'est utiliser l'option <code>:identify</code> pour votre resources dans votre routeur. J'ai ainsi pu pour Oupsnow définir la méthode <code>ticket_permalink</code> comme méthode définissant un ticket. Je n'ai plus ensuite qu'a définir ce que je souhaite comme retour de permalink. Cette string de retour sera ainsi utilisée dans les URL générées par <code>resource</code>. En créant ensuite la méthode <code>def self.get_by_permalink(ticket_permalink)</code> que j'utilise à la place d'un <code>Ticket.get(id)</code>. je peux facilement modifier mon permalink dans le temps. En mettant ma valeur de retour de permalink et de récupération de ticket par ce permalink à jour.</p>
+
+<p>Ce qu'il faut par contre savoir, c'est que contrairement à Rails, le paramètre utilisé ne sera donc plus <code>id</code> et <code>ticket_id</code> dans les routes imbriquées. Ça sera obligatoirement <code>ticket_permalink</code>.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-01-21-pretty-url-in-merb.html">English translation</a></p>

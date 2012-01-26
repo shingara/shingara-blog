@@ -1,0 +1,49 @@
+---
+layout: post
+title: Mon premier script Perl
+typo_id: 3
+---
+<p>
+Eh bien, voila. Cela faisait plusieurs semaines maintenant que je suis en plein apprentissage du perl. Je tente de l'apprendre par moi-meme grace a une methode qui se normalement nous apprend le perl 5 en 21 jours. Personnelement ca fait deja plus de 21 jours que je tente de lire cette methode et j'en suis encore au jour 15. Mais la fin de la methode approche. Le deuxieme avantage pour moi de cette methode est qu'elle est completement rediger en anglais. Donc je suis bien obliger de lire l'anglais.
+</p>
+
+<p>
+Mais ceci me sort du sujet qui est mon premier script perl. J'ai quand meme mis 2 jours a le realiser. C'est la que l'on voit que certaine chose prenne beaucoup plus de temps que d'autre. Ce script perl est un script qui s'utilise avec le client irc <a href="http://www.irssi.org">irssi</a>.<br />
+Son but est aussi tres simple.<br />
+Sur beaucoup de client irc, il y a la commande /amsg qui existe et qui permet de dire sur plusieurs channel en meme temps la meme phrase. Hors irssi n'a pas implemente cette fonction. Apres discution avec certaine personne sur le channel officiel de Irssi (#irssi sur le server irc.freenode.net), j'ai appris qu'il considere cette fonction comme une sorte de flood. C'est pourquoi je ne leur enverrais donc pas mon mini script.<br />
+J'ai donc fait une fonction que j'ai nommer /helloall qui permet d'envoyer sur tous les chans ont la personne est connecter, la meme phrase. La petite amelioration par rapport a /amsg est que ma fonction est multiserver, contrairement a /amsg qui est ce que l'on peux appeler "uniserver". Mais treve de parole, voici mon petit code :)</p>
+
+<p><code>
+#!/usr/bin/perl<br />
+<br />
+use Irssi;<br />
+use strict;<br />
+use vars qw($VERSION %IRSSI);<br />
+<br />
+$VERSION = '0.10';<br />
+%IRSSI = (<br />
+    authors     => 'Cyril Mougel',<br />
+    contact     => 'cyril.mougel [AT] gmail [DOT] com',<br />
+    name        => 'helloall',<br />
+    description => 'it\'s useless',<br />
+    license     => 'GPL',<br />
+);<br />
+<br />
+<br />
+sub cmd_helloall {<br />
+# message : param for the message to send all chan<br />
+<br />
+   my ($message) = @_;<br />
+<br />
+   foreach my $server (Irssi::servers()){<br />
+      Irssi::print(" We were in the server : $server");<br />
+<br />
+      foreach my $chan ($server->channels){<br />
+         Irssi::print("Message send to $chan->{name}, with $message");<br />
+         $server->command("msg ".$chan->{name}." $message");<br />
+      }<br />
+   }<br />
+}<br />
+<br />
+Irssi::command_bind('helloall', 'cmd_helloall');<br />
+</code></p>

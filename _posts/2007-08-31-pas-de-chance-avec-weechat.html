@@ -1,0 +1,10 @@
+---
+layout: post
+title: Pas de chance avec weechat
+typo_id: 64
+---
+<p>
+Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/">weechat</a> qui me permettrait d'avoir le même comportement que le <a href="http://da.weeno.net/code/irssi/jabber_hilight_notify/">plugin irssi de Davux permettant un highlight par XMPP</a>. Mais voilà alors que j'ai créé un script qui me semble fonctionner, je tombe sur un bug de weechat. En effet, en loadant mon script ruby, il bloque sur le require de  <a href="http://home.gna.org/xmpp4r/">XMPP4R</a> qui me permet de faire ma notification XMPP.
+</p>
+
+<p>J'ai donc réalisé un <a href="https://savannah.nongnu.org/bugs/?20945">bug</a> sur le bugtracking de Weechat. En espérant qu'il sera résolu au plus vite.</p>

@@ -1,0 +1,24 @@
+---
+layout: post
+title: Le logger ruby avec son bloc
+typo_id: 204
+---
+<p>Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous :</p>
+
+<typo:code lang="ruby">
+Logger.debug { "My object is #{self.map(&:id)}" }
+</typo:code>
+
+<p>Par défaut, on l'utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
+
+<p>La différence entre ces deux écritures ?</p>
+
+<p>La première permet d'éviter d'évaluer la chaine qui sera loggé si elle n'en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s'en faire ressentir.</p>
+
+<p>Grâce à ça, on peux facilement éviter les fameux :</p>
+
+<typo:code lang="ruby">
+Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
+</typo:code>
+
+<p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>

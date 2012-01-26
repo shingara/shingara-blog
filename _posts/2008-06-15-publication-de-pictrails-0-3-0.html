@@ -1,0 +1,19 @@
+---
+layout: post
+title: Publication de pictrails 0.3.0
+typo_id: 146
+---
+<p>Presque 3 mois jours pour jours après la dernière release de <a href="http://blog.shingara.fr/articles/2008/03/18/pictrails-0-2-2-released">Pictrails 0.2.3</a>, voici la release de la version 0.3.0</p>
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/public_part_pictrails.png" alt="partie public de pictrails" ></p>
+
+<p>Cette nouvelle version apporte son lot de fonctionnalités. La plus importante étant l'ajout du support des sous-galerie En effet, désormais, on peux créer des galeries photos dépendant d'une autre galerie. Cette galerie sera donc visible avec la liste des photos de sa galerie parente. Pour que la navigation soit ainsi plus fluide, j'ai ajouté un fil d'ariane ou breadcrumb pour les anglophiles. On sait ainsi désormais dans quel galerie nous nous trouvons et si celle-ci a des parents.</p>
+
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/breadcrumb_pictrails.png" alt="breadcrumb de pictrails" ></p>
+
+<p>La deuxième fonctionnalité est surtout la refonte compléte du mass_upload. En effet, le mass_upload ne fonctionnait pas trop si on avait énormément de photo a ajouter. Les threads mongrel ou FastCGI s'arrêtait avec un time out et plus aucune solution de continuer la tâche. Pour ce faire, la première requête liste toutes les images à importer et dans quel galerie. Ensuite à chaque nouvelle requête dans la partie d'administration une  série de 5 photos est ajoutés. Pour rendre le système plus conviviale, une progress bar a été ajoutée. Celle-ci évolue progressivement si le Javascript est activé sur votre navigateur. Ce système de mass_upload a bien évidement suivit l'évolution de Pictrails en supportant lui aussi les sous-galeries. Ainsi, il liste de façon récursive les répertoires et créé les galeries avec leurs parents associés.</p>
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/mass_upload_pictrails.png" alt="mass_upload de pictrails" ></p>
+
+<p>J'espère que cette nouvelle version vous satisfera. Bien-sûr la <a href="http://dev.shingara.fr/projects/roadmap/pictrails">liste des fonctionnalités</a> a ajouter n'est pas fini pour arriver à la version 1.0. Si vous avez envie de contribuer n'hésitez pas. Pour plus de détails sur cette version, le <a href="http://pictrails.rubyforge.org">site de pictrails</a> a été mis à jour</p>

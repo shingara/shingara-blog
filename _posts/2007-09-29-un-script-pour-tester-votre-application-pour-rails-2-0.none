@@ -1,0 +1,16 @@
+---
+layout: post
+title: Un script pour tester votre application pour Rails 2.0
+typo_id: 72
+---
+<p>Mislav Marohnic a réalisé un petit script Ruby pour tester si votre application Rails valide 1.2.3 l'est aussi pour la prochaine migration à Rails 2.0 (attendu avec impatience). Ce script fait une vérification de toutes les alertes (warning) que vous avez concernant les méthodes déprécié (deprecated)</p>
+
+<p>Pour tester ce script, il suffit de lancer la commande suivante quand vous êtes dans le dossier de votre application :</p>
+
+<pre>
+wget http://pastie.caboo.se/99900.txt?key=krcevozww61drdeza13e3a -q -O- | ruby -
+</pre>
+
+<p>Sinon vous pouvez aussi regarder les <a href="http://pastie.caboo.se/private/krcevozww61drdeza13e3a">sources</a></p>
+
+<p> source issue de : <a href="http://www.rubyinside.com/interesting-ruby-tidbits-that-dont-need-separate-posts-3-613.html">Peter Cooper</a></p>

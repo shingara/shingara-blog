@@ -1,0 +1,37 @@
+---
+layout: post
+title: Pourquoi Rspec au lieu de Test::Unit?
+typo_id: 203
+---
+<p>Dernièrement, on m'a posé la question toute bête :</p>
+
+ <p><strong>Pourquoi Rspec au lieu de Test::Unit ?</strong>
+
+ <p>C'est vrai que je suis un adepte de <a href="http://rspec.info/">Rspec</a> et que je n'utilise que ça si c'est possible. mais je
+ n'ai jamais expliqué ici clairement ce qui me pousse dans ce choix. Donc
+ voici un résumé très bref de mon choix.</p>
+
+ <h2>Les formateurs</h2>
+
+<p>
+ Une des options méconnues de Rspec est la possibilité de définir son formateur.
+ Il existe ainsi plusieurs formateurs base. On peux ainsi avoir un retour
+ direct sous format HTML ou text avec les points ( classique avec Test::Unit).
+ Mais certain formateur peuvent aussi calculer le temps que dure un exemple.
+ Ainsi nous avons une facilité de détection des test les plus lent pour les
+ refactorer et essayer d'améliorer le temps de réalisation de ses tests. Dans ce sens, j'ai moi même créer mon <a href="http://github.com/shingara/rspec-formatter">propre formateur Rspec</a>.
+</p>
+
+ <h2>Les tests partagés</h2>
+
+<p>
+Rspec dispose d'une possibilité sous estimés, les tests partagés. En effet, on peux définir
+ certain jeux de test comme "partageable" on a ainsi la possibilité de les
+ incorporer facilement dans divers tests. C'est une fonction vraiment pratique
+ dans le cadre de test fonctionnel principalement. Plus besoin de
+ copier/coller son code. :)
+</p>
+
+<h2>Compatibilité Test::Unit</h2>
+
+<p>Le passage a Rspec est assez aisé de part sa compatibilité avec Test::Unit. En effet, si vous n'êtes pas familier ou que vous n'aimez pas la formalation <code>my_array.should be_empty</code>, rien ne vous y oblige. Vous pouvez tout à fait utiliser la syntaxe Test::Unit <code>assert my_array.empty?</code>. La migration s'en trouve très largement aisée.</p>

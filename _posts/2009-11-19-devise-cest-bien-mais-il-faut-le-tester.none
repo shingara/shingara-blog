@@ -1,0 +1,57 @@
+---
+layout: post
+title: Devise ? c'est bien, mais il faut le tester.
+typo_id: 207
+---
+<p>Alors que j'ai évoqué ma <a href="http://blog.shingara.fr/oupsnow-de-merb-i-rails.html">migration de Merb à Rails pour
+Oupsnow</a>, il a
+fallu trouver un système d'authentification ORM Agnostique.</p>
+
+<p>Le plugin d'authentification le plus connu à l'heure actuel est <a
+href="http://rdoc.info/projects/binarylogic/authlogic">Authlogic</a>.
+Ce plugin est vraiment très performant, mais tous les essais de le rendre ORM
+Agnostique ont été vain. C'est alors qu'au même moment, durant le <a
+href="http://www.railssummit.com.br/">Rails Summit 2009</a>,
+George Guimarães et Carlos Antonio annoncent la sortie de <a
+href="http://github.com/plataformatec/devise">Devise</a>, un plugin Rails au
+dessus de <a href="http://github.com/hassox/warden">Warden</a> (
+Rack middleware d'authentification). C'est exactement, ce qu'il me faut, un
+nouveau système d'authentification a tester et peut-être une possibilité
+d'ajouter une couche d'ORM Agnostique dedans. En plus Warden étant un
+RackMiddleware, je pourrais un peu tester ce que ça donne.</p>
+
+<p>J'installe donc Devise et commence à l'utiliser dans Oupsnow. Tout se passe
+à merveille, jusqu'au moment où il faut faire les tests. Tout de suite le bât
+blesse. Les tests controlleurs de Rails ne communiquent pas avec la couche Rack
+qui n'est pas initialisée. On se retrouve donc avec une impossibilité de
+définir si un utilisateur est loggé ou non et si oui, qui est cet
+utilisateur.</p>
+
+<p>Après de nombreux tests et essais. J'ai fini par trouver comment faire.
+Warden ajoute à la requête une variable d'environment dans la requête. On peux
+y accéder par
+<code>request.env['warden']</code>. Il suffit donc de remplir cette
+variable.</p>
+
+<p>Pour avoir un utilisateur non loggé, il faut faire :</p>
+
+<typo:code lang="ruby">
+def unlogged
+  request.env['warden'] = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable],:silence_missing_strategies => true})
+end
+</typo:code>
+
+<p>Pour se logger avec un utilisateur en particulier il faut faire :</p>
+
+<typo:code lang="ruby">
+def logged_as(user)
+  proxy = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable], :silence_missing_strategies => true})
+  proxy.set_user(user, :store => true, :scope => :user)
+  request.env['warden'] = proxy
+end
+</typo:code>
+
+<p>Personnellement, j'aime beaucoup <a href="http://github.com/plataformatec/devise">devise</a>. A tel point que j'ai permis de le
+rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/mongomapper/">MongoMapper</a>.</p>
+
+<p>EDIT du 30 Novembre 2009: la technique indiquée ici n'est pas optimum et ne marche pas avec les dernières versions de Devise. utilisez plutôt la technique décrite dans mon ticket <a href="http://blog.shingara.fr/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a></p>

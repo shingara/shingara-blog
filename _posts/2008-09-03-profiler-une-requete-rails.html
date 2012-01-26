@@ -1,0 +1,77 @@
+---
+layout: post
+title: Profiler une requête rails
+typo_id: 169
+---
+<p>Pour découvrir le bug dont j'ai <a 
+href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur">reporté précédement les
+effets</a>, j'ai voulu
+réaliser un profile de la requête executée. Ca devait me permettre de voir ce
+qui prenait vraiment beaucoup de temps dans l'execution de cette page.</p>
+
+<h3>Utilisation du script Request Profiler</h3>
+
+<p>Depuis Rails 2.0, un nouveau script a été ajouté,
+    <code>script/performance/request</code>. Ce script permet de réaliser un
+    profile d'une ou plusieurs requête internet.</p>
+
+<p>Pour indiquer les requêtes à executer il suffit de réaliser un petit fichier
+de script avec le même format que les tests d'intégrations. Voici un exemple
+issue du changelog de rails.</p>
+
+<typo:code lang="ruby">
+get_with_redirect '/'
+say "GET / => #{path}"
+post_with_redirect '/sessions', :username => 'john', :password => 'doe'
+say "POST /sessions => #{path}"
+</typo:code>
+
+<p>Une fois le script réalisé, il suffit de lancer la commande en définissant
+le nombre de requêtes qui seront effectuées</p>
+
+<pre>
+$ ./script/performance/request -n 10 login_session.rb
+</pre>
+
+<p>Par contre, il faut faire très attention, il n'y a aucune solution (ou tout
+        du moins à ma connaissance) pour définir les valeurs de la session. La 
+session est vierge à chaque lancement de script. Il
+faut donc réaliser la connection de login au préalable pour avoir un
+utilisateur loggé par exemple.</p>
+
+<h3>Incompatibilité Rails 2.1 et ruby-prof</h3>
+
+<p>Alors que j'avais indiqué <a 
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">l'ajout d'un nouveau script dans Rails Edge qui
+nécessitait ruby-prof 0.6.1</a>, je pensais que c'était le seul endroit qui
+nécessitait cette version de <a 
+href="http://ruby-prof.rubyforge.org/">ruby-prof</a> qui n'existe pas encore 
+(dernière version stable : 0.6.0 en téléchargement sur rubyforge). Hélas, ce
+n'est pas le cas. Depuis la version 2.1 de Rails, le script
+performance/request nécessite aussi ruby-prof 0.6.1. Mais cette version, n'est
+toujours pas encore sortie officielement. Il faut donc générer et installer ce
+gem pour arriver à avoir cette fonctionnalité. En effet, même en modifiant la
+version de ruby-prof des méthodes n'existent pas dans les versions antérieurs à
+la version 0.6.1</p>
+
+<h3>Génération et installation de ruby-prof-0.6.1</h3>
+
+<p>Il faut d'abord récupérer les sources directements à partir du svn de
+ruby-prof</p>
+
+<pre>
+svn co http://ruby-prof.rubyforge.org/svn/
+</pre>
+
+<p>Ensuite, il faut générer le gem</p>
+
+<pre>$ rake package</pre>
+
+<p>Enfin, il suffit d'installer le gem.</p>
+
+<pre># gem install pkg/ruby-prof-0.6.1.gem</pre>
+
+<p>Désormais, ruby-prof 0.6.1 est installé et vous pouvez utiliser pleinement
+le script performance/request.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-09-03-profile-a-request-in-rails.html">English translation</a></p>

@@ -1,0 +1,74 @@
+---
+layout: post
+title: Loader toutes les fixtures avec les Story de Rspec
+typo_id: 109
+---
+<p>
+Dans un article précédent, j'ai décrit <a href="http://blog.shingara.fr/articles/2008/04/03/et-si-on-ecrivait-une-histoire-a-rails">comment utiliser les stories de Rspec avec Rails</a>. Mais j'ai indiqué qu'il n'y avait pas la possibilité d'utiliser la méthode fixtures directement. Mais ce n'est pas pour ça qu'on ne peux pas loader les fixtures. Je vais vous expliquer comment faire.
+</p>
+
+<h3>Définir où se trouve les fixtures.</h3>
+
+Dans le helper.rb, on peux définir où se trouve le dossier contenant les fixtures :
+
+<typo:code lang="ruby">
+ENV["RAILS_ENV"] = "test"
+require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require 'spec/rails/story_adapter'
+
+Spec::Runner.configure do |config|
+  # If you're not using ActiveRecord you should remove these
+  # lines, delete config/database.yml and disable :active_record
+  # in your config/boot.rb
+  config.use_transactional_fixtures = true
+  config.use_instantiated_fixtures  = false
+  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+end
+</typo:code>
+
+<p>La configuration fixture_path permet ainsi de définir où se trouve le dossier contenant les fixtures. Dans mon cas c'est le dossier de fixtures de Rspec.</p>
+
+<h3>Définir des steps qui load les fixtures</h3>
+
+<p>On peux faire une étape qui permette de loader toutes les fixtures :</p>
+
+<typo:code lang="ruby">
+  Given "load all fixtures" do
+    ["galleries", "pictures", "thumbnails", "users", "settings"].each { |fixture|
+      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixture)
+    }
+  end
+</typo:code>
+
+<p>En appelant "load all fixtures" on chargera ainsi toutes les fixtures définis dans la liste. On les appelles de la même manière qu'avec la méthode fixtures</p>
+
+<p>On peux aussi faire une steps qui ne load qu'une fixtures en particulier</p>
+
+<typo:code lang="ruby">
+  Given "load fixtures '$fixture'" do |fixtures|
+      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixtures)
+  end
+</typo:code>
+
+<h3>Appeler les étapes dans son histoire</h3>
+
+<p>
+Une fois ces étapes définis on peux ainsi facilement les utiliser dans ses stories en plain-text.
+</p>
+
+<typo:code>
+Story: Mon Histoire
+
+  Scenario: Une beau scénario
+
+     Given load all fixtures
+     When we go to '/'
+     Then we are redirect to '/login'
+
+  Scenario: Un autre scénario
+
+     Given load fixtures 'galleries'
+     And load fixtures 'users'
+     When we go to '/'
+     Then we are redirect to '/login'     
+</typo:code>

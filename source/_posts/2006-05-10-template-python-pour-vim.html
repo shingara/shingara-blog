@@ -1,0 +1,55 @@
+---
+layout: post
+title: Template Python pour Vim
+typo_id: 16
+---
+<p>
+Aujourd'hui j'ai passé un peu de temps à comprendre le système de templating de Vim. Faisant actuellement du Python, j'ai donc décidé d'en faire un. Pour l'exemple voici donc ce que j'ai fait dans mon .vimrc :
+</p>
+<pre>
+au BufNewFile *.py call PyFile_New()
+au BufWritePre *.py call PyFile_update()
+
+function PyFile_New()
+        0r /home/shingara/vim/py.tpl
+        execute "% s,@FILE-NAME@," . expand('%:t') . ",ge"
+        execute "% s/@DATE-STAMP@/" . strftime("%a %d %b %Y %X") . "/ge"
+        execute "% s,@USER-LOGIN@,Cyril Mougel,ge"
+        execute "% s,@VERSION@,1,ge"
+        execute "% s,@USER-NAME@," . g:mename . ",ge"
+        let headerfilename = expand('%:t')
+        let l:dbli = substitute(l:headerfilename, '\.', '_', 'g')
+        let l:dbli = '_' . toupper(l:dbli)
+        execute "% s,@DBL_INCL@," . l:dbli . ",ge"
+        normal G
+endfun
+
+function PyFile_update()
+        if getline(1) =~ '^#!'
+                normal mx
+                execute "1,9 s,\\(Last update \\).*,\\1" . strftime("%a %d %b %Y %X") . " " . g:mename . ",e"
+                normal `x
+        endif
+endfun
+
+</pre>
+
+<p>
+Ensuite j'ai créer mon template dans le fichier py.tpl :
+</p>
+
+<pre>
+#! /usr/bin/python
+# -*- coding: UTF-8 -*-
+# vim : fileencoding=UTF-8
+
+"""
+@FILE-NAME@ for Concerto
+
+Started on  @DATE-STAMP@ @USER-NAME@
+Last update @DATE-STAMP@ @USER-NAME@
+
+@Author Cyril Mougel
+@version @VERSION@
+"""
+</pre>

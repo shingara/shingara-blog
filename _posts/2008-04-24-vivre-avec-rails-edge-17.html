@@ -1,0 +1,67 @@
+---
+layout: post
+title: ! 'Vivre avec Rails Edge #17'
+typo_id: 130
+---
+<p>Depuis le début, je suis les news de <a href="http://blog.codefront.net">Chu Yeow</a> concernant les nouveautés intégrés à Rails dans sa version de développement. J'ai décidé d'essayer de vous les traduire régulièrement ici.</p>
+
+<p>Traduction de la <a href="http://blog.codefront.net/2008/04/20/living-on-the-edge-of-rails-17/">news #17</a>
+
+<p>Peu de chose se sont passé cette semaine sur Edge Rails. Il semblerait que nous aillons un nouveau membre dans le Rails core, <a href="http://joshpeek.com/">Joshua Peek</a>. Le nouveau <a href="http://rails.lighthouseapp.com/">bug tracking de Rails</a> sur Lighthouse est pret à utiliser, donc vous pouvez y soumettre vos patchs et rapport de bug dessus.</p>
+
+<p>Le rapport de cette semaine couvre les changements entre le 14 Avril 2008 et le 20 Avril 2008 (Jour correspondant à l'enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+                               
+<h3>caches_page conditionel</h3>
+                                                     
+<p>The <code>caches_pages</code> peuvent prendre une option <code>:if</code> pour indiquer quand une pave peux être vraiment caché via une Proc. Vous pouvez maintenant faire ceci par exemple:</p>
+                                                                                                        
+<typo:code lang="ruby">caches_page :index, :if => Proc.new { |c| !c.request.format.json? }</typo:code>
+                                                                                            
+<p>Cela met votre index en cache uniquement si le format de la requête n'est pas du JSON.</p>
+                                                                                                 
+<p>Cette fonctionnalité a été ajouté par <a href="http://deaddeadgood.com/">Paul Horsfall</a>.</p>
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9">http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9</a></p>
+
+                                                                      
+<h3>Nouvelle ActionView::TestCase pour tester les helpers des vues</h3>
+                                                                  
+<p>Rappelez vous comment vous pouvez actuellement utiliser <a href="http://blog.codefront.net/2007/12/27/dry-in-your-functional-and-actionmailer-tests-rails-20-a-feature-a-day-7/">les classes TestCase spécialisé pour tester les classes Controllers et ActionMailer (en)</a>? Désormai
+s vous pourrez faire la même chose pour vos helpers de vues Rails avec la nouvelle classe ActionView::TestCase.</p>
+                             
+<p>Voici un petit exemple:</p>
+                                          
+<typo:code lang="ruby">module PeopleHelper
+  def title(text)
+    content_tag(:h1, text)
+  end
+                  
+  def homepage_path
+    people_path
+  end
+end
+                                               
+class PeopleHelperTest > ActionView::TestCase
+def setup                                       
+  ActionController::Routing::Routes.draw do |map|                        
+    map.people 'people', :controller => 'people', :action => 'index'
+    map.connect ':controller/:action/:id'
+  end
+end
+              
+def test_title                         
+  assert_equal "<h1>Ruby on Rails</h1>", title("Ruby on Rails")
+end
+
+def test_homepage_path
+  assert_equal "/people", homepage_path
+end</typo:code>
+<p>Remercions Josh Peek pour cette jolie petite amélioration..</p>
+
+<h3>mem_cache_store de ActiveSupport::Cache accepte des options</h3>
+
+<p>Même si Memcache-client a été ajouté récement à ActiveSupport, on ne pouvait pas spécifié toutes les options de configuration derrière l'ip du serveur memcache. Maintenant vous pouvez passer beaucoup plus d'options comme ceci:</p>
+
+<typo:code lang="ruby">config.action_controller.fragment_cache_store = :mem_cache_store, 'localhost', { :compression => true, :debug => true, :namespace => 'foo' }</typo:code>
+
+<p>Ce patch est de <a href="http://blog.innerewut.de/">Jonathan Weiss</a>.</p>
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214">http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214</a></p>

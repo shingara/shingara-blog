@@ -1,0 +1,10 @@
+---
+layout: post
+title: Avoir le plugin Java pour firefox sur debian AMD64
+typo_id: 145
+---
+<p>Depuis quelque temps, j'utilise en station de travail, une debian SID avec comme architecture AMD64. Mais je n'arrivais pas à mettre le plugin Java de firefox. En effet, ce plugin existe sous x86, mais pas sous AMD64. C'est alors qu'on m'a indiqué la marche à suivre. Il suffit d'ajouter un dépôt supplémentaire :</p>
+
+<pre>deb http://www.mirrorservice.org/sites/ftp.blackdown.org/java-linux/debian sid main contrib non-free</pre>
+
+<p>Un fois ce dépôt ajouté, il suffit d'installer le paquet <code>j2re1.4-mozilla-plugin</code> et redémarrer Firefox. Ça y est le plugin Java pour firefox est utilisable.</p>

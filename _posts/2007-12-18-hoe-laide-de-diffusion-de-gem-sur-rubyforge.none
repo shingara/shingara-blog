@@ -1,0 +1,130 @@
+---
+layout: post
+title: Hoe, l'aide de diffusion de gem sur rubyforge
+typo_id: 90
+---
+<h1>Qu'est ce qu'Hoe</h1>
+
+<p>
+<a href="http://seattlerb.rubyforge.org/hoe/">Hoe</a> est un tout petit gem géré par la <a href="http://seattlerb.rubyforge.org/">Seattle Ruby Brigade!</a>. Ce gem n'a qu'une utilité, aider au développement d'un gem sur rubyforge. Mais comme tout petite librairie importante, ce qu'il fait, il le fait bien.
+</p>
+
+<h1>Installation de Hoe</h1>
+
+<h2>Dépendance</h2>
+
+<p>
+Hoe permet de générer des gems et il nécessite donc <a href="http://rubygems.org/">rubygems</a>. Il déploie votre gems sur RubyForge et nécessite donc aussi le gem rubyforge. Il ajoute plein de tâche rake pour vous. il a donc besoin de <a href="http://rake.rubyforge.org/">rake</a>.
+</p>
+
+<h2>Installation</h2>
+
+<p>Pour l'installer il suffit de faire un <code>gem install hoe</code>.
+
+<h1>Créer un projet Hoe</h1>
+
+<p>Pour plus de simplicité pour la suite, il suffit de créer un projet hoe. C'est un peu comme réaliser un projet avec Rails. Hoe crée une série de répertoires et fichiers qui ont tous leurs utilités et permettront de réaliser facilement votre gem avec le déploiement sur RubyForge.</p>
+
+<p>Pour créer votre projet, vous avez ainsi la commande sow. Il suffit de réaliser <code>sow projet</code>. Voici un exemple de sortie généré par cette commande.</p>
+
+<pre>
+hello-23:46:11:~/programmation/ruby/test$ sow testhoe
+creating project testhoe
+... done, now go fix all occurrences of 'FIX'
+
+  testhoe/Rakefile:9:  # p.author = 'FIX'
+  testhoe/Rakefile:10:  # p.email = 'FIX'
+  testhoe/Rakefile:11:  # p.summary = 'FIX'
+  testhoe/README.txt:2:    by FIX (your name)
+  testhoe/README.txt:3:    FIX (url)
+  testhoe/README.txt:7:FIX (describe your package)
+  testhoe/README.txt:11:* FIX (list of features or problems)
+  testhoe/README.txt:15:  FIX (code sample of usage)
+  testhoe/README.txt:19:* FIX (list of requirements)
+  testhoe/README.txt:23:* FIX (sudo gem install, anything else)
+  testhoe/README.txt:29:Copyright (c) 2007 FIX
+
+</pre>
+
+<p>Vous obtenez ainsi l'arborescence suivante dans le répertoire "testhoe"</p>
+
+
+<pre>hello-23:46:19:~/programmation/ruby/test$ tree testhoe/
+testhoe/
+|-- History.txt
+|-- Manifest.txt
+|-- README.txt
+|-- Rakefile
+|-- bin
+|   `-- testhoe
+|-- lib
+|   `-- testhoe.rb
+`-- test
+    `-- test_testhoe.rb
+
+3 directories, 7 files
+</pre>
+
+<p>Voici à quoi sert chaques fichiers :</p>
+
+<ul>
+<li>History.txt permet de définir le changelog de votre projet version par version. il est déjà pré-rempli</li>
+
+<li>Manifest.txt est un fichier listant tous les fichiers qui sont présent dans votre futur gem. Vous pouvez vérifier si il est exacte grâce à une tâche rake : rake check_manifest. Ca générera un diff entre le fichier Manifest.txt et votre arborescence.</li>
+
+<li>README.txt est tout simplement le fichier qui définis tout votre projet. C'est en grande partie à partir de lui que vous seront tiré les information pour publier votre gem.</li>
+
+<li>RakeFile qui est le fichier de configuration des tâche rake généré par HOE.</li>
+
+<li>le dossier bin est le dossier ou vous insérez l'executable</li>
+
+<li>le dossier lib est le dossier où vous intégrez les librairies développé pour votre gem</li>
+</ul>
+
+<p>Chaque partie du fichier README.txt est commenté et sera utilisé directement par des tâches rake pour la publication de votre gem sur rubyforge.</p>
+
+<h1>Configurer un projet Hoe</h1>
+
+<p>Pour configurer un projet Hoe, il faut éditer le fichier Rakefile. En effet, les informations importantes ce trouve dedans :</p>
+
+<ul>
+<li>rubyforge_name : le nom du projet sur Rubyforge</li>
+<li>author : le nom du créateur du gem</li>
+<li>email :  l'email du créateur du gem</li>
+<li>summary : Résumé sur le gem. En général on utilise celui donné sur rubyforge</li>
+
+<li>description : Il s'agit de la description détaillée de votre gem. Pareil autant utilisé celle de Rubyforge.</li>
+
+<li>url : l'url de votre projet sur rubyforge</li>
+
+<li>changes : la liste du changelog. Par défaut il s'agit du premier paragraphe du fichier history.txt</li>
+
+<li>extra_deps : on peux ajouter la liste de dépendance gem nécessaire à votre gem. De la manière suivante : <code>p.extra_deps << ['actionmailer', '>= 1.3.5']</code></li>
+
+<li>remote_rdoc_rdir : il s'agit du chemin de base où sera déposé la rdoc généré de votre gem. Ca peux ainsi être envoyé sur le site qui vous est disponible par rubyforge.</li>
+</ul>
+
+<h1>Tâche rake utile</h1>
+
+<p>Grâce à Hoe, beaucoup de tâche rake sont ajoutée en voici une petite liste avec l'intérêt de chacune :</p>
+
+<ul>
+<li>rake announce : génére un email et le post sur l'annonce de Rubyforge. Il se base sur le changelog généré à partir de change et description défini dans le RakeFile.</li>
+
+<li>rake check_manifest : qui vérifie que votre manifest est correcte</li>
+
+<li>rake gem : génére le gem en se basant sur la config Hoe. Le gem se trouve dans le dossier pkg</li>
+
+<li>rake clean : supprime le dossier pkg</li>
+
+<li>rake package : génére les différents packages de votre projet (tar.gz et gem) dans le dosser pkg</li>
+
+<li>rake release : génére les paquets et envoie une annonce sur Rubyforge.</li>
+
+<li>rake publish_docs : génére la rdoc du gem et l'upload sur le site de rubyrforge de votre gem.</li>
+
+</ul>
+
+<p>Il y a encore d'autre doc que vous pouvez découvrir sur leur <a href="http://seattlerb.rubyforge.org/hoe/">doc</a></p>
+
+<p>Par contre un autre gem, <a href="http://newgem.rubyforge.org/">newgem</a> qui a été réalisé par <a href="http://drnicwilliams.com/">DrNic</a>. Je vais étudier ça de ce pas.</p>

@@ -1,0 +1,23 @@
+---
+layout: post
+title: Installation java SDK 1.5 sous debian en manuelle
+typo_id: 12
+---
+<p>
+J'ai suivi les explications d'un <a href="http://doc.ubuntu-fr.org/applications/java">tuto</a> trouve sur le site doc.ubuntu-fr.org pour faire la modification suivante principalement des suppressions de sudo et aussi de changement de version.
+
+<ul>
+<li>telecharger le binaire (pas le rpm) de sun JDK 1.5 update 6 sur le site de <a href="http://javashoplm.sun.com/ECom/docs/Welcome.jsp?StoreId=22&PartDetailId=jdk-1.5.0_06-oth-JPR&SiteId=JSC&TransactionId=noreg">sun</a></li>
+<li>Une fois telecharge, il faut rendre ce binaire executable</li>
+<li>#chmod +x jdk-1_5_0_06-linux-i586.bin</li>
+<li>lancer l'execution du binaire</li>
+<li>#./jdk-1_5_0_06-linux-i586.bin</li>
+<li>Accepter la licence et laisser l'installation se faire. Un dossier sera creer sous le nom de jdk-1_5_0_06</li>
+<li>Deplacer ce dossier dans /opt/</li>
+<li>#mv jdk-1_5_0_06 /opt/</li>
+<li>faire un lien symbolique sur /usr/local/bin</li>
+<li>#ln -s /opt/jdk1.5.0_06/bin/java /usr/local/bin/java</li>
+<li>#ln -s /opt/jdk1.5.0_06/bin/policytool /usr/local/bin/policytool</li>
+<li>Renseigner dans votre environement le JAVA HOME : Editer /etc/environment et rajouter la ligne suivante :</li>
+<li>JAVA_HOME=/opt/jdk1.5.0_06</li>
+</ul>

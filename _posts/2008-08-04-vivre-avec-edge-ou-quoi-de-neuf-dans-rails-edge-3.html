@@ -1,0 +1,103 @@
+---
+layout: post
+title: ! 'Vivre avec Edge (ou quoi de neuf dans Rails Edge) #3'
+typo_id: 160
+---
+<p>traduction de <a
+href="http://weblog.rubyonrails.com/2008/7/6/living-on-the-edge-3">Vivre
+avec Edge #3</a></p>
+
+<p>Il n'y a pas grand chose à noter comme gros changements ou fonctionnalités
+dernièrement dans edge Rails, alors je vais parler des <a
+href="http://github.com/rails/rails/commits/master">commits
+rails</a>
+concernant quelques bugs fixes et changements mineurs que je n'ai pas indiqué
+précédement. Il y a eu un travail en cours avec un refactoring et
+multithreading de ActionPack ainsi qu'un peu d'activité sur <a
+href="http://github.com/rails/rails/tree/master/activemodel">ActiveModel</a>,
+mais rien de réelement concret encore (c'est toujours en cours de
+        travaux).</p>
+
+<p>Comme d'habitude n'hésitez pas à laisser des critiques ou suggestions dans
+les commentaires.</p>
+
+<h4>Support de Thin avec script/server</h4>
+
+<p><code>script/server</code> vérifie désormais la disponibilité de <a
+href="http://code.macournoyer.com/thin/">Thin</a> et l'utilise. Pratique si
+vous utilisez Thin comme serveur de production (et voulez lancer avec le même
+        serveur durant le développement). Vous devez ajouter <code>config.gem
+'hin'</code> en premier dans votre <code>environment.rb</code> pour que cela
+fonctionne.</p>
+
+<p>Ce patch est une contribution d'un des gars de <a
+href="http://fluxin.com/">fluxin</a>.</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/a93ea88c0623b4f65af98c0eb55924c335bb3ac1">Changeset</a></p>
+
+
+<h4>String#humanize peux être configurable par les régles d'inflection</h4>
+
+
+<p>La méthode d'extension du core <code>String#humanize</code> est utilisé
+pour convertir les string avec des underscores en texte lisible plus
+facilement (utilisé pour les noms des colonnes). Par exemple,</p>
+
+<typo:code lang="ruby">"actor_salary".humanize
+=> "Actor salary"
+"anime_id".humanize
+=> "Anime"</typo:code>
+
+<p>Parfois cela ne fonctionne pas aussi bien, quand vous avez des héritages de
+tables ou des noms de colonnes "inhumain" comme "act_sal_money" (qui est
+        réellement "Actor salary", mais qui sera <code>#humaize-d</code> en
+        "Act Sal Money").</p>
+
+<p>Vous pouvez désormais spécifier une régle d'inflection (exactement comme
+        pour les règles de mots pluriel/singulier/irrégulier/invariable).</p>
+
+
+<typo:code lang="ruby">Inflector.inflections do |inflect|
+  inflect.human /_cnt$/, '\1_count'
+  inflect.human 'act_sal_money', 'Actor Salary'
+end</typo:code>
+
+<p>Remarquez que vous pouvez aussi utiliser une expression régulière pour
+convertir une colonne comme "click_cnt" en "Click count".</p>
+
+<p>Merci à <a href="http://www.dcmanges.com/">Dan Manges</a> et <a
+href="http://rails.lighthouseapp.com/users/19954">Pascal Ehlert</a> pour ce
+patch.</p>
+
+    <p><a href="http://github.com/rails/rails/commit/4f75840d72b96fff34d65b59480da7d6c7494120">Changeset</a></p>
+
+<h4>Possibilité de spécifier des conditions sur des tables multiples en
+utilisant un hash.</h4>
+
+<p>Pratik a commité un petit (mais très pratique) changement d'ActiveRecord
+qui permet de spécifier des conditions sur les jointure dans leur propre hash.
+Un exemple sera plus explicite:</p>
+
+
+<typo:code lang="ruby">Anime.all(
+  :joins => :character,
+  :conditions => {
+    :active => true,
+    :characters => { :gender => 'female' }
+  }
+)
+
+</typo:code>
+
+<p>La requête ActiveRecord précédent permet de trouver tous les anime "actif"
+qui comme charactère une "femme".</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/cd994eff9a343df376bfaec59de5b24a2ab51256">Changeset</a></p>
+
+    <h4>Outro</h4>
+
+<p>C'est tout pour cette semaine dans "Living on the Edge". Faites moi savoir
+si vous désirez voir plus d'information sur les changement et bug fixes
+mineurs que j'ai mis à l'écart cette semaine.</p>

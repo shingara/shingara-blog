@@ -1,0 +1,8 @@
+---
+layout: post
+title: ! 'Mise à jour des options d''attachment_fu dans un model '
+typo_id: 102
+---
+<p><a href="http://github.com/technoweenie/attachment_fu/tree/master">Attachment_fu</a> est un magnifique plugin rails à utiliser pour tout formulaire qui doit faire un upload de fichier. Je l'utilise ainsi dans mon projet <a href="http://pictrails.rubyforge.org/">pictrails</a>. Au niveau du README d'attachment_fu, il faut appeler la méthode ActiveRecord#has_attachment dans le model pour configurer l'utilisation de ce plugin. J'ai voulu mettre à jour cette propriété à la volé dans pictrails. J'ai donc commencé à rappeler la méthode ActiveRecord#has_attachment en lui passant les paramètres qui ont changés. J'ai d'abord pensé que ça m'étais à jour les options en conservant les anciennes. Mais après quelques tests, j'ai constaté que ce n'était pas le cas. Si on voulait mettre à jour les propriétés d'attachment_fu par cette méthode, il fallait rappeler toute les options.</p>
+
+<p>C'est alors qu'après une rapide investigation directement dans le code d'attachment_fu, j'ai constaté la présence de la variable attachment_options. Cette variable n'est en fait qu'un Hash reprenant tous les paramètre du model. En le modifiant, on pouvait donc conserver les anciennes options et modifier celle que l'on souhaite. Pour exemple, le commit <a href="http://github.com/shingara/pictrails/commit/c47be9d8590ea911f0c1fbd14401fef83e0081e6">c47be9d8590ea911f0c1fbd14401fef83e0081e6</a>, fait la modification d'option avec attachment_options au lieu de has_attachment</p>

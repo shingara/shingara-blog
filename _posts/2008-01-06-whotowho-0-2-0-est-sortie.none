@@ -1,0 +1,16 @@
+---
+layout: post
+title: WhoToWho 0.2.0 est sortie
+typo_id: 92
+---
+<p>Après un peu moins de 3 mois depuis la version 0.1.0, voici la version 0.2.0 de <a href="http://whotowho.rubyforge.org/">WhoToWho</a> que je viens de finir. Cette nouvelle version était quasiment fini depuis un bout de temps, mais il manquait surtout les finissions et j'ai enfin pris le temps de le faire. Voici les évolutions sur cette version : </p>
+
+<ul>
+<li>Changement de Licence, car j'ai décidé de mettre WhoToWho sous licence MIT et plus GPLv3</li>
+<li>Création d'un nouveau site pour WhoToWho grâce à l'utilisation de <a href="http://newgem.rubyforge.org/">newgem</a> qui est bien pratique.</li>
+<li>Ajout de la possibilité de gérer un système d'exclusion dans la liste. Ainsi on peux dire que tel personne ne pourra pas être choisi par tel autre personne. Très pratique pour faire des exclusions au niveau des couples (ce que j'ai fait et où a été mon Use Case).</li>
+<li>Utilisation d'un vrai mode verbeux avec suppression des logs inutile si l'option -v n'est pas activé et l'ajout de plusieurs logs si l'option est activé</li>
+<li>Passage des Log avec le Logger de Ruby et non plus simplement des puts tout bête.</li>
+</ul>
+
+<p>Mes prochaines évolutions seront au niveau de l'interface pour la rendre plus utilisable par un non informaticien qui ne connait pas Ruby. J'ai donc l'intention de mettre une interface en QT4 pour WhoToWho.</p>

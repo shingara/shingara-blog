@@ -1,0 +1,34 @@
+---
+layout: post
+title: Activer un compte Redmine par la console rails
+typo_id: 176
+---
+<p>Si par le plus grand malheur vous avez bloqué l'envoi de mail sur votre machine où <a href="http://redmine.org">redmine</a> est installé. Vos utilisateurs ne peuvent plus recevoir d'email d'activation de compte. Redmine étant super pratique, vous ne pouvez pas activer le compte directement par l'interface web. Il faut donc passer par la console rails pour activer ce compte. Voici donc les commandes à réaliser pour activer le compte.</p>
+
+<p>Dans cet exemple, nous allons supposer que je veux activer le compte du login 'ook'</p>
+
+<p>Premièrement, il faut se connecter en console dans le mode production, où celui utilisé par votre instance web.</p>
+
+<pre>
+$ ./script/console production
+</pre>
+
+<p>Une fois dans la console, il faut chercher l'utilisateur, changé son état et ensuite supprimer le token d'activation. La suite de commande permet cela :</p>
+
+<typo:code lang="text">
+rails@shinydedi /var/rails/redmine/current $ ./script/console production
+Loading production environment (Rails 2.0.2)
+>> u = User.find_by_login 'ook'
+=> #<User id: 7, login: "ook", hashed_password: "8a45629b374f3e667ea72494246b17a11309ffff", firstname: "Thomas", lastname: "XXX", mail: "thomas@xxx.com", mail_notification: false, admin: false, status: 2, last_login_on: nil, language: "fr", auth_source_id: nil, created_on: "2008-10-27 18:50:54", updated_on: "2008-10-27 18:50:54", type: nil>
+>> u.status = User::STATUS_ACTIVE
+=> 1
+>> u.save
+=> true
+>> t = Token.find_by_action_and_user_id('register', u.id)
+=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
+>> t.destroy
+=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
+</typo:code>
+
+<p>Ça y est votre utilisateur est activé. Il peux désormais se connecter comme si il avait réalisé l'activation par mail.</p>
+<p><a href="http://blog.shingara.fr/en/2008-11-13-activate-user-in-redmine-by-rails-console.html">English Translation</a></p>

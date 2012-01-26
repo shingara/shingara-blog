@@ -1,0 +1,28 @@
+---
+layout: post
+title: Envoyer un email dans un model DataMapper
+typo_id: 187
+---
+<p>Avec Merb-mailer, merb fourni un système d'envoi d'email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré comme un controller et non comme un model. De ce fait l'utilisation de la méthode send_mail n'est disponible que dans les controllers. Mais alors comment utiliser la méthode send_mail dans son model ? C'est très simple. Là encore merb utilise un système entièrement ruby ce qui facilite le méchanisme</p>
+
+<p>Après une courte recherche dans le code de merb-mailer, j'ai pu constater que que la commande send_mail était dans un mixin. l'inclusion de ce mixin suffit donc à avoir la commande pour l'utiliser.</p>
+
+<typo:code lang="ruby">
+class Member
+  include DataMapper::Resource
+  include Merb::MailerMixin
+
+  property :id, Serial
+  property :name, String
+
+  def register
+    // some code
+    send_mail (UserMailer, :register, {
+        :from => "no-reply@example.com",
+        :to => person.email,
+        :subject => "Please activate your account" 
+    }
+  end
+</typo:code>
+
+<p><a href="http://blog.shingara.fr/en/2008-12-20-send-email-with-merb-mailer-in-datamapper-model.html">English translation</a></p>

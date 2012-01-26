@@ -1,0 +1,52 @@
+---
+layout: post
+title: Rails 2.0 erreur à éviter
+typo_id: 76
+---
+<p>Ayant annoncé la <a href="http://blog.shingara.fr/articles/2007/10/01/rails-2-0-preview-release-est-sortie">sortie de Rails 2.0 en PR</a>, je me devais de tester cette version. Je l'ai donc fait immédiatement le soir.</p>
+
+<p>Après un petit :</p>
+
+<ul>
+<li>rake rails:freeze:edge TAG=rel_2-0-0_PR </li>
+<li>rake rails:update</li>
+</ul>
+
+<p>J'ai lancé mon serveur et là patatra. Erreur et serveur qui ne démarrais pas. J'avais l'erreur suivante :</p>
+
+<pre>
+# hello-21:44:11:~/programmation/ruby/rails/screeneur/trunk$ ./script/server
+# => Booting Mongrel (use 'script/server webrick' to force WEBrick)
+# => Rails application starting on http://0.0.0.0:3000
+# => Call with -d to detach
+# => Ctrl-C to shutdown server
+# ** Starting Mongrel listening at 0.0.0.0:3000
+# ** Starting Rails with development environment...
+# Exiting
+# /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/railties/lib/commands/servers/mongrel.rb:16: warning: already initialized constant OPTIONS
+# /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/railties/lib/commands/servers/mongrel.rb:19: undefined method `options' for []:Array (NoMethodError)
+# from /usr/lib64/ruby/site_ruby/1.8/rubygems/custom_require.rb:32:in `gem_original_require'
+# from /usr/lib64/ruby/site_ruby/1.8/rubygems/custom_require.rb:32:in `require'
+#         from /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+# from /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/activesupport/lib/active_support/dependencies.rb:342:in `new_constants_in'
+# from /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/activesupport/lib/active_support/dependencies.rb:496:in `require'
+#         from /home/shingara/programmation/ruby/rails/screeneur/trunk/vendor/rails/railties/lib/commands/server.rb:39
+#         from /usr/lib64/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `gem_original_require'
+# from /usr/lib64/ruby/site_ruby/1.8/rubygems/custom_require.rb:27:in `require'
+# from ./script/server:3
+</pre>
+
+<p>J'ai ensuite tenté une autre technique. Installer le gem de Rails 2.0 PR :</p>
+
+<pre>
+gem install rails --source http://gems.rubyonrails.org 
+</pre>
+
+<p>Là miracle tout fonctionnait normalement. Je ne comprenais pas pourquoi. J'enlève donc les gems installés, retente et même erreur.</p>
+
+<p>J'ai donc lancé des recherches sur internet et auprès de personnes qui utilisaient Rails Edge, mais sans succès. J'ai donc fini par lancer la question sur la <a href="http://groups.google.com/group/rubyonrails-core/browse_frm/thread/e1cb5d99ff0313c5">liste de discussion de Ruby On Rails Core (en)</a>. Très rapidement j'obtiens ainsi ma réponse.</p>
+
+<p>En fait il s'agit d'ActiveResource qui a été supprimé et remplacé par ActionWebService. Ainsi les requires perdait un peu les pédales. Une des solutions pour résoudre ce problème est de mettre dans son environnement.rb une exclusion d'ActiveResource :</p>
+<pre>config.frameworks -= [ :active_resource ] </pre>
+
+<p>Par contre si vous utilisez cette méthode n'oubliez pas de le commenter pour l'enlever dans le futur.</p>

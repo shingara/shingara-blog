@@ -1,0 +1,29 @@
+---
+layout: post
+title: Pictrails 0.2.2 released
+typo_id: 103
+---
+<p>Ça y est, un peu moins de 2 mois après la sortie de <a href="http://blog.shingara.fr/articles/2008/01/27/pictrails-0-1-0-sortie-pour-une-premiere-alpha">pictrails 0.1.0</a>, voici la version 0.2.2 de <a href="http://pictrails.rubyforge.org/">Pictrails</a>. Cette version est cette fois ci considéré comme une version Beta. Je pense qu'il y en aura ainsi beaucoup car la liste des fonctionnalités de Pictrails ne cesse d'augmenter comme vous pouvez le constater sur <a href="http://dev.shingara.fr/projects/roadmap/3">la roadmap</a> que je tiens à jour régulièrement en l'agrémentant de toutes idées et remarques que l'on peux me faire.</p>
+
+<p>
+Cette version 0.2.x a déjà eu deux releases avant que je ne l'annonce ici, suite a des découvertes de bugs que je considérais comme majeur. Que ce soit pour la suppression du cache qui ne se faisait pas forcement quand il le fallait ou pour une condition de requête non générique. Je viens même de redécouvrir encore un bug dans une suppression de cache. Je vais donc encore hélas releaser une version 0.2.3. J'en suis vraiment désolé. Ça prouve en tout cas la nécessité absolu de faire plus de test d'intégration, qui vérifie les suppressions de cache. Je vais réaliser ces tâches directement en <a href="http://rspec.info/documentation/stories.html">Stories</a> de <a href="http://rspec.info/">Rspec</a>. j'en parlerais ainsi plus profondément dans un futur article je pense.
+</p>
+
+<p>Au sujet des fonctionnalités apportés par la release 0.2.x, vous pouvez voir :</p>
+
+<ul>
+<li>Utilisation massive du système de cache sur toute la partie public pour ainsi avoir les meilleures performances possible (ce qui a entraîné les erreurs que j'ai soulignés et les nombreuses releases).</li>
+<li>Refontes graphique complète de la partie d'administration. Si vous utilisez <a href="http://typosphere.org">Typo 5.0.x</a>, vous verrez facilement l'inspiration que j'ai eu.</li>
+<li>Ajout de la possibilité de définir une titre et un sous-titre à la galerie dans la partie d'administration.</li>
+<li>Ajout d'un système de mass_upload à partir d'un répertoire directement présent sur le serveur. Vous indiquez l'emplacement de ce répertoire et tout les images seront intégrés dans une nouvelle galerie</li>
+<li>Ajout de la pagination dans la liste des galeries ainsi que la liste de images. Cette pagination est définissable directement dans l'administration</li>
+<li>Possibilité de définir la taille des thumbnails et des images originales qu'il y aura.</li>
+<li>Suppression de l'utilisation de splash.image. Désormais, il n'y a plus aucune ligne de javascript dans Pictrails. Il reviendra dans le futur. Je voulais une compatibilité maximum avec les utilisateurs désactivant le Javascript.</li>
+</ul>
+
+<p>
+Pour fêter cette sortie, j'ai décidé de mettre en place une version de <a href="http://pictrails.shingara.fr/">démo de pictrails</a> qui tourne actuellement sur la version 0.2.x. Vous pouvez allez l'admirer et lui faire subir tous les sévices. Pour vous logger sur <a href="http://pictrails.shingara.fr/admin">la partie d'administration</a>, les user/password sont : admin/pictrails. Un script la mettra à jours toutes les semaines pour éviter un engorgement et permettre de nouveau test. Cette version tourne derrière un serveur Nginx avec un daemon thin et une base de donnée PostGreSQL.
+</p>
+
+<p>
+Si vous souhaitez contribuer à pictrails, il n'y a pas de souci. Par contre, j'ai migrer de Mercurial vers GIT. Vous pouvez bien-sur cloner le <a href="http://github.com/shingara/pictrails/tree/master">dépot pictrails</a>. Pour faire des rapports de bugs et suivre l'évolutions de ceux-ci, vous pouvez allez sur <a href="http://dev.shingara.fr/projects/show/3">la platforme de développement de pictrails</a>.

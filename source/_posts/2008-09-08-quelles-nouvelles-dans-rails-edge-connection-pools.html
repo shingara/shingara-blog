@@ -1,0 +1,22 @@
+---
+layout: post
+title: ! 'Quelles nouvelles dans Rails Edge : Connection pools'
+typo_id: 172
+---
+<p>Traduction de l'article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-connection-pools">What's new in edge rails : Connection Pools</a></p>
+
+<p>Avec la venue prochaine de <a href="http://weblog.rubyonrails.org/2008/8/16/josh-peek-officially-joins-the-rails-core">Rails thread-safe</a>, il était nécessaire d'ajouter 
+le <a href="http://github.com/rails/rails/commit/6f932b4790371e548c0df9033da96b2cf8f51dcc">pool de connection à la base de donnée</a>. Moins qu'une fonctionnalité, mais 
+un détail d'implémentation caché. Vous avez la possibilité de définir la 
+taille de ce pool. Cette configuration est dans le fichier 
+<code>database.yml</code> avec le mot clé pool:</p>
+                      
+<typo:code lang='ruby'>
+development:   
+  adapter: mysql
+  username: root    
+  database: myapp_dev
+  pool: 10 
+</typo:code>
+                                      
+<p>Vous voilà avec un pool de connection. Facile</p>

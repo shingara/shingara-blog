@@ -1,0 +1,26 @@
+---
+layout: post
+title: Open-notification v0.1.0 est sortie
+typo_id: 201
+---
+<p>
+Il y a maintenant un mois, j'ai commencé à jouer avec <a href="http://github.com/ezmobius/nanite">nanite</a>. Pour essayer un peu cette technologie, j'ai réaliser une mini application en sinatra et un agent nanite qui envoi des notifications par Jabber.
+</p>
+
+<p>
+De fil en aiguille, le code s'est agrémenté et est surtout passé à Merb avec un système de persistance en CouchDB.
+</p>
+
+<p>
+L'idée de base est extrêmement simple, gérer plein de notification de tous type. Il existe déjà ce genre de système comme <a href="http://messagepub.com">messagepub</a>. Mais là ca sera open source.
+</p>
+
+<p>
+<a href="http://github.com/shingara/open-notification">Open notification</a> sort donc en version 0.1.0 pour sa première version. Le code sera mis sous licence <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">AGPLv3</a>. Il est composé d'un agent nanite qui gére l'envoi des notifications jabber et d'une application avec Merb/CouchDB.
+</p>
+
+<p>
+La méthode de déploiement est assez compliqué je l'avoue car il n'y a aucune documentation. Cela arrivera dans les prochaines versions.
+</p>
+
+<p>Une version complête est utilisable par tout un chacun sur <a href="http://open-notification.com">open-notification.com</a>. Ce service n'a pour l'instant aucune pérennité. Mais on verra dans le futur ce que ca donnera.</p>

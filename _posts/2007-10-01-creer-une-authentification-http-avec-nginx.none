@@ -1,0 +1,40 @@
+---
+layout: post
+title: Créer une authentification HTTP avec Nginx
+typo_id: 75
+---
+<p>Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d'utiliser le <a href="http://wiki.codemongers.com/NginxHttpAuthBasicModule">module d'authentification basic</a>. Pour l'utiliser c'est très simple. Il suffit d'ajouter dans votre niveau d'url, les directives suivantes :</p>
+
+<ul>
+<li>auth_basic : qui permet de définir qu'il y a une authentification HTTP si il n'y a pas "off". Le texte ainsi donnée à cette directive sera affiché pour informer l'utilisateur que l'url contactée est sécurisée par HTTP.</li>
+<li>auth_basic_user_file : donne un chemin de fichier contenant la liste des utilisateurs ayant accès à l'url avec leur mot de passe. Les mots de passes peuvent ainsi être écrit en clair ou de la même façon qu'Apache avec crypt(3). Ainsi vous pouvez directement utiliser vos anciens fichiers Apache, ce qui est très pratique.</li> 
+</ul>
+
+<p>Voici donc un exemple pour mettre une authentification HTTP sur un Vhost :</p>
+
+<pre>
+server {
+  auth_basic "Ce serveur nécessite une authentification";
+  auth_basic_user_file conf/httpassword;
+}
+</pre>
+
+<p>Exemple pour mettre une authentification HTTP sur une url :</p>
+
+<pre>
+server {
+  location /admin {
+    auth_basic "Cette partie nécessite une authentification";
+    auth_basic_user_file conf/httpassword;
+  }
+}
+</pre>
+
+<p>Exemple de fichier de gestion des utilisateurs :</p>
+
+<pre>
+# Les commentaires
+user:pass
+user2:pass2:commentaires
+user3:pass3
+</pre>

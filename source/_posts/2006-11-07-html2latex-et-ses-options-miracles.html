@@ -1,0 +1,16 @@
+---
+layout: post
+title: Html2Latex et ses options miracles
+typo_id: 25
+---
+<p>
+Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à partir de fichier LaTeX devrait être exportés en PDF et en HTML. Mais je n'avais jamais trouvé de « bonne » sortie de mes fichiers LaTeX en HTML. J'avais testé html2latex et Hevea. Mais mes premiers tests m'avait fait adopter Hevea à cause de sa sortie en une seule page et son support de l'utf8. Mais voilà qu'aujourd'hui Hevea ne veux pas me lire mes fichiers en UTF-8 et bloque avec. J'ai donc pris le temps de me repencher sur html2latex et je suis revenu sur mes premières impressions, c'est génial. Voici en fait les options qu'il me manquait :
+</p>
+<ul>
+<li>-html_version 4.0,unicode : qui permet d'avoir un document en UTF-8 si nous l'avons créer ainsi</li>
+<li>-no_navigation : qui permet de ne pas avoir le petit système de navigation en haut de la page</li>
+<li>-split 0 : qui permet de n'avoir qu'un seul fichier HTML et non un par partie</li>
+<li>-info 'blabla' : qui permet de mettre son propre « A propos » et non pas celui défini de base par html2latex</li>
+</ul>
+
+<p>Je crois que ces options peuvent aussi être défini directement à partir d'un fichier de configuration, mais je n'ai pour l'instant pas rechercher comment faire</p>

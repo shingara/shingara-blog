@@ -2,10 +2,10 @@
 project_type = :stand_alone
 
 # Publishing paths
-http_path = "/"
-http_images_path = "/images"
-http_fonts_path = "/fonts"
-css_dir = "public/stylesheets"
+http_path = "/shingara-blog/"
+http_images_path = "/shingara-blog/images"
+http_fonts_path = "/shingara-blog/fonts"
+css_dir = "public/shingara-blog/stylesheets"
 
 # Local development paths
 sass_dir = "sass"

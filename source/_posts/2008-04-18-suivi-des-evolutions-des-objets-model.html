@@ -1,0 +1,54 @@
+---
+layout: post
+title: Suivi des évolutions des objets Model
+typo_id: 111
+---
+<p>Voici un nouveau billet rapportant quelques nouveautés de Rails edge futur 2.1 en cours de développement. Cette amélioration est du coté des Models. Désormais, ils arrivent à savoir quel attribut a changé ou non. Grâce à cette fonctionnalité, de nouvelles méthodes par introspection on été ajouté.</p>
+
+<typo:code lang="ruby">
+article = Article.find(:first)
+article.changed?  #=> false
+
+# Vérifie les changements des attributs individuellement
+# avec attr_name_changed? accessor
+article.title  #=> "Title"
+article.title = "New Title"
+article.title_changed? #=> true
+
+# Accès au valeur précédente avec attr_name_was accessor
+article.title_was  #=> "Title"
+
+# On peux voit l'ancienne et nouvelle valeur avec attr_name_change accessor
+article.title_change  #=> ["Title", "New Title"]
+</typo:code>
+
+<p>On peux aussi savoir quel champs ont changé et suivant quel valeur :</p>
+
+<typo:code lang="ruby">
+# Recupere une liste des attribut qui ont changé
+article.changed  #=> ['title']
+
+# Récupére un hash des attributs qui ont changé avec leur précédente et nouvelle valeurs
+article.changes  #=> { 'title' => ["Title", "New Title"] }
+</typo:code>
+
+<p>Dès que vous enregistrez votre enregistrement alors cette fonctionnalité est complètement réinitialisée.</p>
+
+<p>Un des grand avantage de cette fonctionnalité est l'ajout d'une nouvelle fonctionnalité possible au niveau de la mise à jour des données en Base de donnée. En effet, la requête généré peux être beaucoup plus faible. Actuellement, à chaque mise à jour, la requête SQL généré est composé de tous les champs de l'objet. Désormais on peux activer une option d'ActiveRecord pour permettre cela.</p>
+
+<typo:code lang="ruby">
+article = Article.find(:first)
+article.title  #=> "Title"
+article.subject  #=> "Edge Rails"
+
+# Mise a jour d'un seul attribut
+article.title = "New Title"
+
+# Seulement l'attribut mis à jour est updaté dans la Base de donnée
+article.save
+  #=>  "UPDATE articles SET title = 'New Title' WHERE id = 1"
+</typo:code>
+
+<p>Pour activer cette option, il faut mettre : <code>ActiveRecord::Base.partial_updates = true</code></p>
+
+<p>Par contre pour les champs updated_at/on, ils ne seront modifié que dans le cas où un champs a réellement été modifié.</p>

@@ -1,0 +1,113 @@
+---
+layout: post
+title: Gestion des dépendances avec Merb
+typo_id: 191
+---
+<p>Utilisant de plus en plus Merb sur mon temps personnel et dans mes projets open source, j'ai dû étudier un peu plus profondément le système de dépendances de Merb.</p>
+
+<p>Merb est par essence un framework basé sur les gems. Dans cette logique il pousse à n'utiliser que des gems et uniquement ceux ci.</p>
+
+<h1>Utilisation des gems avec Merb</h1>
+
+<p>Pour utiliser un gem avec Merb, rien de plus simple car tout est prévu pour. Que ce soit avec votre répertoire local de gem ou alors avec un freeze du gems.</p>
+
+<h2>Utilisation de votre répository gem local</h2>
+
+<p>Si vous ne voulez utiliser que cette technique, alors rien de plus simple, modifier le fichier <code>/config/dependencies.rb</code> pour indiquer les gems à charger dans votre application. Voici par exemple le fichier <code>dépendencies.rb</code> d'une application installer de frais.</p>
+
+<typo:code lang='ruby'>
+# dependencies are generated using a strict version, don't forget to edit the dependency versions when upgrading.
+merb_gems_version = "1.0.7.1"
+dm_gems_version   = "0.9.8"
+
+# For more information about each component, please read http://wiki.merbivore.com/faqs/merb_components
+dependency "merb-action-args", merb_gems_version
+dependency "merb-assets", merb_gems_version  
+dependency "merb-cache", merb_gems_version   
+dependency "merb-helpers", merb_gems_version 
+dependency "merb-mailer", merb_gems_version  
+dependency "merb-slices", merb_gems_version  
+dependency "merb-auth-core", merb_gems_version
+dependency "merb-auth-more", merb_gems_version
+dependency "merb-auth-slice-password", merb_gems_version
+dependency "merb-param-protection", merb_gems_version
+dependency "merb-exceptions", merb_gems_version
+ 
+dependency "dm-core", dm_gems_version         
+dependency "dm-aggregates", dm_gems_version   
+dependency "dm-migrations", dm_gems_version   
+dependency "dm-timestamps", dm_gems_version   
+dependency "dm-types", dm_gems_version        
+dependency "dm-validations", dm_gems_version  
+
+dependency "merb_datamapper", merb_gems_version
+dependency "do_sqlite3" # If using another database, replace this
+</typo:code>
+
+<p>On y liste ainsi tous les gems de merb et Datamapper que l'on souhaite utiliser. Si on veux en utiliser de nouveau, il suffit d'en ajouter à cette liste. Vous pouvez aussi en supprimer de cette liste pour diminuer ainsi le nombre de gem chargé dans votre application.</p>
+
+<h2>Utilisation d'un repository de gems local à votre application</h2>
+
+<p>Voici un point qui différe grandement de RubyOnRails. Mais à mon sens, là encore il est beaucoup mieux conçu que Rails. En effet, l'idée est très simple. Rubygems permet de définir le dossier où se trouve vos gems. Pourquoi ce répertoire ne serait pas simplement dans votre application ?</p>
+
+<p>Pour mettre en place cette technique, il faut au préalable créer le dossier <code>/gems/</code> dans votre arborescence. Ensuite utiliser les tâches <code>thor</code> pour installer les gems que vous désirez directement dans votre nouveau répository gems. Ainsi pour installer merb-core et datamapper, il vous suffit de faire :</p>
+
+<typo:code>
+$ thor merb:gem:install merb-core dm-core
+</typo:code>
+
+<p>Une fois fait de même pour toutes vos dépendances. Vous avez freezé votre application avec tous les gems utilisés.</p>
+
+<p>Si vous utilisez un gestionnaire de source, il faudra alors n'ajouter à votre repository que le dossier /gems/cache/ en effet, ce dossier contient les <code>.gem</code> que vous utilisez. Les autre dossiers seront générés. Ensuite si quelqu'un récupére vos sources, il lui suffira de réaliser la commande <code>thor</code> de redéploiement :</p>
+
+<typo:code>
+$ thor merb:gem:redeploy
+</typo:code>
+
+<p>Tous les gems dans le dossier cache seront ainsi installé dans votre dossier gems. Là où je trouve que ce système est meilleur que celui de Rails est que si vous avez un gem avec un extension C vous pouvez le freezer avec Merb. Chose que vous ne pouvez pas faire avec Rails.</p>
+
+<h1>Mais et si je veux utiliser les versions de développement ?</h1>
+
+<p>Voici selon moi le point faible de Merb face à Rails. En effet, avec rails, rien de plus simple. On met les sources dans le dossier <code>/vendor/</code> soit <code>/gems/</code> soit <code>/plugins/</code> et roulez jeunesse, tout fonctionne sans changement. Un simple git-submodule permet de suivre l'évolution du tout. Mais Merb ne permet pas ça. Merb ne loadera que des gems et uniquement des gems.</p>
+
+<h2>Technique recommendée par la core-team</h2>
+
+<p>La technique que finalement la core-team recommende est encore une fois de se baser sur les gems. Pour cela, rien de plus simple, il suffit de créer le gem correspondant à votre version de développement, l'ajouter dans le dossier <code>gems/cache</code> et ainsi l'utiliser. Des tâches utilitaires existent pour aider à tout ça. Par exemple pour installer la version de développement de Datamapper, vous pouvez faire :</p>
+
+<typo:code>
+$ thor merb:source:install dm-core
+</typo:code>
+
+<p>Cette tâche créera un clone du repository dm-core dans votre dossier <code>/src/</code>, générera le gem et installera dans votre dossier /gem/. Vous pouvez aussi faire de même en installant les sources directement dans le dossier <code>/src/</code> et utiliser le nom de votre dossier. Ca lancera la tâche <code>rake package</code> et installera le gem généré.</p>
+
+<p>Ce que je trouve dommage avec cette technique est l'impossibilité de savoir réellement quel est la version utilisée. En effet, gem utilise un numéro de version fixe et on n'a pas forcement l'information du commit qui a généré ce gem. J'aime bien pouvoir juste en clonant un projet savoir exactement la source exact du gem que j'utilise. Donc soit sa version, soit son numéro de commit.</p>
+
+<h2>Ma technique pour permettre de contourner le problème</h2>
+
+<p>La technique que j'ai ainsi trouvé fonctionne, mais n'est hélas pas complétement optiminum. Dans mon fichier <code>config/init.rb</code>, j'ai créé une petite méthode :</p>
+
+<typo:code lang='ruby'>
+def load_from_source(src)
+  $:.unshift File.join(Merb.root, "src/#{src}/lib")
+  require "src/#{src}/init.rb"
+end
+</typo:code>
+
+<p>Ensuite dans le callback before_app_loads, j'ai pu faire appel à ma méthode</p>
+
+<typo:code lang="ruby">
+Merb::BootLoader.before_app_loads do
+  # This will get executed after dependencies have been loaded but before your app's classes have loaded.
+  load_from_source('will_paginate')
+end
+</typo:code>
+
+<p>Avec un clone du repository will_paginate dans mon dossier <code>/src/</code> will_paginate est ainsi chargé automatiquement avant le load de l'application et après le load de toutes les dépendances.</p>
+
+<p>Par contre cette technique à un gros défaut que je n'ai pas réussi à palier sauf en proposant un patch à Merb (ce que je ferais peut-être, même si Merb en tant que tel est mort :'(). En effet, on ne peux loader à partir des sources qu'après le load des <code>dependancies</code>. Si vous voulez loader au milieu des dépendances, vous ne pouvez pas. Il faudra obligatoirement passer par le système des gems.</p>
+
+<h2>Ce qu'il ne faut pas faire</h2>
+
+<p>Je vous rassure, je l'ai fait, ce qui me permet de vous dire de ne pas le faire. Ainsi, il ne faut pas ajouter le require directement dans le <code>dependencies.rb</code>. En effet, le chargement des dépendences ne se fait pas à ce moment là. Ce n'est qu'un chargement d'une liste gems à charger. Si vous faites votre require à ce moment vous pourrez ainsi vous retrouver avec des problèmes d'ordre de chargement.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-01-20-manage-your-dependencies-with-merb.html">English translation</a></p>

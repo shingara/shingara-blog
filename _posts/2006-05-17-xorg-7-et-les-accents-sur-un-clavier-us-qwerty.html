@@ -1,0 +1,28 @@
+---
+layout: post
+title: Xorg 7 et les accents sur un clavier us (QWERTY)
+typo_id: 17
+---
+<p>
+Depuis mon update de Xorg de la version 6.9 à la version 7, j'ai eu un réel souci de personne écrivant le mieux possible le  français, c'est à dire l'utilisation des accents. En effet, pour coder, il est plus pratique d'utiliser un clavier QWERTY, j'ai donc investi voilà un an dans ce clavier là. Au début, je n'utilisais donc plus d'accent. Mais l'habitude venant, je me suis dis qu'il fallait absolument ré-utiliser les accents. J'avais à l'époque fait une recherche pour pouvoir faire des accents avec mon clavier QWERTY. J'ai ainsi trouvé l'option :
+</p>
+<pre>
+Option          "XkbModel"      "us(pc105euro)"
+</pre>
+<p>
+Mais voilà depuis l'update de Xorg 7, cette option ne foncionnait plus. Il fallait bien que ca tombe sur moi ca. Et bien après deux semaines de dur recherche, j'ai fini par trouver et je vous indique donc ici l'astuce :
+</p>
+<pre>
+Section "InputDevice"
+        Identifier      "Generic Keyboard"
+        Driver          "kbd"
+        Option          "CoreKeyboard"
+        Option          "XkbRules"      "xorg"
+        Option          "XkbModel"      "pc105"
+        Option          "XkbLayout"     "us"
+        Option          "XkbOptions"    "compose:rwin"
+</pre>
+
+<p>
+Avec cette configuration de clavier, vous pourrez ainsi utiliser la touche "compose", défini ici comme la touche windows de droite. Pour une fois que windows sert :).
+</p>

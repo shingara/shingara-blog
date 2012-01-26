@@ -1,0 +1,14 @@
+---
+layout: post
+title: fluxbox fsetbg et Debian
+typo_id: 14
+---
+<p>
+Depuis mon retour à debian, j'avais un petit problème de configuration. En effet à chaque démarrage de Fluxbox, j'avais une petite pop-up m'indiquant que fsetbg était inconnu. Ainsi, à chaque démarrage, je devais cliquer sur le boutton OK de cette pop-up et je n'avais ainsi aucun fond d'écran. Ce matin alors que je me levait tôt. j'ai décidé de réparer ce problème. Après une petite recherche j'ai ainsi découvert qu'il me manquait tout simplement un package. Il s'agissait de "gsetroot". Ainsi après un petit :
+<p>
+<code>
+# aptitude install gsetroot
+</code>
+<p>
+Tout est revenu dans l'ordre. Pour essayer que ce petit problème ne soit pas récurent, j'ai décidé d'user de mon esprit communautaire. Tout d'abord je blog cette découverte pour que tout personne confonté au problème puisse avoir dans un coin de la toile une piste (Pour cela il faudrait que je sois plus référencé). Sinon j'ai aussi ouvert un bug sur le bugtrack de Debian sous la priorité Whishlist. Vous pourrez trouver ce bug <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=360306">ici</a>. Cela porte ainsi mes rapports de bug sur Debian à 4 bugs (2 Whishlists, 1 bugs Normal fermé et 1 bug important fermé).
+</p>

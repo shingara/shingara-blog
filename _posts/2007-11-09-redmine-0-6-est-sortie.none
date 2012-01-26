@@ -1,0 +1,24 @@
+---
+layout: post
+title: Redmine 0.6 est sortie
+typo_id: 83
+---
+<p>Redmine 0.6 est sortie le 4 Novembre 2007.</p>
+
+<p><a href="http://redmine.org">Redmine</a> est application web de gestion de projet, multi-projet avec système de tracking, de news, de gestion de document, un wiki, un navigateur de SCM et un forum. Il est développé entièrement avec Ruby On Rails.</p>
+
+<p>Cette version se voit doté d'un nouveau design complet et comme à son habitude les fonctionnalités ajoutés foisonnent.</p>
+
+<p>Voici une petite liste de fonctionnalités importantes ajoutés&nbsp;:</p>
+
+<ul>
+<li>Ajout de traduction en Polonais, Tcheque, Roumain, Hebreux, Serbe et Koréen.</li>
+<li>Ajout de système de migration à partir de Trac et Mantis par tâche rake.</li>
+<li>Ajout d'un système pour ajouter des plugins à redmine</li>
+</ul>
+
+<p>Pour obtenir une liste complète des fonctionnalités ajoutés vous pouvez consulter le <a href="http://rubyforge.org/frs/shownotes.php?group_id=1850&release_id=16072">changelog</a></p>
+
+<p>Désormais le site web de Redmine utilise lui-même redmine pour avoir une petite idée de l'utilisation de cette application</p>
+
+<p>Pour cette version, j'ai réalisé un <a href="http://rubyforge.org/tracker/index.php?func=detail&aid=15167&group_id=1850&atid=7162">patch</a>.</p>

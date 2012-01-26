@@ -1,0 +1,27 @@
+---
+layout: post
+title: Supprimer tous les messages d'anonyme du forum redmine
+typo_id: 177
+---
+<p>Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu'un utilisateur ne soit obligé de s'inscrire pour poster sur le forum, vous êtes sujet au Spam, vu que Redmine n'a encore aucun système anti-spam. Vous pouvez ainsi vous retrouver dans cette position.</p>
+
+<p>
+<img src="http://blog.shingara.fr/files/snapshoot_spam_forum_redmine.png" alt="screenshot de mon forum redmine spammé" />
+</p>
+
+<p>Une fois que vous avez bloqué l'ajout de message par les anonymes, il faut maintenant faire le ménage. Soit, vous prenez message par message et faite le bouton supprimer. Soit vous utilisez la console comme moi. Voici donc les commandes à réaliser pour supprimer tous les messages d'anonyme du forum. Bien-sûr, cela implique que si vous avez des utilisateurs qui ont posté en tant qu'anonyme, leur poste sera détruit.</p>
+
+<typo:code lang="text">
+rails@shinydedi /var/rails/redmine/current $ ./script/console production                                                                                                                          
+Loading production environment (Rails 2.0.2)
+>> User.anonymous
+=> #<AnonymousUser id: 4, login: "", hashed_password: "", firstname: "", lastname: "Anonymous", mail: "", mail_notification: false, admin: false, status: 0, last_login_on: nil, language: "", auth_source_id: nil, created_on: "2008-01-26 16:39:30", updated_on: "2008-01-26 16:39:30", type: "AnonymousUser">
+>> User.anonymous.id
+=> 4
+>> Message.find_all_by_author_id(User.anonymous.id).size
+=> 1693
+>> Message.find_all_by_author_id(User.anonymous.id).each { |me| me.destroy }
+=> [.........]
+>>
+</typo:code>
+<p><a href="http://blog.shingara.fr/en/2008-11-14-delete-all-anonymous-message-in-forum-redmine.html">English translation</a></p>

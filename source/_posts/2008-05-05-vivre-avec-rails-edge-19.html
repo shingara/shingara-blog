@@ -1,0 +1,60 @@
+---
+layout: post
+title: ! 'Vivre avec Rails Edge #19'
+typo_id: 138
+---
+<p>Traduction de la <a href="http://blog.codefront.net/2008/05/04/living-on-the-edge-of-rails-19-change_table-for-migrations-and-more/">news #19</a></p>
+
+<p>Le rapport de cette semaine couvre les changements du 29 Avril 2008 au 4 Mai 2008 (jour correspondant à l'enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<h3>change_table pour les migrations d'ActiveRecord</h3>
+
+<p>Merci à <a href="http://zilkey.com/">Jeff Dean</a>, qui a aussi <a href="http://zilkey.com/2008/4/29/new-rails-core-feature-proposal-super-sexy-migrations">blogué au sujet de la nouvelle fonctionnalité change_table des migrations d'ActiveRecord</a>. Vous pouvez donc maintenant changer une table avec un block comme ceci :</p>
+
+<typo:code lang="ruby">change_table :videos do |t|
+  t.add_timestamps
+  t.add_belongs_to :goat
+  t.add_string :name, :email, :limit =&gt; 20
+  t.remove_column :name, :email # prend de multiples arguments
+  t.rename :new_name
+  t.string :new_string_column # execute avec le changement de nom de la table
+end</typo:code>
+
+<p>Parmis les principaux points à noter :</p>
+
+<ul>
+<li><code>add_XXX</code> permettant d'ajouter une nouvelle colonne, exemple : <code>add_string</code> qui ajoutera un nouveau champs string.</li>
+<li>Bien-sûr,<code> add_timestamps</code> permet d'ajouter les champs datetime magics <code>created_at</code> et <code>updated_at</code></li>
+<li><code>remove_column</code> peux dorénavant prendre plusieurs arguments.</li>
+<li><code>rename</code> qui renommera la table.</li>
+</ul>
+
+<p>Très belle amélioration DRY proposée par <a href="http://zilkey.com/">Jeff Dean</a> une fois encore.</p>
+
+<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/96980bd561d79824b6cb6efbcbecdcbf8785d452">http://github.com/rails/rails/commit/96980bd561d79824b6cb6efbcbecdcbf8785d452</a></p>
+
+<h3>ActiveRecord::Base.create prend un block comme ActiveRecord::Base.new</h3>
+
+<p>Youpie, maintenant vous pouvez aussi créer (<code>ActiveRecord::Base.create</code>) un objet ActiveRecord avec un block en argument exactement comme vous pouviez le faire avec <code>ActiveRecord::Base.new</code>:</p>
+
+<typo:code lang="ruby">@person = Person.create(params[:person]) do |p|
+  p.name = 'Konata Izumi'
+  p.age = 17
+end</typo:code>
+
+<p>Merci a <a href="http://www.workingwithrails.com/person/11022-adam-meehan">Adam Meehan</a> pour ce patch.</p>
+
+<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/dd120ede53eaf71dee76894998a81626b7a689fc">http://github.com/rails/rails/commit/dd120ede53eaf71dee76894998a81626b7a689fc</a></p>
+
+<h3>Bugfix: change_column doit permettre d'utiliser :null => true sur les champs qui ne l'étaient pas précédement.</h3>
+
+
+<p>Vous pouvez désormais utiliser <code>change_column</code> dans vos migrations pour modifier une colonne en nullable si elle était précédement </code>NOT NULL</code>.</p>
+
+<p>Ce bugfix est gentiment offert par Nate Wiger.</p>
+
+<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/10ef65a3b054270ed3d458ec8eb7c2b9a3e638f7">http://github.com/rails/rails/commit/10ef65a3b054270ed3d458ec8eb7c2b9a3e638f7</a></p>
+
+<p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vive avec Rails.</p>
+
+<p>Enfin merci à <a href="http://blog.codefront.net/">Chu Yeow</a> de <a href="http://blog.codefront.net/2008/05/01/living-on-the-edge-of-rails-in-french/">m'encourager dans la traduction de ses magnifiques news</a><p>

@@ -1,0 +1,35 @@
+---
+layout: post
+title: Cucumber>=0.3.4 et Merb. La dure cohabitation
+typo_id: 198
+---
+<p>Depuis la sortie de <a href="http://cukes.info/">Cucumber</a> 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation avec Merb. En effet, si on peux lire dans le <a href="http://github.com/aslakhellesoy/cucumber/blob/master/History.txt">History.txt</a> de Cucumber :</p>
+
+<typo:code>
+** IMPORTANT UPGRADE NOTES FOR RAILS USERS **
+ 
+Running Cucumber features in the same Ruby interpreter as Rake doesn't seem to work,
+so you have to explicitly tell the task to fork (like it was doing by default in prior
+versions). In lib/tasks/cucumber.rake:
+ 
+  Cucumber::Rake::Task.new(:features) do |t|
+    t.fork = true # Explicitly fork
+    t.cucumber_opts = %w{--format pretty}
+  end
+ 
+(If you run script/generate cucumber this will be done for you).
+Alternatively you can omit forking and run features like this:
+ 
+  RAILS_ENV=test rake features
+ 
+However, setting the RAILS_ENV is easy to forget, so I don't recommend relying on this.
+</typo:code>
+
+<p>
+Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l'heure actuel. En effet, la tâche <code>rake features</code> n'utilise pas les bonnes options pour cucumber.</p>
+
+<p>Après un long et rude combat avec cucumber, j'ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en "live" sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j'ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l'utilisation de Cucumber 0.3.4 et plus</a></p>
+
+<p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-05-24-since-cucumber-0-3-4-he-has-difficult-with-merb.html">English translation</a></p>

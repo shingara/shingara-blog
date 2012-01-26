@@ -1,0 +1,8 @@
+---
+layout: post
+title: Comment tester devise ? réélement ?
+typo_id: 208
+---
+<p>Alors que j'ai cherché comment tester facilement <a href="http://github.com/plataformatec/devise">Devise</a>. J'ai indiqué une technique dans <a href="http://blog.shingara.fr/devise-cest-bien-mais-il-faut-le-tester.html">mon précédent post</a>. Mais cette technique est loin d'être la meilleure. Voici donc la nouvelle solution, la solution officielle.</p>
+
+<p>Il suffit d'inclure <code>Devise::TestHelpers</code>. Ensuite pour se logger avec un utilisateur, on utilise la méthode <code>sign_in</code>. La méthode <code>sign_out</code> existe aussi.</p>

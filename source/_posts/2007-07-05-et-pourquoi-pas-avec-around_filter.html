@@ -1,0 +1,26 @@
+---
+layout: post
+title: et pourquoi pas avec around_filter ?
+typo_id: 58
+---
+<p>
+Après encore de petites recherches, j'ai fini par trouver une méthode encore plus propre. Cette méthode est tout simplement basé sur le filter around_filter. Ce filtre est tout bête et totalement génial. Il permet de réaliser des traitements avant et après ton controller. Mais bien sûr après et avant les filtres de before_filter et after_filter. On peux ainsi mettre notre profiler directement dans cette méthode. Voici un exemple de code qu'on peut utiliser cette fois ci avec le profiler ruby-prof.
+</p>
+
+<pre>
+class MyController < ApplicationController
+  around_filter(:only => :my_method) do |controller, action_block|
+    require 'ruby-prof'
+    RubyProf.clock_mode = RubyProf::WALL_TIME
+    RubyProf.start
+    action_block.call
+    results = RubyProf.stop
+    printer = RubyProf::FlatPrinter.new results
+    printer.print(STDOUT, 0)
+  end
+
+  def my_method
+     #implement this method
+  end
+end
+</pre>

@@ -1,0 +1,10 @@
+---
+layout: post
+title: Mise à jour de ma platforme de dev sous Redmine-0.6.0
+typo_id: 84
+---
+<p>Ça y est, j'ai mis à jour ma petite <a href="http://dev.shingara.fr">plate-forme de gestion de projet</a> tournant sous <a href="http://redmine.org">Redmine</a>. Ayant annoncé <a href="http://blog.shingara.fr/articles/2007/11/09/redmine-0-6-est-sortie">la sortie de Redmine 0.6.0</a> je me devais de migrer sous cette nouvelle version.</p>
+
+<p>Encore une fois la migration fut aisé et seule quelques lignes de commandes furent nécessaire.</p>
+
+<p>En parallèle, je commence un nouveau mini-projet que je vais nommer <a href="http://dev.shingara.fr/projects/show/4">WhoToWho</a>. Ça ne sert à rien. Mais c'est fun.</p>

@@ -1,0 +1,14 @@
+---
+layout: post
+title: RabbitMQ ne marche pas avec Mac OS ?
+typo_id: 205
+---
+<p>Il y a quelque semaine, alors que je me remettais tout simplement à l'utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j'ai eu un gros problème. Alors qu'il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n'ayant pas un besoin urgent de RabbitMQ, j'ai repoussé la recherche du problème.</p>
+
+<p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j'ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
+
+<p>Que faire si votre noeud de contrôle rabbitMQ n'arrive pas à discuter avec le noeud maitre ?</p>
+
+<p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l'ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C'est parfois tellement simple la résolution d'un problème.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-11-18-rabbitmq-doesn-t-works-with-macosx.html">English translation</a></p>

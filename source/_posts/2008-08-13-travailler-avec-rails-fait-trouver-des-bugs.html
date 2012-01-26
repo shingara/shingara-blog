@@ -1,0 +1,60 @@
+---
+layout: post
+title: Travailler avec rails fait trouver des bugs
+typo_id: 162
+---
+<p>Alors que j'ai commencé à travailler professionnelement parlant avec Rails
+depuis mon départ de CapGemini et mon arrivée à JTEK. En une semaine et demi,
+je constate 1 bug sur rails 2.1, un bug sur Edge et un comportement ajouté en
+Rails 2.1 qui disparaitra en Rails 2.2 (déjà disparu sur Edge)</p>
+
+<h1><code>#has_one</code> demande la validation de sa liaison</h1>
+
+<p>Durant la migration de l'application développé au sein de Jtek de Rails
+1.2 à 2.1, j'ai constaté que les éléments <code>#has_one</code> sont désormais
+validé durant la validation du parent. En effet, ce comportement n'était pas
+présent dans les versions antérieurs à Rails 2.1. Par contre, la validation du
+<code>#has_many</code> est quand à elle effectuée depuis plusieurs version de
+Rails.<p>
+
+<p>Par contre après une lecture du code de Rails edge, actuellement, ce
+comportement disparaitra complétement en Rails 2.2. En effet, une option
+<code>:validate</code> a été ajouté au méthode <code>#has_many</code>,
+<code>#has_and_belongs_to_many</code> et <code>#has_one</code>. J'ai parlé de
+ce comportement dans une <a
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">news
+Vivre avec Rails</a>.</p>
+
+<p>Pour palier ce problème, j'ai créé un petit plugin rails qui permet de
+couper la validation sur le <code>#has_one</code>. Vous pouvez trouver les
+sources sur le <a href="http://github.com/jtek">github de JTek</a>.</p>
+
+<h1>Bug de logger dans le Runner de Rails-2.1</h1>
+
+<p>Sur ce point j'ai reporté un bug sur le lighthouse de Rails. En effet, j'ai
+constaté que si on utilisait le logger par défaut de Rails, et qu'on réalisait
+un log dans le code executé par script/runner il ne se retrouvait pas loggé
+dans le fichier production.log en mode production. Par contre en mode
+développement, tout se passait bien. En fait, le problème vient du nouveau
+Logger par défaut de rails qui est une surcouche au Logger de Ruby. Ainsi, il
+contient un buffer qui est flushé régulièrement. Mais en fait en mode
+production, le flush est désactivé. On peux ainsi retrouvé différent moment de
+flush dans le code de rails pour vider ce buffer. Mais voilà, avec
+script/runner, on peux se retrouver à ne pas avoir flusher tout le logger à la
+fin de sa tâche. Pour palier le problème, il suffit de faire un
+<code>RAILS_DEFAULT_LOGGER.flush</code> à la fin du fichier script/runner.
+Sinon vous pouvez essayer de faire bouger le <a
+href="http://rails.lighthouseapp.com/projects/8994/tickets/803">rapport de bug</a> que j'ai
+ouvert</p>
+
+<h1>Eager Loading empêchant la migration en production</h1>
+
+<p>Voulant testé un peu Pictrails avec Edge, pour reporté le bug précédent, je
+me suis retrouvé bettement à ne pas pouvoir réaliser la migration en mode
+Production de Pictrails. J'ai ainsi trouvé la cause qui est en fait le eager
+loading des models durant l'initialisation. Dans mon model Pictures, il se
+trouve que je fait une demande d'information sur un autre model. Du coup Rails
+tente de faire une requête SQL avant de réaliser la migration. Forcement, ca
+peux pas fonctionner. La seule méthode pour éviter ca est de mettre l'option
+config.classe_cache à false dans le fichier de configuration. J'ai bien sûr
+<a href="http://rails.lighthouseapp.com/projects/8994/tickets/802">reporté un bug à ce sujet</a>.

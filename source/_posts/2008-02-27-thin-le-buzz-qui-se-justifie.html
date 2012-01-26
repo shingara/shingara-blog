@@ -1,0 +1,200 @@
+---
+layout: post
+title: Thin, le buzz qui se justifie
+typo_id: 100
+---
+<h3>C'est quoi Thin ?</h3>
+
+<p>Depuis maintenant 3 mois seulement un nouveau gem est apparu comme webserver. Sa logique est simple. Prendre tout ce qu'il y a de meilleur partout, de compiler tout çà et d'en faire un meilleur produit. Ce gem, c'est <a href="http://code.macournoyer.com/thin/">Thin</a>. Il se dit "Yet Another WebServer". Je pense que le titre est en référence à YARV. Mais je n'en ai aucune preuve.</p>
+
+<p>Depuis la version 0.7.0 de thin, le buzz a pris de l'ampleur sur les bienfaits de ce WebServer. Étant un peu aventurier, j'ai décidé de tenter l'aventure. J'ai migré mes 3 applications de mongrel_cluster vers Thin. Voici donc comment faire cette migration car il n'y a rien de plus simple.</p>
+
+<h3>Installer Thin</h3>
+
+<p>Il faut déjà installer le gem thin</p>
+
+<pre>
+#gem install thin
+</pre>
+
+<p>Le meilleur moyen pour lancer les commandes de lancement de Thin, il faut allez dans le répertoire de son application Rails. Dans ce répertoire, faire :</p>
+
+<pre>
+$thin config -C config/thin.yml
+</pre>
+
+<p>Avec cette commande thin va préparer un fichier de configuration complet il ne vous restera plus qu'à le modifier. J'ai mis ce fichier dans config/thin.yml pour être homogène avec mongrel_cluster. Il n'y a aucune obligation de nomage ou d'emplacement. Le fichier de base est du type suivant :</p>
+
+<pre>
+---
+pid: tmp/pids/thin.pid
+log: log/thin.log
+port: 3000
+max_conns: 1024
+timeout: 30
+environment: development
+max_persistent_conns: 512
+chdir: /var/rails/typo-5-0-stable
+address: 0.0.0.0
+</pre>
+
+<p>Il ressemble ainsi très fortement au fichier de mongrel_cluster.yml. Il ne reste plus qu'a le modifier pour qu'il fasse ce que l'on souhaite. En général, on modifie le port et l'environnement. Ensuite, on peux définir le nombre d'instance de thin dédiés à cette application. Pour cela on a juste à rajouter la clé <code>servers:</code> et donner le nombre d'instance. Mon fichier est ainsi devenu :</p>
+
+<pre>
+---
+pid: tmp/pids/thin.pid
+log: log/thin.log
+port: 44000
+max_conns: 1024
+timeout: 30
+environment: production
+max_persistent_conns: 512
+chdir: /var/rails/typo-5-0-stable
+address: 0.0.0.0
+servers: 2
+</pre>
+
+<p>Enfin pour démarrer ou arreter ces instances, rien de plus simple.</p>
+
+<p>démarrage :</p>
+<pre>
+$ thin start -C config/thin.yml
+</pre>
+
+<p>arrêt :</p>
+<pre>
+$ thin stop -C config/thin.yml
+</pre>
+
+<p>Et maintenant l'intérêt ?</p>
+
+<h3>Intérêt de thin</h3>
+
+<p>Au niveau de la mémoire, il n'y a pas vraiment de différence entre mongrel et thin. Ils utilisent a peu près la même mémoire d'après ce que j'ai pu constater. Par contre, au niveau de la vitesse de réponse, thin est un peu plus rapide. Ainsi voici les résultats d'un benchmark rapide que j'ai réalisé sur ma dédibox.</p>
+
+
+<h4>Pour mongrel</h4>
+
+<pre>
+hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
+This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Copyright 2006 The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking dev.shingara.fr (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Finished 1000 requests
+
+
+Server Software:        nginx/0.6.26
+Server Hostname:        dev.shingara.fr
+Server Port:            80
+
+Document Path:          /
+Document Length:        4640 bytes
+
+Concurrency Level:      10
+Time taken for tests:   81.920747 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      4995000 bytes
+HTML transferred:       4640000 bytes
+Requests per second:    12.21 [#/sec] (mean)
+Time per request:       819.207 [ms] (mean)
+Time per request:       81.921 [ms] (mean, across all concurrent requests)
+Transfer rate:          59.53 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       36   38   1.5     38      76
+Processing:    94  778 726.4    644    4108
+Waiting:       92  774 723.3    641    4106
+Total:        131  816 726.4    681    4146
+
+Percentage of the requests served within a certain time (ms)
+  50%    681
+  66%   1273
+  75%   1344
+  80%   1382
+  90%   1669
+  95%   1924
+  98%   2634
+  99%   3011  
+ 100%   4146 (longest request)
+</pre>
+
+<h4>Pour thin</h4>
+
+<pre>
+hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
+This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Copyright 2006 The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking dev.shingara.fr (be patient)
+Completed 100 requests                                                                                                                                 
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Finished 1000 requests
+
+
+Server Software:        nginx/0.6.26
+Server Hostname:        dev.shingara.fr
+Server Port:            80
+
+Document Path:          /
+Document Length:        4640 bytes
+
+Concurrency Level:      10
+Time taken for tests:   67.245564 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      4986008 bytes
+HTML transferred:       4646330 bytes
+Requests per second:    14.87 [#/sec] (mean)
+Time per request:       672.456 [ms] (mean)
+Time per request:       67.246 [ms] (mean, across all concurrent requests)
+Transfer rate:          72.41 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:       36   44 133.9     38    3035
+Processing:    93  621 462.3    518    1946
+Waiting:       91  548 389.6    473    1665
+Total:        132  666 483.9    561    4278
+
+Percentage of the requests served within a certain time (ms)
+  50%    561
+  66%    878
+  75%   1017
+  80%   1098
+  90%   1309
+  95%   1580
+  98%   1703
+  99%   1795
+ 100%   4278 (longest request)
+</pre>
+
+<h4>Ca veux dire quoi ?</h4>
+
+<p>Il y a une petite avance pour thin qui permet de faire 14,87 requêtes par seconde contre 12,21 requêtes pour mongrel. Tout cela avec 10 instances simultanés et un total de 1000 requêtes. Mais après tout thin n'a que 3 mois. Il est encore jeune et n'a pas de version 1.0. Ça devrait pouvoir encore s'améliorer.</p>
+
+<h3>Coté parano ?</h3>
+
+<p>Je n'ai pas encore pu tester la stabilité de thin. En effet, on peux se demander à juste titre si il est vraiment stable. Pour cela il faudra attendre.</p>

@@ -1,0 +1,23 @@
+---
+layout: post
+title: Technique de mise en maintenance avec Rails et Nginx
+typo_id: 78
+---
+<p>Sur une <a href="http://lysscreen.no-ip.org">application en rails</a> que je développe pour un <a href="http://www.conquest-lys.net/">jeu on line</a>, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour prend 2-3 minutes et durant ce temps il faut que mon application devienne inaccessible pour éviter d'avoir des discordances dans mes données. J'ai fini par trouver une technique en m'inspirant d'un tuto sur Capistrano qui expliquait comment mettre en maintenance son site lors d'un déploiement avec Capistrano.</p>
+
+<p>Pour cela il faut ajouter une configuration dans son serveur web testant l'existence ou non d'un fichier. Pour <a href="http://nginx.net/">Nginx</a> vous pouvez donc faire comme cela :</p>
+
+<pre>
+    location /maintenance.html {
+        alias /var/rails/screeneur/public/maintenance.html;
+    }
+
+    # Put maintenance page if exist
+    if (-f /var/rails/screeneur/public/maintenance.html){
+         rewrite ^.*$ /maintenance.html redirect;
+    }
+</pre>
+
+<p>Ensuite au niveau de votre application Rails il ne vous reste plus qu'à ajouter un petit code qui permet de créer et supprimer le fichier maintenance.html.</p>
+
+<p>Grâce à cette technique le serveur web fera un test sur l'existence ou non du fichier maintenance.html. Si ce fichier existe, il redirigera toutes les requêtes sur cette page. Vous bloquez ainsi l'appel à votre application.</p>

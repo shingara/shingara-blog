@@ -1,0 +1,16 @@
+---
+layout: post
+title: Gettext avec Rails, ca peux être long pour un formulaire en erreur
+typo_id: 165
+---
+<p>Aujourd'hui, j'ai passé la journée à essayer de comprendre un problème que j'avais sur l'application que je réalise dans le cadre de mon nouveau travail. Ce bug est très simple. Durant la validation d'un formulaire, si celui-ci n'était pas valide, je retournais sur la même page qui m'indiquait les champs en erreur. Dans la pratique, ceci est très simple. Mais dans notre cas, la page mettait pas moins de 40 secondes à se renderer. Car la latence n'avait pas lieu dans le controlleur, mais bel est bien durant le rendering de la page.</p>
+
+<p>Pour essayer de comprendre la cause de tout ça, j'ai fini par réaliser un profile de ma requête avec le script </code>/script/performance/request</code> qu'il a déjà fallu faire fonctionner, mais ceci fera l'objet d'un autre billet. Une fois le profilling réalisé, j'ai constaté que ce qui me posait problème était une recherche incessante de traduction des messages d'erreurs. Après de longues recherche dans le code, j'ai fini par découvrir la vraie cause du problème.</p>
+
+<p>Dans Rails, durant chaque création de tag, il y a une demande de récupération de <code>errors.on</code> pour connaitre là où les erreurs sont et ainsi mettre en surbrillance le champs ou non. Mais là où normalement dans Rails, ce n'est qu'un appel vers un valeur figée, Gettext a décoré la méthode pour réaliser une traduction de la chaine. Bien sûr si ce n'était que ça, ça pourrait encore passer, car finalement c'est le comportement en production. Les chaines étant misent en cache, l'accès est quasiment aussi rapide que sans gettext. Mais dans le cas d'un environnement en Développement, il n'y a aucun cache des chaines de Gettext. Ainsi à chaque tentative de traduction le mo file est chargé et une itération à lieu sur tout ce fichiers pour trouver la chaine à traduire. C'est ces itérations incessantes qui entrainait un temps de traitement extrêmement long de ma requête.</p>
+
+<p>Ce phénomène n'a lieu uniquement qu'en environnement de développement, car il y a un test sur le nom de l'environnement. Dans tous les autres cas autre que développement, les mo sont mis en cache.</p>
+
+<p>Pour résoudre ce problème, soit vous changez le nom de votre environnement par défaut, par exemple dev au lieu de développement, où alors mettre le code <code>GetText.cached = true</code> dans votre environnement.rb. Cela implique par contre que si vous modifiez les fichiers mo, il faudra redémarrer le serveur pour avoir les nouvelles entrées.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-08-01-gettext-with-rails-can-be-long-in-an-error-form.html">English translation</a></p>

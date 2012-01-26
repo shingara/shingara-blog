@@ -1,0 +1,38 @@
+---
+layout: post
+title: ! 'Vivre avec Rails Edge #20'
+typo_id: 139
+---
+<p>Traduction de la <a href="http://blog.codefront.net/2008/05/11/living-on-the-edge-of-rails-20-scriptdbconsole-and-flashnow-now-test-able/">news #20</a></p>
+
+<p>Le rapport de cette semaine couvre les changements du 5 Mai 2008 au 11 Mai 2008 (jour correspondant à l'enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<h3>script/dbconsole</h3>
+
+<p>Un script <code>script/dbconsole</code> a été ajouté et permet de se connecter à votre base de donnée en utilisant sa console.</p>
+
+<p>Si vous avez par exemple besoin de vous connecter à votre base de donnée MySQL de production (pour mieux comprendre ce qu'il s'y passe!), vous pouvez lancer <code>RAILS_ENV=production script/dbconsole</code> et vous serez loggé à votre base de donnée en utilisant le client en ligne de commande de MySQL. Cela fonctionne aussi avec les bases de donnée PostgreSQL et SQLite.</p>
+
+<p>Pour utiliser ce script dans votre application Rails, n'oubliez pas de lancer  <code>rake rails:update:scripts</code> après la mise à jour de votre Rails edge.</p>
+
+<p>Cette jolie petite fonctionnalitée est dû à <a href="http://www.sanityinc.com/">Steve Purcell</a>, qui avait à l'origine un <a href="http://www.sanityinc.com/articles/rails-db-console">plugin de console de base de donnée</a>.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/4a07103687084496b773e18a03b1f2f5e686f7ad">http://github.com/rails/rails/commit/4a07103687084496b773e18a03b1f2f5e686f7ad</a></p>
+
+<h3>flash.now est désormais accessible dans les tests</h3>
+
+<p>C'est quelque chose que <a href="http://www.pluitsolutions.com/2008/01/22/testing-flashnow-in-rails/">beaucoup</a> <a href="http://rhnh.net/2008/04/19/testing-flash-now-with-rspec">de dévelopeurs Rails</a>,<a href="http://blog.codefront.net/2006/09/03/some-functional-testing-gotchas-in-ruby-on-rails/">moi y compris</a> avaient trouvés en écrivant leur test, concernant les messages flash qui n'étaient pas initialisé avec <code>flash.now</code>. Principalement, vous ne pouviez pas tester le contenu de vos <code>flash.now</code> parce qu'ils étaient toujours vide avant que vos tests les atteignent.</p>
+
+<typo:code lang="ruby"># Dans votre controller:
+flash.now[:notice] = 'You gotta be kidding me!'
+
+# Dans votre test:
+assert_equal 'You gotta be kidding me!', flash.now[:notice]
+# FAILS parce que flash.now[:notice] est nil</typo:code>
+
+
+<p><a href="http://zargony.com/">Andreas Neuhaus</a> a cherché comment cela fonctionne et à défini comment faire un test de <code>flash.now</code> qui fonctionne sans utiliser d'<code>assert_select</code>.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/74eed6290e63111d1aad2b181692a84f4f040aea">http://github.com/rails/rails/commit/74eed6290e63111d1aad2b181692a84f4f040aea</a></p>
+
+<p>Il n'y a pas grand chose à noté pour cette semaine mais si vous souhaitez connaitre tous les détails, vous souhaiterez probablement parcourir le <a href="http://github.com/rails/rails/commits/master">log des commits Rails</a>. Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vivre avec Rails.</p>

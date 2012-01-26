@@ -1,0 +1,10 @@
+---
+layout: post
+title: Rubinius à fond sur la communauté et les commiters
+typo_id: 95
+---
+<p>Alors que je regardais une <a href="http://rubyconf2007.confreaks.com/d2t1p3_rubinius.html">video sur Rubinius</a>, car je voulais essayer de comprendre un peu ce projet suite au commentaire de Zed Shaw qui indiquait qu'il trouvait l'équipe de <a href="http://rubini.us/">Rubinius</a> vraiment impressionnante. J'ai appris que la communauté Rubinius comprenait 57 commiters. En effet, dans leur philosophie, la moindre personne qui a réalisé 1 seul et unique patch a un droit en commit. Ils pensent que du moment que tu as fait un patch qui tient la route alors tu ne pourras que faire progresser la communauté. Au pire un revert sera effectué. Mais après tout le revert est tout à fait logique. Par contre, les tests doivent être complètement béton.</p>
+
+<p>Cette idée est exactement ce que je pense à propos du libre. En effet, je trouve que beaucoup de projets font trop de difficultés pour ajouter des commiters. Effectivement, la philosophie de Rubinius est totalement extrême. Mais je pense que beaucoup de projets auraient à suivre cette exemple. Que ce soit Rails qui n'a que seulement 5 commiters à l'heure actuelle. Alors que des patchs sont ajoutés tous les jours sur le Trac de Rails ou alors Redmine où Jean-Philippe Lang est toujours seul à développer cette application, malgrès les multiples patchs qui lui sont soumis régulièrement.</p>
+
+<p>Je pense qu'une procédure clair et net d'acquisition de droit en commit serait une très bonne chose. Une philosophie un peu comme le fait Debian. Sur mes projets, j'essayerais de faire ceci.</p>

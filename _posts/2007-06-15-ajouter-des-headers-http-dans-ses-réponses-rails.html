@@ -1,0 +1,16 @@
+---
+layout: post
+title: Ajouter des Headers HTTP dans ses réponses Rails
+typo_id: 54
+---
+<p>
+Actuellement à fond sur mon projet Rails pour l'école, je me suis heurté à un problème tout bête et je n'ai trouvé aucune documentation complète sur l'API de Rails. En effet, je voulais renvoyé un status 201 et un header HTTP 'Location'. Dans un premier temps, j'arrivais à faire l'un ou l'autre, mais pas les deux. Le status 201 avec un <code>render :nothing => true, :status => 201</code>, ou le Header Location avec un redirect_to, mais qui envoyait un status 302.
+</p>
+
+<p>C'est alors que je me suis penché un peu plus sur le code même de rails et encore une fois, il ne faut surtout pas hésiter à mettre les mains dans le camboui.J'ai ainsi découvert l'utilisation des objets response et request disponible directement dans notre controlleur. Ainsi avec un simple :</p>
+
+<pre>
+response.headers['Location'] = 'new/url'
+</pre>
+
+<p>Nous pourrons constater dans notre réponse HTTP l'information suivante : Location : 'http://localhost:3000/new/url'</p>

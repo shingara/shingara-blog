@@ -1,0 +1,9 @@
+---
+layout: post
+title: replaceHTML plus rapide que innerHTML
+typo_id: 67
+---
+<p>Steven Levithan de RegexPal a réaliser <a href="http://stevenlevithan.com/demo/replaceHtml.html">une page qui permet de faire une comparaison de performance entre les deux méthodes Javascript innerHTML() et replaceHTML()</a>.</p>
+
+
+<p>Grâce à cette page de benchmark, il prouve sans conteste qu'il faut de préférence utiliser la méthode replaceHTML que la méthode innerHTML. Bien sûr, certain cas impose d'utiliser innerHTML.</p>

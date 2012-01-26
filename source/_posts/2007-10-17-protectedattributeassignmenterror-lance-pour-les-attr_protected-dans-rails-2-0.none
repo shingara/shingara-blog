@@ -1,0 +1,16 @@
+---
+layout: post
+title: ProtectedAttributeAssignmentError lancé pour les attr_protected dans Rails
+  2.0
+typo_id: 80
+---
+<p>Il y a une semaine maintenant une évolution de rails a entraîné une modification qui peux empêcher les tests qui ont été réalisé avec Rails 1.2. Etant tombé dans le piège, je vais expliquer ici la modification qui a eu lieu.</p>
+
+<p>Suite au <a href="http://dev.rubyonrails.org/ticket/9699">ticket 9699</a>, si vous utilisez la méthode attr_protected dans votre modèle, vous aurez dans votre environnement de Test une exception qui est lancé, ProtectedAttributeAssignementError, lorsque vous tentez d'assigner une des valeurs protégés par la méthode ActiveRecord::Base#attributes=.</p>
+
+<p>En conséquence dans vos tests unitaires et surtout fonctionnels, il faut gérer ce cas. Deux techniques possibles :</p>
+
+<ul>
+<li>Utiliser assert_raise pour tester qu'une mauvaise assignation entraîne bien un exception.</li>
+<li>Utiliser la configuration de cette exception en indiquant dans votre test : <code>ActiveRecord::Base.whiny_protected_attributes = false</code></li>
+</ul>

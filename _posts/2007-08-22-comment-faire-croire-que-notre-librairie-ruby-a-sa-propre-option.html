@@ -1,0 +1,17 @@
+---
+layout: post
+title: Comment faire croire que notre librairie ruby a sa propre option ?
+typo_id: 62
+---
+<p>Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d'implémentation qui m'a fait sourire.</p>
+
+<p>J'ai trouvé dans mes lib ruby un fichier qui s'appele ubygem.rb. Je me suis posé la question de savoir à quoi servait ce fichier. En l'éditant, j'ai compris son utilité en lisant le commentaire :</p>
+
+<pre>
+# This file allows for the running of rubygems with a nice
+# command line look-and-feel: ruby -rubygems foo.rb
+</pre>
+
+<p>En fait ce fichier ne sert qu'à permettre de faire un require de rubygems en faisant croire que rubygem était une option de ruby. En effet dans les paramètres de ruby il y a le -r auquel on colle le nom de la librairie à require.</p>
+
+<p>Moralité, vous rédigez une librairie qui comment par r, créez un fichier sans ce r et mettez juste la ligne <code>require rxxx</code>. Ca fait toujours bien d'avoir sa librairie qui est comme une option sur ruby</p>
