@@ -4,7 +4,7 @@
   <title><![CDATA[Category: administration | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/administration/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-01-27T18:59:26+01:00</updated>
+  <updated>2012-01-27T19:02:04+01:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -57,7 +57,7 @@ emails envoyés sont mis dans un fichier plutôt qu'envoyer par SMTP. Il
 suffit de définir un nouveau smtp_delivery</p>
 
 <p><code>ruby
-ActionMailer::Base.delivery_methods = :log
+ActionMailer::Base.delivery_methods = :file
 </code></p>
 
 <p>Cette technique permet d'être sûr qu'aucun email n'est envoyé au client

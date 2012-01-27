@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-01-27T18:59:26+01:00</updated>
+  <updated>2012-01-27T19:02:04+01:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -57,7 +57,7 @@ emails envoyés sont mis dans un fichier plutôt qu&#8217;envoyer par SMTP. Il
 suffit de définir un nouveau smtp_delivery</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">delivery_methods</span> <span class="o">=</span> <span class="ss">:log</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">delivery_methods</span> <span class="o">=</span> <span class="ss">:file</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
