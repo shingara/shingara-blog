@@ -83,7 +83,7 @@ environement de staging. Pour avoir un environement le plus proche de &hellip;">
       
   <header>
     
-      <h1 class="entry-title"><a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a></h1>
+      <h1 class="entry-title"><a href="/mailtrap-l-aide-au-staging.html">Mailtrap L&#8217;aide Au Staging</a></h1>
     
     
       <p class="meta">
@@ -323,58 +323,103 @@ le cas d&#8217;une tâche récurrente qui doit être effectuée régulièrement,
 <p>Voici <a href="http://gist.github.com/345000">un exemple de code</a> qui utilise
 PeriodicTimer</p>
 
-<p>&lt;typo:code lang=&#8221;ruby&#8221;>
-require &#8216;eventmachine&#8217;
-require &#8216;timeout&#8217;
-EventMachine.run {
- EventMachine::PeriodicTimer.new(10) do
-   puts &#8220;#{Time.now} : I am 10&#8221;
-   sleep 10
- end</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;eventmachine&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;timeout&#39;</span>
+</span><span class='line'><span class="no">EventMachine</span><span class="o">.</span><span class="n">run</span> <span class="p">{</span>
+</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="si">}</span><span class="s2"> : I am 10&quot;</span>
+</span><span class='line'>   <span class="nb">sleep</span> <span class="mi">10</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">puts</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p> EventMachine::PeriodicTimer.new(1) do
-   puts Time.now
- end
-}
-&lt;/typo:code></p>
 
 <p>Voici la sortie qui est effectuée si on lance l&#8217;application pendant 50s.</p>
 
-<p>&lt;typo:code lang=&#8221;plain&#8221;>
-$ ruby em_periodic.rb
-Fri Mar 26 16:07:39 +0100 2010
-Fri Mar 26 16:07:40 +0100 2010
-Fri Mar 26 16:07:41 +0100 2010
-Fri Mar 26 16:07:42 +0100 2010
-Fri Mar 26 16:07:43 +0100 2010
-Fri Mar 26 16:07:44 +0100 2010
-Fri Mar 26 16:07:45 +0100 2010
-Fri Mar 26 16:07:46 +0100 2010
-Fri Mar 26 16:07:47 +0100 2010
-Fri Mar 26 16:07:48 +0100 2010 : I am 10
-Fri Mar 26 16:07:58 +0100 2010
-Fri Mar 26 16:07:59 +0100 2010
-Fri Mar 26 16:08:00 +0100 2010
-Fri Mar 26 16:08:01 +0100 2010
-Fri Mar 26 16:08:02 +0100 2010
-Fri Mar 26 16:08:03 +0100 2010
-Fri Mar 26 16:08:04 +0100 2010
-Fri Mar 26 16:08:05 +0100 2010
-Fri Mar 26 16:08:06 +0100 2010
-Fri Mar 26 16:08:08 +0100 2010
-Fri Mar 26 16:08:08 +0100 2010 : I am 10
-Fri Mar 26 16:08:18 +0100 2010
-Fri Mar 26 16:08:19 +0100 2010
-Fri Mar 26 16:08:20 +0100 2010
-Fri Mar 26 16:08:21 +0100 2010
-Fri Mar 26 16:08:22 +0100 2010
-Fri Mar 26 16:08:23 +0100 2010
-Fri Mar 26 16:08:25 +0100 2010
-Fri Mar 26 16:08:26 +0100 2010
-Fri Mar 26 16:08:27 +0100 2010
-Fri Mar 26 16:08:28 +0100 2010
-Fri Mar 26 16:08:28 +0100 2010 : I am 10
-&lt;/typo:code></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">ruby</span> <span class="n">em_periodic</span><span class="o">.</span><span class="n">rb</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">43</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">44</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">45</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">46</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">47</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">48</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">58</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">59</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">00</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">01</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">02</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">03</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">04</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">05</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">06</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">18</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">20</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">21</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">22</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">23</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">25</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">27</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>On peut constater que la tâche qui doit s&#8217;exécuter toutes les
 secondes le fait bien. Par contre la tâche qui s&#8217;exécute au bout de 10
@@ -982,7 +1027,7 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a>
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
       </li>
     
       <li class="post">
