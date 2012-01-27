@@ -102,3 +102,16 @@ Voici un projet que j'ai découvert que très récement. Le concept est
 exactement le même que celui de mailcatcher, sauf que vous n'avez plus à
 gérer l'hébergement vous même. Tout est géré par
 [railsware](http://railsware.com/), l'éditeur de ce service.
+
+Vous créer un compte sur leur site, vous créer un serveur SMTP fictif et
+c'est fini.
+
+Vous obtenez les informations de connection à ce SMTP. Une fois que vous
+définissez ces paramètres dans votre application, tous les emails seront
+envoyé directement à Mailtrap.
+
+Une gestion de collaboration sur les mailbox vous permet d'ajouter vos
+collaborateur à cette mailbox pour qu'ils puissent voir les emails.
+
+Cette solution est vraiment simple a mettre en oeuvre et très pratique.
+Petit plus, c'est encore gratuit actuellement. Donc profitez en.
