@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>quand la vue modifie son layout - Shiny happy people coding</title>
+  <title>Category: administration - Shiny happy people coding</title>
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Cas d&#8217;utilisation Dans l&#8217;administration de Typo, en fonction du controller appelé, voir de l&#8217;action, il faut modifier la partie &hellip;">
+  <meta name="description" content="Category: administration">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.shingara.fr//quand-la-vue-modifie-son-layout.html">
+  <link rel="canonical" href="http://blog.shingara.fr/blog/categories/administration/index.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,143 +75,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Quand La Vue Modifie Son Layout</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-26T00:00:00+01:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
-        
-         | <a href="#disqus_thread">Comments</a>
-        
-      </p>
+    <h1 class="entry-title">Category: Administration</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><h3>Cas d&#8217;utilisation</h3>
 
-<p>Dans l&#8217;administration de Typo, en fonction du controller appelé, voir de l&#8217;action, il faut modifier la partie indiquant le sous-menu. On a donc 3 possibilités pour réaliser cette partie dynamique.</p>
+  
+  <h2>2012</h2>
 
-<ol>
-  <li>Mettre la partie variable directement dans la vue et l&#8217;enlever du template.</li>
-  <li>Mettre les informations directement dans le controller ou l&#8217;action et c&#8217;est cette information qui sera lu par le template</li>
-  <li>Utiliser content_for directement dans la vue en utilisant le yield dans le template</li>
-</ol>
+<article>
+  
+<h1><a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a></h1>
+<time datetime="2012-01-24T22:17:00+01:00" pubdate><span class='month'>Jan</span> <span class='day'>24</span> <span class='year'>2012</span></time>
 
-<p>Bien sûr la meilleur méthode est la troisième. Mais je vais expliquer pourquoi et comment on peux mettre en oeuvre.</p>
-
-<h3>Mettre la partie variable directement dans la vue et l&#8217;enlever du template</h3>
-
-<p>
-Cette méthode est de loin la plus simple qui soit. On sait que notre partie n&#8217;est pas toujours affiché pour le layout indiqué, donc on la met pas dans le template. Mais voilà, si on a du code entre notre partie dynamique et le vrai contenu de notre vue, on a pas le choix il faut dupliquer cette partie et ainsi on se retrouve à faire plein de copier coller et comme on sait le copier coller c&#8217;est pas DRY. Il faut donc essayer de proscrire cette méthode. Le cas le plus horrible est bien sur la modification de la partie que vous avez mis dans chaque vue et ceux sur vos 100 vues. Bonne chance.
-</p>
-
-<h3>Mettre les informations directement dans le controller</h3>
-
-<p>Cette technique est un peu plus évolué que la précédente car elle permet d&#8217;être plus DRY. En effet, si on a du code entre sa partie &#8220;dynamique&#8221; et sa vue, on est pas obligé de l&#8217;intégrer dans chaque vue. Ce qui permet d&#8217;avoir un template plus important et des vues plus légères. Mais l&#8217;inconvénient de cette technique et qu&#8217;il faut gérer l&#8217;affichage et des techniques visuel directement dans le controller. Par exemple le nom des liens, etc.. Ce n&#8217;est pas du tout dans la logique MVC, car une partie de la vue est généré et controllé par le controlleur. Le controlleur ne doit que définir quel vue utiliser et donner les variables issues d&#8217;une ressources externes.</p>
-
-<h3>Utiliser content_for directement dans la vue en utilisant le yield dans le template</h3>
-
-<p>Pour que ça soit la vue qui gère le contenu dans le template sans que le controller s&#8217;en mêle, la meilleur technique est d&#8217;utiliser content_for. Cette méthode permet de mettre en interne un bloc de code HTML. Ce bloc de code HTML n&#8217;est lu que par l&#8217;utilisation d&#8217;un yield :le_nom_du_bloc. On peux ainsi définir le bloc dans la vue et donner sa position directement dans le layout. Si ensuite vous voulez réutiliser le même bloc de code, un render :partial permettra de factoriser encore le code. Voici un exemple d&#8217;utilisation de cette méthode avec un template et une vue.</p>
-
-<p>Template :</p>
-
-<typo:code lang="html">
-<html>
-  <head>
-    <title>;Ma page</title>
-  </head>
-  <div id="menu">
-   <ul>
-    <%= yield :menu %>
-  </ul>
-  </div>
-  <p>un peu de texte au milieu</p>
-  <div id="content">
-    <%= yield %>
-  </div>
-</html>
-</typo:code>
-
-<p>Vue :</p>
-
-<typo:code lang="html">
-<% content_for :menu do %>
-  <li><% link_to 'Voir', page_url %></li>
-<% end %>
-
-<p>Ma vue compléte</p>
-
-</typo:code>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/administration/'>administration</a></span>
+</footer>
 
 
-<p>Vous trouvez pas ça génial ?</p>
+</article>
 
-<p>Sinon pour les anciens qui connaissaient la technique avant Rails 2.0 et qui utilisait @content_for_mon_block cette technique est déprécié. Il faut utiliser plutôt le yield depuis la version 2.0.x</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Cyril Mougel</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-26T00:00:00+01:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr//quand-la-vue-modifie-son-layout.html" data-via="shingara" data-counturl="http://blog.shingara.fr//quand-la-vue-modifie-son-layout.html" >Tweet</a>
-  
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/pictrails-0-1-0-sortie-pour-une-premiere-alpha.html" title="Previous Post: Pictrails 0.1.0 sortie pour une première alpha">&laquo; Pictrails 0.1.0 sortie pour une première alpha</a>
-      
-      
-        <a class="basic-alignment right" href="/thin-le-buzz-qui-se-justifie.html" title="next Post: Thin, le buzz qui se justifie">Thin, le buzz qui se justifie &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

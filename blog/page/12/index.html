@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Dernièrement, je me tente à migrer ma dédibox sur le serveur Web Nginx à la place d&#8217;Apache. Nginx est le serveur web qui buzz un peu partout &hellip;">
+  <meta name="description" content="Steven Levithan de RegexPal a réaliser une page qui permet de faire une comparaison de performance entre les deux méthodes Javascript innerHTML() et &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/replacehtml-plus-rapide-que-innerhtml.html">replaceHTML Plus Rapide Que innerHTML</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-14T00:00:00+02:00" pubdate data-updated="true">Sep 14<span>th</span>, 2007</time>
+        
+         | <a href="/replacehtml-plus-rapide-que-innerhtml.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Steven Levithan de RegexPal a réaliser <a href="http://stevenlevithan.com/demo/replaceHtml.html">une page qui permet de faire une comparaison de performance entre les deux méthodes Javascript innerHTML() et replaceHTML()</a>.</p>
+
+
+<p>Grâce à cette page de benchmark, il prouve sans conteste qu&#8217;il faut de préférence utiliser la méthode replaceHTML que la méthode innerHTML. Bien sûr, certain cas impose d&#8217;utiliser innerHTML.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -544,64 +585,6 @@ Après une petite étude du code du script de &#8220;profiler&#8221; fournit par
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/et-pourquoi-pas-avec-around_filter.html">Et Pourquoi Pas Avec Around_filter ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-05T00:00:00+02:00" pubdate data-updated="true">Jul 5<span>th</span>, 2007</time>
-        
-         | <a href="/et-pourquoi-pas-avec-around_filter.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Après encore de petites recherches, j&#8217;ai fini par trouver une méthode encore plus propre. Cette méthode est tout simplement basé sur le filter around_filter. Ce filtre est tout bête et totalement génial. Il permet de réaliser des traitements avant et après ton controller. Mais bien sûr après et avant les filtres de before_filter et after_filter. On peux ainsi mettre notre profiler directement dans cette méthode. Voici un exemple de code qu&#8217;on peut utiliser cette fois ci avec le profiler ruby-prof.
-</p>
-
-<pre>
-class MyController < ApplicationController
-  around_filter(:only => :my_method) do |controller, action_block|
-    require 'ruby-prof'
-    RubyProf.clock_mode = RubyProf::WALL_TIME
-    RubyProf.start
-    action_block.call
-    results = RubyProf.stop
-    printer = RubyProf::FlatPrinter.new results
-    printer.print(STDOUT, 0)
-  end
-
-  def my_method
-     #implement this method
-  end
-end
-</pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -617,6 +600,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a>
+      </li>
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
@@ -652,10 +639,6 @@ end
     
       <li class="post">
         <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/oupsnow-de-merb-i-rails.html">Oupsnow de Merb à Rails</a>
       </li>
     
   </ul>

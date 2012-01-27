@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Pour l&#8217;école, j&#8217;ai du réaliser avec d&#8217;autres personnes une application web compléte en Ruby On Rails. Cette application permet de &hellip;">
+  <meta name="description" content="Après encore de petites recherches, j&#8217;ai fini par trouver une méthode encore plus propre. Cette méthode est tout simplement basé sur le filter &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/et-pourquoi-pas-avec-around_filter.html">Et Pourquoi Pas Avec Around_filter ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-05T00:00:00+02:00" pubdate data-updated="true">Jul 5<span>th</span>, 2007</time>
+        
+         | <a href="/et-pourquoi-pas-avec-around_filter.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Après encore de petites recherches, j&#8217;ai fini par trouver une méthode encore plus propre. Cette méthode est tout simplement basé sur le filter around_filter. Ce filtre est tout bête et totalement génial. Il permet de réaliser des traitements avant et après ton controller. Mais bien sûr après et avant les filtres de before_filter et after_filter. On peux ainsi mettre notre profiler directement dans cette méthode. Voici un exemple de code qu&#8217;on peut utiliser cette fois ci avec le profiler ruby-prof.
+</p>
+
+<pre>
+class MyController < ApplicationController
+  around_filter(:only => :my_method) do |controller, action_block|
+    require 'ruby-prof'
+    RubyProf.clock_mode = RubyProf::WALL_TIME
+    RubyProf.start
+    action_block.call
+    results = RubyProf.stop
+    printer = RubyProf::FlatPrinter.new results
+    printer.print(STDOUT, 0)
+  end
+
+  def my_method
+     #implement this method
+  end
+end
+</pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -543,123 +601,6 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ruby-a-t-il-un-bug-sur-ipaddr.html">Ruby A-t-il Un Bug Sur IPAddr ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-04-26T00:00:00+02:00" pubdate data-updated="true">Apr 26<span>th</span>, 2007</time>
-        
-         | <a href="/ruby-a-t-il-un-bug-sur-ipaddr.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Je me pose une question toute bête depuis tout à l&#8217;heure et j&#8217;avoue ne pas
-comprendre. Mon interrogation se pose sur ce mini bout de code ruby :</p>
-
-<pre>
-require 'ipaddr'
-
-IPAddr.new '2002:0000:1234:4561'
-</pre>
-
-<p>
-En effet ce code me léve une exception :
-</p>
-
-<pre>
-/usr/lib64/ruby/1.8/ipaddr.rb:422:in `initialize': invalid address (ArgumentError)
-</pre>
-
-<p>
-Mais voilà, l&#8217;adresse que je donne en paramètre est valide syntaxiquement en
-tant que Ipv6. Mes recherches mon amené à la conclusion suivante :
-</p>
-<p>
-IPAddr considére mon IP comme une addresse invalide car elle n&#8217;a pas de
-résolution de nom. En effet la ligne toute simple qui me léve
-une exception est la ligne qui fait :
-</p>
-      
-<pre>             
-IPSocket.getaddress(prefix)
-</pre>
-
-<p>
-Dans mon cas prefix est &#8216;2002:0000:1234:4561&#8217;, car jamais modifié au
-préalable (vérifié avec debuggueur). Effectivement les commandes suivante le 
-prouve :
-</p>
-
-<pre>
-hello% host 2002:0000:1234:4561
-Host 2002:0000:1234:4561 not found: 3(NXDOMAIN)
-</pre>
-
-<p>ou en irb :</p>
-<pre>
-hello% irb                  
-irb(main):001:0> require 'socket'
-=> true
-irb(main):002:0> IPSocket.getaddress('2002:0000:1234:4561')
-SocketError: getaddrinfo: Name or service not known
-    from (irb):2:in `getaddress'
-    from (irb):2
-</pre>
-<p>
-Hors, il n&#8217;est précisé nulle part qu&#8217;une IPAddr doit être &#8220;valide&#8221; pour être
-utilisé. De plus si on regarde un peu plus le code du fichier <a href="http://svn.ruby-lang.org/cgi-bin/viewvc.cgi/trunk/lib/ipaddr.rb
-">ipaddr.rb</a>,
-nous constaterons qu&#8217;en tout premier il y a :
-</p>
-<pre>
-unless Socket.const_defined? "AF_INET6"
-</pre>
-
-<p>
-Mais voilà, maintenant les nouvelles versions de Ruby définissent cette
-variable. Ainsi, la surcharge de la méthode getaddress faites plus bas n&#8217;est
-jamais réalisée. Nous pouvons ainsi constater que dans cette nouvelle méthode
-surchargé, on voit :
-</p>
-<pre>                                             
-return true if /\A[\dA-Fa-f]{1,4}(:[\dA-Fa-f]{1,4})*\Z/ =~ addr
-</pre>
-<p>
-ce qui rend ainsi notre Ipv6 précédente valide.
-</p>
-<p>
-La question que je me pose est donc la suivante :
-</p>
-<p>
-Est-ce un bug ou pas ?
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -675,6 +616,10 @@ Est-ce un bug ou pas ?
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a>
+      </li>
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
@@ -710,10 +655,6 @@ Est-ce un bug ou pas ?
     
       <li class="post">
         <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/oupsnow-de-merb-i-rails.html">Oupsnow de Merb à Rails</a>
       </li>
     
   </ul>

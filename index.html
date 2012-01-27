@@ -9,7 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Le 21 Juin se tiendra à Paris un événement auquel je vous invite à venir. Cet événement sera dédié à MongoDB, le MongoFR. J&#8217;ai la chance de &hellip;">
+  <meta name="description" content="Avant chaque mise en production d&#8217;un projet, il faut le test dans un
+environement de staging. Pour avoir un environement le plus proche de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,152 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-24T22:17:00+01:00" pubdate data-updated="true">Jan 24<span>th</span>, 2012</time>
+        
+         | <a href="/mailtrap-l-aide-au-staging.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Avant chaque mise en production d&#8217;un projet, il faut le test dans un
+environement de staging. Pour avoir un environement le plus proche de
+notre environement de production, une pratique courante est d&#8217;éffectuer
+un dump de la base de production pour avoir un jeu de donnée complet et
+valide. Ça nous permet aussi de vérifier que nos migrations ne posent
+pas de problème, tester quelques pages au niveau de leur performance.</p>
+
+<p>En gros faire plein de test comme si on jouait avec la prod mais sans
+toucher au donnée de production.</p>
+
+<p>Le plus gros soucis que l&#8217;on rencontre et beaucoup d&#8217;entre nous l&#8217;ont
+rencontré, c&#8217;est l&#8217;envoi d&#8217;email. Tous les emails copié de la production
+sont valide et posséde un utilisateur au bout. Si nous envoyons un email
+réellement cela peut vite être problèmatique. Les solutions utilisées
+généralement sont les suivantes.</p>
+
+<h2>Remplacement de tous les emails de la base de donnée.</h2>
+
+<p>Une pratique simple est courant est la tâche qui remplace tous les
+emails de la base de donnée par des emails possédés par la société.
+Cette technique marche parfaitement, mais pose quelques problèmes :</p>
+
+<ul>
+<li>Il faut penser a toujours faire la modification après chaque copie de
+la base de production.</li>
+<li>Il faut mettre à jour son script pour remplacer tous les nouveaux
+champs qui posséde des emails si on en ajoute</li>
+<li>Il devient difficile de savoir à qui était réelement destiné l&#8217;email
+initial. On peux ainsi passer à coté de quelques bugs.</li>
+</ul>
+
+
+<h2>Ne plus contacter de serveur SMTP et créer un fichier par email</h2>
+
+<p>Avec le framework Ruby on Rails, il est possible de définir que tous les
+emails envoyés sont mis dans un fichier plutôt qu&#8217;envoyer par SMTP. Il
+suffit de définir un nouveau smtp_delivery</p>
+
+<pre><code>
+ActionMailer::Base.delivery_methods = :log
+</code></pre>
+
+
+<p>Cette technique permet d&#8217;être sûr qu&#8217;aucun email n&#8217;est envoyé au client
+finaux. L&#8217;inconvénient de cette technique est le stockage et la lecture
+des emails. Tous les emails sont stocké sous forme de fichier
+directement sur le serveur. Il peux donc être fastidieux de connaitre
+les nouveaux emails envoyés, car ils sont classé par destinataire. On
+peux ainsi ne pas constater qu&#8217;un email est envoyé sous certaine
+conditions. De même, si votre application est utilisé par des personnes
+n&#8217;ayant pas un accès shell à votre serveur, ils ne pourront pas lire les
+mails envoyés.</p>
+
+<h2>Le mock SMTP</h2>
+
+<p>Cette technique est selon moi la meilleure actuellement. Elle consiste
+tout simplement à emuler un vrai serveur SMTP. Par contre, ce serveur ne
+transmet pas les emails qu&#8217;il reçoit. Il les stocke et vous permet de
+les consulter dans un client mail classique. Ils sont conservé
+entièrement.</p>
+
+<p>L&#8217;avantage est que n&#8217;importe qui peux consulter les emails générés, sans
+aucune connaissance technique évolués et ils sont conservé entièrement.</p>
+
+<p>A ma connaissance, il existe 3 produits qui permettent cela.</p>
+
+<ul>
+<li><a href="http://mailcatcher.me/">Mailcatcher</a></li>
+<li><a href="http://mailtrap.io/">Mailtrap.io</a></li>
+<li><a href="http://mocksmtpapp.com/">MockSMTP.app</a></li>
+</ul>
+
+
+<h3>Mailcatcher</h3>
+
+<p>C&#8217;est un produit open source tres simple d&#8217;utilisation. Vous télécharger
+le gem, vous lancer la commande <code>mailcatcher</code> et c&#8217;est fini. Vous avez
+ainsi un serveur SMTP sur le port 1025 et un client mail sur le port
+1080.</p>
+
+<p>Je vous le conseille dans un environement de développement. Il a en plus
+quelques petits addons comme la notification growl.</p>
+
+<p>Le seul soucis que j&#8217;ai rencontré avec est le deployement dans un
+environement de staging. la commande <code>mailcatcher</code> ne permet pas
+d&#8217;écouter sur toutes les interfaces. Il faut donc mettre un proxy devant
+pour le rendre accessible à tout le monde. On doit donc le maintenir et
+le gérer. Cela peux être un peu compliqué juste pour un simple mock.
+Bien sûr rien ne vous empêche de le faire.</p>
+
+<h3>Mailtrap.io</h3>
+
+<p>Voici un projet que j&#8217;ai découvert que très récement. Le concept est
+exactement le même que celui de mailcatcher, sauf que vous n&#8217;avez plus à
+gérer l&#8217;hébergement vous même. Tout est géré par
+<a href="http://railsware.com/">railsware</a>, l&#8217;éditeur de ce service.</p>
+
+<p>Vous créer un compte sur leur site, vous créer un serveur SMTP fictif et
+c&#8217;est fini.</p>
+
+<p>Vous obtenez les informations de connection à ce SMTP. Une fois que vous
+définissez ces paramètres dans votre application, tous les emails seront
+envoyé directement à Mailtrap.</p>
+
+<p>Une gestion de collaboration sur les mailbox vous permet d&#8217;ajouter vos
+collaborateur à cette mailbox pour qu&#8217;ils puissent voir les emails.</p>
+
+<p>Cette solution est vraiment simple a mettre en oeuvre et très pratique.
+Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -820,74 +967,6 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/oupsnow-de-merb-i-rails.html">Oupsnow De Merb à Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-11-18T00:00:00+01:00" pubdate data-updated="true">Nov 18<span>th</span>, 2009</time>
-        
-         | <a href="/oupsnow-de-merb-i-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Dernièrement, j&#8217;ai fini par me décider de migrer <a
-href="http://oupsnow.rubyforge.org">Oupsnow</a>, de Merb à Rails.</p>
-
-<p>Alors que je
-finissais une migration de SQL à MongoDB, j&#8217;en entame une nouvelle. Celle-ci
-beaucoup plus profonde.</p>
-
-<p>La raison de ma migration ?</p>
-
-<p>Rails 3. En
-effet, depuis Décembre 2008, soit presque un an, Merb s&#8217;est figé.
-Certain me diront que la communauté Merb est en train de revivre et c&#8217;est tout
-à fait vrai. J&#8217;en suis même ravi. Mais Merb a pris un immense retard en
-presque un an. Même si Rails n&#8217;a pas vraiment avancé dans sa version stable,
-sa version Edge a elle énormément avancée.</p>
-
-<p>Voulant toujours tester les
-nouvelles technologies en Ruby, je voudrais tester Rails 3. Mais aucun système
-n&#8217;existe pour passer de Merb à Rails 3. Un rapide test m&#8217;a montré que la
-différence était par contre minime entre Rails 2.3.x et Rails 3. La
-migration de Rails 2.3.x à Rails 3 en sera donc d&#8217;autant plus simple.</p>
-
-<p>Voulant vraiment sortir une version stable le plus vite possible, j&#8217;ai
-donc pris la décision de migrer Oupsnow vers Rails 2.3.x pour ensuite migrer
-sur Rails 3 pour cette fois sortir une version de Oupsnow compatible Rails 3.</p>
-
-<p>Oupsnow devient donc un projet Rails/MongoMapper et non plus
-Merb/DataMapper comme sa dernière version. Toute aide est bien-sûr la
-bienvenue.</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-11-19-oupsnow-from-merb-to-rails.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -901,6 +980,10 @@ bienvenue.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap-l-aide-au-staging</a>
+      </li>
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
@@ -936,10 +1019,6 @@ bienvenue.</p>
     
       <li class="post">
         <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
-      </li>
-    
-      <li class="post">
-        <a href="/oupsnow-de-merb-i-rails.html">Oupsnow de Merb à Rails</a>
       </li>
     
   </ul>

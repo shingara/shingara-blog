@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-01-24T22:14:36+01:00</updated>
+  <updated>2012-01-27T18:50:26+01:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,123 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Mailtrap-l-aide-au-staging]]></title>
+    <link href="http://blog.shingara.fr//mailtrap-l-aide-au-staging.html"/>
+    <updated>2012-01-24T22:17:00+01:00</updated>
+    <id>http://blog.shingara.fr//mailtrap-l-aide-au-staging</id>
+    <content type="html"><![CDATA[<p>Avant chaque mise en production d&#8217;un projet, il faut le test dans un
+environement de staging. Pour avoir un environement le plus proche de
+notre environement de production, une pratique courante est d&#8217;éffectuer
+un dump de la base de production pour avoir un jeu de donnée complet et
+valide. Ça nous permet aussi de vérifier que nos migrations ne posent
+pas de problème, tester quelques pages au niveau de leur performance.</p>
+
+<p>En gros faire plein de test comme si on jouait avec la prod mais sans
+toucher au donnée de production.</p>
+
+<p>Le plus gros soucis que l&#8217;on rencontre et beaucoup d&#8217;entre nous l&#8217;ont
+rencontré, c&#8217;est l&#8217;envoi d&#8217;email. Tous les emails copié de la production
+sont valide et posséde un utilisateur au bout. Si nous envoyons un email
+réellement cela peut vite être problèmatique. Les solutions utilisées
+généralement sont les suivantes.</p>
+
+<h2>Remplacement de tous les emails de la base de donnée.</h2>
+
+<p>Une pratique simple est courant est la tâche qui remplace tous les
+emails de la base de donnée par des emails possédés par la société.
+Cette technique marche parfaitement, mais pose quelques problèmes :</p>
+
+<ul>
+<li>Il faut penser a toujours faire la modification après chaque copie de
+la base de production.</li>
+<li>Il faut mettre à jour son script pour remplacer tous les nouveaux
+champs qui posséde des emails si on en ajoute</li>
+<li>Il devient difficile de savoir à qui était réelement destiné l&#8217;email
+initial. On peux ainsi passer à coté de quelques bugs.</li>
+</ul>
+
+
+<h2>Ne plus contacter de serveur SMTP et créer un fichier par email</h2>
+
+<p>Avec le framework Ruby on Rails, il est possible de définir que tous les
+emails envoyés sont mis dans un fichier plutôt qu&#8217;envoyer par SMTP. Il
+suffit de définir un nouveau smtp_delivery</p>
+
+<pre><code>
+ActionMailer::Base.delivery_methods = :log
+</code></pre>
+
+
+<p>Cette technique permet d&#8217;être sûr qu&#8217;aucun email n&#8217;est envoyé au client
+finaux. L&#8217;inconvénient de cette technique est le stockage et la lecture
+des emails. Tous les emails sont stocké sous forme de fichier
+directement sur le serveur. Il peux donc être fastidieux de connaitre
+les nouveaux emails envoyés, car ils sont classé par destinataire. On
+peux ainsi ne pas constater qu&#8217;un email est envoyé sous certaine
+conditions. De même, si votre application est utilisé par des personnes
+n&#8217;ayant pas un accès shell à votre serveur, ils ne pourront pas lire les
+mails envoyés.</p>
+
+<h2>Le mock SMTP</h2>
+
+<p>Cette technique est selon moi la meilleure actuellement. Elle consiste
+tout simplement à emuler un vrai serveur SMTP. Par contre, ce serveur ne
+transmet pas les emails qu&#8217;il reçoit. Il les stocke et vous permet de
+les consulter dans un client mail classique. Ils sont conservé
+entièrement.</p>
+
+<p>L&#8217;avantage est que n&#8217;importe qui peux consulter les emails générés, sans
+aucune connaissance technique évolués et ils sont conservé entièrement.</p>
+
+<p>A ma connaissance, il existe 3 produits qui permettent cela.</p>
+
+<ul>
+<li><a href="http://mailcatcher.me/">Mailcatcher</a></li>
+<li><a href="http://mailtrap.io/">Mailtrap.io</a></li>
+<li><a href="http://mocksmtpapp.com/">MockSMTP.app</a></li>
+</ul>
+
+
+<h3>Mailcatcher</h3>
+
+<p>C&#8217;est un produit open source tres simple d&#8217;utilisation. Vous télécharger
+le gem, vous lancer la commande <code>mailcatcher</code> et c&#8217;est fini. Vous avez
+ainsi un serveur SMTP sur le port 1025 et un client mail sur le port
+1080.</p>
+
+<p>Je vous le conseille dans un environement de développement. Il a en plus
+quelques petits addons comme la notification growl.</p>
+
+<p>Le seul soucis que j&#8217;ai rencontré avec est le deployement dans un
+environement de staging. la commande <code>mailcatcher</code> ne permet pas
+d&#8217;écouter sur toutes les interfaces. Il faut donc mettre un proxy devant
+pour le rendre accessible à tout le monde. On doit donc le maintenir et
+le gérer. Cela peux être un peu compliqué juste pour un simple mock.
+Bien sûr rien ne vous empêche de le faire.</p>
+
+<h3>Mailtrap.io</h3>
+
+<p>Voici un projet que j&#8217;ai découvert que très récement. Le concept est
+exactement le même que celui de mailcatcher, sauf que vous n&#8217;avez plus à
+gérer l&#8217;hébergement vous même. Tout est géré par
+<a href="http://railsware.com/">railsware</a>, l&#8217;éditeur de ce service.</p>
+
+<p>Vous créer un compte sur leur site, vous créer un serveur SMTP fictif et
+c&#8217;est fini.</p>
+
+<p>Vous obtenez les informations de connection à ce SMTP. Une fois que vous
+définissez ces paramètres dans votre application, tous les emails seront
+envoyé directement à Mailtrap.</p>
+
+<p>Une gestion de collaboration sur les mailbox vous permet d&#8217;ajouter vos
+collaborateur à cette mailbox pour qu&#8217;ils puissent voir les emails.</p>
+
+<p>Cette solution est vraiment simple a mettre en oeuvre et très pratique.
+Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Une journée dédiée à MongoDB]]></title>
@@ -795,31 +912,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     <id>http://blog.shingara.fr//watchman-en-alpha-par-jtek</id>
     <content type="html"><![CDATA[<p>Un de mes projets chez JTEK est la cr&eacute;ation de <a href="http://watchman.jtek.fr">Watchman</a>. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit&eacute; de son serveur.</p>
 <p><a href="http://www.jtek.fr/2009/03/09/watchman-automatiser-la-gestion-des-failles">Une annonce officielle</a> a ainsi ouvert Watchman en Alpha. N&#8217;h&eacute;sitez pas &agrave; le tester.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RailsCampParis 2, j'y étais et c'était sympa]]></title>
-    <link href="http://blog.shingara.fr//railscampparis-2-jy-etais-et-cetait-sympa.html"/>
-    <updated>2009-03-09T00:00:00+01:00</updated>
-    <id>http://blog.shingara.fr//railscampparis-2-jy-etais-et-cetait-sympa</id>
-    <content type="html"><![CDATA[<p>Ca y est le RailsCamp Paris 2, c&#8217;est terminé hier avec un mashpit sur Merb. Je ne l&#8217;ai pas annoncé sur ce blog, mais j&#8217;étais bien sûr présent. Les locaux de Sun où nous avons pu faire ce RailsCamp était vraiment très beau et spacieux. Nous avons pu y avoir de très bonne discussion. Merci à <a href="http://www.typouype.org/">Yannick</a> d&#8217;avoir tenu le bar et à Jean-François Tran d&#8217;avoir organisé cet événement.:).</p>
-
-<p>Au niveau des présentations, étant depuis décembre un fervent défenseur de Merb/DataMapper, j&#8217;ai fait de petite présentation sur ces deux outils merveilleux. En voici les slides :</p>
-
-<ul>
-<li><div style="width:425px;text-align:left" id="__ss_1099349"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/cyril.mougel/merb-le-framework-tellement-bien-qu-il-sera-integrer-dans-rails?type=powerpoint" title="Merb Le Framework Tellement Bien Qu Il Sera Integré Dans Rails">Merb Le Framework Tellement Bien Qu Il Sera Integré Dans Rails</a><object style="margin:0px" width="425" height="355"><param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=merb-le-framework-tellement-bien-qu-il-sera-integrer-dans-rails-090304053837-phpapp01&stripped_title=merb-le-framework-tellement-bien-qu-il-sera-integrer-dans-rails" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=merb-le-framework-tellement-bien-qu-il-sera-integrer-dans-rails-090304053837-phpapp01&stripped_title=merb-le-framework-tellement-bien-qu-il-sera-integrer-dans-rails" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object><div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/cyril.mougel">Cyril Mougel</a>. (tags: <a style="text-decoration:underline;" href="http://slideshare.net/tag/merb">merb</a> <a style="text-decoration:underline;" href="http://slideshare.net/tag/initiation">initiation</a>)</div></div></li>
-
-<li><div style="width:425px;text-align:left" id="__ss_1105938"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/cyril.mougel/datamapper-l-orm-dans-rails-3?type=powerpoint" title="Datamapper L Orm Dans Rails 3">Datamapper L Orm Dans Rails 3</a><object style="margin:0px" width="425" height="355"><param name="movie" value="http://static.slideshare.net/swf/ssplayer2.swf?doc=datamapper-l-orm-dans-rails-3-090305084222-phpapp01&stripped_title=datamapper-l-orm-dans-rails-3" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slideshare.net/swf/ssplayer2.swf?doc=datamapper-l-orm-dans-rails-3-090305084222-phpapp01&stripped_title=datamapper-l-orm-dans-rails-3" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="355"></embed></object><div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/cyril.mougel">Cyril Mougel</a>. (tags: <a style="text-decoration:underline;" href="http://slideshare.net/tag/datamapper">datamapper</a> <a style="text-decoration:underline;" href="http://slideshare.net/tag/ruby">ruby</a>)</div></div></li>
-</ul>
-
-<p>Le lendemain, le mashpit sur Merb a ainsi vu l&#8217;apparition de 3 petit projets en Merb :</p>
-
-<ul>
-<li><a href="http://github.com/nmerouze/merbpitparis-quizz/tree/master">Un Twitter Quiz</a></li>
-<li><a href="http://github.com/nel/merb-ec2/tree/master">Un gestionnaire d&#8217;instance EC2</a></li>
-<li><a href="http://github.com/shingara/planet-mashpit/tree/master">Un petit planet en Merb</a></li>
-</ul>
 ]]></content>
   </entry>
   
