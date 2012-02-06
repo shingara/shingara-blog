@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Aujourd&#8217;hui j&#8217;ai passé un peu de temps à comprendre le système de templating de Vim. Faisant actuellement du Python, j&#8217;ai donc &hellip;">
+  <meta name="description" content="Depuis mon update de Xorg de la version 6.9 à la version 7, j&#8217;ai eu un réel souci de personne écrivant le mieux possible le français, c&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/xorg-7-et-les-accents-sur-un-clavier-us-qwerty.html">Xorg 7 Et Les Accents Sur Un Clavier Us (QWERTY)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-17T00:00:00+02:00" pubdate data-updated="true">May 17<span>th</span>, 2006</time>
+        
+         | <a href="/xorg-7-et-les-accents-sur-un-clavier-us-qwerty.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Depuis mon update de Xorg de la version 6.9 à la version 7, j&#8217;ai eu un réel souci de personne écrivant le mieux possible le  français, c&#8217;est à dire l&#8217;utilisation des accents. En effet, pour coder, il est plus pratique d&#8217;utiliser un clavier QWERTY, j&#8217;ai donc investi voilà un an dans ce clavier là. Au début, je n&#8217;utilisais donc plus d&#8217;accent. Mais l&#8217;habitude venant, je me suis dis qu&#8217;il fallait absolument ré-utiliser les accents. J&#8217;avais à l&#8217;époque fait une recherche pour pouvoir faire des accents avec mon clavier QWERTY. J&#8217;ai ainsi trouvé l&#8217;option :
+</p>
+<pre>
+Option          "XkbModel"      "us(pc105euro)"
+</pre>
+<p>
+Mais voilà depuis l&#8217;update de Xorg 7, cette option ne foncionnait plus. Il fallait bien que ca tombe sur moi ca. Et bien après deux semaines de dur recherche, j&#8217;ai fini par trouver et je vous indique donc ici l&#8217;astuce :
+</p>
+<pre>
+Section "InputDevice"
+        Identifier      "Generic Keyboard"
+        Driver          "kbd"
+        Option          "CoreKeyboard"
+        Option          "XkbRules"      "xorg"
+        Option          "XkbModel"      "pc105"
+        Option          "XkbLayout"     "us"
+        Option          "XkbOptions"    "compose:rwin"
+</pre>
+
+<p>
+Avec cette configuration de clavier, vous pourrez ainsi utiliser la touche &#8220;compose&#8221;, défini ici comme la touche windows de droite. Pour une fois que windows sert :).
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -520,71 +580,6 @@ Ainsi à l&#8217;occasion de cette première semaine de vacance, j&#8217;ai sort
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/lamabilite%CC%81-des-de%CC%81veloppeurs-debian.html">L&#8217;amabilité Des Développeurs Debian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-07-13T00:00:00+02:00" pubdate data-updated="true">Jul 13<span>th</span>, 2005</time>
-        
-         | <a href="/lamabilite%CC%81-des-de%CC%81veloppeurs-debian.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Mon précédent billet parlait d&#8217;un problème avec Debian. Mais en ce moment, faut vraiment croire que c&#8217;est la crise. Un nouveau &#8220;problème&#8221; m&#8217;est encore arrivé</p>
-
-<p>Alors que je mettais à jour mon système, le logiciel de communication &#8220;gaim&#8221; n&#8217;a plus voulu redémarrer. J&#8217;ai bien sur chercher à comprendre l&#8217;origine de ce problème. Commencant à maitriser un peu le système de gestion des paquets de debian, j&#8217;ai découvert que le problème venait d&#8217;une librairie, &#8220;libaspell15c2&#8221;. J&#8217;ai voulu donc l&#8217;installé pour permettre le démarrage de Gaim. Mais à ma grande supprise, je constate que l&#8217;installation de cette librairie supprimerait tous les logiciels de développement KDE que j&#8217;utilise. En conséquence, je n&#8217;installe pas cette librairie et reste sans Gaim.</p>
-
-<p>Dans un esprit de compréhension, je décide de mailler les mainteneurs de Gaim et de cette libraire pour savoir si ils connaissaient le problème et si un reportbug s&#8217;imposait ou pas ? Je leur ai envoyé le mail suivant (en anglais :p) :<br />
-<blockquote>
-Hi,<br />
-<br />
-I write you, because I can&#8217;t install gaim since the 1.1.4 version. My problem is the depends of libaspell15c2. For Gaim, he need a version >=0.60. but the libaspell15c2 (0.60) is conflict with libaspell15. So apt want remove this package and so I have a lot of package which remove too :<br />
-<br />
-    cervisia dbus-qt-1 k3b k3blibs kcontrol kdebase-bin kdelibs-bin kdelibs4<br />
-    kdevelop3 kdevelop3-data kdevelop3-plugins kfilereplace klinkstatus<br />
-    kommander kompare libaspell15 libcvsservice0 quanta<br />
-<br />
-I must can a bugreport or not ?<br />
-<br />
-The problem is plan to closed ?<br />
-<br />
-Thank for your answer.<br />
-</blockquote>
-</p>
-<p>
-Mais a ma grande surprise j&#8217;ai obtenu la réponse suivante du mainteneur de cette librairie :<br /> 
-<blockquote>If you don&#8217;t know, you *really* should not be running unstable&#8230;</blockquote>
-J&#8217;ai été assez énervé de lire ca, car je pense vraiment connaitre ce système et que mon but était l&#8217;aide plutôt que d&#8217;embêter. Enfin, je me suis retenu de répondre par politesse. Mais voilà que l&#8217;on me montre ce <a href="http://bignachos.com/?p=15">billet</a> fait par cette personne qui m&#8217;avait presque insulté. Cette fois ci je trouve vraiment ca très déplacé et je me tate vraiment à répondre carrement à ce billet.
-</p>
-
-Les civilités se perdent dans la communauté debian :(
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -600,6 +595,10 @@ Les civilités se perdent dans la communauté debian :(
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -635,10 +634,6 @@ Les civilités se perdent dans la communauté debian :(
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-01-27T19:02:04+01:00</updated>
+  <updated>2012-02-06T22:54:34+01:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Localize avec mongoid]]></title>
+    <link href="http://blog.shingara.fr//translate-on-mongoid.html"/>
+    <updated>2012-02-06T22:02:00+01:00</updated>
+    <id>http://blog.shingara.fr//translate-on-mongoid</id>
+    <content type="html"><![CDATA[<p>Depuis la version 2.4.0 de <a href="http://mongoid.org">Mongoid</a>, une nouvelle
+fonctionnalité à été ajoutée très discrétement. C&#8217;est tout simplement la
+gestion native des traductions en base.</p>
+
+<p>La <a href="http://mongoid.org/docs/documents/localized.html">documentation
+compléte</a> de cette fonctionnalité est sur le site de
+<a href="http://mongoid.org">mongoid</a>.</p>
+
+<p>Grâce à cette fonctionnalité, on peut définir tout simplement qu&#8217;un
+champs de Mongoid est localizable. La gestion de la locale est faite de
+manière très intelligente et surtout en complète coordination avec
+MongoDB.</p>
+
+<p>Contrairement à une gestion de traduction dans une Base de donnée
+relationnelle, qui créé une table de liaison, Mongoid stocke un hash
+avec la locale comme clé et la traduction comme valeur.</p>
+
+<p>Mongoid n&#8217;a plus qu&#8217;à faire la glue entre le système pour que les accés
+en lecture/écriture en fonction de la locale et la recherche</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mailtrap l'aide au staging]]></title>
@@ -947,16 +974,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
 <p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
 
 <p><a href="http://blog.shingara.fr/en/2009-05-24-since-cucumber-0-3-4-he-has-difficult-with-merb.html">English translation</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Watchman en Alpha par JTEK]]></title>
-    <link href="http://blog.shingara.fr//watchman-en-alpha-par-jtek.html"/>
-    <updated>2009-03-10T00:00:00+01:00</updated>
-    <id>http://blog.shingara.fr//watchman-en-alpha-par-jtek</id>
-    <content type="html"><![CDATA[<p>Un de mes projets chez JTEK est la cr&eacute;ation de <a href="http://watchman.jtek.fr">Watchman</a>. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit&eacute; de son serveur.</p>
-<p><a href="http://www.jtek.fr/2009/03/09/watchman-automatiser-la-gestion-des-failles">Une annonce officielle</a> a ainsi ouvert Watchman en Alpha. N&#8217;h&eacute;sitez pas &agrave; le tester.</p>
 ]]></content>
   </entry>
   

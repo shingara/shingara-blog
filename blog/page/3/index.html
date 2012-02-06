@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est le RailsCamp Paris 2, c&#8217;est terminé hier avec un mashpit sur Merb. Je ne l&#8217;ai pas annoncé sur ce blog, mais j&#8217;étais bien &hellip;">
+  <meta name="description" content="Un de mes projets chez JTEK est la cr&eacute;ation de Watchman. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/watchman-en-alpha-par-jtek.html">Watchman en Alpha Par JTEK</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-03-10T00:00:00+01:00" pubdate data-updated="true">Mar 10<span>th</span>, 2009</time>
+        
+         | <a href="/watchman-en-alpha-par-jtek.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Un de mes projets chez JTEK est la cr&eacute;ation de <a href="http://watchman.jtek.fr">Watchman</a>. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit&eacute; de son serveur.</p>
+<p><a href="http://www.jtek.fr/2009/03/09/watchman-automatiser-la-gestion-des-failles">Une annonce officielle</a> a ainsi ouvert Watchman en Alpha. N&#8217;h&eacute;sitez pas &agrave; le tester.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -737,66 +776,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/envoyer-un-email-dans-un-model-datamapper.html">Envoyer Un Email Dans Un Model DataMapper</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-20T00:00:00+01:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
-        
-         | <a href="/envoyer-un-email-dans-un-model-datamapper.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Avec Merb-mailer, merb fourni un système d&#8217;envoi d&#8217;email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré comme un controller et non comme un model. De ce fait l&#8217;utilisation de la méthode send_mail n&#8217;est disponible que dans les controllers. Mais alors comment utiliser la méthode send_mail dans son model ? C&#8217;est très simple. Là encore merb utilise un système entièrement ruby ce qui facilite le méchanisme</p>
-
-<p>Après une courte recherche dans le code de merb-mailer, j&#8217;ai pu constater que que la commande send_mail était dans un mixin. l&#8217;inclusion de ce mixin suffit donc à avoir la commande pour l&#8217;utiliser.</p>
-
-<typo:code lang="ruby">
-class Member
-  include DataMapper::Resource
-  include Merb::MailerMixin
-
-  property :id, Serial
-  property :name, String
-
-  def register
-    // some code
-    send_mail (UserMailer, :register, {
-        :from => &#8220;no-reply@example.com&#8221;,
-        :to => person.email,
-        :subject => &#8220;Please activate your account&#8221; 
-    }
-  end
-</typo:code>
-
-<p><a href="http://blog.shingara.fr/en/2008-12-20-send-email-with-merb-mailer-in-datamapper-model.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -812,6 +791,10 @@ class Member
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -847,10 +830,6 @@ class Member
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

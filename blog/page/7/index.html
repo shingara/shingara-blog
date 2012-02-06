@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="RubyInline est un joli petit gem qui permet de générer du code C a partir de code Ruby. Ce code C est ensuite compilé et réutilisé durant les appels &hellip;">
+  <meta name="description" content="Depuis quelque temps, j&#8217;utilise en station de travail, une debian SID avec comme architecture AMD64. Mais je n&#8217;arrivais pas à mettre le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/avoir-le-plugin-java-pour-firefox-sur-debian-amd64.html">Avoir Le Plugin Java Pour Firefox Sur Debian AMD64</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-14T00:00:00+02:00" pubdate data-updated="true">Jun 14<span>th</span>, 2008</time>
+        
+         | <a href="/avoir-le-plugin-java-pour-firefox-sur-debian-amd64.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis quelque temps, j&#8217;utilise en station de travail, une debian SID avec comme architecture AMD64. Mais je n&#8217;arrivais pas à mettre le plugin Java de firefox. En effet, ce plugin existe sous x86, mais pas sous AMD64. C&#8217;est alors qu&#8217;on m&#8217;a indiqué la marche à suivre. Il suffit d&#8217;ajouter un dépôt supplémentaire :</p>
+
+<pre>deb http://www.mirrorservice.org/sites/ftp.blackdown.org/java-linux/debian sid main contrib non-free</pre>
+
+<p>Un fois ce dépôt ajouté, il suffit d&#8217;installer le paquet <code>j2re1.4-mozilla-plugin</code> et redémarrer Firefox. Ça y est le plugin Java pour firefox est utilisable.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -762,54 +804,6 @@ href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rail
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/screencast-francais-sur-la-realisation-dune-application-rails.html">Screencast Français Sur La Réalisation D&#8217;une Application Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-22T00:00:00+02:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2008</time>
-        
-         | <a href="/screencast-francais-sur-la-realisation-dune-application-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Alors que <a href="http://blog.shingara.fr/articles/2008/04/18/activer-la-capture-du-son-sous-linux-pour-xvidcap">je bloquais sur la capture de son sous Linux pour réaliser un screencast</a>, j&#8217;ai passé le pas et j&#8217;ai donc réalisé un joli et assez volumineux screencast.
-</p>
-
-<p>Le screencast que je vous propose dure pas moins de 1h20. J&#8217;y réalise une application avec le framework Ruby On Rails 2.0.2. Tout est commenté en Français ce qui est assez inédit je crois.</p>
-
-<p>Au début, je réalise une application avec des méthodes agiles et création de test avant de les résoudre. Je crée l&#8217;application avec une génération par scaffold et modification pour un meilleur visuel.</p>
-
-<p>Vous pouvez donc télécharger ce <a href="http://shingara.fr/export/first_rails_application.mpeg">screencast ruby on rails en français.</a></p>
-
-<p>Tout avis est le bienvenue. C&#8217;est un premier jet et il y a donc pas mal d&#8217;erreur.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -825,6 +819,10 @@ Alors que <a href="http://blog.shingara.fr/articles/2008/04/18/activer-la-captur
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -860,10 +858,6 @@ Alors que <a href="http://blog.shingara.fr/articles/2008/04/18/activer-la-captur
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

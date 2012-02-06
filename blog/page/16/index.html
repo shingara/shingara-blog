@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ce soir, j&#8217;ai eu la chance d&#8217;assister à trois conférences au sujet de Ruby On Rails. Ces conférences étaient issues des conférences de &hellip;">
+  <meta name="description" content="Actuellement devant coder une application J2EE pour mon école, j&#8217;ai pris le temps de tester un peu deux gros IDE libres existant sur le marché &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/netbeans-et-eclipse-pour-du-j2ee.html">NetBeans Et Eclipse Pour Du J2EE</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-20T00:00:00+01:00" pubdate data-updated="true">Dec 20<span>th</span>, 2006</time>
+        
+         | <a href="/netbeans-et-eclipse-pour-du-j2ee.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Actuellement devant coder une application J2EE pour mon école, j&#8217;ai pris le temps de tester un peu deux gros IDE libres existant sur le marché pour développer du J2EE. Voici un très rapide comparatif que je vais faire.
+</p>
+
+<p>
+Au premier abord Eclipse est de loin le meilleur, mais a de gros problèmes de plugin. Ainsi je me retrouve à ne plus pouvoir ouvrir une JSP sans faire planter eclipse, ce qui est assez gênant pour faire du J2EE. 
+</p>
+
+<p>
+En passant sous netbeans, j&#8217;y ai vu une intégration complète de gestion de serveur Web type TOMCAT ainsi, j&#8217;ai juste à définir mon contexte et tout est fait. Mais voilà j&#8217;ai trouvé un problème que je considère majeur dans le développement rapide d&#8217;application web, l&#8217;obligation de recréer complètement le projet à chaque déploiement. Ainsi, je suis obligé de copier mes sources, les compilés et créer un WAR pour enfin déployer l&#8217;application. Cela prend ainsi très facilement 5 min à faire et tout ça pour une application qui ne compte encore que 2 pages. Déjà que je pestais contre les 5 secondes de redémarrage de Tomcat, les 5 min seront hélas de trop pour moi. Espérons que cela sera implémenté dans les futurs version de netbeans et on aura un produit vraiment très sympa qui pourra complètement rivaliser avec Eclipse.
+</p>
+
+<p>
+On voit tout de suite le problème de développement d&#8217;application J2EE, la compilation est très longue. C&#8217;est là que les langages de scripting permettent de gagner beaucoup de temps.
+</p>
+
+<p>
+En tout cas après une soirée de tentative de mise en place d&#8217;un projet J2EE sur mon PC, je suis bon pour recommencer vu que je n&#8217;ai toujours pas réussi.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -664,66 +720,6 @@ Dernièrement j&#8217;ai eu l&#8217;idée d&#8217;écrire un petit article sur u
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/xorg-7-et-les-accents-sur-un-clavier-us-qwerty.html">Xorg 7 Et Les Accents Sur Un Clavier Us (QWERTY)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-17T00:00:00+02:00" pubdate data-updated="true">May 17<span>th</span>, 2006</time>
-        
-         | <a href="/xorg-7-et-les-accents-sur-un-clavier-us-qwerty.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Depuis mon update de Xorg de la version 6.9 à la version 7, j&#8217;ai eu un réel souci de personne écrivant le mieux possible le  français, c&#8217;est à dire l&#8217;utilisation des accents. En effet, pour coder, il est plus pratique d&#8217;utiliser un clavier QWERTY, j&#8217;ai donc investi voilà un an dans ce clavier là. Au début, je n&#8217;utilisais donc plus d&#8217;accent. Mais l&#8217;habitude venant, je me suis dis qu&#8217;il fallait absolument ré-utiliser les accents. J&#8217;avais à l&#8217;époque fait une recherche pour pouvoir faire des accents avec mon clavier QWERTY. J&#8217;ai ainsi trouvé l&#8217;option :
-</p>
-<pre>
-Option          "XkbModel"      "us(pc105euro)"
-</pre>
-<p>
-Mais voilà depuis l&#8217;update de Xorg 7, cette option ne foncionnait plus. Il fallait bien que ca tombe sur moi ca. Et bien après deux semaines de dur recherche, j&#8217;ai fini par trouver et je vous indique donc ici l&#8217;astuce :
-</p>
-<pre>
-Section "InputDevice"
-        Identifier      "Generic Keyboard"
-        Driver          "kbd"
-        Option          "CoreKeyboard"
-        Option          "XkbRules"      "xorg"
-        Option          "XkbModel"      "pc105"
-        Option          "XkbLayout"     "us"
-        Option          "XkbOptions"    "compose:rwin"
-</pre>
-
-<p>
-Avec cette configuration de clavier, vous pourrez ainsi utiliser la touche &#8220;compose&#8221;, défini ici comme la touche windows de droite. Pour une fois que windows sert :).
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -739,6 +735,10 @@ Avec cette configuration de clavier, vous pourrez ainsi utiliser la touche &#822
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -774,10 +774,6 @@ Avec cette configuration de clavier, vous pourrez ainsi utiliser la touche &#822
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

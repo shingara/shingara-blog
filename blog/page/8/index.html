@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voici un nouveau billet rapportant quelques nouveautés de Rails edge futur 2.1 en cours de développement. Cette amélioration est du coté des Models. &hellip;">
+  <meta name="description" content="Alors que je bloquais sur la capture de son sous Linux pour réaliser un screencast, j&#8217;ai passé le pas et j&#8217;ai donc réalisé un joli et &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/screencast-francais-sur-la-realisation-dune-application-rails.html">Screencast Français Sur La Réalisation D&#8217;une Application Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-22T00:00:00+02:00" pubdate data-updated="true">Apr 22<span>nd</span>, 2008</time>
+        
+         | <a href="/screencast-francais-sur-la-realisation-dune-application-rails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Alors que <a href="http://blog.shingara.fr/articles/2008/04/18/activer-la-capture-du-son-sous-linux-pour-xvidcap">je bloquais sur la capture de son sous Linux pour réaliser un screencast</a>, j&#8217;ai passé le pas et j&#8217;ai donc réalisé un joli et assez volumineux screencast.
+</p>
+
+<p>Le screencast que je vous propose dure pas moins de 1h20. J&#8217;y réalise une application avec le framework Ruby On Rails 2.0.2. Tout est commenté en Français ce qui est assez inédit je crois.</p>
+
+<p>Au début, je réalise une application avec des méthodes agiles et création de test avant de les résoudre. Je crée l&#8217;application avec une génération par scaffold et modification pour un meilleur visuel.</p>
+
+<p>Vous pouvez donc télécharger ce <a href="http://shingara.fr/export/first_rails_application.mpeg">screencast ruby on rails en français.</a></p>
+
+<p>Tout avis est le bienvenue. C&#8217;est un premier jet et il y a donc pas mal d&#8217;erreur.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -838,238 +886,6 @@ $ git submodule update
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/thin-le-buzz-qui-se-justifie.html">Thin, Le Buzz Qui Se Justifie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-02-27T00:00:00+01:00" pubdate data-updated="true">Feb 27<span>th</span>, 2008</time>
-        
-         | <a href="/thin-le-buzz-qui-se-justifie.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>C&#8217;est quoi Thin ?</h3>
-
-<p>Depuis maintenant 3 mois seulement un nouveau gem est apparu comme webserver. Sa logique est simple. Prendre tout ce qu&#8217;il y a de meilleur partout, de compiler tout çà et d&#8217;en faire un meilleur produit. Ce gem, c&#8217;est <a href="http://code.macournoyer.com/thin/">Thin</a>. Il se dit &#8220;Yet Another WebServer&#8221;. Je pense que le titre est en référence à YARV. Mais je n&#8217;en ai aucune preuve.</p>
-
-<p>Depuis la version 0.7.0 de thin, le buzz a pris de l&#8217;ampleur sur les bienfaits de ce WebServer. Étant un peu aventurier, j&#8217;ai décidé de tenter l&#8217;aventure. J&#8217;ai migré mes 3 applications de mongrel_cluster vers Thin. Voici donc comment faire cette migration car il n&#8217;y a rien de plus simple.</p>
-
-<h3>Installer Thin</h3>
-
-<p>Il faut déjà installer le gem thin</p>
-
-<pre>
-#gem install thin
-</pre>
-
-<p>Le meilleur moyen pour lancer les commandes de lancement de Thin, il faut allez dans le répertoire de son application Rails. Dans ce répertoire, faire :</p>
-
-<pre>
-$thin config -C config/thin.yml
-</pre>
-
-<p>Avec cette commande thin va préparer un fichier de configuration complet il ne vous restera plus qu&#8217;à le modifier. J&#8217;ai mis ce fichier dans config/thin.yml pour être homogène avec mongrel_cluster. Il n&#8217;y a aucune obligation de nomage ou d&#8217;emplacement. Le fichier de base est du type suivant :</p>
-
-<pre>
----
-pid: tmp/pids/thin.pid
-log: log/thin.log
-port: 3000
-max_conns: 1024
-timeout: 30
-environment: development
-max_persistent_conns: 512
-chdir: /var/rails/typo-5-0-stable
-address: 0.0.0.0
-</pre>
-
-<p>Il ressemble ainsi très fortement au fichier de mongrel_cluster.yml. Il ne reste plus qu&#8217;a le modifier pour qu&#8217;il fasse ce que l&#8217;on souhaite. En général, on modifie le port et l&#8217;environnement. Ensuite, on peux définir le nombre d&#8217;instance de thin dédiés à cette application. Pour cela on a juste à rajouter la clé <code>servers:</code> et donner le nombre d&#8217;instance. Mon fichier est ainsi devenu :</p>
-
-<pre>
----
-pid: tmp/pids/thin.pid
-log: log/thin.log
-port: 44000
-max_conns: 1024
-timeout: 30
-environment: production
-max_persistent_conns: 512
-chdir: /var/rails/typo-5-0-stable
-address: 0.0.0.0
-servers: 2
-</pre>
-
-<p>Enfin pour démarrer ou arreter ces instances, rien de plus simple.</p>
-
-<p>démarrage :</p>
-<pre>
-$ thin start -C config/thin.yml
-</pre>
-
-<p>arrêt :</p>
-<pre>
-$ thin stop -C config/thin.yml
-</pre>
-
-<p>Et maintenant l&#8217;intérêt ?</p>
-
-<h3>Intérêt de thin</h3>
-
-<p>Au niveau de la mémoire, il n&#8217;y a pas vraiment de différence entre mongrel et thin. Ils utilisent a peu près la même mémoire d&#8217;après ce que j&#8217;ai pu constater. Par contre, au niveau de la vitesse de réponse, thin est un peu plus rapide. Ainsi voici les résultats d&#8217;un benchmark rapide que j&#8217;ai réalisé sur ma dédibox.</p>
-
-
-<h4>Pour mongrel</h4>
-
-<pre>
-hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
-This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Copyright 2006 The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking dev.shingara.fr (be patient)
-Completed 100 requests
-Completed 200 requests
-Completed 300 requests
-Completed 400 requests
-Completed 500 requests
-Completed 600 requests
-Completed 700 requests
-Completed 800 requests
-Completed 900 requests
-Finished 1000 requests
-
-
-Server Software:        nginx/0.6.26
-Server Hostname:        dev.shingara.fr
-Server Port:            80
-
-Document Path:          /
-Document Length:        4640 bytes
-
-Concurrency Level:      10
-Time taken for tests:   81.920747 seconds
-Complete requests:      1000
-Failed requests:        0
-Write errors:           0
-Total transferred:      4995000 bytes
-HTML transferred:       4640000 bytes
-Requests per second:    12.21 [#/sec] (mean)
-Time per request:       819.207 [ms] (mean)
-Time per request:       81.921 [ms] (mean, across all concurrent requests)
-Transfer rate:          59.53 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:       36   38   1.5     38      76
-Processing:    94  778 726.4    644    4108
-Waiting:       92  774 723.3    641    4106
-Total:        131  816 726.4    681    4146
-
-Percentage of the requests served within a certain time (ms)
-  50%    681
-  66%   1273
-  75%   1344
-  80%   1382
-  90%   1669
-  95%   1924
-  98%   2634
-  99%   3011  
- 100%   4146 (longest request)
-</pre>
-
-<h4>Pour thin</h4>
-
-<pre>
-hello:~/$ ab -n 1000 -c 10 http://dev.shingara.fr/
-This is ApacheBench, Version 2.0.40-dev <$Revision: 1.146 $> apache-2.0
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Copyright 2006 The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking dev.shingara.fr (be patient)
-Completed 100 requests                                                                                                                                 
-Completed 200 requests
-Completed 300 requests
-Completed 400 requests
-Completed 500 requests
-Completed 600 requests
-Completed 700 requests
-Completed 800 requests
-Completed 900 requests
-Finished 1000 requests
-
-
-Server Software:        nginx/0.6.26
-Server Hostname:        dev.shingara.fr
-Server Port:            80
-
-Document Path:          /
-Document Length:        4640 bytes
-
-Concurrency Level:      10
-Time taken for tests:   67.245564 seconds
-Complete requests:      1000
-Failed requests:        0
-Write errors:           0
-Total transferred:      4986008 bytes
-HTML transferred:       4646330 bytes
-Requests per second:    14.87 [#/sec] (mean)
-Time per request:       672.456 [ms] (mean)
-Time per request:       67.246 [ms] (mean, across all concurrent requests)
-Transfer rate:          72.41 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:       36   44 133.9     38    3035
-Processing:    93  621 462.3    518    1946
-Waiting:       91  548 389.6    473    1665
-Total:        132  666 483.9    561    4278
-
-Percentage of the requests served within a certain time (ms)
-  50%    561
-  66%    878
-  75%   1017
-  80%   1098
-  90%   1309
-  95%   1580
-  98%   1703
-  99%   1795
- 100%   4278 (longest request)
-</pre>
-
-<h4>Ca veux dire quoi ?</h4>
-
-<p>Il y a une petite avance pour thin qui permet de faire 14,87 requêtes par seconde contre 12,21 requêtes pour mongrel. Tout cela avec 10 instances simultanés et un total de 1000 requêtes. Mais après tout thin n&#8217;a que 3 mois. Il est encore jeune et n&#8217;a pas de version 1.0. Ça devrait pouvoir encore s&#8217;améliorer.</p>
-
-<h3>Coté parano ?</h3>
-
-<p>Je n&#8217;ai pas encore pu tester la stabilité de thin. En effet, on peux se demander à juste titre si il est vraiment stable. Pour cela il faudra attendre.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -1085,6 +901,10 @@ Percentage of the requests served within a certain time (ms)
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -1120,10 +940,6 @@ Percentage of the requests served within a certain time (ms)
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

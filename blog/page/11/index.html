@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ayant annoncé la sortie de Rails 2.0 en PR, je me devais de tester cette version. Je l&#8217;ai donc fait immédiatement le soir. Après un petit : &hellip;">
+  <meta name="description" content="Je suis actuellement en train de tenter de faire la migration de Redmine vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0.html">CookieStorage Système Par Defaut De Sauvegarde De Session Dans Rails 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-04T00:00:00+02:00" pubdate data-updated="true">Oct 4<span>th</span>, 2007</time>
+        
+         | <a href="/CookieStorage-systeme-par-defaut-de-sauvegarde-de+session-dans-Rails-2-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Je suis actuellement en train de tenter de faire la migration de <a href="http://redmine.org">Redmine</a> vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de contribuer à ce projet que j&#8217;adore.</p>
+
+<p>Durant cette migration, je suis tombé sur une exception que je ne comprenais pas :</p>
+
+<pre>
+CGI::Session::CookieStore::CookieOverflow (CGI::Session::CookieStore::CookieOverflow)
+</pre>
+
+<p>J&#8217;ai donc lancé une recherche pour comprendre pourquoi j&#8217;avais cette erreur. J&#8217;ai ainsi découvert que cette exception est dû à la taille de ma session. En effet, les sessions de redmine peuvent parfois être supérieures à 4Ko car elle englobe pas mal d&#8217;information. Hors il y a une limitation de cette taille de session à 4Ko. En faite cette limitation n&#8217;a lieu qu&#8217;avec les sessions enregistrés dans les Cookies. Hors ce nouveau système de stockage de session est une des améliorations de Rails 2.0 et il a été mis par défaut.</p>
+
+<p>Pensez donc à changer ce mode de stockage de Session si vous avez de grosses sessions à stocker. Pour revenir à un mode de stockage par fichier vous pouvez mettre dans votre fichier environnement.rb :</p>
+
+<pre>
+config.action_controller.session_store = :PStore
+</pre>
+
+<p>Voici quelque lien intéressant traitant de ce sujet :</p>
+
+<ul>
+<li><a href="http://ryandaigle.com/articles/2007/2/21/what-s-new-in-edge-rails-cookie-based-sessions">What&#8217;s New in Edge Rails: Cookie Based Sessions are the New Default (en)</a></li>
+<li><a href="http://dev.rubyonrails.org/changeset/6184">Révision intégrant le système de Session par Cookies</a></li>
+<li><a href="http://www.caboo.se/articles/2007/2/21/new-controversial-default-rails-session-storage-cookies">Discussion sur la controverse lié à ce système de session (en)</a></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -779,46 +839,6 @@ junit.textui.TestRunner
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81.html">Un Nouveau Blog Complétement Dédié</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-14T00:00:00+02:00" pubdate data-updated="true">Sep 14<span>th</span>, 2007</time>
-        
-         | <a href="/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Voilà, j&#8217;ai décidé de faire une migration d&#8217;une partie de mon blog. En effet après la location d&#8217;une dédibox, j&#8217;ai mis en place dessus un Blog tournant sous <a href="http://typosphere.org/">Typo</a>.</p>
-
-<p>J&#8217;ai aussi voulu séparer mon <a href="http://shingara.free.fr/blog/">précédent blog</a> en 2 parties. Une partie dédié au loisir (mon ancien blog) et une partie dédié à l&#8217;informatique. Ca sera donc ce nouveau blog.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -834,6 +854,10 @@ junit.textui.TestRunner
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -869,10 +893,6 @@ junit.textui.TestRunner
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

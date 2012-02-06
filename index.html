@@ -9,8 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Avant chaque mise en production d&#8217;un projet, il faut le test dans un
-environement de staging. Pour avoir un environement le plus proche de &hellip;">
+  <meta name="description" content="Depuis la version 2.4.0 de Mongoid, une nouvelle
+fonctionnalité à été ajoutée très discrétement. C&#8217;est tout simplement la
+gestion native des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +78,62 @@ environement de staging. Pour avoir un environement le plus proche de &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/translate-on-mongoid.html">Localize Avec Mongoid</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-06T22:02:00+01:00" pubdate data-updated="true">Feb 6<span>th</span>, 2012</time>
+        
+         | <a href="/translate-on-mongoid.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis la version 2.4.0 de <a href="http://mongoid.org">Mongoid</a>, une nouvelle
+fonctionnalité à été ajoutée très discrétement. C&#8217;est tout simplement la
+gestion native des traductions en base.</p>
+
+<p>La <a href="http://mongoid.org/docs/documents/localized.html">documentation
+compléte</a> de cette fonctionnalité est sur le site de
+<a href="http://mongoid.org">mongoid</a>.</p>
+
+<p>Grâce à cette fonctionnalité, on peut définir tout simplement qu&#8217;un
+champs de Mongoid est localizable. La gestion de la locale est faite de
+manière très intelligente et surtout en complète coordination avec
+MongoDB.</p>
+
+<p>Contrairement à une gestion de traduction dans une Base de donnée
+relationnelle, qui créé une table de liaison, Mongoid stocke un hash
+avec la locale comme clé et la traduction comme valeur.</p>
+
+<p>Mongoid n&#8217;a plus qu&#8217;à faire la glue entre le système pour que les accés
+en lecture/écriture en fonction de la locale et la recherche</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -923,95 +980,6 @@ after &#8220;deploy:start&#8221;, :clear_cache
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? C&#8217;est Bien, Mais Il Faut Le Tester.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-11-19T00:00:00+01:00" pubdate data-updated="true">Nov 19<span>th</span>, 2009</time>
-        
-         | <a href="/devise-cest-bien-mais-il-faut-le-tester.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors que j&#8217;ai évoqué ma <a href="http://blog.shingara.fr/oupsnow-de-merb-i-rails.html">migration de Merb à Rails pour
-Oupsnow</a>, il a
-fallu trouver un système d&#8217;authentification ORM Agnostique.</p>
-
-<p>Le plugin d&#8217;authentification le plus connu à l&#8217;heure actuel est <a
-href="http://rdoc.info/projects/binarylogic/authlogic">Authlogic</a>.
-Ce plugin est vraiment très performant, mais tous les essais de le rendre ORM
-Agnostique ont été vain. C&#8217;est alors qu&#8217;au même moment, durant le <a
-href="http://www.railssummit.com.br/">Rails Summit 2009</a>,
-George Guimarães et Carlos Antonio annoncent la sortie de <a
-href="http://github.com/plataformatec/devise">Devise</a>, un plugin Rails au
-dessus de <a href="http://github.com/hassox/warden">Warden</a> (
-Rack middleware d&#8217;authentification). C&#8217;est exactement, ce qu&#8217;il me faut, un
-nouveau système d&#8217;authentification a tester et peut-être une possibilité
-d&#8217;ajouter une couche d&#8217;ORM Agnostique dedans. En plus Warden étant un
-RackMiddleware, je pourrais un peu tester ce que ça donne.</p>
-
-<p>J&#8217;installe donc Devise et commence à l&#8217;utiliser dans Oupsnow. Tout se passe
-à merveille, jusqu&#8217;au moment où il faut faire les tests. Tout de suite le bât
-blesse. Les tests controlleurs de Rails ne communiquent pas avec la couche Rack
-qui n&#8217;est pas initialisée. On se retrouve donc avec une impossibilité de
-définir si un utilisateur est loggé ou non et si oui, qui est cet
-utilisateur.</p>
-
-<p>Après de nombreux tests et essais. J&#8217;ai fini par trouver comment faire.
-Warden ajoute à la requête une variable d&#8217;environment dans la requête. On peux
-y accéder par
-<code>request.env['warden']</code>. Il suffit donc de remplir cette
-variable.</p>
-
-<p>Pour avoir un utilisateur non loggé, il faut faire :</p>
-
-<typo:code lang="ruby">
-def unlogged
-  request.env[&#8216;warden&#8217;] = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable],:silence_missing_strategies => true})
-end
-</typo:code>
-
-<p>Pour se logger avec un utilisateur en particulier il faut faire :</p>
-
-<typo:code lang="ruby">
-def logged_as(user)
-  proxy = Warden::Proxy.new(request.env, {:default_strategies => [:rememberable, :authenticable], :silence_missing_strategies => true})
-  proxy.set_user(user, :store => true, :scope => :user)
-  request.env[&#8216;warden&#8217;] = proxy
-end
-</typo:code>
-
-<p>Personnellement, j&#8217;aime beaucoup <a href="http://github.com/plataformatec/devise">devise</a>. A tel point que j&#8217;ai permis de le
-rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/mongomapper/">MongoMapper</a>.</p>
-
-<p>EDIT du 30 Novembre 2009: la technique indiquée ici n&#8217;est pas optimum et ne marche pas avec les dernières versions de Devise. utilisez plutôt la technique décrite dans mon ticket <a href="http://blog.shingara.fr/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1025,6 +993,10 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -1060,10 +1032,6 @@ rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/m
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

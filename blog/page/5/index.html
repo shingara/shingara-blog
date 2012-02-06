@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Peu de temps avant mon anniversaire qui a lieu le 11 Octobre, voici une nouvelle version de Pictrails. Durant cette release, la grosse nouveauté est &hellip;">
+  <meta name="description" content="Si par le plus grand malheur vous avez bloqué l&#8217;envoi de mail sur votre machine où redmine est installé. Vos utilisateurs ne peuvent plus &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/activer-un-compte-redmine-par-la-console-rails.html">Activer Un Compte Redmine Par La Console Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-03T00:00:00+01:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2008</time>
+        
+         | <a href="/activer-un-compte-redmine-par-la-console-rails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si par le plus grand malheur vous avez bloqué l&#8217;envoi de mail sur votre machine où <a href="http://redmine.org">redmine</a> est installé. Vos utilisateurs ne peuvent plus recevoir d&#8217;email d&#8217;activation de compte. Redmine étant super pratique, vous ne pouvez pas activer le compte directement par l&#8217;interface web. Il faut donc passer par la console rails pour activer ce compte. Voici donc les commandes à réaliser pour activer le compte.</p>
+
+<p>Dans cet exemple, nous allons supposer que je veux activer le compte du login &#8216;ook&#8217;</p>
+
+<p>Premièrement, il faut se connecter en console dans le mode production, où celui utilisé par votre instance web.</p>
+
+<pre>
+$ ./script/console production
+</pre>
+
+<p>Une fois dans la console, il faut chercher l&#8217;utilisateur, changé son état et ensuite supprimer le token d&#8217;activation. La suite de commande permet cela :</p>
+
+<typo:code lang="text">
+rails@shinydedi /var/rails/redmine/current $ ./script/console production
+Loading production environment (Rails 2.0.2)
+>> u = User.find_by_login &#8216;ook&#8217;
+=> #<User id: 7, login: "ook", hashed_password: "8a45629b374f3e667ea72494246b17a11309ffff", firstname: "Thomas", lastname: "XXX", mail: "thomas@xxx.com", mail_notification: false, admin: false, status: 2, last_login_on: nil, language: "fr", auth_source_id: nil, created_on: "2008-10-27 18:50:54", updated_on: "2008-10-27 18:50:54", type: nil>
+>> u.status = User::STATUS_ACTIVE
+=> 1
+>> u.save
+=> true
+>> t = Token.find_by_action_and_user_id(&#8216;register&#8217;, u.id)
+=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
+>> t.destroy
+=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
+</typo:code>
+
+<p>Ça y est votre utilisateur est activé. Il peux désormais se connecter comme si il avait réalisé l&#8217;activation par mail.</p>
+<p><a href="http://blog.shingara.fr/en/2008-11-13-activate-user-in-redmine-by-rails-console.html">English Translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -629,98 +695,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/travailler-avec-rails-fait-trouver-des-bugs.html">Travailler Avec Rails Fait Trouver Des Bugs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-08-13T00:00:00+02:00" pubdate data-updated="true">Aug 13<span>th</span>, 2008</time>
-        
-         | <a href="/travailler-avec-rails-fait-trouver-des-bugs.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors que j&#8217;ai commencé à travailler professionnelement parlant avec Rails
-depuis mon départ de CapGemini et mon arrivée à JTEK. En une semaine et demi,
-je constate 1 bug sur rails 2.1, un bug sur Edge et un comportement ajouté en
-Rails 2.1 qui disparaitra en Rails 2.2 (déjà disparu sur Edge)</p>
-
-<h1><code>#has_one</code> demande la validation de sa liaison</h1>
-
-<p>Durant la migration de l&#8217;application développé au sein de Jtek de Rails
-1.2 à 2.1, j&#8217;ai constaté que les éléments <code>#has_one</code> sont désormais
-validé durant la validation du parent. En effet, ce comportement n&#8217;était pas
-présent dans les versions antérieurs à Rails 2.1. Par contre, la validation du
-<code>#has_many</code> est quand à elle effectuée depuis plusieurs version de
-Rails.<p>
-
-<p>Par contre après une lecture du code de Rails edge, actuellement, ce
-comportement disparaitra complétement en Rails 2.2. En effet, une option
-<code>:validate</code> a été ajouté au méthode <code>#has_many</code>,
-<code>#has_and_belongs_to_many</code> et <code>#has_one</code>. J&#8217;ai parlé de
-ce comportement dans une <a
-href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">news
-Vivre avec Rails</a>.</p>
-
-<p>Pour palier ce problème, j&#8217;ai créé un petit plugin rails qui permet de
-couper la validation sur le <code>#has_one</code>. Vous pouvez trouver les
-sources sur le <a href="http://github.com/jtek">github de JTek</a>.</p>
-
-<h1>Bug de logger dans le Runner de Rails-2.1</h1>
-
-<p>Sur ce point j&#8217;ai reporté un bug sur le lighthouse de Rails. En effet, j&#8217;ai
-constaté que si on utilisait le logger par défaut de Rails, et qu&#8217;on réalisait
-un log dans le code executé par script/runner il ne se retrouvait pas loggé
-dans le fichier production.log en mode production. Par contre en mode
-développement, tout se passait bien. En fait, le problème vient du nouveau
-Logger par défaut de rails qui est une surcouche au Logger de Ruby. Ainsi, il
-contient un buffer qui est flushé régulièrement. Mais en fait en mode
-production, le flush est désactivé. On peux ainsi retrouvé différent moment de
-flush dans le code de rails pour vider ce buffer. Mais voilà, avec
-script/runner, on peux se retrouver à ne pas avoir flusher tout le logger à la
-fin de sa tâche. Pour palier le problème, il suffit de faire un
-<code>RAILS_DEFAULT_LOGGER.flush</code> à la fin du fichier script/runner.
-Sinon vous pouvez essayer de faire bouger le <a
-href="http://rails.lighthouseapp.com/projects/8994/tickets/803">rapport de bug</a> que j&#8217;ai
-ouvert</p>
-
-<h1>Eager Loading empêchant la migration en production</h1>
-
-<p>Voulant testé un peu Pictrails avec Edge, pour reporté le bug précédent, je
-me suis retrouvé bettement à ne pas pouvoir réaliser la migration en mode
-Production de Pictrails. J&#8217;ai ainsi trouvé la cause qui est en fait le eager
-loading des models durant l&#8217;initialisation. Dans mon model Pictures, il se
-trouve que je fait une demande d&#8217;information sur un autre model. Du coup Rails
-tente de faire une requête SQL avant de réaliser la migration. Forcement, ca
-peux pas fonctionner. La seule méthode pour éviter ca est de mettre l&#8217;option
-config.classe_cache à false dans le fichier de configuration. J&#8217;ai bien sûr
-<a href="http://rails.lighthouseapp.com/projects/8994/tickets/802">reporté un bug à ce sujet</a>.
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -736,6 +710,10 @@ config.classe_cache à false dans le fichier de configuration. J&#8217;ai bien s
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -771,10 +749,6 @@ config.classe_cache à false dans le fichier de configuration. J&#8217;ai bien s
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

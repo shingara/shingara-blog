@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: translate | Shiny happy people coding]]></title>
+  <link href="http://blog.shingara.fr//blog/categories/translate/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr//"/>
+  <updated>2012-02-06T22:54:34+01:00</updated>
+  <id>http://blog.shingara.fr//</id>
+  <author>
+    <name><![CDATA[Cyril Mougel]]></name>
+    <email><![CDATA[cyril.mougel@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Localize avec mongoid]]></title>
+    <link href="http://blog.shingara.fr//translate-on-mongoid.html"/>
+    <updated>2012-02-06T22:02:00+01:00</updated>
+    <id>http://blog.shingara.fr//translate-on-mongoid</id>
+    <content type="html"><![CDATA[<p>Depuis la version 2.4.0 de <a href="http://mongoid.org">Mongoid</a>, une nouvelle
+fonctionnalité à été ajoutée très discrétement. C'est tout simplement la
+gestion native des traductions en base.</p>
+
+<p>La <a href="http://mongoid.org/docs/documents/localized.html">documentation
+compléte</a> de cette fonctionnalité est sur le site de
+<a href="http://mongoid.org">mongoid</a>.</p>
+
+<p>Grâce à cette fonctionnalité, on peut définir tout simplement qu'un
+champs de Mongoid est localizable. La gestion de la locale est faite de
+manière très intelligente et surtout en complète coordination avec
+MongoDB.</p>
+
+<p>Contrairement à une gestion de traduction dans une Base de donnée
+relationnelle, qui créé une table de liaison, Mongoid stocke un hash
+avec la locale comme clé et la traduction comme valeur.</p>
+
+<p>Mongoid n'a plus qu'à faire la glue entre le système pour que les accés
+en lecture/écriture en fonction de la locale et la recherche</p>
+]]></content>
+  </entry>
+  
+</feed>

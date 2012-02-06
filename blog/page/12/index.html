@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Steven Levithan de RegexPal a réaliser une page qui permet de faire une comparaison de performance entre les deux méthodes Javascript innerHTML() et &hellip;">
+  <meta name="description" content="Voilà, j&#8217;ai décidé de faire une migration d&#8217;une partie de mon blog. En effet après la location d&#8217;une dédibox, j&#8217;ai mis en &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81.html">Un Nouveau Blog Complétement Dédié</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-14T00:00:00+02:00" pubdate data-updated="true">Sep 14<span>th</span>, 2007</time>
+        
+         | <a href="/un-nouveau-blog-comple%CC%81tement-de%CC%81die%CC%81.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Voilà, j&#8217;ai décidé de faire une migration d&#8217;une partie de mon blog. En effet après la location d&#8217;une dédibox, j&#8217;ai mis en place dessus un Blog tournant sous <a href="http://typosphere.org/">Typo</a>.</p>
+
+<p>J&#8217;ai aussi voulu séparer mon <a href="http://shingara.free.fr/blog/">précédent blog</a> en 2 parties. Une partie dédié au loisir (mon ancien blog) et une partie dédié à l&#8217;informatique. Ca sera donc ce nouveau blog.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -523,68 +563,6 @@ Je vais vous faire la traduction de mon mauvais anglais.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/faire-un-profil-dune-me%CC%81thode-de-controller-rails.html">Faire Un Profil D&#8217;une Méthode De &#8220;Controller&#8221; Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-05T00:00:00+02:00" pubdate data-updated="true">Jul 5<span>th</span>, 2007</time>
-        
-         | <a href="/faire-un-profil-dune-me%CC%81thode-de-controller-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Je me suis retrouvé confronter à une méthode d&#8217;un &#8220;controller&#8221; de Ruby On Rails que je trouvais particulièrement longue sachant qu&#8217;elle faisait plus d&#8217;une seconde et que ce n&#8217;était ni le temps du &#8220;render&#8221;, ni le temps de la Base de donnée. La meilleure méthode pour optimiser ce genre de méthode, c&#8217;est tout simplement de faire un profile du traitement effectué. Mais voilà, comment faire un profile ?
-</p>
-
-<p>
-Et bien c&#8217;est très simple, il faut utiliser le profiler Ruby (disponible avec le require &#8216;profiler&#8217;). Un fois le require effectué un <code>Profiler__::start_profile</code>, puis un <code>Profiler__::stop_profile</code> englobe le code a profiler. Enfin un <code>Profiler__::print_profile STDOUT</code> permet une sortie du profil dans le STDOUT. Ce qui permet ainsi d&#8217;être utilisé comme cela dans notre &#8220;controller&#8221;.
-</p>
-
-<pre>
-require 'profiler'
-class MyController < ApplicationController
-  def my_method
-    Profiler__::start_profile
-    
-    # Mon code à profiler
-
-    Profiler__::stop_profile
-    Profiler__::print_profile STDOUT
-  end
-end
-</pre>
-
-<p>
-Après une petite étude du code du script de &#8220;profiler&#8221; fournit par rails dans <code>/script/performance/profiler</code>, j&#8217;ai pu constater qu&#8217;il existait une gem permettant d&#8217;améliorer le &#8220;profiling&#8221; avec un &#8220;profiler&#8221; plus rapide et de plus belle sortie, en autre en HTML. Il s&#8217;agit de <a href="http://ruby-prof.rubyforge.org/">ruby-prof</a>. L&#8217;utilisation est là même que précédemment, c&#8217;est juste les appels qui sont différent.
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -600,6 +578,10 @@ Après une petite étude du code du script de &#8220;profiler&#8221; fournit par
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -635,10 +617,6 @@ Après une petite étude du code du script de &#8220;profiler&#8221; fournit par
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>

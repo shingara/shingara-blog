@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="J&#8217;ai longtemps été sceptique sur l&#8217;intérêt des named_scope de Ruby On Rails. Ça permet d&#8217;avoir une lecture plus simple. Mais ne &hellip;">
+  <meta name="description" content="Avec Merb-mailer, merb fourni un système d&#8217;envoi d&#8217;email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/envoyer-un-email-dans-un-model-datamapper.html">Envoyer Un Email Dans Un Model DataMapper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-20T00:00:00+01:00" pubdate data-updated="true">Dec 20<span>th</span>, 2008</time>
+        
+         | <a href="/envoyer-un-email-dans-un-model-datamapper.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Avec Merb-mailer, merb fourni un système d&#8217;envoi d&#8217;email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré comme un controller et non comme un model. De ce fait l&#8217;utilisation de la méthode send_mail n&#8217;est disponible que dans les controllers. Mais alors comment utiliser la méthode send_mail dans son model ? C&#8217;est très simple. Là encore merb utilise un système entièrement ruby ce qui facilite le méchanisme</p>
+
+<p>Après une courte recherche dans le code de merb-mailer, j&#8217;ai pu constater que que la commande send_mail était dans un mixin. l&#8217;inclusion de ce mixin suffit donc à avoir la commande pour l&#8217;utiliser.</p>
+
+<typo:code lang="ruby">
+class Member
+  include DataMapper::Resource
+  include Merb::MailerMixin
+
+  property :id, Serial
+  property :name, String
+
+  def register
+    // some code
+    send_mail (UserMailer, :register, {
+        :from => &#8220;no-reply@example.com&#8221;,
+        :to => person.email,
+        :subject => &#8220;Please activate your account&#8221; 
+    }
+  end
+</typo:code>
+
+<p><a href="http://blog.shingara.fr/en/2008-12-20-send-email-with-merb-mailer-in-datamapper-model.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -566,72 +626,6 @@ Loading production environment (Rails 2.0.2)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/activer-un-compte-redmine-par-la-console-rails.html">Activer Un Compte Redmine Par La Console Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-03T00:00:00+01:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2008</time>
-        
-         | <a href="/activer-un-compte-redmine-par-la-console-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Si par le plus grand malheur vous avez bloqué l&#8217;envoi de mail sur votre machine où <a href="http://redmine.org">redmine</a> est installé. Vos utilisateurs ne peuvent plus recevoir d&#8217;email d&#8217;activation de compte. Redmine étant super pratique, vous ne pouvez pas activer le compte directement par l&#8217;interface web. Il faut donc passer par la console rails pour activer ce compte. Voici donc les commandes à réaliser pour activer le compte.</p>
-
-<p>Dans cet exemple, nous allons supposer que je veux activer le compte du login &#8216;ook&#8217;</p>
-
-<p>Premièrement, il faut se connecter en console dans le mode production, où celui utilisé par votre instance web.</p>
-
-<pre>
-$ ./script/console production
-</pre>
-
-<p>Une fois dans la console, il faut chercher l&#8217;utilisateur, changé son état et ensuite supprimer le token d&#8217;activation. La suite de commande permet cela :</p>
-
-<typo:code lang="text">
-rails@shinydedi /var/rails/redmine/current $ ./script/console production
-Loading production environment (Rails 2.0.2)
->> u = User.find_by_login &#8216;ook&#8217;
-=> #<User id: 7, login: "ook", hashed_password: "8a45629b374f3e667ea72494246b17a11309ffff", firstname: "Thomas", lastname: "XXX", mail: "thomas@xxx.com", mail_notification: false, admin: false, status: 2, last_login_on: nil, language: "fr", auth_source_id: nil, created_on: "2008-10-27 18:50:54", updated_on: "2008-10-27 18:50:54", type: nil>
->> u.status = User::STATUS_ACTIVE
-=> 1
->> u.save
-=> true
->> t = Token.find_by_action_and_user_id(&#8216;register&#8217;, u.id)
-=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
->> t.destroy
-=> #<Token id: 16, user_id: 7, action: "register", value: "brVmdX8Sf0IecApDEWs0BmiD6ZN3DgsDoshpBZ2e", created_on: "2008-10-27 18:50:54">
-</typo:code>
-
-<p>Ça y est votre utilisateur est activé. Il peux désormais se connecter comme si il avait réalisé l&#8217;activation par mail.</p>
-<p><a href="http://blog.shingara.fr/en/2008-11-13-activate-user-in-redmine-by-rails-console.html">English Translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -647,6 +641,10 @@ Loading production environment (Rails 2.0.2)
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
@@ -682,10 +680,6 @@ Loading production environment (Rails 2.0.2)
     
       <li class="post">
         <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/devise-cest-bien-mais-il-faut-le-tester.html">Devise ? c&#8217;est bien, mais il faut le tester.</a>
       </li>
     
   </ul>
