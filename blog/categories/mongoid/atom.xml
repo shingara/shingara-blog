@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mongoid | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/mongoid/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-02-06T22:54:34+01:00</updated>
+  <updated>2012-02-06T22:56:45+01:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -22,8 +22,7 @@
 fonctionnalité à été ajoutée très discrétement. C'est tout simplement la
 gestion native des traductions en base.</p>
 
-<p>La <a href="http://mongoid.org/docs/documents/localized.html">documentation
-compléte</a> de cette fonctionnalité est sur le site de
+<p>La <a href="http://mongoid.org/docs/documents/localized.html">documentation compléte</a> de cette fonctionnalité est sur le site de
 <a href="http://mongoid.org">mongoid</a>.</p>
 
 <p>Grâce à cette fonctionnalité, on peut définir tout simplement qu'un
@@ -35,7 +34,7 @@ MongoDB.</p>
 relationnelle, qui créé une table de liaison, Mongoid stocke un hash
 avec la locale comme clé et la traduction comme valeur.</p>
 
-<p>Mongoid n'a plus qu'à faire la glue entre le système pour que les accés
+<p>Mongoid n'a plus qu'à faire la glue entre le système pour que les accès
 en lecture/écriture en fonction de la locale et la recherche</p>
 ]]></content>
   </entry>
