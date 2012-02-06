@@ -2,6 +2,7 @@
 layout: post
 title: PeriodicTimer de EventMachine, le cron simplifié
 typo_id: 222
+comments: true
 ---
 [EventMachine](http://rubyeventmachine.com/) est une des meilleures librairies Ruby,
 tout en étant une des plus sous-estimées et mal connues.
@@ -26,7 +27,7 @@ L'avantage de PeriodicTimer est que les tâches sont exécutées après un temps
 Voici [un exemple de code](http://gist.github.com/345000) qui utilise
 PeriodicTimer
 
-<typo:code lang="ruby">
+``` ruby
 require 'eventmachine'
 require 'timeout'
 EventMachine.run {
@@ -39,11 +40,11 @@ EventMachine.run {
    puts Time.now
  end
 }
-</typo:code>
+```
 
 Voici la sortie qui est effectuée si on lance l'application pendant 50s.
 
-<typo:code lang="plain">
+```
 $ ruby em_periodic.rb
 Fri Mar 26 16:07:39 +0100 2010
 Fri Mar 26 16:07:40 +0100 2010
@@ -77,7 +78,7 @@ Fri Mar 26 16:08:26 +0100 2010
 Fri Mar 26 16:08:27 +0100 2010
 Fri Mar 26 16:08:28 +0100 2010
 Fri Mar 26 16:08:28 +0100 2010 : I am 10
-</typo:code>
+```
 
 On peut constater que la tâche qui doit s'exécuter toutes les
 secondes le fait bien. Par contre la tâche qui s'exécute au bout de 10

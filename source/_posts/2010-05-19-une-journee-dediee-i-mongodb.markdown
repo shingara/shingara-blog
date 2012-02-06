@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Une journée dédiée à MongoDB
-comment: true
+comments: true
 typo_id: 223
 ---
 <img src="http://blog.shingara.fr/files/badge-mongofr-large.png" alt="mongoFR badges"/>

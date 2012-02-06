@@ -1,15 +1,14 @@
 ---
 layout: post
-title: "mailtrap-l-aide-au-staging"
+title: "Mailtrap l'aide au staging"
 date: 2012-01-24 22:17
 comments: true
-category: administration
-tags:
-  - administration
-  - smtp
-  - mail
-  - staging
-published:false
+categories:
+- 'administration'
+- 'smtp'
+- 'mail'
+- 'staging'
+published: true
 ---
 
 Avant chaque mise en production d'un projet, il faut le test dans un
@@ -47,9 +46,9 @@ Avec le framework Ruby on Rails, il est possible de définir que tous les
 emails envoyés sont mis dans un fichier plutôt qu'envoyer par SMTP. Il
 suffit de définir un nouveau smtp_delivery
 
-<pre><code>
-ActionMailer::Base.delivery_methods = :log
-</code></pre>
+``` ruby
+ActionMailer::Base.delivery_methods = :file
+```
 
 Cette technique permet d'être sûr qu'aucun email n'est envoyé au client
 finaux. L'inconvénient de cette technique est le stockage et la lecture
