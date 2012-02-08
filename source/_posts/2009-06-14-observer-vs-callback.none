@@ -2,6 +2,7 @@
 layout: post
 title: Observer Vs Callback
 typo_id: 199
+comments: true
 ---
 <p>Il y a peu au boulot, j'ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
 
@@ -22,4 +23,4 @@ typo_id: 199
 <p>Même le cas du nombre de ligne n'est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
 
 <p>Personnellement, je n'ai jamais constater un seul cas où l'observeur avait plus d'intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
- 
+
