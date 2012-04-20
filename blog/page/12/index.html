@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voilà, j&#8217;ai décidé de faire une migration d&#8217;une partie de mon blog. En effet après la location d&#8217;une dédibox, j&#8217;ai mis en &hellip;">
+  <meta name="description" content="Ca y est c&#8217;est officiel, Firefox sera meilleur en terme de fuite de mémoire et autre consommation excessive. On peux ainsi lire l&#8217;annonce &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/une-bonne-ame%CC%81lioration-pour-firefox-3.html">Une Bonne Amélioration Pour Firefox 3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-25T00:00:00+02:00" pubdate data-updated="true">Sep 25<span>th</span>, 2007</time>
+        
+         | <a href="/une-bonne-ame%CC%81lioration-pour-firefox-3.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est c&#8217;est officiel, Firefox sera meilleur en terme de fuite de mémoire et autre consommation excessive. On peux ainsi lire l&#8217;annonce sur le <a href="http://www.squarefree.com/2007/09/20/firefox-memory-usage-and-memory-leak-news/">blog de Jesse Ruderman</a>.</p>
+
+<p>Cette annonce a ainsi été relayé par <a href="http://slashdot.org/article.pl?sid=07/09/24/1521240">Slashdot</a> et <a href="http://standblog.org/blog/post/2007/09/21/Sortie-de-Gran-Paradiso-Alpha-8">Tristan Nitot</a>.</p>
+
+<p>Je suis vraiment content que cette annonce ait été faite. En effet, j&#8217;aime beaucoup Firefox et surtout l&#8217;utilisation de ses nombreux plugins. Mais le fait de devoir régulièrement redémarrer cette application était un peu désagréable surtout avec l&#8217;utilisation actuelle de site internet de plus en plus puissance en terme de Javascript.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -502,67 +544,6 @@ tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/nouveau-converter-de-dotclear-vers-typo.html">Nouveau Converter De Dotclear Vers Typo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-17T00:00:00+02:00" pubdate data-updated="true">Jul 17<span>th</span>, 2007</time>
-        
-         | <a href="/nouveau-converter-de-dotclear-vers-typo.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ma migration vers un blog sous <a href="http://typosphere.org/">Typo</a> approchant et étant actuellement, sous Dotclear, j&#8217;ai créé un nouveau plugin pour Typo. Ce plugin est une copie du converter de Mephisto pour Typo. En effet, le système de conversion de Mephisto me semble beaucoup plus performant et plus adapatable que celui de Typo. Typo étant un projet libre, j&#8217;ai donc créer un ticket pour proposer mon patch. J&#8217;attend de voir la réaction des développeurs sur ce plugins. Le ticket de submission est le <a href="http://trac.typosphere.org/ticket/1132">ticket 1132</a>.</p>
-
-<p>
-Je vais vous faire la traduction de mon mauvais anglais.
-</p>
-
-<p>J&#8217;ai créer un nouveau système pour convertir la base de donnée d&#8217;un autre blog en en base de donnée Typo. Mon nouveau système est basé sur le converter de Mephisto. C&#8217;est un plugin et il utilise complétement ActiveRecord. Pour récupérer les informations d&#8217;un autre blog et les poster dans Typo.
-</p>
-
-<p>Actuellement le converter fonctionne uniquement avec Dotclear, mais une interface est écrite et vous pouvez l&#8217;utiliser pour d&#8217;autre moteur de blog en créant un autre adapter.</p>
-
-<p>Pour commencer la migration de dotclear, vous avez besoin de compléter le config/database.yml avec une configuration qui a pour clé dv and toutes les information sur où trouver la base de donnée récupérer par un SQLDump de votre moteur de blog. Après cette configuration vous pouvez commencer la migration avec la commande suivante :</p>
-
-<pre>./script/runner 'TypoPlugins.convert_from :dotclear'</pre>
-
-<p>Par défaut vous pouvez migrer tous les articles, mais vous pouvez aussi migrer uniquement les articles de catégories défini.</p>
-
-<pre>./script/runner "TypoPlugins.convert_from :dotclear, {:categorie => ['ruby', 'rails', 'dev']}"</pre>
-
-<p>Conseil : Pour accélerer grandement la migration vous pouvez commenter la ligne suivante dans le config/environement.rb</p>
-
-<pre>#config.active_record.observers = :email_notifier, :web_notifier</pre>
-
-<p>Edit : 10min avant la soumission de mon patch, le script de migration disponible sur <a href="http://rubyfr.org/">RubyFR</a> avait été mis à jour. Quel hasard. <a href="http://fredix.freemonk.org/articles/2007/07/17/migration-dotclear-vers-typo">L&#8217;annonce de cette mise à jour</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -578,6 +559,10 @@ Je vais vous faire la traduction de mon mauvais anglais.
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -613,10 +598,6 @@ Je vais vous faire la traduction de mon mauvais anglais.
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

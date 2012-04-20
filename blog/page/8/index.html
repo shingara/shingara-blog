@@ -9,7 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je bloquais sur la capture de son sous Linux pour réaliser un screencast, j&#8217;ai passé le pas et j&#8217;ai donc réalisé un joli et &hellip;">
+  <meta name="description" content="Depuis la revision
+r9122, les migrations de Ruby on rails ne sont plus
+incrémentale comme précédemment. En effet, elles sont désormais basé sur le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,66 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/migration-basee-sur-lheure-utc-et-plus-incremental.html">Migration Basée Sur L&#8217;heure Utc Et Plus Incremental</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-23T00:00:00+02:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2008</time>
+        
+         | <a href="/migration-basee-sur-lheure-utc-et-plus-incremental.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis la <a href="http://dev.rubyonrails.org/changeset/9122">revision
+r9122</a>, les migrations de Ruby on rails ne sont plus
+incrémentale comme précédemment. En effet, elles sont désormais basé sur le
+temps UTC. Cette évolution a comme principale intérêt d&#8217;éviter les problèmes
+de conflits entre différentes branches de développement grâce à un prefix
+unique.</p>
+
+<p>Désormais lors de la création d&#8217;un fichier de migration vous aurez ainsi
+ceci :</p>
+
+<typo:code>
+$ ./script/generate migration create_user
+      create  db/migrate/20080422122512_create_user.rb
+</typo:code>
+
+<p>Pour compléter cette évolution, il y a eu l&#8217;ajout de 2 nouvelles tâches
+rake. <code>rake db:migrate:up</code> et <code>rake db:migrate:down</code>. Il faut adjoindre à ces tâche la  la variable VERSION étant le numero de la VERSION a ajouter(up) ou
+enlever(down). Les versions peuvent ainsi être ajoutées ou supprimées
+indépendamments.</p>
+
+<p>On pouvait avoir cette fonctionnalité dans la version 2.0 de rails avec le
+plugin <a
+href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rails.html">enhanced migrations plugin</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -821,71 +883,6 @@ Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par cont
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/git-submodule-presque-le-svn-externals-de-git.html">Git-submodule, Presque Le Svn:externals De GIT</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-08T00:00:00+01:00" pubdate data-updated="true">Mar 8<span>th</span>, 2008</time>
-        
-         | <a href="/git-submodule-presque-le-svn-externals-de-git.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Depuis le 27 février 2008, j&#8217;ai finalement décidé d&#8217;abandonner l&#8217;utilisation de mercurial dans mon projet Pictrails. J&#8217;ai fini par migré vers GIT. En effet, GIT est énormément utilisé par la communauté Ruby et c&#8217;est un très bon SCM. Un peu plus rapide que Mercurial et avec de meilleurs outils annexe comme par exemple git-svn. Voici par exemple un autre point qui me fait pencher un peu pour GIT. Il s&#8217;agit de git-submodule.
-</p>
-
-<p>
-Un des gros points fort de SVN est la propriété svn:externals, qui permet de faire pointé un répertoire vers un autre repository SVN. Cette fonctionnalité n&#8217;existe pas à ma connaissance sous mercurial. Mais sous GIT, il y a git-submodule. C&#8217;est pas aussi bien que svn:externals, mais c&#8217;est déjà pas mal. En effet, le seul défaut de git-submodule est de ne pas pouvoir récupérer qu&#8217;une partie du dépôt GIT, comme un dossier en particulier. On est obligé de tout récupéré. svn:externals pouvait limiter la dépendance par contre. Je trouverais peut-être un palliatif.
-</p>
-
-<p>
-Comment utiliser git-submodule ? Il faut d&#8217;abord trouver le repository GIT que l&#8217;on veux dupliquer dans son projet GIT. Un fois celui-ci trouvé, il faut l&#8217;ajouter comme submodule :
-</p>
-
-<pre>
-$ git submodule add &lt;&lt;repo&gt;&gt; /directory/
-</pre>
-
-<p>Une fois que c&#8217;est fait, un dossier .gitsubmodule est créé et il faut donc l&#8217;ajouter au versionning, le commiter et le push.</p>
-
-<p>Par contre, si vous faite un pull du repository GIT qui contient ce submodule, le téléchargement des sous-modules ne se fait pas automatiquement. En conséquence, il faut penser a réaliser un init et un  update des submodules.</p>
-
-<pre>
-$ git submodule init
-$ git submodule update
-</pre>
-
-<p>Pareil, la mise à jour des submodules ne se fait pas automatiquement. Il faut faire un petit update de temps en temps.</p>
-
-<pre>$ git submodule update</pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -901,6 +898,10 @@ $ git submodule update
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -936,10 +937,6 @@ $ git submodule update
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

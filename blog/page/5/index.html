@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Si par le plus grand malheur vous avez bloqué l&#8217;envoi de mail sur votre machine où redmine est installé. Vos utilisateurs ne peuvent plus &hellip;">
+  <meta name="description" content="Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu&#8217;un utilisateur ne soit obligé de s&#8217;inscrire pour poster sur le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/supprimer-tous-les-messages-danonyme-du-forum-redmine.html">Supprimer Tous Les Messages D&#8217;anonyme Du Forum Redmine</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-04T00:00:00+01:00" pubdate data-updated="true">Nov 4<span>th</span>, 2008</time>
+        
+         | <a href="/supprimer-tous-les-messages-danonyme-du-forum-redmine.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu&#8217;un utilisateur ne soit obligé de s&#8217;inscrire pour poster sur le forum, vous êtes sujet au Spam, vu que Redmine n&#8217;a encore aucun système anti-spam. Vous pouvez ainsi vous retrouver dans cette position.</p>
+
+<p>
+<img src="http://blog.shingara.fr/files/snapshoot_spam_forum_redmine.png" alt="screenshot de mon forum redmine spammé" />
+</p>
+
+<p>Une fois que vous avez bloqué l&#8217;ajout de message par les anonymes, il faut maintenant faire le ménage. Soit, vous prenez message par message et faite le bouton supprimer. Soit vous utilisez la console comme moi. Voici donc les commandes à réaliser pour supprimer tous les messages d&#8217;anonyme du forum. Bien-sûr, cela implique que si vous avez des utilisateurs qui ont posté en tant qu&#8217;anonyme, leur poste sera détruit.</p>
+
+<typo:code lang="text">
+rails@shinydedi /var/rails/redmine/current $ ./script/console production                                                                                                                          
+Loading production environment (Rails 2.0.2)
+>> User.anonymous
+=> #<AnonymousUser id: 4, login: "", hashed_password: "", firstname: "", lastname: "Anonymous", mail: "", mail_notification: false, admin: false, status: 0, last_login_on: nil, language: "", auth_source_id: nil, created_on: "2008-01-26 16:39:30", updated_on: "2008-01-26 16:39:30", type: "AnonymousUser">
+>> User.anonymous.id
+=> 4
+>> Message.find_all_by_author_id(User.anonymous.id).size
+=> 1693
+>> Message.find_all_by_author_id(User.anonymous.id).each { |me| me.destroy }
+=> [&#8230;&#8230;&#8230;]
+>>
+</typo:code>
+<p><a href="http://blog.shingara.fr/en/2008-11-14-delete-all-anonymous-message-in-forum-redmine.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -647,54 +706,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur.html">Gettext Avec Rails, Ca Peux être Long Pour Un Formulaire en Erreur</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-08-28T00:00:00+02:00" pubdate data-updated="true">Aug 28<span>th</span>, 2008</time>
-        
-         | <a href="/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aujourd&#8217;hui, j&#8217;ai passé la journée à essayer de comprendre un problème que j&#8217;avais sur l&#8217;application que je réalise dans le cadre de mon nouveau travail. Ce bug est très simple. Durant la validation d&#8217;un formulaire, si celui-ci n&#8217;était pas valide, je retournais sur la même page qui m&#8217;indiquait les champs en erreur. Dans la pratique, ceci est très simple. Mais dans notre cas, la page mettait pas moins de 40 secondes à se renderer. Car la latence n&#8217;avait pas lieu dans le controlleur, mais bel est bien durant le rendering de la page.</p>
-
-<p>Pour essayer de comprendre la cause de tout ça, j&#8217;ai fini par réaliser un profile de ma requête avec le script </code>/script/performance/request</code> qu&#8217;il a déjà fallu faire fonctionner, mais ceci fera l&#8217;objet d&#8217;un autre billet. Une fois le profilling réalisé, j&#8217;ai constaté que ce qui me posait problème était une recherche incessante de traduction des messages d&#8217;erreurs. Après de longues recherche dans le code, j&#8217;ai fini par découvrir la vraie cause du problème.</p>
-
-<p>Dans Rails, durant chaque création de tag, il y a une demande de récupération de <code>errors.on</code> pour connaitre là où les erreurs sont et ainsi mettre en surbrillance le champs ou non. Mais là où normalement dans Rails, ce n&#8217;est qu&#8217;un appel vers un valeur figée, Gettext a décoré la méthode pour réaliser une traduction de la chaine. Bien sûr si ce n&#8217;était que ça, ça pourrait encore passer, car finalement c&#8217;est le comportement en production. Les chaines étant misent en cache, l&#8217;accès est quasiment aussi rapide que sans gettext. Mais dans le cas d&#8217;un environnement en Développement, il n&#8217;y a aucun cache des chaines de Gettext. Ainsi à chaque tentative de traduction le mo file est chargé et une itération à lieu sur tout ce fichiers pour trouver la chaine à traduire. C&#8217;est ces itérations incessantes qui entrainait un temps de traitement extrêmement long de ma requête.</p>
-
-<p>Ce phénomène n&#8217;a lieu uniquement qu&#8217;en environnement de développement, car il y a un test sur le nom de l&#8217;environnement. Dans tous les autres cas autre que développement, les mo sont mis en cache.</p>
-
-<p>Pour résoudre ce problème, soit vous changez le nom de votre environnement par défaut, par exemple dev au lieu de développement, où alors mettre le code <code>GetText.cached = true</code> dans votre environnement.rb. Cela implique par contre que si vous modifiez les fichiers mo, il faudra redémarrer le serveur pour avoir les nouvelles entrées.</p>
-
-<p><a href="http://blog.shingara.fr/en/2008-08-01-gettext-with-rails-can-be-long-in-an-error-form.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -710,6 +721,10 @@ after &#8220;deploy:update_code&#8221;, :update_config
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -745,10 +760,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

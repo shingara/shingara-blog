@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis quelque temps, j&#8217;utilise en station de travail, une debian SID avec comme architecture AMD64. Mais je n&#8217;arrivais pas à mettre le &hellip;">
+  <meta name="description" content="Presque 3 mois jours pour jours après la dernière release de Pictrails 0.2.3, voici la release de la version 0.3.0 Cette nouvelle version apporte son &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,57 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/publication-de-pictrails-0-3-0.html">Publication De Pictrails 0.3.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-15T00:00:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2008</time>
+        
+         | <a href="/publication-de-pictrails-0-3-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Presque 3 mois jours pour jours après la dernière release de <a href="http://blog.shingara.fr/articles/2008/03/18/pictrails-0-2-2-released">Pictrails 0.2.3</a>, voici la release de la version 0.3.0</p>
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/public_part_pictrails.png" alt="partie public de pictrails" ></p>
+
+<p>Cette nouvelle version apporte son lot de fonctionnalités. La plus importante étant l&#8217;ajout du support des sous-galerie En effet, désormais, on peux créer des galeries photos dépendant d&#8217;une autre galerie. Cette galerie sera donc visible avec la liste des photos de sa galerie parente. Pour que la navigation soit ainsi plus fluide, j&#8217;ai ajouté un fil d&#8217;ariane ou breadcrumb pour les anglophiles. On sait ainsi désormais dans quel galerie nous nous trouvons et si celle-ci a des parents.</p>
+
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/breadcrumb_pictrails.png" alt="breadcrumb de pictrails" ></p>
+
+<p>La deuxième fonctionnalité est surtout la refonte compléte du mass_upload. En effet, le mass_upload ne fonctionnait pas trop si on avait énormément de photo a ajouter. Les threads mongrel ou FastCGI s&#8217;arrêtait avec un time out et plus aucune solution de continuer la tâche. Pour ce faire, la première requête liste toutes les images à importer et dans quel galerie. Ensuite à chaque nouvelle requête dans la partie d&#8217;administration une  série de 5 photos est ajoutés. Pour rendre le système plus conviviale, une progress bar a été ajoutée. Celle-ci évolue progressivement si le Javascript est activé sur votre navigateur. Ce système de mass_upload a bien évidement suivit l&#8217;évolution de Pictrails en supportant lui aussi les sous-galeries. Ainsi, il liste de façon récursive les répertoires et créé les galeries avec leurs parents associés.</p>
+
+<p style="text-align:center;"><img src="http://blog.shingara.fr/files/mass_upload_pictrails.png" alt="mass_upload de pictrails" ></p>
+
+<p>J&#8217;espère que cette nouvelle version vous satisfera. Bien-sûr la <a href="http://dev.shingara.fr/projects/roadmap/pictrails">liste des fonctionnalités</a> a ajouter n&#8217;est pas fini pour arriver à la version 1.0. Si vous avez envie de contribuer n&#8217;hésitez pas. Pour plus de détails sur cette version, le <a href="http://pictrails.rubyforge.org">site de pictrails</a> a été mis à jour</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -744,66 +795,6 @@ end</typo:code>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/migration-basee-sur-lheure-utc-et-plus-incremental.html">Migration Basée Sur L&#8217;heure Utc Et Plus Incremental</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-23T00:00:00+02:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2008</time>
-        
-         | <a href="/migration-basee-sur-lheure-utc-et-plus-incremental.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis la <a href="http://dev.rubyonrails.org/changeset/9122">revision
-r9122</a>, les migrations de Ruby on rails ne sont plus
-incrémentale comme précédemment. En effet, elles sont désormais basé sur le
-temps UTC. Cette évolution a comme principale intérêt d&#8217;éviter les problèmes
-de conflits entre différentes branches de développement grâce à un prefix
-unique.</p>
-
-<p>Désormais lors de la création d&#8217;un fichier de migration vous aurez ainsi
-ceci :</p>
-
-<typo:code>
-$ ./script/generate migration create_user
-      create  db/migrate/20080422122512_create_user.rb
-</typo:code>
-
-<p>Pour compléter cette évolution, il y a eu l&#8217;ajout de 2 nouvelles tâches
-rake. <code>rake db:migrate:up</code> et <code>rake db:migrate:down</code>. Il faut adjoindre à ces tâche la  la variable VERSION étant le numero de la VERSION a ajouter(up) ou
-enlever(down). Les versions peuvent ainsi être ajoutées ou supprimées
-indépendamments.</p>
-
-<p>On pouvait avoir cette fonctionnalité dans la version 2.0 de rails avec le
-plugin <a
-href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rails.html">enhanced migrations plugin</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -819,6 +810,10 @@ href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rail
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -854,10 +849,6 @@ href="http://revolutiononrails.blogspot.com/2007/02/plugin-release-enhanced-rail
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

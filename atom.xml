@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-02-08T11:13:22+01:00</updated>
+  <updated>2012-04-20T09:49:18+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Récupération de ses fichiers sur basecamp]]></title>
+    <link href="http://blog.shingara.fr//telecharger-fichier-de-basecamp.html"/>
+    <updated>2012-04-20T09:38:00+02:00</updated>
+    <id>http://blog.shingara.fr//telecharger-fichier-de-basecamp</id>
+    <content type="html"><![CDATA[<p>Au nivea de mon travail actuel chez <a href="http://bemyboat.com">Be My Boat</a>,
+nous sommes actuellement en train de migrer de
+<a href="http://basecamphq.com">Basecamp</a> vers
+<a href="http://trello.com">Trello</a>.</p>
+
+<p>Pour éviter de perdre toutes les informations qui ont été mis dans le
+basecamp, nous avons réaliser un import complet. Par contre, l&#8217;import ne
+comprend pas les fichiers qui ont pu être ajouter dans basecamp.</p>
+
+<p>Pour ne pas perdre ces fichiers qui font parti du patrimoine de
+l&#8217;entreprise, j&#8217;ai créé un petit script pour télécharger tous ces
+fichiers.</p>
+
+<p>Je vous le partage si vous en avez besoin un jour.</p>
+
+<div><script src='https://gist.github.com/2420838.js?file='></script>
+<noscript><pre><code>require 'faraday'
+require 'faraday_middleware'
+
+project_id = 3684800
+
+class Attachment
+
+  def initialize(conn, attachment)
+    @conn = conn
+    @attachment = attachment
+  end
+
+  def collection
+    @attachment['collection'].to_s
+  end
+
+  def dir
+    Dir.mkdir(collection) unless Dir.exists?(collection)
+    collection
+  end
+
+  def execute
+    File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
+  end
+end
+
+con = Faraday.new(:url =&gt; 'https://ciblonet.basecamphq.com') do |builder|
+  builder.use Faraday::Request::BasicAuthentication, 'shingara', ''
+  builder.use Faraday::Response::Logger
+  builder.response :xml,  :content_type =&gt; /\bxml$/
+  builder.use Faraday::Adapter::NetHttp
+end
+attachment_size = 100
+
+  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml&quot;) do |req|
+    req.headers['Accept'] = 'application/xml'
+    req.headers['Content-Type'] = 'application/xml'
+  end.body['attachments']
+
+  attachments.each do |attachment|
+    Attachment.new(con, attachment).execute
+  end
+
+while attachments.size &gt; 99
+  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml?n=#{attachment_size}&quot;) do |req|
+    req.headers['Accept'] = 'application/xml'
+    req.headers['Content-Type'] = 'application/xml'
+  end.body['attachments']
+
+  attachments.each do |attachment|
+    Attachment.new(con, attachment).execute
+  end
+  attachment_size += 100
+end
+</code></pre></noscript></div>
+
+
+<p>Dans ce script j&#8217;utilise
+<a href="https://github.com/technoweenie/faraday">Faraday</a> pour faire le requêtage avec l&#8217;API et
+aussi télécharger les fichiers. Je suis personnellement un grand fan de
+Faraday. C&#8217;est selon moi la meilleure librairie de requêtage HTTP
+actuelle du monde Ruby. Utilisez là des que vous avez besoin de faire du
+requêtage HTTP.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Localize avec mongoid]]></title>
@@ -935,44 +1022,6 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
 
 <p>Personnellement, je n&#8217;ai jamais constater un seul cas où l&#8217;observeur avait plus d&#8217;intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Cucumber>=0.3.4 et Merb. La dure cohabitation]]></title>
-    <link href="http://blog.shingara.fr//cucumber-0-3-4-et-merb-la-dure-cohabitation.html"/>
-    <updated>2009-05-24T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr//cucumber-0-3-4-et-merb-la-dure-cohabitation</id>
-    <content type="html"><![CDATA[<p>Depuis la sortie de <a href="http://cukes.info/">Cucumber</a> 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation avec Merb. En effet, si on peux lire dans le <a href="http://github.com/aslakhellesoy/cucumber/blob/master/History.txt">History.txt</a> de Cucumber :</p>
-
-<typo:code>
-** IMPORTANT UPGRADE NOTES FOR RAILS USERS **
- 
-Running Cucumber features in the same Ruby interpreter as Rake doesn&#8217;t seem to work,
-so you have to explicitly tell the task to fork (like it was doing by default in prior
-versions). In lib/tasks/cucumber.rake:
- 
-  Cucumber::Rake::Task.new(:features) do |t|
-    t.fork = true # Explicitly fork
-    t.cucumber_opts = %w{&#8211;format pretty}
-  end
- 
-(If you run script/generate cucumber this will be done for you).
-Alternatively you can omit forking and run features like this:
- 
-  RAILS_ENV=test rake features
- 
-However, setting the RAILS_ENV is easy to forget, so I don&#8217;t recommend relying on this.
-</typo:code>
-
-<p>
-Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l&#8217;heure actuel. En effet, la tâche <code>rake features</code> n&#8217;utilise pas les bonnes options pour cucumber.</p>
-
-<p>Après un long et rude combat avec cucumber, j&#8217;ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en &#8220;live&#8221; sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j&#8217;ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l&#8217;utilisation de Cucumber 0.3.4 et plus</a></p>
-
-<p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-05-24-since-cucumber-0-3-4-he-has-difficult-with-merb.html">English translation</a></p>
 ]]></content>
   </entry>
   

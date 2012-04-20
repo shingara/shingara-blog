@@ -9,8 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que j&#8217;ai commencé à travailler professionnelement parlant avec Rails
-depuis mon départ de CapGemini et mon arrivée à JTEK. En une semaine &hellip;">
+  <meta name="description" content="Aujourd&#8217;hui, j&#8217;ai passé la journée à essayer de comprendre un problème que j&#8217;avais sur l&#8217;application que je réalise dans le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,54 @@ depuis mon départ de CapGemini et mon arrivée à JTEK. En une semaine &hellip;
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur.html">Gettext Avec Rails, Ca Peux être Long Pour Un Formulaire en Erreur</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-28T00:00:00+02:00" pubdate data-updated="true">Aug 28<span>th</span>, 2008</time>
+        
+         | <a href="/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aujourd&#8217;hui, j&#8217;ai passé la journée à essayer de comprendre un problème que j&#8217;avais sur l&#8217;application que je réalise dans le cadre de mon nouveau travail. Ce bug est très simple. Durant la validation d&#8217;un formulaire, si celui-ci n&#8217;était pas valide, je retournais sur la même page qui m&#8217;indiquait les champs en erreur. Dans la pratique, ceci est très simple. Mais dans notre cas, la page mettait pas moins de 40 secondes à se renderer. Car la latence n&#8217;avait pas lieu dans le controlleur, mais bel est bien durant le rendering de la page.</p>
+
+<p>Pour essayer de comprendre la cause de tout ça, j&#8217;ai fini par réaliser un profile de ma requête avec le script </code>/script/performance/request</code> qu&#8217;il a déjà fallu faire fonctionner, mais ceci fera l&#8217;objet d&#8217;un autre billet. Une fois le profilling réalisé, j&#8217;ai constaté que ce qui me posait problème était une recherche incessante de traduction des messages d&#8217;erreurs. Après de longues recherche dans le code, j&#8217;ai fini par découvrir la vraie cause du problème.</p>
+
+<p>Dans Rails, durant chaque création de tag, il y a une demande de récupération de <code>errors.on</code> pour connaitre là où les erreurs sont et ainsi mettre en surbrillance le champs ou non. Mais là où normalement dans Rails, ce n&#8217;est qu&#8217;un appel vers un valeur figée, Gettext a décoré la méthode pour réaliser une traduction de la chaine. Bien sûr si ce n&#8217;était que ça, ça pourrait encore passer, car finalement c&#8217;est le comportement en production. Les chaines étant misent en cache, l&#8217;accès est quasiment aussi rapide que sans gettext. Mais dans le cas d&#8217;un environnement en Développement, il n&#8217;y a aucun cache des chaines de Gettext. Ainsi à chaque tentative de traduction le mo file est chargé et une itération à lieu sur tout ce fichiers pour trouver la chaine à traduire. C&#8217;est ces itérations incessantes qui entrainait un temps de traitement extrêmement long de ma requête.</p>
+
+<p>Ce phénomène n&#8217;a lieu uniquement qu&#8217;en environnement de développement, car il y a un test sur le nom de l&#8217;environnement. Dans tous les autres cas autre que développement, les mo sont mis en cache.</p>
+
+<p>Pour résoudre ce problème, soit vous changez le nom de votre environnement par défaut, par exemple dev au lieu de développement, où alors mettre le code <code>GetText.cached = true</code> dans votre environnement.rb. Cela implique par contre que si vous modifiez les fichiers mo, il faudra redémarrer le serveur pour avoir les nouvelles entrées.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-08-01-gettext-with-rails-can-be-long-in-an-error-form.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -841,57 +888,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/publication-de-pictrails-0-3-0.html">Publication De Pictrails 0.3.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-15T00:00:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2008</time>
-        
-         | <a href="/publication-de-pictrails-0-3-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Presque 3 mois jours pour jours après la dernière release de <a href="http://blog.shingara.fr/articles/2008/03/18/pictrails-0-2-2-released">Pictrails 0.2.3</a>, voici la release de la version 0.3.0</p>
-
-<p style="text-align:center;"><img src="http://blog.shingara.fr/files/public_part_pictrails.png" alt="partie public de pictrails" ></p>
-
-<p>Cette nouvelle version apporte son lot de fonctionnalités. La plus importante étant l&#8217;ajout du support des sous-galerie En effet, désormais, on peux créer des galeries photos dépendant d&#8217;une autre galerie. Cette galerie sera donc visible avec la liste des photos de sa galerie parente. Pour que la navigation soit ainsi plus fluide, j&#8217;ai ajouté un fil d&#8217;ariane ou breadcrumb pour les anglophiles. On sait ainsi désormais dans quel galerie nous nous trouvons et si celle-ci a des parents.</p>
-
-
-<p style="text-align:center;"><img src="http://blog.shingara.fr/files/breadcrumb_pictrails.png" alt="breadcrumb de pictrails" ></p>
-
-<p>La deuxième fonctionnalité est surtout la refonte compléte du mass_upload. En effet, le mass_upload ne fonctionnait pas trop si on avait énormément de photo a ajouter. Les threads mongrel ou FastCGI s&#8217;arrêtait avec un time out et plus aucune solution de continuer la tâche. Pour ce faire, la première requête liste toutes les images à importer et dans quel galerie. Ensuite à chaque nouvelle requête dans la partie d&#8217;administration une  série de 5 photos est ajoutés. Pour rendre le système plus conviviale, une progress bar a été ajoutée. Celle-ci évolue progressivement si le Javascript est activé sur votre navigateur. Ce système de mass_upload a bien évidement suivit l&#8217;évolution de Pictrails en supportant lui aussi les sous-galeries. Ainsi, il liste de façon récursive les répertoires et créé les galeries avec leurs parents associés.</p>
-
-<p style="text-align:center;"><img src="http://blog.shingara.fr/files/mass_upload_pictrails.png" alt="mass_upload de pictrails" ></p>
-
-<p>J&#8217;espère que cette nouvelle version vous satisfera. Bien-sûr la <a href="http://dev.shingara.fr/projects/roadmap/pictrails">liste des fonctionnalités</a> a ajouter n&#8217;est pas fini pour arriver à la version 1.0. Si vous avez envie de contribuer n&#8217;hésitez pas. Pour plus de détails sur cette version, le <a href="http://pictrails.rubyforge.org">site de pictrails</a> a été mis à jour</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -907,6 +903,10 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -942,10 +942,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

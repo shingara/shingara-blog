@@ -9,9 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je lis régulièrement le blog de Biologeek
-et j&#8217;aime beaucoup ses idées et analyses sur le Web en général.
-Aujourd&#8217;hui il a demandé au &hellip;">
+  <meta name="description" content="Il y a un petit plugin que j&#8217;affectionne de par son utilité. Il s&#8217;agit de ar-backup. Il a été réalisé par Matt Aimonetti qui est un des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,48 @@ Aujourd&#8217;hui il a demandé au &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/ar-backup-cool-et-patche.html">AR-Backup Cool Et Patché</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-27T00:00:00+01:00" pubdate data-updated="true">Nov 27<span>th</span>, 2007</time>
+        
+         | <a href="/ar-backup-cool-et-patche.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Il y a un petit plugin que j&#8217;affectionne de par son utilité. Il s&#8217;agit de <a href="http://code.google.com/p/ar-backup/">ar-backup</a>. Il a été réalisé par <a href="http://railsontherun.com/">Matt Aimonetti</a> qui est un des contributeurs français à Rails.</p>
+
+<p>Mais voilà, j&#8217;ai eu quelques difficultés avec ce plugin. En effet, ma locale par défaut est le français et il y avait une erreur de récupération de la révision SVN dû a un pattern dans la tâche ajouté par le plugin. Ce pattern supposait la locale anglaise et non une autre locale. Ainsi il n&#8217;arrivait pas à récupérer le numéro de version adéquate.</p>
+
+<p>J&#8217;ai tout d&#8217;abord reporté ce <a href="http://code.google.com/p/ar-backup/issues/detail?id=3">bug</a> sur la page du projet et réfléchis à une meilleur méthode. J&#8217;ai ainsi pu créer un <a href="http://code.google.com/p/ar-backup/issues/attachment?aid=-5493910150559502548&name=AR-backup_fix-search-revision.patch">patch</a> qui devrait permettre de faire fonctionner correctement ce plugin dans toutes les locales. En effet, il se base sur les fichiers de configuration directement intégré au dossier .svn et non à la commande. Même au niveau des performances, je pense que c&#8217;est un peu amélioré. En tout cas pour moi il fonctionne. Attendons de voir la réaction de Matt.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -560,61 +600,6 @@ Stable on x86 for bug #196409
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/technique-de-mise-en-maintenance-avec-rails-et-nginx.html">Technique De Mise en Maintenance Avec Rails Et Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-09T00:00:00+02:00" pubdate data-updated="true">Oct 9<span>th</span>, 2007</time>
-        
-         | <a href="/technique-de-mise-en-maintenance-avec-rails-et-nginx.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sur une <a href="http://lysscreen.no-ip.org">application en rails</a> que je développe pour un <a href="http://www.conquest-lys.net/">jeu on line</a>, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour prend 2-3 minutes et durant ce temps il faut que mon application devienne inaccessible pour éviter d&#8217;avoir des discordances dans mes données. J&#8217;ai fini par trouver une technique en m&#8217;inspirant d&#8217;un tuto sur Capistrano qui expliquait comment mettre en maintenance son site lors d&#8217;un déploiement avec Capistrano.</p>
-
-<p>Pour cela il faut ajouter une configuration dans son serveur web testant l&#8217;existence ou non d&#8217;un fichier. Pour <a href="http://nginx.net/">Nginx</a> vous pouvez donc faire comme cela :</p>
-
-<pre>
-    location /maintenance.html {
-        alias /var/rails/screeneur/public/maintenance.html;
-    }
-
-    # Put maintenance page if exist
-    if (-f /var/rails/screeneur/public/maintenance.html){
-         rewrite ^.*$ /maintenance.html redirect;
-    }
-</pre>
-
-<p>Ensuite au niveau de votre application Rails il ne vous reste plus qu&#8217;à ajouter un petit code qui permet de créer et supprimer le fichier maintenance.html.</p>
-
-<p>Grâce à cette technique le serveur web fera un test sur l&#8217;existence ou non du fichier maintenance.html. Si ce fichier existe, il redirigera toutes les requêtes sur cette page. Vous bloquez ainsi l&#8217;appel à votre application.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -630,6 +615,10 @@ Stable on x86 for bug #196409
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -665,10 +654,6 @@ Stable on x86 for bug #196409
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

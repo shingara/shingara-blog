@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je me suis retrouvé confronter à une méthode d&#8217;un &#8220;controller&#8221; de Ruby On Rails que je trouvais particulièrement longue sachant qu &hellip;">
+  <meta name="description" content="Ma migration vers un blog sous Typo approchant et étant actuellement, sous Dotclear, j&#8217;ai créé un nouveau plugin pour Typo. Ce plugin est une &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/nouveau-converter-de-dotclear-vers-typo.html">Nouveau Converter De Dotclear Vers Typo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-17T00:00:00+02:00" pubdate data-updated="true">Jul 17<span>th</span>, 2007</time>
+        
+         | <a href="/nouveau-converter-de-dotclear-vers-typo.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ma migration vers un blog sous <a href="http://typosphere.org/">Typo</a> approchant et étant actuellement, sous Dotclear, j&#8217;ai créé un nouveau plugin pour Typo. Ce plugin est une copie du converter de Mephisto pour Typo. En effet, le système de conversion de Mephisto me semble beaucoup plus performant et plus adapatable que celui de Typo. Typo étant un projet libre, j&#8217;ai donc créer un ticket pour proposer mon patch. J&#8217;attend de voir la réaction des développeurs sur ce plugins. Le ticket de submission est le <a href="http://trac.typosphere.org/ticket/1132">ticket 1132</a>.</p>
+
+<p>
+Je vais vous faire la traduction de mon mauvais anglais.
+</p>
+
+<p>J&#8217;ai créer un nouveau système pour convertir la base de donnée d&#8217;un autre blog en en base de donnée Typo. Mon nouveau système est basé sur le converter de Mephisto. C&#8217;est un plugin et il utilise complétement ActiveRecord. Pour récupérer les informations d&#8217;un autre blog et les poster dans Typo.
+</p>
+
+<p>Actuellement le converter fonctionne uniquement avec Dotclear, mais une interface est écrite et vous pouvez l&#8217;utiliser pour d&#8217;autre moteur de blog en créant un autre adapter.</p>
+
+<p>Pour commencer la migration de dotclear, vous avez besoin de compléter le config/database.yml avec une configuration qui a pour clé dv and toutes les information sur où trouver la base de donnée récupérer par un SQLDump de votre moteur de blog. Après cette configuration vous pouvez commencer la migration avec la commande suivante :</p>
+
+<pre>./script/runner 'TypoPlugins.convert_from :dotclear'</pre>
+
+<p>Par défaut vous pouvez migrer tous les articles, mais vous pouvez aussi migrer uniquement les articles de catégories défini.</p>
+
+<pre>./script/runner "TypoPlugins.convert_from :dotclear, {:categorie => ['ruby', 'rails', 'dev']}"</pre>
+
+<p>Conseil : Pour accélerer grandement la migration vous pouvez commenter la ligne suivante dans le config/environement.rb</p>
+
+<pre>#config.active_record.observers = :email_notifier, :web_notifier</pre>
+
+<p>Edit : 10min avant la soumission de mon patch, le script de migration disponible sur <a href="http://rubyfr.org/">RubyFR</a> avait été mis à jour. Quel hasard. <a href="http://fredix.freemonk.org/articles/2007/07/17/migration-dotclear-vers-typo">L&#8217;annonce de cette mise à jour</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -573,47 +634,6 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ruby-nest-pas-bugge%CC%81-cest-moi.html">Ruby N&#8217;est Pas Buggé, C&#8217;est Moi</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2007</time>
-        
-         | <a href="/ruby-nest-pas-bugge%CC%81-cest-moi.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Je poste la réponse que j&#8217;ai fini par avoir sur le billet parlant d&#8217;un <a href="http://shingara.free.fr/blog/index.php/?2007/04/26/179-ruby-a-t-il-un-bug-sur-ipaddr">hypothétique bug sur Ruby </a>. En effet, j&#8217;ai posé la question sur la mailing list de Ruby-Talk et j&#8217;ai obtenu la réponse suivante : </p>
-<p>En faite c&#8217;est moi qui ne connait pas très bien le protocole IpV6. En effet, mon ipv6 n&#8217;était pas bien formée. Elle ne comportait que 64 bits alors qu&#8217;une Ipv6 valide doit comporter 128 bits.</p>
-
-<p>Merci aussi à banux pour m&#8217;avoir répondu sur mon billet et il avait lui aussi bien sûr la bonne réponse.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -629,6 +649,10 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -664,10 +688,6 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

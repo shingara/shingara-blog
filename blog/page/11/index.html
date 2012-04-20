@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je suis actuellement en train de tenter de faire la migration de Redmine vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de &hellip;">
+  <meta name="description" content="Sur une application en rails que je développe pour un jeu on line, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/technique-de-mise-en-maintenance-avec-rails-et-nginx.html">Technique De Mise en Maintenance Avec Rails Et Nginx</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-09T00:00:00+02:00" pubdate data-updated="true">Oct 9<span>th</span>, 2007</time>
+        
+         | <a href="/technique-de-mise-en-maintenance-avec-rails-et-nginx.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sur une <a href="http://lysscreen.no-ip.org">application en rails</a> que je développe pour un <a href="http://www.conquest-lys.net/">jeu on line</a>, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour prend 2-3 minutes et durant ce temps il faut que mon application devienne inaccessible pour éviter d&#8217;avoir des discordances dans mes données. J&#8217;ai fini par trouver une technique en m&#8217;inspirant d&#8217;un tuto sur Capistrano qui expliquait comment mettre en maintenance son site lors d&#8217;un déploiement avec Capistrano.</p>
+
+<p>Pour cela il faut ajouter une configuration dans son serveur web testant l&#8217;existence ou non d&#8217;un fichier. Pour <a href="http://nginx.net/">Nginx</a> vous pouvez donc faire comme cela :</p>
+
+<pre>
+    location /maintenance.html {
+        alias /var/rails/screeneur/public/maintenance.html;
+    }
+
+    # Put maintenance page if exist
+    if (-f /var/rails/screeneur/public/maintenance.html){
+         rewrite ^.*$ /maintenance.html redirect;
+    }
+</pre>
+
+<p>Ensuite au niveau de votre application Rails il ne vous reste plus qu&#8217;à ajouter un petit code qui permet de créer et supprimer le fichier maintenance.html.</p>
+
+<p>Grâce à cette technique le serveur web fera un test sur l&#8217;existence ou non du fichier maintenance.html. Si ce fichier existe, il redirigera toutes les requêtes sur cette page. Vous bloquez ainsi l&#8217;appel à votre application.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -797,48 +852,6 @@ junit.textui.TestRunner
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/une-bonne-ame%CC%81lioration-pour-firefox-3.html">Une Bonne Amélioration Pour Firefox 3</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-25T00:00:00+02:00" pubdate data-updated="true">Sep 25<span>th</span>, 2007</time>
-        
-         | <a href="/une-bonne-ame%CC%81lioration-pour-firefox-3.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est c&#8217;est officiel, Firefox sera meilleur en terme de fuite de mémoire et autre consommation excessive. On peux ainsi lire l&#8217;annonce sur le <a href="http://www.squarefree.com/2007/09/20/firefox-memory-usage-and-memory-leak-news/">blog de Jesse Ruderman</a>.</p>
-
-<p>Cette annonce a ainsi été relayé par <a href="http://slashdot.org/article.pl?sid=07/09/24/1521240">Slashdot</a> et <a href="http://standblog.org/blog/post/2007/09/21/Sortie-de-Gran-Paradiso-Alpha-8">Tristan Nitot</a>.</p>
-
-<p>Je suis vraiment content que cette annonce ait été faite. En effet, j&#8217;aime beaucoup Firefox et surtout l&#8217;utilisation de ses nombreux plugins. Mais le fait de devoir régulièrement redémarrer cette application était un peu désagréable surtout avec l&#8217;utilisation actuelle de site internet de plus en plus puissance en terme de Javascript.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -854,6 +867,10 @@ junit.textui.TestRunner
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -889,10 +906,6 @@ junit.textui.TestRunner
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

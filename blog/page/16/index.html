@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Actuellement devant coder une application J2EE pour mon école, j&#8217;ai pris le temps de tester un peu deux gros IDE libres existant sur le marché &hellip;">
+  <meta name="description" content="Alors que j&#8217;ai encore passé une bonne soirée à installer mon environnement de développement et j&#8217;ai heureusement fini par y arriver. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/diffe%CC%81rence-entre-netbeans-et-eclipse-episode-2.html">Différence Entre Netbeans Et Eclipse Episode 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-21T00:00:00+01:00" pubdate data-updated="true">Dec 21<span>st</span>, 2006</time>
+        
+         | <a href="/diffe%CC%81rence-entre-netbeans-et-eclipse-episode-2.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Alors que j&#8217;ai encore passé une bonne soirée à installer mon environnement de développement et j&#8217;ai heureusement fini par y arriver. Maintenant je ne vais plus y toucher du tout et faire en sorte que ca soit stable. Je pense aussi avoir compris d&#8217;où vient le problème. En effet, mon projet a été créé avec une version d&#8217;eclipse plugger qui s&#8217;appele <a href="http://www.easyeclipse.org/site/home/">easyeclipse</a> version 1.0.1 basé sur <a href="http://www.eclipse.org">Eclipse</a> 3.1. Chez moi j&#8217;ai donc voulu upgrader eclipse et passer par easyeclipse 1.2.1 qui est basé sur Eclipse 3.2. Mais voilà le changement de version est pas très apprécié par Eclipse. En conséquence,  je pense que mes problèmes étaient principalement lié à cette modification d&#8217;environnement.
+</p>
+
+<p>
+Ce qui m&#8217;amène au problème que je ressens avec Eclipse et son support SVN. En effet, une fois que tu as fait le premier commit de ton application avec une version d&#8217;Eclipse il ne faut pas changer. même pour d&#8217;autre version comme <a href="http://forge.objectweb.org/projects/lomboz">Lomboz</a> ou <a href="http://www.myeclipseide.com/">MyEclipse</a>. En effet, chacun d&#8217;eux a sa propre gestion des serveurs type Tomcat et ne permet d&#8217;attacher qu&#8217;un projet de leur jus au serveur. Mais par contre comme <a href="http://www.netbeans.org">netbeans</a> intégre de base une gestion de serveur type Tomcat, avec l&#8217;import SVN. Il est ainsi très facile de créer un projet web et de lui donner les valeurs de checkout de notre SVN. Alors qu&#8217;avec Eclipse en faisant un Checkout nous ne pouvons que créer un nouveau projet. Nous ne pouvons pas l&#8217;attacher à un projet existant :(.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -680,46 +724,6 @@ Voici donc le patch que je préconise :
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ecriture-dun-article.html">Ecriture D&#8217;un Article</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-07-09T00:00:00+02:00" pubdate data-updated="true">Jul 9<span>th</span>, 2006</time>
-        
-         | <a href="/ecriture-dun-article.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Dernièrement j&#8217;ai eu l&#8217;idée d&#8217;écrire un petit article sur un problème informatique que j&#8217;ai tenté de résoudre. Je met donc à disposition de tout le monde cet article et je tenterais d&#8217;en écrire de temps en temps quand je trouve un bon sujet. Vous pouvez trouver cet article <a href="/../article/viewapng/">ici</a>
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -735,6 +739,10 @@ Dernièrement j&#8217;ai eu l&#8217;idée d&#8217;écrire un petit article sur u
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -770,10 +778,6 @@ Dernièrement j&#8217;ai eu l&#8217;idée d&#8217;écrire un petit article sur u
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

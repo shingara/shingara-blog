@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Un de mes projets chez JTEK est la cr&eacute;ation de Watchman. Cette application permet d&#8217;aider &agrave; v&eacute;rifier la s&eacute;curit& &hellip;">
+  <meta name="description" content="Depuis la sortie de Cucumber 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,73 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/cucumber-0-3-4-et-merb-la-dure-cohabitation.html">Cucumber>=0.3.4 Et Merb. La Dure Cohabitation</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-24T00:00:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2009</time>
+        
+         | <a href="/cucumber-0-3-4-et-merb-la-dure-cohabitation.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis la sortie de <a href="http://cukes.info/">Cucumber</a> 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation avec Merb. En effet, si on peux lire dans le <a href="http://github.com/aslakhellesoy/cucumber/blob/master/History.txt">History.txt</a> de Cucumber :</p>
+
+<typo:code>
+** IMPORTANT UPGRADE NOTES FOR RAILS USERS **
+ 
+Running Cucumber features in the same Ruby interpreter as Rake doesn&#8217;t seem to work,
+so you have to explicitly tell the task to fork (like it was doing by default in prior
+versions). In lib/tasks/cucumber.rake:
+ 
+  Cucumber::Rake::Task.new(:features) do |t|
+    t.fork = true # Explicitly fork
+    t.cucumber_opts = %w{&#8211;format pretty}
+  end
+ 
+(If you run script/generate cucumber this will be done for you).
+Alternatively you can omit forking and run features like this:
+ 
+  RAILS_ENV=test rake features
+ 
+However, setting the RAILS_ENV is easy to forget, so I don&#8217;t recommend relying on this.
+</typo:code>
+
+<p>
+Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l&#8217;heure actuel. En effet, la tâche <code>rake features</code> n&#8217;utilise pas les bonnes options pour cucumber.</p>
+
+<p>Après un long et rude combat avec cucumber, j&#8217;ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en &#8220;live&#8221; sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j&#8217;ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l&#8217;utilisation de Cucumber 0.3.4 et plus</a></p>
+
+<p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-05-24-since-cucumber-0-3-4-he-has-difficult-with-merb.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -722,60 +789,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/le-noel-de-la-fusion-entre-merb-et-rails-quen-penser.html">Le Noël De La Fusion Entre Merb Et Rails. Qu&#8217;en Penser ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-24T00:00:00+01:00" pubdate data-updated="true">Dec 24<span>th</span>, 2008</time>
-        
-         | <a href="/le-noel-de-la-fusion-entre-merb-et-rails-quen-penser.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Hier, 23 décembre la core Team de Merb et celle de Rails ont <a href="http://weblog.rubyonrails.org/2008/12/23/merb-gets-merged-into-rails-3">annoncé</a> <a href="http://yehudakatz.com/2008/12/23/rails-and-merb-merge/">conjointement</a> leur prévision de fusion pour Rails 3. En effet, Merb 2 sera Rails 3. Personnellement, j&#8217;ai été abasourdi par cette annonce. Immédiatement, je l&#8217;ai pris comme une mauvaise chose. J&#8217;ai tout de suite pensé que ce n&#8217;était pas forcément une bonne chose pour les Frameworks web en Ruby.</p>
-
-<p>En effet, mon premier argument dans le fait de la dualité Rails/Merb était la concurrence. Je prenais comme exemple la guerre des navigateurs qui durant la période IE vs Netscape a apporté le Javascript. Puis une fois cette guerre fini, il y a eu la stagnation des navigateurs et de IE 6 qui avait son monopole. Heureusement, Firefox/Safari/Opera sont arrivé progressivement, pour permettre de bonne amélioration dans les navigateurs et de meilleurs performances. C&#8217;est ainsi que Internet Explorer a eu besoin de revenir au source et reprendre son développement qui va maintenant amener IE 8. Sans cette concurrence, nous aurions surement eu IE 6 encore maintenant (même si il reste encore beaucoup de monde qui l&#8217;utilise). De même, la « guerre » entre Mephisto et Typo est une bonne chose et nous force a rester dans la course. Éviter l&#8217;attentisme.</p>
-
-<p>Selon moi, les dernières grandes améliorations de performances de Rails sont issue de cette « guerre » entre Merb et Rails, que ça soit Rails thread safe ou l&#8217;utilisation de Rack dans Rails. Mais Rails a aussi été obligé d&#8217;innover encore plus pour ne pas se faire doubler par Merb avec son Rails Metal par exemple ou l&#8217;incorporation de l&#8217;i18N</p>
-
-<p>Désormais avec cette incorporation de Merb dans Rails, Rails va encore plus progresser durant l&#8217;année à venir, c&#8217;est évident. Pour cela, cette annonce est vraiment une bonne nouvelle. Mais ne va-t-elle pas entrainer aussi une stagnation après toutes ces améliorations et cette évolution de Rails. Rails n&#8217;ayant plus de concurrent « sérieux » en ruby ne va-t-il pas se reposer sur ses lauriers ?</p>
-
-<p>C&#8217;est la que finalement, la communauté aura son rôle à jouer. C&#8217;est dans cette seconde partie de l&#8217;incorporation de Merb qui est tout se jouera pour l&#8217;avenir de Rails. L&#8217;idée de constituer une vrai équipe d&#8217;Evangéliste avec l&#8217;incorporation des Evangéliste de Merb comme Matt Aimonetti. Ainsi <a href="http://merbist.com/2008/12/23/rails-and-merb-merge/">Matt explique dans son post au sujet de l&#8217;incorporation des idées de Merb dans Rails</a>, qu&#8217;une des bonnes attitudes de Merb était cette écoute constante de la communauté. Cette envie de faire consensus. De toute manière, la multiplication des plugins fait le reste. Si telle ou telle personne préfère tel ou tel comportement qui semble bizarre au plus grand nombre, il lui suffit de faire son plugin et il aura son comportement. Pour lui et les quelques personnes qui pensent comme lui.</p>
-
-<p>C&#8217;est ainsi que DHH explique dans son blog personnel, que <a href="http://www.loudthinking.com/posts/36-work-on-what-you-use-and-share-the-rest">Rails n&#8217;est pas DHH</a>. Rails devient vraiment un consensus de rubyiste. La cible n&#8217;est pas d&#8217;avoir le meilleur framework web en Ruby. Mais d&#8217;avoir le meilleur framework en informatique. Combattre ensemble le Java, le .NET ou le PHP. Tous les développeurs ruby en sont persuadé, c&#8217;est évident. Mais tous les développeurs web ne sont pas rubyiste.</p>
-
-<p>Pour ma part, j&#8217;ai étudier dernièrement Merb et j&#8217;en ai été très content. J&#8217;avais même commencer des projets open source en Merb. Après une longue réflexion j&#8217;ai décidé de continuer d&#8217;utiliser Merb sur ces projets qui était assez jeunes aurait très bien pu migrer facilement en Rails. Par contre, j&#8217;utiliserais DataMapper comme ORM et essayerais de contribuer à ce merveilleux projet. Qui lui finalement reçoit une grosse pub car il sera possible de l&#8217;utiliser dans Rails 3.</p>
-
-<p>Pour les curieux, voici les <a href="http://shingara.fr/export/merb-rails-merge-on-merb-channel.log">logs de la soirée IRC sur le chan #merb</a> où l&#8217;activité a été très intense après l&#8217;annonce sur merge.</p>
-
-<p>Finalement, il ne faut avoir qu&#8217;un seul mot d&#8217;ordre, allez Rails 3 et Joyeux Noël.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -791,6 +804,10 @@ after &#8220;deploy:update_code&#8221;, :update_config
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -826,10 +843,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>

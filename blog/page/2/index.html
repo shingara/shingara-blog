@@ -9,9 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que j&#8217;ai évoqué ma migration de Merb à Rails pour
-Oupsnow, il a
-fallu trouver un système d&#8217;authentification ORM Agnostique. Le &hellip;">
+  <meta name="description" content="Alors que j&#8217;ai cherché comment tester facilement Devise. J&#8217;ai indiqué une technique dans mon précédent post. Mais cette technique est &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,46 @@ fallu trouver un système d&#8217;authentification ORM Agnostique. Le &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/comment-tester-devise-reelement.html">Comment Tester Devise ? Réélement ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-30T00:00:00+01:00" pubdate data-updated="true">Nov 30<span>th</span>, 2009</time>
+        
+         | <a href="/comment-tester-devise-reelement.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que j&#8217;ai cherché comment tester facilement <a href="http://github.com/plataformatec/devise">Devise</a>. J&#8217;ai indiqué une technique dans <a href="http://blog.shingara.fr/devise-cest-bien-mais-il-faut-le-tester.html">mon précédent post</a>. Mais cette technique est loin d&#8217;être la meilleure. Voici donc la nouvelle solution, la solution officielle.</p>
+
+<p>Il suffit d&#8217;inclure <code>Devise::TestHelpers</code>. Ensuite pour se logger avec un utilisateur, on utilise la méthode <code>sign_in</code>. La méthode <code>sign_out</code> existe aussi.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -655,73 +693,6 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cucumber-0-3-4-et-merb-la-dure-cohabitation.html">Cucumber>=0.3.4 Et Merb. La Dure Cohabitation</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-24T00:00:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2009</time>
-        
-         | <a href="/cucumber-0-3-4-et-merb-la-dure-cohabitation.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis la sortie de <a href="http://cukes.info/">Cucumber</a> 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation avec Merb. En effet, si on peux lire dans le <a href="http://github.com/aslakhellesoy/cucumber/blob/master/History.txt">History.txt</a> de Cucumber :</p>
-
-<typo:code>
-** IMPORTANT UPGRADE NOTES FOR RAILS USERS **
- 
-Running Cucumber features in the same Ruby interpreter as Rake doesn&#8217;t seem to work,
-so you have to explicitly tell the task to fork (like it was doing by default in prior
-versions). In lib/tasks/cucumber.rake:
- 
-  Cucumber::Rake::Task.new(:features) do |t|
-    t.fork = true # Explicitly fork
-    t.cucumber_opts = %w{&#8211;format pretty}
-  end
- 
-(If you run script/generate cucumber this will be done for you).
-Alternatively you can omit forking and run features like this:
- 
-  RAILS_ENV=test rake features
- 
-However, setting the RAILS_ENV is easy to forget, so I don&#8217;t recommend relying on this.
-</typo:code>
-
-<p>
-Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l&#8217;heure actuel. En effet, la tâche <code>rake features</code> n&#8217;utilise pas les bonnes options pour cucumber.</p>
-
-<p>Après un long et rude combat avec cucumber, j&#8217;ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en &#8220;live&#8221; sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j&#8217;ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l&#8217;utilisation de Cucumber 0.3.4 et plus</a></p>
-
-<p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-05-24-since-cucumber-0-3-4-he-has-difficult-with-merb.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -737,6 +708,10 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
@@ -772,10 +747,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     
       <li class="post">
         <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a>
       </li>
     
   </ul>
