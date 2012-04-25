@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Quiiet Assets le gem qui limite les logs"
+title: "Quiet Assets le gem qui limite les logs"
 date: 2012-04-25 09:42
 comments: true
 categories:
