@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que j&#8217;ai cherché comment tester facilement Devise. J&#8217;ai indiqué une technique dans mon précédent post. Mais cette technique est &hellip;">
+  <meta name="description" content="Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-01T00:00:00+01:00" pubdate data-updated="true">Dec 1<span>st</span>, 2009</time>
+        
+         | <a href="/sortie-de-oupsnow-0-4-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, cette version est désormais en Rails/MongoDB. Le back-end et le serveur ont changé.</p>
+
+<p>Cette nouvelle version, outre son refactoring comprend aussi l&#8217;ajout de quelques nouvelles fonctionnalités.</p>
+
+<ul>
+<li>Ajout d&#8217;un filtre par Status dans la recherche de ticket</li>
+<li>Ajout de la possibilité de changer la fonction de tous les membres d&#8217;un project</li>
+<li>Ajout de la preview des tickets et commentaires sur les tickets</li>
+<li>Ajout de la visualisation de la milestone courante dans la visualisation d&#8217;un ticket</li>
+<li>Possibilité d&#8217;ordonner tous les champs de recherche dans la vue des tickets</li>
+<li>Login par l&#8217;email et plus par le pseudo</li>
+</ul>
+
+<p>Vous pouvez télécharger cette version sur <a href="http://rubyforge.org/frs/?group_id=7685">rubyforge</a></p>
+
+<p>Si vous souhaitez tester cette version, une <a href="http://oupsnow.shingara.fr/">version de demo de oupsnow</a> est en ligne. Les login/mdp sont : admin@admin.com/oupsnow. Amusez vous bien.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -636,63 +689,6 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/observer-vs-callback.html">Observer Vs Callback</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-14T00:00:00+02:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time>
-        
-         | <a href="/observer-vs-callback.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
-
-<h2>L&#8217;Observeur</h2>
-
-<p>Dans Rails, il y a au premier abord une fonctionnalité vraiment intéressante. L&#8217;<a href="http://api.rubyonrails.org/classes/ActiveRecord/Observer.html">Observeur</a>. Grâce à lui, on peux définir une classe qui vérifie le comportement d&#8217;un model et effectue certaine action suite à ses observations. Il permet d&#8217;ajouter des événements avant/après l&#8217;enregistrement, la mise a jour ou la destruction d&#8217;un model.</p>
-
-<p>Pour mettre en place un observeur, il suffit de créer une classe héritant de <code>ActiveRecord::Observer</code>, mettre son code dedans et la définir comme observeur dans le fichier environment.rb. Rien de plus simple et ça marche très bien.</p>
-
-<h2>Le Callback</h2>
-
-<p>Mais Rails a déjà intégré dans ses models, les fonctions de callback utilisé par le observeur. En effet, on peux tout à fait définir N action after_save ou before_create. Ces méthodes seront appelés à l&#8217;événement voulu.</p>
-
-<h2>Mais que choisir ?</h2>
-
-<p>C&#8217;est là où je dis que le callback est plus intéressant que l&#8217;observeur. En effet, un callback fait exactement la même chose qu&#8217;un Observeur. Mais lui au moins on sait qu&#8217;il est là. En ouvrant la classe on découvre le callback. Pour détecter un Observeur, il faut regarder les fichiers de config de Rails et ouvrir une à une les classes Observeurs.</p>
-
-<p>Même le cas du nombre de ligne n&#8217;est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
-
-<p>Personnellement, je n&#8217;ai jamais constater un seul cas où l&#8217;observeur avait plus d&#8217;intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -708,6 +704,10 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -743,10 +743,6 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

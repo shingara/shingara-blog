@@ -9,7 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ma migration vers un blog sous Typo approchant et étant actuellement, sous Dotclear, j&#8217;ai créé un nouveau plugin pour Typo. Ce plugin est une &hellip;">
+  <meta name="description" content="Aujourd&#8217;hui, je viens de lire une <a
+href="http://woss.name/2007/07/20/capistrano-2-rocks-my-world/">présentation
+sur les nouveautés qu&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/les-nouveaute%CC%81s-de-capistrano-2.html">Les nouveautés de capistrano 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-07-20T00:00:00+02:00" pubdate data-updated="true">Jul 20<span>th</span>, 2007</time>
+        
+         | <a href="/les-nouveaute%CC%81s-de-capistrano-2.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Aujourd&#8217;hui, je viens de lire une <a
+href="http://woss.name/2007/07/20/capistrano-2-rocks-my-world/">présentation</a>
+sur les nouveautés qu&#8217;apportent capistrano dans sa version 2. Je suis
+complétement bluffé. j&#8217;ai juste utilisé un peu capistrano dans sa
+première version et j&#8217;avais trouvé ça vraiment très interressant et
+j&#8217;avais constaté que ca permettais beaucoup de chose. Là avec cette
+nouvelle version, on peux faire encore plus de chose et ça permet
+d&#8217;administrer plusieurs machine en même temps. On pourrait presque
+l&#8217;utiliser pour faire des checks sur plusieurs machine en parallèle
+sans ouvrir plusieurs shell.</p>
+
+<p>La fonctionnalité qui m&#8217;a le plus impressionner et le fait de
+lancer la même commande sur plusieurs host en parallèle et voir la
+sortie de chacun. Je vais donc faire une migration immédiate sur
+capistrano 2 et arreter d&#8217;étudier capistrano 1. Autant prendre tout de
+suite les devants.</p>
+
+<p>Par contre c&#8217;est vrai que son utilisation est surtout nécessaire
+dans un environnement clusterisé avec plusieurs machine. Dans un
+contexte avec une seule machine, ca sert beaucoup moi dû fait des
+tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -596,44 +656,6 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/compter-avec-rails.html">Compter avec Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-06-08T00:00:00+02:00" pubdate data-updated="true">Jun 8<span>th</span>, 2007</time>
-        
-         | <a href="/compter-avec-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors que je voulais tout simplement avoir le nombre de lignes dans une table, avec ActiveRecord, j&#8217;ai recherché dans la documentation la méthode qu&#8217;il me fallait. Mais hélas, je n&#8217;ai rien trouvé à part <code>User.find(:all).count</code>. Le problème de cette requête est que la requête exécuté par le SGBD était <code>select * from user;</code>, or ne voulant pas tous les résultats, cette requête était trop pour moi. C&#8217;est alors que j&#8217;ai tout simplement testé User.count dans la console Rails et qu&#8217;elle ne fut pas ma surprise de constater que ca me renvoyait tout simplement le nombre de ligne avec la requête que je désirais sur mon SGBD. Il y a pas à dire, Il faut parfois tout simplement testé en plus de regarder la doc. Tu as des chances pour que ca marche.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -649,6 +671,10 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -684,10 +710,6 @@ absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;�
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

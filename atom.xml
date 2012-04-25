@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-04-24T14:21:16+02:00</updated>
+  <updated>2012-04-25T10:04:42+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Quiiet Assets le gem qui limite les logs]]></title>
+    <link href="http://blog.shingara.fr//quiet-assets-le-limiteur-de-log.html"/>
+    <updated>2012-04-25T09:42:00+02:00</updated>
+    <id>http://blog.shingara.fr//quiet-assets-le-limiteur-de-log</id>
+    <content type="html"><![CDATA[<p>Voici une semaine, j&#8217;ai découvert un gem vraiment pratique.
+<a href="https://github.com/evrone/quiet_assets">quiet_assets</a>.</p>
+
+<p>Ce gems ne fait pas grand chose, mais a de grand avantage quand on
+développe une application Rails (> 3.1) avec des assets en utilisant la
+technologie &#8216;asset_pipeline&#8217;.</p>
+
+<p>Si c&#8217;est votre cas, vous vous êtes déjà rendu compte que chaques requêtes faites
+à votre application pour obtenir vos assets est logués dans votre
+fichier de log ( development.log en environement de dévelopment ). Des
+requêtes comme celle-ci :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-02-13 13:24:04 +0400
+</span><span class='line'>Served asset /application.js - 304 Not Modified (8ms)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On se retrouve ainsi à devoir remonter dans son fichier de logs pour
+obtenir les logs qui nous interresse vraiment ( les log de la requête
+courante ). Notre fichier de log est
+vraiment pollué par ces assets si vous en avez comme moi beaucoup.</p>
+
+<p>C&#8217;est là que <a href="https://github.com/evrone/quiet_assets">quiet_assets</a>
+devient vraiment interressant et pratique. Vous ajoutez ce gem dans
+votre Gemfile au niveau du groupe &#8216;development&#8217; et tous vos logs d&#8217;assets
+disparaissent. Ils ne sont tous simplement plus logguées dans votre fichier
+de log. On retrouve ainsi un fichier de log rapide a consulter et moins
+pollué par des informations inutiles.</p>
+
+<p>Comme quoi de tout petits gems peuvent nous rendre de grand service.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Récupération de ses fichiers sur basecamp]]></title>
@@ -994,34 +1033,6 @@ Grâce à dm-sweatshop, c&#8217;est enfin fini, les problèmes de multiples liai
 <p>
 Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet DataMapper à la place de Factory Girl.
 </p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Observer Vs Callback]]></title>
-    <link href="http://blog.shingara.fr//observer-vs-callback.html"/>
-    <updated>2009-06-14T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr//observer-vs-callback</id>
-    <content type="html"><![CDATA[<p>Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
-
-<h2>L&#8217;Observeur</h2>
-
-<p>Dans Rails, il y a au premier abord une fonctionnalité vraiment intéressante. L&#8217;<a href="http://api.rubyonrails.org/classes/ActiveRecord/Observer.html">Observeur</a>. Grâce à lui, on peux définir une classe qui vérifie le comportement d&#8217;un model et effectue certaine action suite à ses observations. Il permet d&#8217;ajouter des événements avant/après l&#8217;enregistrement, la mise a jour ou la destruction d&#8217;un model.</p>
-
-<p>Pour mettre en place un observeur, il suffit de créer une classe héritant de <code>ActiveRecord::Observer</code>, mettre son code dedans et la définir comme observeur dans le fichier environment.rb. Rien de plus simple et ça marche très bien.</p>
-
-<h2>Le Callback</h2>
-
-<p>Mais Rails a déjà intégré dans ses models, les fonctions de callback utilisé par le observeur. En effet, on peux tout à fait définir N action after_save ou before_create. Ces méthodes seront appelés à l&#8217;événement voulu.</p>
-
-<h2>Mais que choisir ?</h2>
-
-<p>C&#8217;est là où je dis que le callback est plus intéressant que l&#8217;observeur. En effet, un callback fait exactement la même chose qu&#8217;un Observeur. Mais lui au moins on sait qu&#8217;il est là. En ouvrant la classe on découvre le callback. Pour détecter un Observeur, il faut regarder les fichiers de config de Rails et ouvrir une à une les classes Observeurs.</p>
-
-<p>Même le cas du nombre de ligne n&#8217;est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
-
-<p>Personnellement, je n&#8217;ai jamais constater un seul cas où l&#8217;observeur avait plus d&#8217;intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
-
 ]]></content>
   </entry>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que j&#8217;ai encore passé une bonne soirée à installer mon environnement de développement et j&#8217;ai heureusement fini par y arriver. &hellip;">
+  <meta name="description" content="J&#8217;ai trouvé avec le blog de Jadawin un script qu&#8217;il a créé pour mettre à jour son fond d&#8217;écran pour les linuxiens dont je fais &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/ladaptation-par-le-python.html">L&#8217;adaptation par le Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-02T00:00:00+01:00" pubdate data-updated="true">Jan 2<span>nd</span>, 2007</time>
+        
+         | <a href="/ladaptation-par-le-python.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+J&#8217;ai trouvé avec le <a href="http://uname.tuxaco.net/">blog de Jadawin</a> un <a href="http://back.tuxaco.net">script</a> qu&#8217;il a créé pour mettre à jour son fond d&#8217;écran pour les linuxiens dont je fais partie. Il a créé ce script en Perl et moi je suis un pythonien alors juste pour rigoler, j&#8217;ai refait tout le script en Python. Et le <a href="/script/python/back.py">voici</a> pour vous. C&#8217;est pour l&#8217;instant ma version 0.1.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -638,92 +678,6 @@ Voici donc le patch que je préconise :
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/astuce-mplayer-comment-chercher-et-de%CC%81finir-une-langue-en-lisant-un-dvd-avec-mplayer.html">Astuce Mplayer : Comment chercher et définir une langue en lisant un DVD avec mplayer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-08-11T00:00:00+02:00" pubdate data-updated="true">Aug 11<span>th</span>, 2006</time>
-        
-         | <a href="/astuce-mplayer-comment-chercher-et-de%CC%81finir-une-langue-en-lisant-un-dvd-avec-mplayer.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aujourd&#8217;hui, je voulais voir le très bon film &#8220;Taxi Driver&#8221;. Ma copine l&#8217;a en DVD. Mais pour voir au mieux ce film, je voulais le voir en anglais avec sous-titrage en français. Alors, comme je regarde mes DVD avec Mplayer, j&#8217;ai fait :</p>
-
-<pre>$mplayer dvd://</pre>
-
-<p>Mon ordinateur étant par défaut en français, le film a commencé en français. Ce n&#8217;est hélas pas ce que je voulais.</p>
-<p>Mplayer n&#8217;a pas de menus de DVD dans son implémentation. Alors, j&#8217;ai cherché comme faire et j&#8217;ai trouvé. Avec le mode verbeux de Mplayer, quand on commence un DVD, nous pouvons voir toutes les langues et sous-titrage de notre DVD, comme montré ci-après :</p>
-
-<pre>shingara@shalamarette ~ $ mplayer dvd:// -v
-[...]
-[open] audio stream: 0 audio format: ac3 (stereo) language: en aid: 128
-[open] audio stream: 1 audio format: ac3 (stereo) language: fr aid: 129
-[open] audio stream: 2 audio format: ac3 (stereo) language: de aid: 130
-[open] number of audio channels on disk: 3.
-[open] subtitle ( sid ): 0 language: en
-[open] subtitle ( sid ): 1 language: fr
-[open] subtitle ( sid ): 2 language: de
-[open] subtitle ( sid ): 3 language: nl
-[open] subtitle ( sid ): 4 language: cs
-[open] subtitle ( sid ): 5 language: da
-[open] subtitle ( sid ): 6 language: fi
-[open] subtitle ( sid ): 7 language: el
-[open] subtitle ( sid ): 8 language: iw
-[open] subtitle ( sid ): 9 language: hi
-[open] subtitle ( sid ): 10 language: hu
-[open] subtitle ( sid ): 11 language: is
-[open] subtitle ( sid ): 12 language: no
-[open] subtitle ( sid ): 13 language: pl
-[open] subtitle ( sid ): 14 language: sv
-[open] subtitle ( sid ): 15 language: tr
-[open] number of subtitles on disk: 16
-[...]
-</pre>
-
-<p>Maintenant avec ces informations, nous pouvons choisir notre langue audio et sous-titre. Avec l&#8217;option -aid, nous définissons le nombre de la langue et avec l&#8217;option -sid, le nombre du sous-titrage.</p>
-
-<p>Exemple :</p>
-
-<ul>
-
-<li>Audio en anglais et sous-titre en français.<br />
-<pre>$mplayer dvd:// -aid 128 -sid 1</pre>
-</li>
-
-<li>Audio en français<br />
-<pre>$mplayer dvd:// -aid=129</pre>
-</li>
-</ul>
-
-<p>If you see this article in english, go <a href="http://shingara.free.fr/blog_en/index.php?2006/08/11/2-mplayer-tips-how-search-and-define-the-language-to-dvd-with-mplayer">here</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -739,6 +693,10 @@ Voici donc le patch que je préconise :
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -774,10 +732,6 @@ Voici donc le patch que je préconise :
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

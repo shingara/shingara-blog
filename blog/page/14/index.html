@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je poste la réponse que j&#8217;ai fini par avoir sur le billet parlant d&#8217;un hypothétique bug sur Ruby . En effet, j&#8217;ai posé la question &hellip;">
+  <meta name="description" content="Alors que je voulais tout simplement avoir le nombre de lignes dans une table, avec ActiveRecord, j&#8217;ai recherché dans la documentation la &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/compter-avec-rails.html">Compter avec Rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-08T00:00:00+02:00" pubdate data-updated="true">Jun 8<span>th</span>, 2007</time>
+        
+         | <a href="/compter-avec-rails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que je voulais tout simplement avoir le nombre de lignes dans une table, avec ActiveRecord, j&#8217;ai recherché dans la documentation la méthode qu&#8217;il me fallait. Mais hélas, je n&#8217;ai rien trouvé à part <code>User.find(:all).count</code>. Le problème de cette requête est que la requête exécuté par le SGBD était <code>select * from user;</code>, or ne voulant pas tous les résultats, cette requête était trop pour moi. C&#8217;est alors que j&#8217;ai tout simplement testé User.count dans la console Rails et qu&#8217;elle ne fut pas ma surprise de constater que ca me renvoyait tout simplement le nombre de ligne avec la requête que je désirais sur mon SGBD. Il y a pas à dire, Il faut parfois tout simplement testé en plus de regarder la doc. Tu as des chances pour que ca marche.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -624,46 +662,6 @@ le nécessaire et éviter ainsi le superflu.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/rubyforge-accepte-mon-whois.html">RubyForge accepte mon Whois</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-03-07T00:00:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2007</time>
-        
-         | <a href="/rubyforge-accepte-mon-whois.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est alors que j&#8217;ai envoyé un mail à l&#8217;ancien créateur de la lib whois en Ruby qui avait arrêté de la maintenir, j&#8217;ai lancé une demande de création de projet d&#8217;un whois en Ruby. Ce projet a été accepté et je vais donc m&#8217;y atteler complétement et tout ça avec la bénédiction de l&#8217;ancien créateur. Je suis bien content de pouvoir me lancer comme ça sur un projet intéressant et pas trop long. Je prend pour exemple les projets whois en C et rwhois en Python.</p>
-
-<p>Voici le lien du projet : <a href="http://rubyforge.org/projects/whois">Whois en Ruby</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -679,6 +677,10 @@ le nécessaire et éviter ainsi le superflu.
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -714,10 +716,6 @@ le nécessaire et éviter ainsi le superflu.
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

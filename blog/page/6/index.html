@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Aujourd&#8217;hui, j&#8217;ai passé la journée à essayer de comprendre un problème que j&#8217;avais sur l&#8217;application que je réalise dans le &hellip;">
+  <meta name="description" content="Après que Peter Cooper ait libéré le code original de rubyflow, Bruno Michel a pris les choses en mains pour traduire l&#8217;application. L&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/Le-rubyFlow-FR-disponible.html">Le rubyFlow FR disponible</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-29T00:00:00+02:00" pubdate data-updated="true">Aug 29<span>th</span>, 2008</time>
+        
+         | <a href="/Le-rubyFlow-FR-disponible.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Après que Peter Cooper ait libéré le code original de <a href="http://www.rubyflow.com/">rubyflow</a>, <a href="http://blog.menfin.info">Bruno Michel</a> a pris les choses en mains pour traduire l&#8217;application. <a href="http://rubyfrance.org">L&#8217;association RubyFrance</a> a ensuite hébergé le tout. Nous voilà donc maintenant avec notre propre <a href="http://flow.rubyfrance.org/">rubyflow FR</a>. Bravo pour cette initiative.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -838,56 +876,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/le-piege-des-routes-a-eviter.html">Le piege des routes à éviter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-17T00:00:00+02:00" pubdate data-updated="true">Jun 17<span>th</span>, 2008</time>
-        
-         | <a href="/le-piege-des-routes-a-eviter.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors, que je testais <a href="http://pictrails.rubyforge.org/">Pictrails</a> pour la <a href="http://blog.shingara.fr/articles/2008/06/15/publication-de-pictrails-0-3-0">release en version 0.3</a>, j&#8217;ai par hasard créé une galerie s&#8217;appelant &#8220;new&#8221;. Ayant implémenté un système de PrettyURL pour pictrails, j&#8217;ai changé les routes REST pour non pas afficher l&#8217;id de la galerie dans l&#8217;url mais son nom. Ainsi, comme ma galerie s&#8217;appele &#8220;new&#8221;, je devais allez sur l&#8217;URL : /galleries/new.</p>
-
-<p>Mais voilà comme galerie était une ressource REST, la route /galleries/new est déjà réservé et je me suis donc retrouvé sur l&#8217;url de création d&#8217;une Gallerie et non sur l&#8217;url de visualisation de la galerie new. C&#8217;est ainsi que je suis tombé dans le piège des routes à éviter.</p>
-
-<p>Maintenant, que j&#8217;ai trouvé le bug il a fallu trouvé la solution et plus que de trouver la solution, il fallait trouver une solution propre. En effet, basiquement, on peux créer un validateur qui vérifie que le nom n&#8217;est pas &#8220;new&#8221;, mais cette technique ne me semblait pas idéal surtout pour l&#8217;avenir et le maintient à terme de cette solution. J&#8217;ai donc commencé à en discuter avec les personnes présentent sur le chan #rubyonrails.fr. C&#8217;est ainsi que <a href="http://lifeisdead.net">webs</a> m&#8217;a proposé une solution tout à fait élégante en me donnant un code de <a href="http://sunfox.org/">sunny</a>. La vérification directe de l&#8217;existence ou non de la route. Voici le bout de code qui permet cette vérification :</p>
-
-<typo:code lang="ruby">
-permalinks = ActionController::Routing::Routes.routes.collect {|r|
-   r.generation_structure.match(/&#8221;\/galleries\/([\w]+)/)[1] rescue nil
-}.uniq.compact
-</typo:code>
-
-<p>On récupère ainsi tous les mots utilisés dans nos routes et commençant par galleries. Sur Pictrails, nous obtenons ainsi &#8220;pages&#8221; et &#8220;new&#8221;. Il suffit ensuite d&#8217;empêcher la création de galerie avec ces noms.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -903,6 +891,10 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -938,10 +930,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

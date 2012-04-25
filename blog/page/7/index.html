@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Presque 3 mois jours pour jours après la dernière release de Pictrails 0.2.3, voici la release de la version 0.3.0 Cette nouvelle version apporte son &hellip;">
+  <meta name="description" content="Alors, que je testais Pictrails pour la release en version 0.3, j&#8217;ai par hasard créé une galerie s&#8217;appelant &#8220;new&#8221;. Ayant &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/le-piege-des-routes-a-eviter.html">Le piege des routes à éviter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-17T00:00:00+02:00" pubdate data-updated="true">Jun 17<span>th</span>, 2008</time>
+        
+         | <a href="/le-piege-des-routes-a-eviter.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors, que je testais <a href="http://pictrails.rubyforge.org/">Pictrails</a> pour la <a href="http://blog.shingara.fr/articles/2008/06/15/publication-de-pictrails-0-3-0">release en version 0.3</a>, j&#8217;ai par hasard créé une galerie s&#8217;appelant &#8220;new&#8221;. Ayant implémenté un système de PrettyURL pour pictrails, j&#8217;ai changé les routes REST pour non pas afficher l&#8217;id de la galerie dans l&#8217;url mais son nom. Ainsi, comme ma galerie s&#8217;appele &#8220;new&#8221;, je devais allez sur l&#8217;URL : /galleries/new.</p>
+
+<p>Mais voilà comme galerie était une ressource REST, la route /galleries/new est déjà réservé et je me suis donc retrouvé sur l&#8217;url de création d&#8217;une Gallerie et non sur l&#8217;url de visualisation de la galerie new. C&#8217;est ainsi que je suis tombé dans le piège des routes à éviter.</p>
+
+<p>Maintenant, que j&#8217;ai trouvé le bug il a fallu trouvé la solution et plus que de trouver la solution, il fallait trouver une solution propre. En effet, basiquement, on peux créer un validateur qui vérifie que le nom n&#8217;est pas &#8220;new&#8221;, mais cette technique ne me semblait pas idéal surtout pour l&#8217;avenir et le maintient à terme de cette solution. J&#8217;ai donc commencé à en discuter avec les personnes présentent sur le chan #rubyonrails.fr. C&#8217;est ainsi que <a href="http://lifeisdead.net">webs</a> m&#8217;a proposé une solution tout à fait élégante en me donnant un code de <a href="http://sunfox.org/">sunny</a>. La vérification directe de l&#8217;existence ou non de la route. Voici le bout de code qui permet cette vérification :</p>
+
+<typo:code lang="ruby">
+permalinks = ActionController::Routing::Routes.routes.collect {|r|
+   r.generation_structure.match(/&#8221;\/galleries\/([\w]+)/)[1] rescue nil
+}.uniq.compact
+</typo:code>
+
+<p>On récupère ainsi tous les mots utilisés dans nos routes et commençant par galleries. Sur Pictrails, nous obtenons ainsi &#8220;pages&#8221; et &#8220;new&#8221;. Il suffit ensuite d&#8217;empêcher la création de galerie avec ces noms.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -696,105 +746,6 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-17.html">Vivre avec Rails Edge #17</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-24T00:00:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2008</time>
-        
-         | <a href="/vivre-avec-rails-edge-17.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis le début, je suis les news de <a href="http://blog.codefront.net">Chu Yeow</a> concernant les nouveautés intégrés à Rails dans sa version de développement. J&#8217;ai décidé d&#8217;essayer de vous les traduire régulièrement ici.</p>
-
-<p>Traduction de la <a href="http://blog.codefront.net/2008/04/20/living-on-the-edge-of-rails-17/">news #17</a>
-
-<p>Peu de chose se sont passé cette semaine sur Edge Rails. Il semblerait que nous aillons un nouveau membre dans le Rails core, <a href="http://joshpeek.com/">Joshua Peek</a>. Le nouveau <a href="http://rails.lighthouseapp.com/">bug tracking de Rails</a> sur Lighthouse est pret à utiliser, donc vous pouvez y soumettre vos patchs et rapport de bug dessus.</p>
-
-<p>Le rapport de cette semaine couvre les changements entre le 14 Avril 2008 et le 20 Avril 2008 (Jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
-                               
-<h3>caches_page conditionel</h3>
-                                                     
-<p>The <code>caches_pages</code> peuvent prendre une option <code>:if</code> pour indiquer quand une pave peux être vraiment caché via une Proc. Vous pouvez maintenant faire ceci par exemple:</p>
-                                                                                                        
-<typo:code lang="ruby">caches_page :index, :if => Proc.new { |c| !c.request.format.json? }</typo:code>
-                                                                                            
-<p>Cela met votre index en cache uniquement si le format de la requête n&#8217;est pas du JSON.</p>
-                                                                                                 
-<p>Cette fonctionnalité a été ajouté par <a href="http://deaddeadgood.com/">Paul Horsfall</a>.</p>
-<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9">http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9</a></p>
-
-                                                                      
-<h3>Nouvelle ActionView::TestCase pour tester les helpers des vues</h3>
-                                                                  
-<p>Rappelez vous comment vous pouvez actuellement utiliser <a href="http://blog.codefront.net/2007/12/27/dry-in-your-functional-and-actionmailer-tests-rails-20-a-feature-a-day-7/">les classes TestCase spécialisé pour tester les classes Controllers et ActionMailer (en)</a>? Désormai
-s vous pourrez faire la même chose pour vos helpers de vues Rails avec la nouvelle classe ActionView::TestCase.</p>
-                             
-<p>Voici un petit exemple:</p>
-                                          
-<typo:code lang="ruby">module PeopleHelper
-  def title(text)
-    content_tag(:h1, text)
-  end
-                  
-  def homepage_path
-    people_path
-  end
-end
-                                               
-class PeopleHelperTest > ActionView::TestCase
-def setup                                       
-  ActionController::Routing::Routes.draw do |map|                        
-    map.people &#8216;people&#8217;, :controller => &#8216;people&#8217;, :action => &#8216;index&#8217;
-    map.connect &#8216;:controller/:action/:id&#8217;
-  end
-end
-              
-def test_title                         
-  assert_equal &#8221;<h1>Ruby on Rails</h1>&#8221;, title(&#8220;Ruby on Rails&#8221;)
-end
-
-def test_homepage_path
-  assert_equal &#8220;/people&#8221;, homepage_path
-end</typo:code>
-<p>Remercions Josh Peek pour cette jolie petite amélioration..</p>
-
-<h3>mem_cache_store de ActiveSupport::Cache accepte des options</h3>
-
-<p>Même si Memcache-client a été ajouté récement à ActiveSupport, on ne pouvait pas spécifié toutes les options de configuration derrière l&#8217;ip du serveur memcache. Maintenant vous pouvez passer beaucoup plus d&#8217;options comme ceci:</p>
-
-<typo:code lang="ruby">config.action_controller.fragment_cache_store = :mem_cache_store, &#8216;localhost&#8217;, { :compression => true, :debug => true, :namespace => &#8216;foo&#8217; }</typo:code>
-
-<p>Ce patch est de <a href="http://blog.innerewut.de/">Jonathan Weiss</a>.</p>
-<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214">http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -810,6 +761,10 @@ end</typo:code>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -845,10 +800,6 @@ end</typo:code>
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Il y a un petit plugin que j&#8217;affectionne de par son utilité. Il s&#8217;agit de ar-backup. Il a été réalisé par Matt Aimonetti qui est un des &hellip;">
+  <meta name="description" content="Qu&#8217;est ce qu&#8217;Hoe Hoe est un tout petit gem géré par la Seattle Ruby Brigade!. Ce gem n&#8217;a qu&#8217;une utilité, aider au &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,168 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/hoe-laide-de-diffusion-de-gem-sur-rubyforge.html">Hoe, l&#8217;aide de diffusion de gem sur rubyforge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-12-18T00:00:00+01:00" pubdate data-updated="true">Dec 18<span>th</span>, 2007</time>
+        
+         | <a href="/hoe-laide-de-diffusion-de-gem-sur-rubyforge.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Qu&#8217;est ce qu&#8217;Hoe</h1>
+
+<p>
+<a href="http://seattlerb.rubyforge.org/hoe/">Hoe</a> est un tout petit gem géré par la <a href="http://seattlerb.rubyforge.org/">Seattle Ruby Brigade!</a>. Ce gem n&#8217;a qu&#8217;une utilité, aider au développement d&#8217;un gem sur rubyforge. Mais comme tout petite librairie importante, ce qu&#8217;il fait, il le fait bien.
+</p>
+
+<h1>Installation de Hoe</h1>
+
+<h2>Dépendance</h2>
+
+<p>
+Hoe permet de générer des gems et il nécessite donc <a href="http://rubygems.org/">rubygems</a>. Il déploie votre gems sur RubyForge et nécessite donc aussi le gem rubyforge. Il ajoute plein de tâche rake pour vous. il a donc besoin de <a href="http://rake.rubyforge.org/">rake</a>.
+</p>
+
+<h2>Installation</h2>
+
+<p>Pour l&#8217;installer il suffit de faire un <code>gem install hoe</code>.
+
+<h1>Créer un projet Hoe</h1>
+
+<p>Pour plus de simplicité pour la suite, il suffit de créer un projet hoe. C&#8217;est un peu comme réaliser un projet avec Rails. Hoe crée une série de répertoires et fichiers qui ont tous leurs utilités et permettront de réaliser facilement votre gem avec le déploiement sur RubyForge.</p>
+
+<p>Pour créer votre projet, vous avez ainsi la commande sow. Il suffit de réaliser <code>sow projet</code>. Voici un exemple de sortie généré par cette commande.</p>
+
+<pre>
+hello-23:46:11:~/programmation/ruby/test$ sow testhoe
+creating project testhoe
+... done, now go fix all occurrences of 'FIX'
+
+  testhoe/Rakefile:9:  # p.author = 'FIX'
+  testhoe/Rakefile:10:  # p.email = 'FIX'
+  testhoe/Rakefile:11:  # p.summary = 'FIX'
+  testhoe/README.txt:2:    by FIX (your name)
+  testhoe/README.txt:3:    FIX (url)
+  testhoe/README.txt:7:FIX (describe your package)
+  testhoe/README.txt:11:* FIX (list of features or problems)
+  testhoe/README.txt:15:  FIX (code sample of usage)
+  testhoe/README.txt:19:* FIX (list of requirements)
+  testhoe/README.txt:23:* FIX (sudo gem install, anything else)
+  testhoe/README.txt:29:Copyright (c) 2007 FIX
+
+</pre>
+
+<p>Vous obtenez ainsi l&#8217;arborescence suivante dans le répertoire &#8220;testhoe&#8221;</p>
+
+
+<pre>hello-23:46:19:~/programmation/ruby/test$ tree testhoe/
+testhoe/
+|-- History.txt
+|-- Manifest.txt
+|-- README.txt
+|-- Rakefile
+|-- bin
+|   `-- testhoe
+|-- lib
+|   `-- testhoe.rb
+`-- test
+    `-- test_testhoe.rb
+
+3 directories, 7 files
+</pre>
+
+<p>Voici à quoi sert chaques fichiers :</p>
+
+<ul>
+<li>History.txt permet de définir le changelog de votre projet version par version. il est déjà pré-rempli</li>
+
+<li>Manifest.txt est un fichier listant tous les fichiers qui sont présent dans votre futur gem. Vous pouvez vérifier si il est exacte grâce à une tâche rake : rake check_manifest. Ca générera un diff entre le fichier Manifest.txt et votre arborescence.</li>
+
+<li>README.txt est tout simplement le fichier qui définis tout votre projet. C&#8217;est en grande partie à partir de lui que vous seront tiré les information pour publier votre gem.</li>
+
+<li>RakeFile qui est le fichier de configuration des tâche rake généré par HOE.</li>
+
+<li>le dossier bin est le dossier ou vous insérez l&#8217;executable</li>
+
+<li>le dossier lib est le dossier où vous intégrez les librairies développé pour votre gem</li>
+</ul>
+
+<p>Chaque partie du fichier README.txt est commenté et sera utilisé directement par des tâches rake pour la publication de votre gem sur rubyforge.</p>
+
+<h1>Configurer un projet Hoe</h1>
+
+<p>Pour configurer un projet Hoe, il faut éditer le fichier Rakefile. En effet, les informations importantes ce trouve dedans :</p>
+
+<ul>
+<li>rubyforge_name : le nom du projet sur Rubyforge</li>
+<li>author : le nom du créateur du gem</li>
+<li>email :  l&#8217;email du créateur du gem</li>
+<li>summary : Résumé sur le gem. En général on utilise celui donné sur rubyforge</li>
+
+<li>description : Il s&#8217;agit de la description détaillée de votre gem. Pareil autant utilisé celle de Rubyforge.</li>
+
+<li>url : l&#8217;url de votre projet sur rubyforge</li>
+
+<li>changes : la liste du changelog. Par défaut il s&#8217;agit du premier paragraphe du fichier history.txt</li>
+
+<li>extra_deps : on peux ajouter la liste de dépendance gem nécessaire à votre gem. De la manière suivante : <code>p.extra_deps << ['actionmailer', '>= 1.3.5']</code></li>
+
+<li>remote_rdoc_rdir : il s&#8217;agit du chemin de base où sera déposé la rdoc généré de votre gem. Ca peux ainsi être envoyé sur le site qui vous est disponible par rubyforge.</li>
+</ul>
+
+<h1>Tâche rake utile</h1>
+
+<p>Grâce à Hoe, beaucoup de tâche rake sont ajoutée en voici une petite liste avec l&#8217;intérêt de chacune :</p>
+
+<ul>
+<li>rake announce : génére un email et le post sur l&#8217;annonce de Rubyforge. Il se base sur le changelog généré à partir de change et description défini dans le RakeFile.</li>
+
+<li>rake check_manifest : qui vérifie que votre manifest est correcte</li>
+
+<li>rake gem : génére le gem en se basant sur la config Hoe. Le gem se trouve dans le dossier pkg</li>
+
+<li>rake clean : supprime le dossier pkg</li>
+
+<li>rake package : génére les différents packages de votre projet (tar.gz et gem) dans le dosser pkg</li>
+
+<li>rake release : génére les paquets et envoie une annonce sur Rubyforge.</li>
+
+<li>rake publish_docs : génére la rdoc du gem et l&#8217;upload sur le site de rubyrforge de votre gem.</li>
+
+</ul>
+
+<p>Il y a encore d&#8217;autre doc que vous pouvez découvrir sur leur <a href="http://seattlerb.rubyforge.org/hoe/">doc</a></p>
+
+<p>Par contre un autre gem, <a href="http://newgem.rubyforge.org/">newgem</a> qui a été réalisé par <a href="http://drnicwilliams.com/">DrNic</a>. Je vais étudier ça de ce pas.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -554,52 +716,6 @@ Stable on x86 for bug #196409
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/with_scope-passe-en-protected-dans-rails-2-0.html">with_scope passé en protected dans Rails 2.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-16T00:00:00+02:00" pubdate data-updated="true">Oct 16<span>th</span>, 2007</time>
-        
-         | <a href="/with_scope-passe-en-protected-dans-rails-2-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Toujours en train de m&#8217;amuser à la migration de <a href="http://redmine.org">Redmine</a> sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet, j&#8217;ai découvert que la méthode with_scope a été déplacé en &#8220;protected&#8221;. Elle n&#8217;est donc plus accessible en public.</p>
-
-<p>Cette modification a fait suite au <a href="http://dev.rubyonrails.org/ticket/8524">ticket 8524</a> et a été mis à jours dans la <a href="http://dev.rubyonrails.org/changeset/6909">révision 6909</a>.</p>
-
-<p>Bien sûr DHH a fait la remarque de cette modification dans son <a href="http://weblog.rubyonrails.org/2007/9/30/rails-2-0-0-preview-release">annonce sur la Release de Rails 2.0 PR</a>.</p>
-
-<p>Je vais vous faire une rapide traduction du passage concernant with_scope.</p>
-
-<quote>ActiveRecord::Base.with_scope a été déplacé en &#8220;protected&#8221; pour décourager son utilisation dans les controllers et en particulier dans les filtres. Désormais il est encouragé de l&#8217;utiliser uniquement dans le modèle lui-même. Ce pourquoi il a été initialement conçut et d&#8217;où il ne devrait pas sortir. Bien sûr, c&#8217;est tout ce qui concerne l&#8217;encouragement et le découragement. Si vous avez pesé le pour et les contres de l&#8217;utilisation de with_scope en dehors du modèle, vous pouvez toujours l&#8217;appeler de la manière suivante :  <code>.send(:with_scope)</code></quote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -615,6 +731,10 @@ Stable on x86 for bug #196409
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -650,10 +770,6 @@ Stable on x86 for bug #196409
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

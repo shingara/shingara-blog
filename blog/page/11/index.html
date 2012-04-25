@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Sur une application en rails que je développe pour un jeu on line, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour &hellip;">
+  <meta name="description" content="Toujours en train de m&#8217;amuser à la migration de Redmine sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/with_scope-passe-en-protected-dans-rails-2-0.html">with_scope passé en protected dans Rails 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-16T00:00:00+02:00" pubdate data-updated="true">Oct 16<span>th</span>, 2007</time>
+        
+         | <a href="/with_scope-passe-en-protected-dans-rails-2-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Toujours en train de m&#8217;amuser à la migration de <a href="http://redmine.org">Redmine</a> sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet, j&#8217;ai découvert que la méthode with_scope a été déplacé en &#8220;protected&#8221;. Elle n&#8217;est donc plus accessible en public.</p>
+
+<p>Cette modification a fait suite au <a href="http://dev.rubyonrails.org/ticket/8524">ticket 8524</a> et a été mis à jours dans la <a href="http://dev.rubyonrails.org/changeset/6909">révision 6909</a>.</p>
+
+<p>Bien sûr DHH a fait la remarque de cette modification dans son <a href="http://weblog.rubyonrails.org/2007/9/30/rails-2-0-0-preview-release">annonce sur la Release de Rails 2.0 PR</a>.</p>
+
+<p>Je vais vous faire une rapide traduction du passage concernant with_scope.</p>
+
+<quote>ActiveRecord::Base.with_scope a été déplacé en &#8220;protected&#8221; pour décourager son utilisation dans les controllers et en particulier dans les filtres. Désormais il est encouragé de l&#8217;utiliser uniquement dans le modèle lui-même. Ce pourquoi il a été initialement conçut et d&#8217;où il ne devrait pas sortir. Bien sûr, c&#8217;est tout ce qui concerne l&#8217;encouragement et le découragement. Si vous avez pesé le pour et les contres de l&#8217;utilisation de with_scope en dehors du modèle, vous pouvez toujours l&#8217;appeler de la manière suivante :  <code>.send(:with_scope)</code></quote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -773,85 +819,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse.html">Sortir un test Junit à partir d&#8217;un test Junit d&#8217;Eclipse</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-27T00:00:00+02:00" pubdate data-updated="true">Sep 27<span>th</span>, 2007</time>
-        
-         | <a href="/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Au niveau de mon travail, on m&#8217;a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un pom.xml complet (pour projet Maven) pour ainsi avoir toutes les dépendances nécessaires.</p>
-
-<p>Comme toujours on m&#8217;a demandé de réaliser cette sortie assez rapidement. J&#8217;ai donc trouvé une petite bidouille pour arriver à réaliser mon test en console en conservant complètement mon classpath défini par Eclipse.</p>
-
-<p>Tout d&#8217;abord il faut récupérer la commande réaliser par Eclipse pour lancer le test. Pour cela, il suffit de mettre un point d&#8217;arrêt dans son script Junit, lancer le script en mode « Debug » et ensuite quand le point d&#8217;arrêt à stopper le processus, un clic droit sur le thread permet de consulter le menu de propriété de lancement de ce thread.</p>
-
-<p>On copie entièrement la ligne de commande qui est de la forme suivante :</p>
-
-<pre>
-C:\bea\jdk142_05\bin\javaw.exe -classpath ${CLASSPATH_DE_LANCEMENT}
--Xdebug 
--Xnoagent
--Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859 
-org.eclipse.jdt.internal.junit.runner.RemoteTestRunner 
--version 3 
--port 1858 
--testLoaderClass Org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader
--classNames ${CLASSE_LANCER_POUR_LE_TEST}
-</pre>
-
-<p>Dans mon exemple les variables ${} sont bien sûr différente. Je les ai remplacé pour limiter un peu la place prise par la ligne de commande.</p>
-
-<p>Maintenant que vous avez cette ligne de commande, il suffit de faire quelque modification dessus et vous aurez votre ligne de commande complète. Les modifications à réaliser sont les suivantes :</p>
-
-<ul>
-<li>Suppression de l&#8217;option -Xdebug</li>
-<li>Suppression de l&#8217;option -Xnoagent</li>
-<li>Suppression de l&#8217;option -Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859</li>
-<li>Suppression de -port 1858 </li>
-<li>Transformer l&#8217;exécutable de lancement pas java.exe au lieu de javaw.exe</li>
-<li>Transformer la classe de lancement par junit.textui.TestRunner au lieu de org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader qui est spécifique à Eclipse.</li>
-</ul>
-
-<p>Maintenant que vous avez réalisé tous ces petits changements vous pouvez désormais lancer la ligne de commande obtenu de la façon suivante :</p>
-
-<pre>C:\bea\jdk142_05\bin\java.exe 
--classpath ${CLASSPATH_DE_LANCEMENT} 
-junit.textui.TestRunner 
--version 3 
--classNames ${CLASSE_LANCER_POUR_LE_TEST}</pre>
-
-<p>Bien sûr il y a d&#8217;autres techniques qui sont de simplement récupérer le CLASSPATH par exemple et de le mettre dans notre ligne de commande.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -867,6 +834,10 @@ junit.textui.TestRunner
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -902,10 +873,6 @@ junit.textui.TestRunner
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

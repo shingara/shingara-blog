@@ -9,10 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Au niveau de mon travail actuel chez Be My Boat,
-nous sommes actuellement en train de migrer de
-Basecamp vers
-Trello. Pour éviter de perdre toutes &hellip;">
+  <meta name="description" content="Voici une semaine, j&#8217;ai découvert un gem vraiment pratique.
+quiet_assets. Ce gems ne fait pas grand chose, mais a de grand avantage quand on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,74 @@ Trello. Pour éviter de perdre toutes &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-25T09:42:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2012</time>
+        
+         | <a href="/quiet-assets-le-limiteur-de-log.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Voici une semaine, j&#8217;ai découvert un gem vraiment pratique.
+<a href="https://github.com/evrone/quiet_assets">quiet_assets</a>.</p>
+
+<p>Ce gems ne fait pas grand chose, mais a de grand avantage quand on
+développe une application Rails (> 3.1) avec des assets en utilisant la
+technologie &#8216;asset_pipeline&#8217;.</p>
+
+<p>Si c&#8217;est votre cas, vous vous êtes déjà rendu compte que chaques requêtes faites
+à votre application pour obtenir vos assets est logués dans votre
+fichier de log ( development.log en environement de dévelopment ). Des
+requêtes comme celle-ci :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2012-02-13 13:24:04 +0400
+</span><span class='line'>Served asset /application.js - 304 Not Modified (8ms)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On se retrouve ainsi à devoir remonter dans son fichier de logs pour
+obtenir les logs qui nous interresse vraiment ( les log de la requête
+courante ). Notre fichier de log est
+vraiment pollué par ces assets si vous en avez comme moi beaucoup.</p>
+
+<p>C&#8217;est là que <a href="https://github.com/evrone/quiet_assets">quiet_assets</a>
+devient vraiment interressant et pratique. Vous ajoutez ce gem dans
+votre Gemfile au niveau du groupe &#8216;development&#8217; et tous vos logs d&#8217;assets
+disparaissent. Ils ne sont tous simplement plus logguées dans votre fichier
+de log. On retrouve ainsi un fichier de log rapide a consulter et moins
+pollué par des informations inutiles.</p>
+
+<p>Comme quoi de tout petits gems peuvent nous rendre de grand service.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1003,59 +1069,6 @@ after &#8220;deploy:start&#8221;, :clear_cache
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-12-01T00:00:00+01:00" pubdate data-updated="true">Dec 1<span>st</span>, 2009</time>
-        
-         | <a href="/sortie-de-oupsnow-0-4-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est, Oupsnow 0.4.0 est enfin sorti. Cette version est un refactoring quasiment complet. Après avoir eu une version 0.3.0 en Merb/DataMapper, cette version est désormais en Rails/MongoDB. Le back-end et le serveur ont changé.</p>
-
-<p>Cette nouvelle version, outre son refactoring comprend aussi l&#8217;ajout de quelques nouvelles fonctionnalités.</p>
-
-<ul>
-<li>Ajout d&#8217;un filtre par Status dans la recherche de ticket</li>
-<li>Ajout de la possibilité de changer la fonction de tous les membres d&#8217;un project</li>
-<li>Ajout de la preview des tickets et commentaires sur les tickets</li>
-<li>Ajout de la visualisation de la milestone courante dans la visualisation d&#8217;un ticket</li>
-<li>Possibilité d&#8217;ordonner tous les champs de recherche dans la vue des tickets</li>
-<li>Login par l&#8217;email et plus par le pseudo</li>
-</ul>
-
-<p>Vous pouvez télécharger cette version sur <a href="http://rubyforge.org/frs/?group_id=7685">rubyforge</a></p>
-
-<p>Si vous souhaitez tester cette version, une <a href="http://oupsnow.shingara.fr/">version de demo de oupsnow</a> est en ligne. Les login/mdp sont : admin@admin.com/oupsnow. Amusez vous bien.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1069,6 +1082,10 @@ after &#8220;deploy:start&#8221;, :clear_cache
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -1104,10 +1121,6 @@ after &#8220;deploy:start&#8221;, :clear_cache
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

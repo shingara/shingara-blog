@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Hier, 23 décembre la core Team de Merb et celle de Rails ont annoncé conjointement leur prévision de fusion pour Rails 3. En effet, Merb 2 sera Rails &hellip;">
+  <meta name="description" content="Comme tout nos efforts sont désormais à consacrer à Rails. Voici la dernière nouveauté que je viens de trouver dans les commits. Hier le render a été &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file.html">Quelque nouvelles dans Rails Edge : Render(:file => &#8216;/path/to/file&#8217;) devient render(&#8216;/path/to/file&#8217;)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-26T00:00:00+01:00" pubdate data-updated="true">Dec 26<span>th</span>, 2008</time>
+        
+         | <a href="/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Comme tout nos efforts sont désormais à consacrer à Rails. Voici la dernière nouveauté que je viens de trouver dans les commits. Hier le render a été simplifié. En effet, quand vous souhaitez faire un render de fichier il fallait faire : <code>render (:file => '/path/to/file')</code>. Désormais avec <a href="http://github.com/rails/rails/commit/061952392afd1dae1aa97a816e9a0c79df7c4514">ce nouveau commit</a>, un simple <code>render('/path/to/file')</code> suffira pour rendre le fichier donné.</p>
+
+<p>Par contre attention, pour que ce path sont considéré valide, il faut absolument le / au début. Mais heureusement ce code <code>render(Rails.root('/public/404.html'))</code> fonctionnera, grâce à <a href="http://blog.shingara.fr/2008/11/30/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root">un précédent commit</a>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -571,56 +611,6 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortie-de-pictrails-0-6-0.html">Sortie de Pictrails 0.6.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-18T00:00:00+01:00" pubdate data-updated="true">Nov 18<span>th</span>, 2008</time>
-        
-         | <a href="/sortie-de-pictrails-0-6-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Un peu après 1 mois de développement une nouvelle version de <a href="http://pictrails.rubyforge.org">Pictrails</a> est disponible.</p>
-
-<p>Il n&#8217;y a pas de grande modification ni de grand ajout de fonctionnalité. Seule deux fonctionnalités ont été ajoutées. Elles font suite à une demande d&#8217;utilisateur.</p>
-
-<p>La première fonctionnalité est la possibilité de copier des images d&#8217;une galerie à une autre ? Ça peux parfois être utile.</p>
-
-<p>L&#8217;autre fonctionnalité est la possibilité de définir l&#8217;image qui défini une galerie. En effet, cette image était défini automatiquement dans les versions précédentes. On peux désormais choisir un image de façon aléatoire ou alors en en définissant une particulière.</p>
-
-<p>Cette version est la dernière supporté par la version de Rails 2.1. Désormais le HEAD sera basculé sur Rails 2.2 qui ne devrait pas tarder à sortir.</p>
-
-<p>Vous pouvez donc <a href="http://rubyforge.org/frs/?group_id=5385&release_id=28382">télécharger la nouvelle version</a> et l&#8217;installer.</p>
-
-<p><a href="http://blog.shingara.fr/en/2008-11-18-pictrails-0-6-0-released.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -636,6 +626,10 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -671,10 +665,6 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

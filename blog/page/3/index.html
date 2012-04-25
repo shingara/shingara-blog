@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis la sortie de Cucumber 0.3.4 et pour les versions suivantes, une grosse modification dans Cucumber impose de changer un peu son utilisation &hellip;">
+  <meta name="description" content="Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment. L&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/observer-vs-callback.html">Observer Vs Callback</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-14T00:00:00+02:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time>
+        
+         | <a href="/observer-vs-callback.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
+
+<h2>L&#8217;Observeur</h2>
+
+<p>Dans Rails, il y a au premier abord une fonctionnalité vraiment intéressante. L&#8217;<a href="http://api.rubyonrails.org/classes/ActiveRecord/Observer.html">Observeur</a>. Grâce à lui, on peux définir une classe qui vérifie le comportement d&#8217;un model et effectue certaine action suite à ses observations. Il permet d&#8217;ajouter des événements avant/après l&#8217;enregistrement, la mise a jour ou la destruction d&#8217;un model.</p>
+
+<p>Pour mettre en place un observeur, il suffit de créer une classe héritant de <code>ActiveRecord::Observer</code>, mettre son code dedans et la définir comme observeur dans le fichier environment.rb. Rien de plus simple et ça marche très bien.</p>
+
+<h2>Le Callback</h2>
+
+<p>Mais Rails a déjà intégré dans ses models, les fonctions de callback utilisé par le observeur. En effet, on peux tout à fait définir N action after_save ou before_create. Ces méthodes seront appelés à l&#8217;événement voulu.</p>
+
+<h2>Mais que choisir ?</h2>
+
+<p>C&#8217;est là où je dis que le callback est plus intéressant que l&#8217;observeur. En effet, un callback fait exactement la même chose qu&#8217;un Observeur. Mais lui au moins on sait qu&#8217;il est là. En ouvrant la classe on découvre le callback. Pour détecter un Observeur, il faut regarder les fichiers de config de Rails et ouvrir une à une les classes Observeurs.</p>
+
+<p>Même le cas du nombre de ligne n&#8217;est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
+
+<p>Personnellement, je n&#8217;ai jamais constater un seul cas où l&#8217;observeur avait plus d&#8217;intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -749,46 +806,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file.html">Quelque nouvelles dans Rails Edge : Render(:file => &#8216;/path/to/file&#8217;) devient render(&#8216;/path/to/file&#8217;)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-26T00:00:00+01:00" pubdate data-updated="true">Dec 26<span>th</span>, 2008</time>
-        
-         | <a href="/quelque-nouvelles-dans-rails-edge-render-file-path-to-file-devient-render-path-to-file.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Comme tout nos efforts sont désormais à consacrer à Rails. Voici la dernière nouveauté que je viens de trouver dans les commits. Hier le render a été simplifié. En effet, quand vous souhaitez faire un render de fichier il fallait faire : <code>render (:file => '/path/to/file')</code>. Désormais avec <a href="http://github.com/rails/rails/commit/061952392afd1dae1aa97a816e9a0c79df7c4514">ce nouveau commit</a>, un simple <code>render('/path/to/file')</code> suffira pour rendre le fichier donné.</p>
-
-<p>Par contre attention, pour que ce path sont considéré valide, il faut absolument le / au début. Mais heureusement ce code <code>render(Rails.root('/public/404.html'))</code> fonctionnera, grâce à <a href="http://blog.shingara.fr/2008/11/30/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root">un précédent commit</a>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -804,6 +821,10 @@ after &#8220;deploy:update_code&#8221;, :update_config
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -839,10 +860,6 @@ after &#8220;deploy:update_code&#8221;, :update_config
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

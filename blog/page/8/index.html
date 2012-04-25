@@ -9,9 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis la revision
-r9122, les migrations de Ruby on rails ne sont plus
-incrémentale comme précédemment. En effet, elles sont désormais basé sur le &hellip;">
+  <meta name="description" content="Depuis le début, je suis les news de Chu Yeow concernant les nouveautés intégrés à Rails dans sa version de développement. J&#8217;ai décidé d&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,105 @@ incrémentale comme précédemment. En effet, elles sont désormais basé sur le
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-17.html">Vivre avec Rails Edge #17</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-24T00:00:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2008</time>
+        
+         | <a href="/vivre-avec-rails-edge-17.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis le début, je suis les news de <a href="http://blog.codefront.net">Chu Yeow</a> concernant les nouveautés intégrés à Rails dans sa version de développement. J&#8217;ai décidé d&#8217;essayer de vous les traduire régulièrement ici.</p>
+
+<p>Traduction de la <a href="http://blog.codefront.net/2008/04/20/living-on-the-edge-of-rails-17/">news #17</a>
+
+<p>Peu de chose se sont passé cette semaine sur Edge Rails. Il semblerait que nous aillons un nouveau membre dans le Rails core, <a href="http://joshpeek.com/">Joshua Peek</a>. Le nouveau <a href="http://rails.lighthouseapp.com/">bug tracking de Rails</a> sur Lighthouse est pret à utiliser, donc vous pouvez y soumettre vos patchs et rapport de bug dessus.</p>
+
+<p>Le rapport de cette semaine couvre les changements entre le 14 Avril 2008 et le 20 Avril 2008 (Jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+                               
+<h3>caches_page conditionel</h3>
+                                                     
+<p>The <code>caches_pages</code> peuvent prendre une option <code>:if</code> pour indiquer quand une pave peux être vraiment caché via une Proc. Vous pouvez maintenant faire ceci par exemple:</p>
+                                                                                                        
+<typo:code lang="ruby">caches_page :index, :if => Proc.new { |c| !c.request.format.json? }</typo:code>
+                                                                                            
+<p>Cela met votre index en cache uniquement si le format de la requête n&#8217;est pas du JSON.</p>
+                                                                                                 
+<p>Cette fonctionnalité a été ajouté par <a href="http://deaddeadgood.com/">Paul Horsfall</a>.</p>
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9">http://github.com/rails/rails/commit/14a40804a29a57ad05ca6bffbe1e5334089593a9</a></p>
+
+                                                                      
+<h3>Nouvelle ActionView::TestCase pour tester les helpers des vues</h3>
+                                                                  
+<p>Rappelez vous comment vous pouvez actuellement utiliser <a href="http://blog.codefront.net/2007/12/27/dry-in-your-functional-and-actionmailer-tests-rails-20-a-feature-a-day-7/">les classes TestCase spécialisé pour tester les classes Controllers et ActionMailer (en)</a>? Désormai
+s vous pourrez faire la même chose pour vos helpers de vues Rails avec la nouvelle classe ActionView::TestCase.</p>
+                             
+<p>Voici un petit exemple:</p>
+                                          
+<typo:code lang="ruby">module PeopleHelper
+  def title(text)
+    content_tag(:h1, text)
+  end
+                  
+  def homepage_path
+    people_path
+  end
+end
+                                               
+class PeopleHelperTest > ActionView::TestCase
+def setup                                       
+  ActionController::Routing::Routes.draw do |map|                        
+    map.people &#8216;people&#8217;, :controller => &#8216;people&#8217;, :action => &#8216;index&#8217;
+    map.connect &#8216;:controller/:action/:id&#8217;
+  end
+end
+              
+def test_title                         
+  assert_equal &#8221;<h1>Ruby on Rails</h1>&#8221;, title(&#8220;Ruby on Rails&#8221;)
+end
+
+def test_homepage_path
+  assert_equal &#8220;/people&#8221;, homepage_path
+end</typo:code>
+<p>Remercions Josh Peek pour cette jolie petite amélioration..</p>
+
+<h3>mem_cache_store de ActiveSupport::Cache accepte des options</h3>
+
+<p>Même si Memcache-client a été ajouté récement à ActiveSupport, on ne pouvait pas spécifié toutes les options de configuration derrière l&#8217;ip du serveur memcache. Maintenant vous pouvez passer beaucoup plus d&#8217;options comme ceci:</p>
+
+<typo:code lang="ruby">config.action_controller.fragment_cache_store = :mem_cache_store, &#8216;localhost&#8217;, { :compression => true, :debug => true, :namespace => &#8216;foo&#8217; }</typo:code>
+
+<p>Ce patch est de <a href="http://blog.innerewut.de/">Jonathan Weiss</a>.</p>
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214">http://github.com/rails/rails/commit/9e1d506a8cfedef2fdd605e4cbf4bf53651ad214</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -843,46 +940,6 @@ Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par cont
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/mise-a-jour-des-options-dattachment_fu-dans-un-model.html">Mise à jour des options d&#8217;attachment_fu dans un model </a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-13T00:00:00+01:00" pubdate data-updated="true">Mar 13<span>th</span>, 2008</time>
-        
-         | <a href="/mise-a-jour-des-options-dattachment_fu-dans-un-model.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://github.com/technoweenie/attachment_fu/tree/master">Attachment_fu</a> est un magnifique plugin rails à utiliser pour tout formulaire qui doit faire un upload de fichier. Je l&#8217;utilise ainsi dans mon projet <a href="http://pictrails.rubyforge.org/">pictrails</a>. Au niveau du README d&#8217;attachment_fu, il faut appeler la méthode ActiveRecord#has_attachment dans le model pour configurer l&#8217;utilisation de ce plugin. J&#8217;ai voulu mettre à jour cette propriété à la volé dans pictrails. J&#8217;ai donc commencé à rappeler la méthode ActiveRecord#has_attachment en lui passant les paramètres qui ont changés. J&#8217;ai d&#8217;abord pensé que ça m&#8217;étais à jour les options en conservant les anciennes. Mais après quelques tests, j&#8217;ai constaté que ce n&#8217;était pas le cas. Si on voulait mettre à jour les propriétés d&#8217;attachment_fu par cette méthode, il fallait rappeler toute les options.</p>
-
-<p>C&#8217;est alors qu&#8217;après une rapide investigation directement dans le code d&#8217;attachment_fu, j&#8217;ai constaté la présence de la variable attachment_options. Cette variable n&#8217;est en fait qu&#8217;un Hash reprenant tous les paramètre du model. En le modifiant, on pouvait donc conserver les anciennes options et modifier celle que l&#8217;on souhaite. Pour exemple, le commit <a href="http://github.com/shingara/pictrails/commit/c47be9d8590ea911f0c1fbd14401fef83e0081e6">c47be9d8590ea911f0c1fbd14401fef83e0081e6</a>, fait la modification d&#8217;option avec attachment_options au lieu de has_attachment</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -898,6 +955,10 @@ Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par cont
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -933,10 +994,6 @@ Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par cont
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est c&#8217;est officiel, Firefox sera meilleur en terme de fuite de mémoire et autre consommation excessive. On peux ainsi lire l&#8217;annonce &hellip;">
+  <meta name="description" content="Au niveau de mon travail, on m&#8217;a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse.html">Sortir un test Junit à partir d&#8217;un test Junit d&#8217;Eclipse</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-27T00:00:00+02:00" pubdate data-updated="true">Sep 27<span>th</span>, 2007</time>
+        
+         | <a href="/sortir-un-test-junit-a%CC%80-partir-dun-test-junit-declipse.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Au niveau de mon travail, on m&#8217;a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un pom.xml complet (pour projet Maven) pour ainsi avoir toutes les dépendances nécessaires.</p>
+
+<p>Comme toujours on m&#8217;a demandé de réaliser cette sortie assez rapidement. J&#8217;ai donc trouvé une petite bidouille pour arriver à réaliser mon test en console en conservant complètement mon classpath défini par Eclipse.</p>
+
+<p>Tout d&#8217;abord il faut récupérer la commande réaliser par Eclipse pour lancer le test. Pour cela, il suffit de mettre un point d&#8217;arrêt dans son script Junit, lancer le script en mode « Debug » et ensuite quand le point d&#8217;arrêt à stopper le processus, un clic droit sur le thread permet de consulter le menu de propriété de lancement de ce thread.</p>
+
+<p>On copie entièrement la ligne de commande qui est de la forme suivante :</p>
+
+<pre>
+C:\bea\jdk142_05\bin\javaw.exe -classpath ${CLASSPATH_DE_LANCEMENT}
+-Xdebug 
+-Xnoagent
+-Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859 
+org.eclipse.jdt.internal.junit.runner.RemoteTestRunner 
+-version 3 
+-port 1858 
+-testLoaderClass Org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader
+-classNames ${CLASSE_LANCER_POUR_LE_TEST}
+</pre>
+
+<p>Dans mon exemple les variables ${} sont bien sûr différente. Je les ai remplacé pour limiter un peu la place prise par la ligne de commande.</p>
+
+<p>Maintenant que vous avez cette ligne de commande, il suffit de faire quelque modification dessus et vous aurez votre ligne de commande complète. Les modifications à réaliser sont les suivantes :</p>
+
+<ul>
+<li>Suppression de l&#8217;option -Xdebug</li>
+<li>Suppression de l&#8217;option -Xnoagent</li>
+<li>Suppression de l&#8217;option -Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859</li>
+<li>Suppression de -port 1858 </li>
+<li>Transformer l&#8217;exécutable de lancement pas java.exe au lieu de javaw.exe</li>
+<li>Transformer la classe de lancement par junit.textui.TestRunner au lieu de org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader qui est spécifique à Eclipse.</li>
+</ul>
+
+<p>Maintenant que vous avez réalisé tous ces petits changements vous pouvez désormais lancer la ligne de commande obtenu de la façon suivante :</p>
+
+<pre>C:\bea\jdk142_05\bin\java.exe 
+-classpath ${CLASSPATH_DE_LANCEMENT} 
+junit.textui.TestRunner 
+-version 3 
+-classNames ${CLASSE_LANCER_POUR_LE_TEST}</pre>
+
+<p>Bien sûr il y a d&#8217;autres techniques qui sont de simplement récupérer le CLASSPATH par exemple et de le mettre dans notre ligne de commande.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -486,64 +565,6 @@ Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/les-nouveaute%CC%81s-de-capistrano-2.html">Les nouveautés de capistrano 2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-07-20T00:00:00+02:00" pubdate data-updated="true">Jul 20<span>th</span>, 2007</time>
-        
-         | <a href="/les-nouveaute%CC%81s-de-capistrano-2.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aujourd&#8217;hui, je viens de lire une <a
-href="http://woss.name/2007/07/20/capistrano-2-rocks-my-world/">présentation</a>
-sur les nouveautés qu&#8217;apportent capistrano dans sa version 2. Je suis
-complétement bluffé. j&#8217;ai juste utilisé un peu capistrano dans sa
-première version et j&#8217;avais trouvé ça vraiment très interressant et
-j&#8217;avais constaté que ca permettais beaucoup de chose. Là avec cette
-nouvelle version, on peux faire encore plus de chose et ça permet
-d&#8217;administrer plusieurs machine en même temps. On pourrait presque
-l&#8217;utiliser pour faire des checks sur plusieurs machine en parallèle
-sans ouvrir plusieurs shell.</p>
-
-<p>La fonctionnalité qui m&#8217;a le plus impressionner et le fait de
-lancer la même commande sur plusieurs host en parallèle et voir la
-sortie de chacun. Je vais donc faire une migration immédiate sur
-capistrano 2 et arreter d&#8217;étudier capistrano 1. Autant prendre tout de
-suite les devants.</p>
-
-<p>Par contre c&#8217;est vrai que son utilisation est surtout nécessaire
-dans un environnement clusterisé avec plusieurs machine. Dans un
-contexte avec une seule machine, ca sert beaucoup moi dû fait des
-tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -559,6 +580,10 @@ tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiiet Assets le gem qui limite les logs</a>
+      </li>
     
       <li class="post">
         <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
@@ -594,10 +619,6 @@ tâches rake. Mais quand même c&#8217;est vraiment génial.</p>
     
       <li class="post">
         <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-oupsnow-0-4-0.html">Sortie de Oupsnow 0.4.0</a>
       </li>
     
   </ul>
