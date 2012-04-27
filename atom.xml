@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-04-25T10:06:00+02:00</updated>
+  <updated>2012-04-27T09:59:10+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -49,6 +49,19 @@ de log. On retrouve ainsi un fichier de log rapide a consulter et moins
 pollué par des informations inutiles.</p>
 
 <p>Comme quoi de tout petits gems peuvent nous rendre de grand service.</p>
+
+<p><em>Edit du 27 Avril 2012</em></p>
+
+<p>On pourrait se dire que cela pourrait être directement integré à Rails.
+Hélas cela à été fait en partie, mais pas complétement.</p>
+
+<p>Depuis la version 3.2.x et l&#8217;<a href="https://github.com/rails/rails/issues/2639">issue 2639</a>
+nous pouvons configurer le logger de Sprockets. Mais il n&#8217;est pas seul à
+afficher les informations. Actionpack log toujours les requêtes faites
+pour obtenir ces assets. Vous ne pourrez donc pas avoir un fichier de
+log complétement épuré.</p>
+
+<p><a href="http://blog-en.shingara.fr/quiet-assets-help-you-to-have-little-log.html">English translation</a></p>
 ]]></content>
   </entry>
   
