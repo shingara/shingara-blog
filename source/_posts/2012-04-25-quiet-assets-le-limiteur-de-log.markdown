@@ -40,3 +40,16 @@ de log. On retrouve ainsi un fichier de log rapide a consulter et moins
 pollué par des informations inutiles.
 
 Comme quoi de tout petits gems peuvent nous rendre de grand service.
+
+*Edit du 27 Avril 2012*
+
+On pourrait se dire que cela pourrait être directement integré à Rails.
+Hélas cela à été fait en partie, mais pas complétement.
+
+Depuis la version 3.2.x et l'[issue 2639](https://github.com/rails/rails/issues/2639)
+nous pouvons configurer le logger de Sprockets. Mais il n'est pas seul à
+afficher les informations. Actionpack log toujours les requêtes faites
+pour obtenir ces assets. Vous ne pourrez donc pas avoir un fichier de
+log complétement épuré.
+
+[English translation](http://blog-en.shingara.fr/quiet-assets-help-you-to-have-little-log.html)
