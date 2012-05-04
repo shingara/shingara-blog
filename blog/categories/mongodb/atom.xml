@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mongodb | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/mongodb/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-04T10:01:24+02:00</updated>
+  <updated>2012-05-04T10:48:31+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -98,6 +98,14 @@ extension de moped gérant GridFS.</p>
 <p>Mongoid 3.x utilisera désormais moped à la place du driver mongodb de
 10Gen. Si vous souhaitez donc commencer un peu à l'utiliser essayer
 cette nouvelle version majeur de Mongoid.</p>
+
+<p>Attention, Mongoid 3 n'est actuellement pas release. Si vous souhaitez
+l'utiliser il faudra utiliser la branche master de Mongoid. Le
+dévelopment y est toujours actif.</p>
+
+<p><code>ruby
+gem 'mongoid', :git =&gt; 'git://github.com/mongoid/mongoid'
+</code></p>
 ]]></content>
   </entry>
   
