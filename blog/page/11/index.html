@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Toujours en train de m&#8217;amuser à la migration de Redmine sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2 &hellip;">
+  <meta name="description" content="Il y a une semaine maintenant une évolution de rails a entraîné une modification qui peux empêcher les tests qui ont été réalisé avec Rails 1.2. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0.html">ProtectedAttributeAssignmentError lancé pour les attr_protected dans Rails 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-17T00:00:00+02:00" pubdate data-updated="true">Oct 17<span>th</span>, 2007</time>
+        
+         | <a href="/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Il y a une semaine maintenant une évolution de rails a entraîné une modification qui peux empêcher les tests qui ont été réalisé avec Rails 1.2. Etant tombé dans le piège, je vais expliquer ici la modification qui a eu lieu.</p>
+
+<p>Suite au <a href="http://dev.rubyonrails.org/ticket/9699">ticket 9699</a>, si vous utilisez la méthode attr_protected dans votre modèle, vous aurez dans votre environnement de Test une exception qui est lancé, ProtectedAttributeAssignementError, lorsque vous tentez d&#8217;assigner une des valeurs protégés par la méthode ActiveRecord::Base#attributes=.</p>
+
+<p>En conséquence dans vos tests unitaires et surtout fonctionnels, il faut gérer ce cas. Deux techniques possibles :</p>
+
+<ul>
+<li>Utiliser assert_raise pour tester qu&#8217;une mauvaise assignation entraîne bien un exception.</li>
+<li>Utiliser la configuration de cette exception en indiquant dans votre test : <code>ActiveRecord::Base.whiny_protected_attributes = false</code></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -777,48 +824,6 @@ end
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/un-nouveau-logger-dans-rails-edge.html">Un nouveau Logger dans Rails Edge</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-27T00:00:00+02:00" pubdate data-updated="true">Sep 27<span>th</span>, 2007</time>
-        
-         | <a href="/un-nouveau-logger-dans-rails-edge.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis 2 jours le logger de RubyOnRails dans la version Edge a changé à partir de la révision <a href="http://dev.rubyonrails.org/changeset/7626">r7626</a>. En effet avant il y avait une classe logger qui a été remplacé par un <a href="http://dev.rubyonrails.org/browser/trunk/activesupport/lib/active_support/buffered_logger.rb">BufferLogger</a>.</p>
-
-<p>Ce nouveau Logger est inspiré des travaux de <a href="http://brainspl.at">Ezra Zygmuntowicz</a>, qui a réalisé le <a href="http://merb.rubyforge.org">framework web merb</a>. Ce nouveau logger devrait améliorer les performances de log.</p>
-
-<p>Je trouve que c&#8217;est une très bonne chose que la CoreTeam de Rails regarde aussi un peu à coté vers les nombreux framework Web en Ruby pour en prendre le meilleur.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -834,6 +839,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -869,10 +878,6 @@ end
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Qu&#8217;est ce qu&#8217;Hoe Hoe est un tout petit gem géré par la Seattle Ruby Brigade!. Ce gem n&#8217;a qu&#8217;une utilité, aider au &hellip;">
+  <meta name="description" content="Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le post de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,72 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/moins-de-log-pour-actionmailer-et-un-compte-gmail.html">Moins de log pour ActionMailer et un compte Gmail</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-06T00:00:00+01:00" pubdate data-updated="true">Jan 6<span>th</span>, 2008</time>
+        
+         | <a href="/moins-de-log-pour-actionmailer-et-un-compte-gmail.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le <a href="http://comscreens.free.fr/screens.php?act=see&scr=1609090355">post de Stephen Chu sur l&#8217;utilisation de votre compte Gmail avec ActionMailer.</a>. J&#8217;ai ainsi mis sa classe dans mon <a href="http://whotowho.rubyforge.org">WhoToWho</a> avec une option qui permet de l&#8217;utiliser le cas échéant.</p>
+
+<p>Mais voilà, par défaut il y a pas mal de logs qui sorte sur la sortie d&#8217;erreur STDERR. J&#8217;ai donc cherché comment la limiter voir la supprimer. J&#8217;ai ainsi trouvé les 2 lignes qui affichent ces logs. Il s&#8217;agit de la ligne suivante qui est répété deux fois. :</p>
+
+<pre>
+@socket.debug_output = STDERR #@debug_output
+</pre>
+
+</p>Après avoir commenté ces lignes, je n&#8217;ai plus eu de logs. J&#8217;ai bien sûr pour WhoToWho permis de les afficher avec l&#8217;option -v.</p>
+
+<p>Avec un peu de chance je devrais sortir une nouvelle version de WhoToWho très bientôt.</p>
+
+<p>En lisant dans les commentaires du post de Stephen, j&#8217;ai ainsi lu que quelqu&#8217;un avait tout simplement utilisé le gem tlsmail et avait simplement ajouté la ligne suivante :</p>
+
+<pre>
+require 'tlsmail'
+Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+ActionMailer::Base.server_settings = {
+:address => 'smtp.gmail.com',
+:port => 587,
+:domain => 'yourdomain.com',
+:authentication => :plain,
+:user_name => 'username',
+:password => 'password'
+}
+</pre>
+
+<p>C&#8217;est à tester :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -669,53 +735,6 @@ Stable on x86 for bug #196409
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0.html">ProtectedAttributeAssignmentError lancé pour les attr_protected dans Rails 2.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-17T00:00:00+02:00" pubdate data-updated="true">Oct 17<span>th</span>, 2007</time>
-        
-         | <a href="/protectedattributeassignmenterror-lance-pour-les-attr_protected-dans-rails-2-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Il y a une semaine maintenant une évolution de rails a entraîné une modification qui peux empêcher les tests qui ont été réalisé avec Rails 1.2. Etant tombé dans le piège, je vais expliquer ici la modification qui a eu lieu.</p>
-
-<p>Suite au <a href="http://dev.rubyonrails.org/ticket/9699">ticket 9699</a>, si vous utilisez la méthode attr_protected dans votre modèle, vous aurez dans votre environnement de Test une exception qui est lancé, ProtectedAttributeAssignementError, lorsque vous tentez d&#8217;assigner une des valeurs protégés par la méthode ActiveRecord::Base#attributes=.</p>
-
-<p>En conséquence dans vos tests unitaires et surtout fonctionnels, il faut gérer ce cas. Deux techniques possibles :</p>
-
-<ul>
-<li>Utiliser assert_raise pour tester qu&#8217;une mauvaise assignation entraîne bien un exception.</li>
-<li>Utiliser la configuration de cette exception en indiquant dans votre test : <code>ActiveRecord::Base.whiny_protected_attributes = false</code></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -731,6 +750,10 @@ Stable on x86 for bug #196409
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -766,10 +789,6 @@ Stable on x86 for bug #196409
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

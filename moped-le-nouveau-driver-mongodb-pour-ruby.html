@@ -5,11 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Merci Marco d'Itri - Shiny happy people coding</title>
+  <title>moped le nouveau driver mongodb pour ruby - Shiny happy people coding</title>
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je voulais faire un petit billet, pour remercier ce très cher Marco d&#8217;Itri. Grâce à lui, je me suis retrouvé ce matin avec un ordinateur &hellip;">
+  <meta name="description" content="Depuis décembre 2012, Bernerd
+Schaefer a commencé a créer un
+driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée par
+10Gen ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.shingara.fr//merci-marco-ditri.html">
+  <link rel="canonical" href="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">Merci Marco d'Itri</h1>
+      <h1 class="entry-title">moped le nouveau driver mongodb pour ruby</h1>
     
     
       <p class="meta">
@@ -95,7 +98,7 @@
   
 
 
-<time datetime="2006-09-09T00:00:00+02:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
+<time datetime="2012-04-30T09:42:00+02:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,17 +107,90 @@
   </header>
 
 
-<div class="entry-content"><p>Je voulais faire un petit billet, pour remercier ce très cher Marco d&#8217;Itri. Grâce à lui, je me suis retrouvé ce matin avec un ordinateur inutilisable. En effet, cette gentille personne est le mainteneur du paquet debian udev. Pour ceux qui ne le savent pas, udev est maintenant une pierre de voute de linux. Grâce à lui, les modules du noyau necessaire sont chargé. Ainsi, sans udev, on se retrouve comme moi ce matin :</p>
+<div class="entry-content"><p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd
+Schaefer</a> a commencé a créer un
+driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée par
+10Gen (créateur de MongoDB) contrairement au gem
+<a href="https://github.com/mongodb/mongo-ruby-driver">mongo-ruby-driver</a>.</p>
 
-<ul>
-<li>Plus de reseau car carte réseau non détecté</li>
-<li>Plus de X, car xorg ne détecte pas ma souris</li>
-<li>Plus de possibilité de lire une clé usb</li>
-</ul>
+<h1>Le but de ce gem</h1>
 
-<p>Pour réparer ce problème, ma seule solution fut un downgrade de udev, de la version 0.100-1 à la version 0.093-2.</p>
+<p>Ce gem a été crée suite aux frustrations de l&#8217;équipe de développement de
+Mongoid qui a fait plusieurs fois des propositions de changement de
+design du driver officiel. Tous changement de design du driver a été
+refusé.</p>
 
-<p>Ainsi, je vous le dit, n&#8217;upgradez pas la version 0.100-1, vous risqueriez des problèmes. Pour marco, je lui conseillerais de passer un peu par expérimentale de temps en temps.</p>
+<h2>Thread-safe</h2>
+
+<p>Un des buts de ce gem est de permettre d&#8217;avoir un gem qui est le plus
+possible thread-safe. Le driver officiel mongoDB est parfois considéré
+comme non thread-safe notament par Mike Perham (
+https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting ).
+C&#8217;est un vrai problème alors que la communauté ruby
+commence enfin à redécouvrir les threads. Cet état empêche par exemple
+l&#8217;usage de <a href="http://mperham.github.com/sidekiq/">sidekiq</a> avec MongoDB.</p>
+
+<h2>Suppression de l&#8217;extension</h2>
+
+<p>Avec le driver MongoDB officiel, il est très fortement conseillé
+d&#8217;installer le gem <a href="http://rubygems.org/gems/bson_ext">bson_ext</a> sans
+celui-ci les performances sont beaucoup moins bonnes. Par contre cette
+extension étant écrite en C, elle est incompatible avec JRuby. Il a
+fallu créer une version JRuby du gem bson. Ça rend la maintenabilité
+plus complexe.</p>
+
+<p>Dans le cas de moped, aucune extension C n&#8217;est à prévoir.
+Il est naturellement plus performant. Il arriverait même à être plus
+performant que l&#8217;extension C selon
+les benchmarks réalisés pour le projet.</p>
+
+<p>Seul ombre au tableau, la génération d&#8217;un ObjectId est plus lente avec
+moped qu&#8217;avec le gem officiel bson selon un thread de la mailing-list de
+Mongoid
+(https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion).
+Mais cela pourra être améliorer par la suite, je n&#8217;en doute pas.</p>
+
+<h2>Une API plus simple</h2>
+
+<p>L&#8217;API de moped est vraiment plus belle que celle du gem mongo. Ce
+changement est bien sûr subjectif. Elle est beaucoup plus orienté ruby.
+Elle permet aussi la combinaison de recherche/mise à jour.</p>
+
+<h2>Meilleure gestion du replicat Set</h2>
+
+<p>Une des fonctionnalités principale de MongoDB est la gestion du
+replicatSet. Avec Moped, cette gestion devient vraiment plus souple et
+surtout ne lève plus d&#8217;exception la première fois que le node maître est
+down. Cette fois ci le basculement se fait automatiquement.</p>
+
+<p>Plus besoin de passer la liste de vos nodes en configuration. Moped
+utilise directement les mécanismes de MongoDB pour découvrir les
+nouveaux nodes et ainsi les utiliser.</p>
+
+<h1>Les limitations</h1>
+
+<p>Par contre, moped a certaine limitation.</p>
+
+<h2>Ruby 1.9 uniquement</h2>
+
+<p>Moped n&#8217;est pas compatible avec Ruby &lt; 1.9. Le choix de l&#8217;implémentation
+a été fait de ne pas être compatible avec les plus anciennes version de
+ruby.</p>
+
+<p>Personnellement, je suis d&#8217;accord avec ce choix, car l&#8217;usage de ruby 1.8
+doit disparaitre.</p>
+
+<h2>Pas de support de GridFS</h2>
+
+<p>GridFS n&#8217;est pas supporté nativement dans moped. Ce choix a été fait
+pour limiter le core du gem. Bien sûr rien n&#8217;empêche de créer une
+extension de moped gérant GridFS.</p>
+
+<h1>Intégration dans Mongoid 3</h1>
+
+<p>Mongoid 3.x utilisera désormais moped à la place du driver mongodb de
+10Gen. Si vous souhaitez donc commencer un peu à l&#8217;utiliser essayer
+cette nouvelle version majeur de Mongoid.</p>
 </div>
 
 
@@ -137,15 +213,21 @@
   
 
 
-<time datetime="2006-09-09T00:00:00+02:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
+<time datetime="2012-04-30T09:42:00+02:00" pubdate data-updated="true">Apr 30<span>th</span>, 2012</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/mongodb/'>mongodb</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr//merci-marco-ditri.html" data-via="shingara" data-counturl="http://blog.shingara.fr//merci-marco-ditri.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html" data-via="shingara" data-counturl="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html" >Tweet</a>
   
   
   
@@ -156,14 +238,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/subversion-et-le-svn-ignore.html" title="Previous Post: Subversion et le svn:ignore">&laquo; Subversion et le svn:ignore</a>
+        <a class="basic-alignment left" href="/quiet-assets-le-limiteur-de-log.html" title="Previous Post: Quiet Assets le gem qui limite les logs">&laquo; Quiet Assets le gem qui limite les logs</a>
       
-      
-        <a class="basic-alignment right" href="/plugin-sound-pl-de-weechat.html" title="next Post: Plugin sound.pl de weechat">Plugin sound.pl de weechat &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -281,7 +367,10 @@
       var disqus_shortname = 'shinydevblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html';
+        var disqus_url = 'http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

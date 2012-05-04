@@ -9,7 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est alors que j&#8217;ai envoyé un mail à l&#8217;ancien créateur de la lib whois en Ruby qui avait arrêté de la maintenir, j&#8217;ai lancé une &hellip;">
+  <meta name="description" content="Dans un précédent <a
+href="http://shingara.free.fr/blog/index.php/?2007/01/16/138-hibernate-et-les-
+mappings">billet sur Hibernate et les mappings, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,136 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/technique-de-controleurs-entre-hibernate-et-struts.html">Technique de controleurs entre Hibernate et Struts</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-03-07T00:00:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2007</time>
+        
+         | <a href="/technique-de-controleurs-entre-hibernate-et-struts.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+	Dans un précédent <a
+href="http://shingara.free.fr/blog/index.php/?2007/01/16/138-hibernate-et-les-
+mappings">billet sur Hibernate et les mappings</a>, je me posais la question de
+savoir comment séparer au maximum chaques fonctions dans une application J2EE
+utilisant <a href="http://www.hibernate.org/">Hibernate</a> et <a href="http://struts.apache.org/">Struts</a>. Voici donc la
+technique que j&#8217;ai fini par adopter, après réflexion. Cette technique est ma
+propre technique et n&#8217;est peut-être pas la meilleure.
+</p>
+
+<h1>Contexte</h1>
+
+<p>
+Dans une application J2EE utilisant Hibernate et Struts, nous utilisons
+classiquement 3 composants:
+</p>
+
+<ul>
+	<li>Les mappings Hibernate</li>
+	<li>Les DAO (Database Access Object) pour toutes les communications à la
+base de donnée</li>
+	<li>Les actions Struts pour la gestion des requêtes HTTP de
+l&#8217;utilisateur</li>
+</ul>
+
+<p>
+Mais voilà avec ces 3 composants, les actions struts doivent utiliser
+les mappings Hibernate et les DAO. les DAO eux devront utiliser les
+mappings. Comme indiqué dans le schéma suivant :</p>
+
+<p><img src="/blog/images/DAO-MAPPING-STRUTS.png" alt="Graphique représentant la communication DAO, Mapping et Action Struts" /></p>
+
+<p>Il manque donc un composant intermédiaire entre les DAO et les
+mappings qui sera le composant à être utilisé par les actions Struts. ce
+composant est appelé «Controleur».
+</p>
+
+<h1>Les controleurs</h1>
+
+<p>
+Le but du controleur est de faire la liaison entre le mapping Hibernate et
+le DAO. En effet, le mapping doit être un objet le plus léger possible et
+n&#8217;avoir en conséquence que des attributs et leurs getter/setter. Par contre, les
+DAO ne stocke rien à part la Session de connection à la base de donnée. Ainsi
+le controleur n&#8217;a pour seul champ privé obligatoire que le mapping. On peux
+aussi lui adjoindre des données complémentaires qui seront issues de
+contraintes annexes et ainsi augmenter les possibilités d&#8217;attribut interne à la
+classe. Mais des méthodes de confort pourront aussi lui être ajoutées comme la
+méthode classique du save() qui se chargera de sauvegarder le mapping Hibernate
+dans la session du DAO. Il aura ainsi plusieurs constructeurs avec différentes
+possibilités. Par contre, il faudra faire attention au getter/setter de attribut
+qui ne sont pas issue du mapping et qui peuvent dépendre du constructeur. Une
+bonne gestion des erreurs et à prévoir. Ce système permet ainsi l&#8217;utilisation
+unique du controleur dans l&#8217;actions Struts. Celui-ci n&#8217;aura qu&#8217;à construire
+l&#8217;objet et l&#8217;utiliser. L&#8217;action Struts n&#8217;aura plus aucun dialogue avec les
+mappings et DAO. Comme montré sur le schéma suivant :</p>
+
+<p><img src="/blog/images/DAO-MAPPING-STRUTS-CONTROLER.png" alt="Graphique représentant la communication DAO, Mapping, Action Struts et Controleur" /></p>
+
+<h1>Cas des listes de mapping Hibernates</h1>
+
+<p>
+Dans certain cas, on veux avoir une information supplémentaire à un
+mapping et pour cela on utiliser les controleurs. Mais cette information peux
+nécessité un calcul. Hors, au niveau du DAO, nous ne récupérons qu&#8217;une liste
+d&#8217;objet de
+mapping. Pour ajouter des informations, il faudrait alors itérer sur tous les
+éléments et leur ajouter les éléments voulus. Cette technique n&#8217;est pas optimum
+dans le cas d&#8217;une utilisation partielle de la liste, comme avec l&#8217;utilisation de
+<a href="http://displaytag.sourceforge.net/11/">Display Tag</a> qui n&#8217;affichera
+pas toutes les lignes et créera une pagination. La
+technique est donc de créer un objet héritant de ArrayList et de surcharger la
+méthode get(int). Au moment de l&#8217;appel de cette méthode, nous ne renvoyons plus
+de mapping, mais notre controleur se construit à partir d&#8217;une liste d&#8217;objet
+mapping. Le calcul des informations supplémentaires ne se fera donc plus que
+sur les objets réelement demandé et non sur tous les objets de la liste
+initiale.
+</p>
+
+<h1>Pourquoi cette implémentation ?</h1>
+
+<p>
+Je voulais par cette méthode n&#8217;obtenir que des objets le plus léger possible.
+En effet, je préfére que mon programme utilise plus de petits objets que moins
+d&#8217;objets, mais gros. Je voulais aussi que mes actions Struts soit le plus simple
+possible à lire. Car sans l&#8217;utilisation de ce procédé, je me retrouvais avec
+des actions comprenant énormément de ligne de code. Cette technique rend le
+code plus simple à lire et à comprendre. Je voulais aussi effectuer les
+traitements non nécessaire qu&#8217;à la fin pour ainsi permettre de n&#8217;effectuer que
+le nécessaire et éviter ainsi le superflu.
+</p>
+
+<p>Pour les curieux, j&#8217;ai fait mes graphiques grâce à Graphivz que je ne maitrise hélas pas trop. Vous pouvez trouver les sources des scripts de création <a href="/exportation/script/dot/">ici</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -562,112 +694,6 @@ Sinon je rappelle que sun a voulu que Java soit compatible de façon ascendante.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/hibernate-et-les-mappings.html">Hibernate et les mappings</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-01-16T00:00:00+01:00" pubdate data-updated="true">Jan 16<span>th</span>, 2007</time>
-        
-         | <a href="/hibernate-et-les-mappings.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Salut, Je fais appel au net pour une logique de conception Java et surtout une aide sur Hibernate. En effet sans système de mapping Hibernate j&#8217;aurais trouvé la solution que je veux, mais là je veux utiliser au maximum de les possibilités d&#8217;Hibernate. Voici ce que je désire faire :
-</p>
-
-<p>
-J&#8217;ai des listes avec un nom. Dans chaque listes, il y a des produits. Mais pour chaque listes il peux y avoir plusieurs fois le même produit. Voici les deux solutions que j&#8217;ai au niveau SQL pur :
-</p>
-
-<h2>Tout en SQL</h2>
-
-<p>Cette solution se base sur le comptage du nombre de lien entre une liste et un produit.</p>
-
-<pre>
-CREATE TABLE List (
-  id INT PRIMARY KEY,
-  name VARCHAR,
-);
-
-CREATE TABLE Product (
-  id INT PRIMARY KEY,
-  name VARCHAR,
-);
-
-CREATE TABLE ListToProduct (
-  id int PRIMARY KEY,
-  Product_id int,
-  List_id int,
-);
-</pre>
-
-<p>Sur cette table pour savoir le nombre de produit A dans la liste B il faut faire en SQL pur une requête de type <code>SELECT COUNT(*) FROM ListToProduct WHERE Product_id='A' AND List_id='B'</code> où A et B sont les id respectif de notre produit et liste.</p>
-
-<p>Au niveau d&#8217;hibernate, j&#8217;ai trouvé comment faire un mapping assez simple pour obtenir la liste des Produits d&#8217;un liste :</p>
-
-<pre>
-    &lt;list name="listsName" table="ListToProduct" &gt;
-	&lt;key column="product_id" /&gt;
-        &lt;index column="list_name_to_product_id" /&gt;
-        &lt;many-to-many column="list_id" class="List" /&gt;
-    &lt;/list>
-</pre>
-
-<p>Au niveau du type de retour dans mon POJO, j&#8217;ai un attribut du type List&lt;Produit&gt;. Ca marche très bien dans un système de navigation entre mes produits et listes. Mais je me suis trouvé confronté au problème du comptage. Combien il y a de Produit A dans ma liste B. La seule solution est de faire :</p>
-<ul>
-<li>Soit une requete SQL par ligne avec un COUNT(*)</li>
-<li>Soit un parcours de ma liste pour compter le nombre d&#8217;occurrence.</li>
-</ul>
-
-<p>Je ne pense pas qu&#8217;aucune de ces deux techniques soit très performante. De même je n&#8217;ai trouvé aucun système au sein d&#8217;hibernate pour avoir immédiatement le résultat. Comme dans une sous-requête avec un DISTINCT peut-être ?</p>
-
-<h2>Faire le comptage directement en base de Donnée</h2>
-
-<p>Normalement en SQL pur et propre il est recommandé de ne pas faire de calcul directement dans la Base de donnée. On ne doit rien stocker qui est potentiellement calculable. Dans notre cas, l&#8217;ajout du nombre de Produit dans la liste au niveau de la table de liaison permet de diminuer potentiellement le nombre de ligne d&#8217;enregistrement tout en augmentant le nombre de colonne. Théoriquement l&#8217;amélioration peux peux-être interressante si toutes nos listes ont en moyenne plus de 3 produits.</p>
-
-<p>La nouvelle base de donnée serait donc identique à la précédente sauf la table ListToProduct qui serait la suivante :</p>
-
-<pre>
-CREATE TABLE ListToProduct (
-  id int PRIMARY KEY,
-  Product_id int,
-  List_id int,
-  count int,
-);
-</pre>
-
-<p>Avec cette technique, au lieu de rajouter une ligne dans la table de liaison au moment de l&#8217;ajout d&#8217;un produit existant dans une liste, le compteur est incrémenté. Il ne reste donc ensuite qu&#8217;à lire la valeur dans count pour savoir le nombre exacte de Produit du type A dans la liste B. Cette technique me semble assez intéressantes. Mais voilà, je suis incapable de la mettre en place avec un mapping hibernate. J&#8217;ai testé les components, les many-to-one. Mais rien n&#8217;y fait. Il doit vraiment y avoir un truc que je n&#8217;ai pas compris et je ne sais pas quoi. C&#8217;est aussi pour ca que je fais appel à tous.</p>
-
-<p>
-Donc si vous avez une idée sur la meilleur solution à employer et aussi comment la mettre en place avec Hibernate, je suis preneur.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/16/">&larr; Older</a>
@@ -683,6 +709,10 @@ Donc si vous avez une idée sur la meilleur solution à employer et aussi commen
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -718,10 +748,6 @@ Donc si vous avez une idée sur la meilleur solution à employer et aussi commen
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

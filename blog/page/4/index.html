@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Comme tout nos efforts sont désormais à consacrer à Rails. Voici la dernière nouveauté que je viens de trouver dans les commits. Hier le render a été &hellip;">
+  <meta name="description" content="Avec la sortie de Redmine 0.8 hier, j&#8217;ai mis à jour ma plateforme de développement sous cette nouvelle version. Pour ceux qui veulent des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,76 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/dev-shingara-fr-mis-i-jour-avec-redmine-0-8.html">dev.shingara.fr mis à jour avec Redmine 0.8</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-31T00:00:00+01:00" pubdate data-updated="true">Dec 31<span>st</span>, 2008</time>
+        
+         | <a href="/dev-shingara-fr-mis-i-jour-avec-redmine-0-8.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Avec la sortie de Redmine 0.8 hier, j&#8217;ai mis à jour <a href="http://dev.shingara.fr/">ma plateforme de développement</a> sous cette nouvelle version. Pour ceux qui veulent des exemples, voici le fichier capistrano que j&#8217;utilise pour ce déploiement. Il est prévu pour récupérer les sources à partir de la branche 0.8 stable de redmine.</p>
+
+<typo:code lang="ruby">
+require &#8216;mongrel_cluster/recipes&#8217;
+
+set :application, &#8220;redmine&#8221;
+set :repository,  &#8220;http://redmine.rubyforge.org/svn/branches/0.8-stable&#8221;
+set :domain, &#8220;shingara.fr&#8221;
+
+# If you aren&#8217;t deploying to /u/apps/#{application} on the target
+# servers (which is the default), you can specify the actual location
+# via the :deploy_to variable:
+set :deploy_to, &#8220;/var/rails/#{application}&#8221;
+
+# If you aren&#8217;t using Subversion to manage your source code, specify
+# your SCM below:
+set :scm, :subversion
+
+set :runner, &#8220;rails&#8221;
+set :user, &#8220;rails&#8221;
+set :use_sudo, false
+set :mongrel_conf, &#8220;#{current_path}/config/mongrel_cluster.yml&#8221;
+
+role :app, domain
+role :web, domain
+role :db,  domain, :primary => true
+
+task :update_config, :roles => [:app] do
+  run &#8220;cp -Rf #{shared_path}/config/* #{release_path}/config/&#8221;
+end
+
+after &#8220;deploy:update_code&#8221;, :update_config
+</typo:code>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -563,54 +633,6 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/la-before-paris-on-rails-cest-la-rails-party-le-30-novembre-2008.html">La before Paris on Rails, c&#8217;est la Rails Party le 30 Novembre 2008</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-21T00:00:00+01:00" pubdate data-updated="true">Nov 21<span>st</span>, 2008</time>
-        
-         | <a href="/la-before-paris-on-rails-cest-la-rails-party-le-30-novembre-2008.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors que la journée Paris On Rails aura lieu le 1er décembre, l&#8217;association RubyFrance où je fais partie du Conseil d&#8217;Administration a décidé d&#8217;organiser une après-midi/soirée la veille. Ce rassemblement aura pour objectif de permettre à tous les acteurs de la communauté RubyOnRails de se rencontrer dans un endroit convivial.</p>
-
-<p>Au niveau du programme, il y aura des Hackfest (Typo et peut-être Pictrails ?) et des présentations toutes l&#8217;après midi. J&#8217;animerais ainsi une ou deux présentations. Tout d&#8217;abord sur l&#8217;exemple de migration d&#8217;une application RubyOnRails de Rails 2.0 à Rails 2.2 en montrant l&#8217;exemple de Typo. Ensuite sur les Test par Rspec que je pratique sur Pictrails et Typo.</p>
-
-<p>Bien-sûr, le programme n&#8217;est pas figé vu que le maitre mot de cette journée est « Cool et Relax ».</p>
-
-<p>En tout cas moi j&#8217;y serais durant toute la période et je serais heureux de rencontrer de nouvelle personne de la communauté.</p>
-
-<p>Donc tout en chœur dites : J&#8217;Y SERAIS \o/</p>
-
-<p>Pour plus d&#8217;information, vous pouvez consulter la page <a href="http://rubyfrance.org/evenements/rails-party-2008/">d&#8217;évenement</a> sur le site rubyfrance. Sinon <a href="http://t37.net/rails-party-le-30-novembre-2008-i-paris">Frédéric sera aussi présent</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -626,6 +648,10 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -661,10 +687,6 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

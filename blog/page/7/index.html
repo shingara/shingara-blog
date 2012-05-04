@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors, que je testais Pictrails pour la release en version 0.3, j&#8217;ai par hasard créé une galerie s&#8217;appelant &#8220;new&#8221;. Ayant &hellip;">
+  <meta name="description" content="Depuis peu, je tente d&#8217;utiliser Merb et DataMapper. Une différence notable entre Merb et Rails est le système de log. Comme Merb est ORM &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/afficher-les-log-sql-avec-merb-et-datamapper.html">Afficher les Log SQL avec Merb et DataMapper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-27T00:00:00+02:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
+        
+         | <a href="/afficher-les-log-sql-avec-merb-et-datamapper.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis peu, je tente d&#8217;utiliser <a href="http://merbivore.org">Merb et <a href="http://datamapper.org">DataMapper</a>. Une différence notable entre Merb et Rails est le système de log. Comme Merb est ORM Agnostique, il n&#8217;affiche pas de base les logs SQL. J&#8217;ai cherché plusieurs fois comment avoir mes logs SQL de DataMapper directement dans ma console. J&#8217;ai fini par la trouvé sur le wiki de DataMapper. Je vous livre donc l&#8217;astuce :</p>
+
+<typo:code lang="ruby">
+Merb::BootLoader.after_app_loads do
+  DataObjects::SQlite3.logger = DataObjects::Logger.new(STDOUT, :debug) 
+end
+</typo:code>
+
+<p>Vous pouvez bien-sûr modifier le SQlite3 par Postgres ou MySQL. Cette comment fait une sortie en mode debug sur STDOUT. On aurait aussi pu mettre un fichier (&#8216;log/dm.log&#8217;).</p>
+
+<p>Pour connaitre la liste des niveaux de logs, la voici :</p>
+
+<ul>
+<li>fatal</li>
+<li>error</li>
+<li>warn</li>
+<li>info</li>
+<li>debug</li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -704,48 +760,6 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/screencast-de-presentation-rails.html">Screencast de presentation rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-25T00:00:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2008</time>
-        
-         | <a href="/screencast-de-presentation-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Il y a quelques jours, j&#8217;ai réalisé un <a href="http://blog.shingara.fr/articles/2008/04/22/screencast-francais-sur-la-realisation-dune-application-rails">premier screencast en français de démonstration sur la création d&#8217;une application Ruby on Rails</a>. Quelque semaine avant, j&#8217;ai soumis à la liste de RailsFR, une série de slide pour présenter Ruby on Rails auprès de développeur Java. Après quelques modification, j&#8217;ai obtenu une version quasi définitive. J&#8217;ai ainsi réalisé hier un screencast faisant défiler ces slides avec mes commentaires. Tous commentaires est encore une fois le bienvenue.</p>
-
-<p><a href="http://shingara.fr/export/presentation-rails.mpeg">Download du screencast</a></p>
-<p><a href="http://shingara.fr/export/presentation-rails.pdf">Download des slides</a></p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -761,6 +775,10 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -796,10 +814,6 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

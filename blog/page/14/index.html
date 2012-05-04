@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je voulais tout simplement avoir le nombre de lignes dans une table, avec ActiveRecord, j&#8217;ai recherché dans la documentation la &hellip;">
+  <meta name="description" content="Ca y est, la pagination dans Rails a été supprimée sur le trunk de Ruby On Rails. Maintenant cela ne sera qu&#8217;en plugin qu&#8217;on pourra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/la-pagination-de-rails-supprime%CC%81e.html">La pagination de Rails supprimée</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-11T00:00:00+02:00" pubdate data-updated="true">Jun 11<span>th</span>, 2007</time>
+        
+         | <a href="/la-pagination-de-rails-supprime%CC%81e.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, la <a href="http://dev.rubyonrails.org/changeset/6992">pagination dans Rails a été supprimée</a> sur le trunk de Ruby On Rails. Maintenant cela ne sera qu&#8217;en plugin qu&#8217;on pourra trouver le système de pagination. Alors attention, il faut d&#8217;ores et déjà tenter d&#8217;utiliser les plugins dans ses applications Rails pour ainsi éviter d&#8217;avoir des problèmes de compatibilité avec les prochains version de Ruby On Rails, même la future version 1.2.4.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -532,136 +570,6 @@ Est-ce un bug ou pas ?
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/technique-de-controleurs-entre-hibernate-et-struts.html">Technique de controleurs entre Hibernate et Struts</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-03-07T00:00:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2007</time>
-        
-         | <a href="/technique-de-controleurs-entre-hibernate-et-struts.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-	Dans un précédent <a
-href="http://shingara.free.fr/blog/index.php/?2007/01/16/138-hibernate-et-les-
-mappings">billet sur Hibernate et les mappings</a>, je me posais la question de
-savoir comment séparer au maximum chaques fonctions dans une application J2EE
-utilisant <a href="http://www.hibernate.org/">Hibernate</a> et <a href="http://struts.apache.org/">Struts</a>. Voici donc la
-technique que j&#8217;ai fini par adopter, après réflexion. Cette technique est ma
-propre technique et n&#8217;est peut-être pas la meilleure.
-</p>
-
-<h1>Contexte</h1>
-
-<p>
-Dans une application J2EE utilisant Hibernate et Struts, nous utilisons
-classiquement 3 composants:
-</p>
-
-<ul>
-	<li>Les mappings Hibernate</li>
-	<li>Les DAO (Database Access Object) pour toutes les communications à la
-base de donnée</li>
-	<li>Les actions Struts pour la gestion des requêtes HTTP de
-l&#8217;utilisateur</li>
-</ul>
-
-<p>
-Mais voilà avec ces 3 composants, les actions struts doivent utiliser
-les mappings Hibernate et les DAO. les DAO eux devront utiliser les
-mappings. Comme indiqué dans le schéma suivant :</p>
-
-<p><img src="/blog/images/DAO-MAPPING-STRUTS.png" alt="Graphique représentant la communication DAO, Mapping et Action Struts" /></p>
-
-<p>Il manque donc un composant intermédiaire entre les DAO et les
-mappings qui sera le composant à être utilisé par les actions Struts. ce
-composant est appelé «Controleur».
-</p>
-
-<h1>Les controleurs</h1>
-
-<p>
-Le but du controleur est de faire la liaison entre le mapping Hibernate et
-le DAO. En effet, le mapping doit être un objet le plus léger possible et
-n&#8217;avoir en conséquence que des attributs et leurs getter/setter. Par contre, les
-DAO ne stocke rien à part la Session de connection à la base de donnée. Ainsi
-le controleur n&#8217;a pour seul champ privé obligatoire que le mapping. On peux
-aussi lui adjoindre des données complémentaires qui seront issues de
-contraintes annexes et ainsi augmenter les possibilités d&#8217;attribut interne à la
-classe. Mais des méthodes de confort pourront aussi lui être ajoutées comme la
-méthode classique du save() qui se chargera de sauvegarder le mapping Hibernate
-dans la session du DAO. Il aura ainsi plusieurs constructeurs avec différentes
-possibilités. Par contre, il faudra faire attention au getter/setter de attribut
-qui ne sont pas issue du mapping et qui peuvent dépendre du constructeur. Une
-bonne gestion des erreurs et à prévoir. Ce système permet ainsi l&#8217;utilisation
-unique du controleur dans l&#8217;actions Struts. Celui-ci n&#8217;aura qu&#8217;à construire
-l&#8217;objet et l&#8217;utiliser. L&#8217;action Struts n&#8217;aura plus aucun dialogue avec les
-mappings et DAO. Comme montré sur le schéma suivant :</p>
-
-<p><img src="/blog/images/DAO-MAPPING-STRUTS-CONTROLER.png" alt="Graphique représentant la communication DAO, Mapping, Action Struts et Controleur" /></p>
-
-<h1>Cas des listes de mapping Hibernates</h1>
-
-<p>
-Dans certain cas, on veux avoir une information supplémentaire à un
-mapping et pour cela on utiliser les controleurs. Mais cette information peux
-nécessité un calcul. Hors, au niveau du DAO, nous ne récupérons qu&#8217;une liste
-d&#8217;objet de
-mapping. Pour ajouter des informations, il faudrait alors itérer sur tous les
-éléments et leur ajouter les éléments voulus. Cette technique n&#8217;est pas optimum
-dans le cas d&#8217;une utilisation partielle de la liste, comme avec l&#8217;utilisation de
-<a href="http://displaytag.sourceforge.net/11/">Display Tag</a> qui n&#8217;affichera
-pas toutes les lignes et créera une pagination. La
-technique est donc de créer un objet héritant de ArrayList et de surcharger la
-méthode get(int). Au moment de l&#8217;appel de cette méthode, nous ne renvoyons plus
-de mapping, mais notre controleur se construit à partir d&#8217;une liste d&#8217;objet
-mapping. Le calcul des informations supplémentaires ne se fera donc plus que
-sur les objets réelement demandé et non sur tous les objets de la liste
-initiale.
-</p>
-
-<h1>Pourquoi cette implémentation ?</h1>
-
-<p>
-Je voulais par cette méthode n&#8217;obtenir que des objets le plus léger possible.
-En effet, je préfére que mon programme utilise plus de petits objets que moins
-d&#8217;objets, mais gros. Je voulais aussi que mes actions Struts soit le plus simple
-possible à lire. Car sans l&#8217;utilisation de ce procédé, je me retrouvais avec
-des actions comprenant énormément de ligne de code. Cette technique rend le
-code plus simple à lire et à comprendre. Je voulais aussi effectuer les
-traitements non nécessaire qu&#8217;à la fin pour ainsi permettre de n&#8217;effectuer que
-le nécessaire et éviter ainsi le superflu.
-</p>
-
-<p>Pour les curieux, j&#8217;ai fait mes graphiques grâce à Graphivz que je ne maitrise hélas pas trop. Vous pouvez trouver les sources des scripts de création <a href="/exportation/script/dot/">ici</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -677,6 +585,10 @@ le nécessaire et éviter ainsi le superflu.
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -712,10 +624,6 @@ le nécessaire et éviter ainsi le superflu.
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>

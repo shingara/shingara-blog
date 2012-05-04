@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Attachment_fu est un magnifique plugin rails à utiliser pour tout formulaire qui doit faire un upload de fichier. Je l&#8217;utilise ainsi dans mon &hellip;">
+  <meta name="description" content="Ça y est, un peu moins de 2 mois après la sortie de pictrails 0.1.0, voici la version 0.2.2 de Pictrails. Cette version est cette fois ci considéré &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,67 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/pictrails-0-2-2-released.html">Pictrails 0.2.2 released</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2008</time>
+        
+         | <a href="/pictrails-0-2-2-released.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ça y est, un peu moins de 2 mois après la sortie de <a href="http://blog.shingara.fr/articles/2008/01/27/pictrails-0-1-0-sortie-pour-une-premiere-alpha">pictrails 0.1.0</a>, voici la version 0.2.2 de <a href="http://pictrails.rubyforge.org/">Pictrails</a>. Cette version est cette fois ci considéré comme une version Beta. Je pense qu&#8217;il y en aura ainsi beaucoup car la liste des fonctionnalités de Pictrails ne cesse d&#8217;augmenter comme vous pouvez le constater sur <a href="http://dev.shingara.fr/projects/roadmap/3">la roadmap</a> que je tiens à jour régulièrement en l&#8217;agrémentant de toutes idées et remarques que l&#8217;on peux me faire.</p>
+
+<p>
+Cette version 0.2.x a déjà eu deux releases avant que je ne l&#8217;annonce ici, suite a des découvertes de bugs que je considérais comme majeur. Que ce soit pour la suppression du cache qui ne se faisait pas forcement quand il le fallait ou pour une condition de requête non générique. Je viens même de redécouvrir encore un bug dans une suppression de cache. Je vais donc encore hélas releaser une version 0.2.3. J&#8217;en suis vraiment désolé. Ça prouve en tout cas la nécessité absolu de faire plus de test d&#8217;intégration, qui vérifie les suppressions de cache. Je vais réaliser ces tâches directement en <a href="http://rspec.info/documentation/stories.html">Stories</a> de <a href="http://rspec.info/">Rspec</a>. j&#8217;en parlerais ainsi plus profondément dans un futur article je pense.
+</p>
+
+<p>Au sujet des fonctionnalités apportés par la release 0.2.x, vous pouvez voir :</p>
+
+<ul>
+<li>Utilisation massive du système de cache sur toute la partie public pour ainsi avoir les meilleures performances possible (ce qui a entraîné les erreurs que j&#8217;ai soulignés et les nombreuses releases).</li>
+<li>Refontes graphique complète de la partie d&#8217;administration. Si vous utilisez <a href="http://typosphere.org">Typo 5.0.x</a>, vous verrez facilement l&#8217;inspiration que j&#8217;ai eu.</li>
+<li>Ajout de la possibilité de définir une titre et un sous-titre à la galerie dans la partie d&#8217;administration.</li>
+<li>Ajout d&#8217;un système de mass_upload à partir d&#8217;un répertoire directement présent sur le serveur. Vous indiquez l&#8217;emplacement de ce répertoire et tout les images seront intégrés dans une nouvelle galerie</li>
+<li>Ajout de la pagination dans la liste des galeries ainsi que la liste de images. Cette pagination est définissable directement dans l&#8217;administration</li>
+<li>Possibilité de définir la taille des thumbnails et des images originales qu&#8217;il y aura.</li>
+<li>Suppression de l&#8217;utilisation de splash.image. Désormais, il n&#8217;y a plus aucune ligne de javascript dans Pictrails. Il reviendra dans le futur. Je voulais une compatibilité maximum avec les utilisateurs désactivant le Javascript.</li>
+</ul>
+
+<p>
+Pour fêter cette sortie, j&#8217;ai décidé de mettre en place une version de <a href="http://pictrails.shingara.fr/">démo de pictrails</a> qui tourne actuellement sur la version 0.2.x. Vous pouvez allez l&#8217;admirer et lui faire subir tous les sévices. Pour vous logger sur <a href="http://pictrails.shingara.fr/admin">la partie d&#8217;administration</a>, les user/password sont : admin/pictrails. Un script la mettra à jours toutes les semaines pour éviter un engorgement et permettre de nouveau test. Cette version tourne derrière un serveur Nginx avec un daemon thin et une base de donnée PostGreSQL.
+</p>
+
+<p>
+Si vous souhaitez contribuer à pictrails, il n&#8217;y a pas de souci. Par contre, j&#8217;ai migrer de Mercurial vers GIT. Vous pouvez bien-sur cloner le <a href="http://github.com/shingara/pictrails/tree/master">dépot pictrails</a>. Pour faire des rapports de bugs et suivre l&#8217;évolutions de ceux-ci, vous pouvez allez sur <a href="http://dev.shingara.fr/projects/show/3">la platforme de développement de pictrails</a>.
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -819,72 +880,6 @@ Index: themes/dirtylicious/stylesheets/application.css
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/moins-de-log-pour-actionmailer-et-un-compte-gmail.html">Moins de log pour ActionMailer et un compte Gmail</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-06T00:00:00+01:00" pubdate data-updated="true">Jan 6<span>th</span>, 2008</time>
-        
-         | <a href="/moins-de-log-pour-actionmailer-et-un-compte-gmail.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le <a href="http://comscreens.free.fr/screens.php?act=see&scr=1609090355">post de Stephen Chu sur l&#8217;utilisation de votre compte Gmail avec ActionMailer.</a>. J&#8217;ai ainsi mis sa classe dans mon <a href="http://whotowho.rubyforge.org">WhoToWho</a> avec une option qui permet de l&#8217;utiliser le cas échéant.</p>
-
-<p>Mais voilà, par défaut il y a pas mal de logs qui sorte sur la sortie d&#8217;erreur STDERR. J&#8217;ai donc cherché comment la limiter voir la supprimer. J&#8217;ai ainsi trouvé les 2 lignes qui affichent ces logs. Il s&#8217;agit de la ligne suivante qui est répété deux fois. :</p>
-
-<pre>
-@socket.debug_output = STDERR #@debug_output
-</pre>
-
-</p>Après avoir commenté ces lignes, je n&#8217;ai plus eu de logs. J&#8217;ai bien sûr pour WhoToWho permis de les afficher avec l&#8217;option -v.</p>
-
-<p>Avec un peu de chance je devrais sortir une nouvelle version de WhoToWho très bientôt.</p>
-
-<p>En lisant dans les commentaires du post de Stephen, j&#8217;ai ainsi lu que quelqu&#8217;un avait tout simplement utilisé le gem tlsmail et avait simplement ajouté la ligne suivante :</p>
-
-<pre>
-require 'tlsmail'
-Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
-
-ActionMailer::Base.server_settings = {
-:address => 'smtp.gmail.com',
-:port => 587,
-:domain => 'yourdomain.com',
-:authentication => :plain,
-:user_name => 'username',
-:password => 'password'
-}
-</pre>
-
-<p>C&#8217;est à tester :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -900,6 +895,10 @@ ActionMailer::Base.server_settings = {
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
     
       <li class="post">
         <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
@@ -935,10 +934,6 @@ ActionMailer::Base.server_settings = {
     
       <li class="post">
         <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/sortie-de-typo-5-4-0.html">Sortie de Typo 5.4.0</a>
       </li>
     
   </ul>
