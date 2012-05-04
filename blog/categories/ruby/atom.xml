@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-04T09:57:08+02:00</updated>
+  <updated>2012-05-04T09:59:37+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -18,8 +18,7 @@
     <link href="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
     <updated>2012-04-30T09:42:00+02:00</updated>
     <id>http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby</id>
-    <content type="html"><![CDATA[<p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd
-Schaefer</a> a commencé a créer un
+    <content type="html"><![CDATA[<p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n'a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
 <a href="https://github.com/mongodb/mongo-ruby-driver">mongo-ruby-driver</a>.</p>
@@ -36,7 +35,7 @@ refusé.</p>
 <p>Un des buts de ce gem est de permettre d'avoir un gem qui est le plus
 possible thread-safe. Le driver officiel mongoDB est parfois considéré
 comme non thread-safe notament par Mike Perham (
-https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting ).
+[https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting] ).
 C'est un vrai problème alors que la communauté ruby
 commence enfin à redécouvrir les threads. Cet état empêche par exemple
 l'usage de <a href="http://mperham.github.com/sidekiq/">sidekiq</a> avec MongoDB.</p>
@@ -58,7 +57,7 @@ les benchmarks réalisés pour le projet.</p>
 <p>Seul ombre au tableau, la génération d'un ObjectId est plus lente avec
 moped qu'avec le gem officiel bson selon un thread de la mailing-list de
 Mongoid
-(https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion).
+([https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion]).
 Mais cela pourra être améliorer par la suite, je n'en doute pas.</p>
 
 <h2>Une API plus simple</h2>

@@ -9,8 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis décembre 2012, Bernerd
-Schaefer a commencé a créer un
+  <meta name="description" content="Depuis décembre 2012, Bernerd Schaefer a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée par
 10Gen ( &hellip;">
   
@@ -110,8 +109,7 @@ driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée pa
   </header>
 
 
-  <div class="entry-content"><p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd
-Schaefer</a> a commencé a créer un
+  <div class="entry-content"><p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
 <a href="https://github.com/mongodb/mongo-ruby-driver">mongo-ruby-driver</a>.</p>
@@ -128,7 +126,7 @@ refusé.</p>
 <p>Un des buts de ce gem est de permettre d&#8217;avoir un gem qui est le plus
 possible thread-safe. Le driver officiel mongoDB est parfois considéré
 comme non thread-safe notament par Mike Perham (
-https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting ).
+[https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting] ).
 C&#8217;est un vrai problème alors que la communauté ruby
 commence enfin à redécouvrir les threads. Cet état empêche par exemple
 l&#8217;usage de <a href="http://mperham.github.com/sidekiq/">sidekiq</a> avec MongoDB.</p>
@@ -150,7 +148,7 @@ les benchmarks réalisés pour le projet.</p>
 <p>Seul ombre au tableau, la génération d&#8217;un ObjectId est plus lente avec
 moped qu&#8217;avec le gem officiel bson selon un thread de la mailing-list de
 Mongoid
-(https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion).
+([https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion]).
 Mais cela pourra être améliorer par la suite, je n&#8217;en doute pas.</p>
 
 <h2>Une API plus simple</h2>
