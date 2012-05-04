@@ -89,3 +89,11 @@ extension de moped gérant GridFS.
 Mongoid 3.x utilisera désormais moped à la place du driver mongodb de
 10Gen. Si vous souhaitez donc commencer un peu à l'utiliser essayer
 cette nouvelle version majeur de Mongoid.
+
+Attention, Mongoid 3 n'est actuellement pas release. Si vous souhaitez
+l'utiliser il faudra utiliser la branche master de Mongoid. Le
+dévelopment y est toujours actif.
+
+```ruby
+gem 'mongoid', :git => 'git://github.com/mongoid/mongoid'
+```
