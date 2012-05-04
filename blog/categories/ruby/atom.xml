@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-04T09:59:37+02:00</updated>
+  <updated>2012-05-04T10:01:24+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -34,8 +34,7 @@ refusé.</p>
 
 <p>Un des buts de ce gem est de permettre d'avoir un gem qui est le plus
 possible thread-safe. Le driver officiel mongoDB est parfois considéré
-comme non thread-safe notament par Mike Perham (
-[https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting] ).
+comme non thread-safe notament par <a href="https://github.com/mperham/sidekiq/wiki/Problems-and-Troubleshooting">Mike Perham</a>.
 C'est un vrai problème alors que la communauté ruby
 commence enfin à redécouvrir les threads. Cet état empêche par exemple
 l'usage de <a href="http://mperham.github.com/sidekiq/">sidekiq</a> avec MongoDB.</p>
@@ -55,9 +54,7 @@ performant que l'extension C selon
 les benchmarks réalisés pour le projet.</p>
 
 <p>Seul ombre au tableau, la génération d'un ObjectId est plus lente avec
-moped qu'avec le gem officiel bson selon un thread de la mailing-list de
-Mongoid
-([https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion]).
+moped qu'avec le gem officiel bson selon un <a href="https://groups.google.com/d/topic/mongoid/87IdIKO8-VM/discussion">thread de la mailing-list de Mongoid</a>.
 Mais cela pourra être améliorer par la suite, je n'en doute pas.</p>
 
 <h2>Une API plus simple</h2>
