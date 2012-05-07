@@ -6,6 +6,7 @@ comments: true
 categories:
   - ruby
   - mongodb
+  - mongoid
 ---
 
 Depuis décembre 2012, [Bernerd Schaefer](https://github.com/bernerdschaefer) a commencé a créer un
@@ -97,3 +98,5 @@ dévelopment y est toujours actif.
 ```ruby
 gem 'mongoid', :git => 'git://github.com/mongoid/mongoid'
 ```
+
+[English Translation](http://blog-en.shingara.fr/moped-the-new-mongodb-ruby-driver.html)
