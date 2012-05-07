@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-04T10:48:31+02:00</updated>
+  <updated>2012-05-07T22:18:16+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -106,6 +106,8 @@ dévelopment y est toujours actif.</p>
 <p><code>ruby
 gem 'mongoid', :git =&gt; 'git://github.com/mongoid/mongoid'
 </code></p>
+
+<p><a href="http://blog-en.shingara.fr/moped-the-new-mongodb-ruby-driver.html">English Translation</a></p>
 ]]></content>
   </entry>
   
