@@ -9,9 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis décembre 2012, Bernerd Schaefer a commencé a créer un
-driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée par
-10Gen ( &hellip;">
+  <meta name="description" content="J&#8217;ai dernièrement eu besoin de convertir un petit script ruby en daemon. J&#8217;utilise dans mes déploiements monitrc pour le monitoring de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,122 @@ driver MongoDB pour ruby. Ce nouveau driver MongoDB n&#8217;a pas été crée pa
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-09T09:43:00+02:00" pubdate data-updated="true">May 9<span>th</span>, 2012</time>
+        
+         | <a href="/dante-pour-mettre-du-daemon-dans-son-code.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>J&#8217;ai dernièrement eu besoin de convertir un petit script ruby en daemon.</p>
+
+<p>J&#8217;utilise dans mes déploiements monitrc pour le monitoring de mes
+scripts. Monit check un pidfile pour voir si le processus est actif ou
+pas.</p>
+
+<p>J&#8217;ai donc cherché en Ruby quel était la meilleure solution pour que mon
+script soit un daemon et puisse générer lui-même son pidfile.</p>
+
+<p>Le projet le plus connu est <a href="http://daemons.rubyforge.org/">daemons</a>.
+J&#8217;ai déjà essayé de l&#8217;utiliser, mais je n&#8217;en ai jamais été un grand
+convaincu. Je l&#8217;ai toujours trouvé compliqué. Il ne gére pas la
+génération de pidfile. Il faut donc pratiquement tout gérer soit même.</p>
+
+<p>Le deuxième projet le plus connu est une sur-couche de daemons c&#8217;est
+<a href="https://github.com/kennethkalmer/daemon-kit">daemon-kit</a>. J&#8217;avais déjà
+tenté de l&#8217;utiliser, mais je le trouve vraiment trop rigide pour un
+simple script. C&#8217;est selon moi plus une massue qu&#8217;autre chose pour créer
+un daemon.</p>
+
+<p>C&#8217;est alors que je me suis rappelé avoir entendu parlé d&#8217;un nouveau gem
+pour créer des daemons. J&#8217;ai cherché et j&#8217;ai ainsi pu découvrir
+<a href="https://github.com/bazaarlabs/dante">dante</a>. Ce projet est exactement
+ce que je cherchais. Il est simple et fait le boulot de créer un daemon.</p>
+
+<p>Par défaut, il supporte quelques arguments à passer en ligne de
+commande. Ces arguments font l&#8217;essentiel du travail d&#8217;un daemon.</p>
+
+<p>Voici une liste des arguments par défaut disponible.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-p, --port PORT           Specify port
+</span><span class='line'>                          (default: )
+</span><span class='line'>-P, --pid FILE            save PID in FILE when using -d option.
+</span><span class='line'>                          (default: /var/run/scheduler.pid)
+</span><span class='line'>-d, --daemon              Daemonize mode
+</span><span class='line'>-l, --log FILE            Logfile for output
+</span><span class='line'>-k, --kill [PORT]         Kill specified running daemons - leave
+</span><span class='line'>blank to kill all.
+</span><span class='line'>-u, --user USER           User to run as
+</span><span class='line'>-G, --group GROUP         Group to run as
+</span><span class='line'>-?, --help                Display this usage information.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On peux ainsi définir, le PID, le fichier de log, l&#8217;utilisateur et le
+group lançant le daemon ( si lancé en root ). Seul petit argument qui ne
+me semble pas essentiel, c&#8217;est l&#8217;argument du port. Mais l&#8217;usage initial
+de dante est de lancé des applications rack. Voila pourquoi on
+retrouve cet argument.</p>
+
+<p>Une de ses autre fonctionnalités intéressantes est tout simplement le
+fait que l&#8217;on peux ajouter des options. Il peux donc aussi servir de
+gestion d&#8217;option pour son application.</p>
+
+<p>Pour l&#8217;utiliser rien de plus simple. Il suffit de mettre votre script
+dans un block <code>Dante.run</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dante</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">opts</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">myapp</span><span class="o">.</span><span class="n">run</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Je suis vraiment impressionné par ce gem qui est issu de la société
+<a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d&#8217;avoir
+d&#8217;aussi bon gem.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1029,75 +1143,6 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-23T00:00:00+01:00" pubdate data-updated="true">Jan 23<span>rd</span>, 2010</time>
-        
-         | <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>On m&#8217;a posé dernièrement cette question. Ça peut sembler bête au premier abord, mais après quelques secondes de réflexion on se rappelle que toutes les offres d&#8217;emplois sont pleines d&#8217;interrogation.</p>
-
-<h4>Donc qu&#8217;est ce que j&#8217;attends dans une offre d&#8217;emploi ?</h4>
-
-<ul>
-
-<li>Le nom de l&#8217;entreprise :<br/>
-<p>Le nom de l&#8217;entreprise est toujours pratique ne serait-ce que pour zapper l&#8217;annonce si on aime pas cette entreprise. Ou alors rigoler encore plus en lisant l&#8217;offre d&#8217;emploi.</p>
-</li>
-
-<li>Le cœur de métier de l&#8217;entreprise :<br/>
-<p>C&#8217;est toujours agréable de savoir si on va travailler pour une entreprise qui fait du beurre ou des sites Web. On peut ainsi éviter certains entretiens inutiles.</p>
-</li>
-
-<li>Le nombre de développeurs dans l&#8217;entreprise :<br />
-<p>C&#8217;est une question plutôt inhabituelle pour un recruteur, mais avoir cette information permet de savoir tout de suite si on sera le geek dans son coin qui sera interrompu pour faire de l&#8217;assistance Words alors qu&#8217;il n&#8217;a plus touché à un windows depuis 3 ans. Au contraire, si on voit qu&#8217;il y a une majorité de développeurs, on pourra se dire que ça sera la fête aux trolls. Un développeur aime les Trolls \o/.</p>
-</li>
-
-<li>Les personnes connues :<br />
-<p>Comme dans tous métiers, on connaît certaines personnes de réputation. Cela peut facilement aider un développeur à choisir cette offre d&#8217;emploi si une personne connue y est. En revanche, c&#8217;est aussi à double tranchant. Certains feront l&#8217;entretien juste pour voir cette personne. D&#8217;autres zapperont encore plus l&#8217;offre d&#8217;emploi à cause de cette même personne.</p>
-</li>
-
-<li>L&#8217;environnement de travail :<br />
-<p>L&#8217;OS utilisé en majorité par les développeurs de la société peut être un très bon indicateur parfois. Typiquement chez AF83 où je travaille encore en ce moment, tous les développeurs sont sous UNIX, soit GNU/Linux, soit MacOSX. Pour beaucoup, cela prouve la qualité des développeurs. Et là encore la guerre aux trolls pourra facilement être ouverte.</p>
-</li>
-
-<li>La contribution Open source possible et faite par l&#8217;entreprise :<br />
-<p>Avoir du temps pour faire de l&#8217;Open Source selon notre désir est un plus non négligeable selon moi. J&#8217;ai énormément de projets open source en cours que je fais en parallèle de mon emploi, mais si je pouvais les faire aussi durant une partie de celui-ci, je serais vraiment heureux. Ensuite le fait que la société produise du code Open Source, peut facilement permettre au développeur de jauger de la qualité du code de cette société. En effet, pourquoi est-ce toujours la société qui doit vérifier le code de ses futurs employés ?</p>
-</li>
-</ul>
-
-<p>Selon, moi ces 6 points ne sont hélas pas toujours renseignés dans une offre d&#8217;emploi et cela serait un plus non négligeable.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1111,6 +1156,10 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -1146,10 +1195,6 @@ Le plus grand reproche que l&#8217;on fait actuellement au choix de Ruby On Rail
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

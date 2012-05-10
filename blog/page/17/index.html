@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, j&#8217;ai fait l&#8217;aquisition d&#8217;un nouvel ordinateur. Pour ceux qui me connaissent, ils sauront que mon précédent PC avait &hellip;">
+  <meta name="description" content="Depuis quelque temps, je cherchais désespérement comment faire un svn:ignore efficace en ligne de commande. Je savais les commandes à utiliser, mais &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,59 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/subversion-et-le-svn-ignore.html">Subversion et le svn:ignore</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-09-04T00:00:00+02:00" pubdate data-updated="true">Sep 4<span>th</span>, 2006</time>
+        
+         | <a href="/subversion-et-le-svn-ignore.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis quelque temps, je cherchais désespérement comment faire un svn:ignore efficace en ligne de commande. Je savais les commandes à utiliser, mais pas trop comment les utiliser. Je vais donc expliquer ce que j&#8217;ai finalement fini par comprendre.</p>
+
+<ul>
+<li>Ne pas committer le fichier que l&#8217;on veux ignorer. Si il est commité, ce n&#8217;est pas la peine de tenter de l&#8217;ignorer. Il faut le supprimer du versionning et ensuite l&#8217;ignorer.</li>
+<li>Ce mettre dans le dossier où le ou les fichiers à ignorer se trouve, pour une question de simplicité plus qu&#8217;autre chose.</li>
+<li>Ajouter une propriété de svn:ignore dans le dossier courant avec la commande : <code>$ svn propset svn:ignore file .</code> Il ne faut pas oublier le point à la fin, c&#8217;est le dossier pour lequel la propriété est défini. Le mot file est à remplacer par le nom de votre fichier à ignorer</li>
+</ul>
+
+<p>Si vous n&#8217;avez qu&#8217;un seul fichier à ignorer, cette procédure suffit. Mais si vous désirez rajouter des fichiers à ignorer, voici ce qu&#8217;il faut faire :</p>
+
+<ul>
+<li>Utiliser la commande propedit comme ceci : <code>$ svn propedit svn:ignore .</code>. Encore une fois, n&#8217;oubliez pas le point qui défini le dossier dans lequel la propriété s&#8217;exerce.</li>
+<li>Une fois cette commande effectué, si vous avez déjà mis un fichier dans votre propriété, un éditeur de texte s&#8217;ouvre avec dedans écrit le fichier précédement indiqué. Il vous suffit donc d&#8217;ajouter sur chaque ligne, le fichier que vous voulez ignorer. Une fois fini, fermez votre éditeur et votre propriété sera mis à jour.</li>
+</ul>
+
+<p>Dans votre svn:ignore, vous pouvez mettre comme nom, tout type de nom comme lors d&#8217;une recherche dans un shell avec le charactère * comme charactère joker. Après chaque mis à jour de votre propriété svn, n&#8217;oubliez pas de committer pour prendre tout ça en compte.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -586,49 +639,6 @@ J&#8217;ai suivi les explications d&#8217;un <a href="http://doc.ubuntu-fr.org/a
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/setopaque-true-or-false.html">setOpaque true or false ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-02-24T00:00:00+01:00" pubdate data-updated="true">Feb 24<span>th</span>, 2006</time>
-        
-         | <a href="/setopaque-true-or-false.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-La méthode <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/swing/JComponent.html#setOpaque(boolean)">setOpaque</a> de la Classe Jcomponent a un comportement particulier. En effet, j&#8217;ai pris juste deux petites heures à trouver comment mettre un JLabel avec une couleur de fond. Une fois la métode setBackground(Color) utilisé, je ne constatais aucun résultat. J&#8217;ai donc quand même fini par comprendre.
-</p>
-<p>
-En effet, la méthode setOpaque est à &#8220;false&#8221; dans le cas d&#8217;un JLabel, il n&#8217;est à true que pour les JButton. Maintenant que je le sais, je ne referais plus cette erreur.
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -644,6 +654,10 @@ En effet, la méthode setOpaque est à &#8220;false&#8221; dans le cas d&#8217;u
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -679,10 +693,6 @@ En effet, la méthode setOpaque est à &#8220;false&#8221; dans le cas d&#8217;u
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-07T22:18:16+02:00</updated>
+  <updated>2012-05-10T09:56:54+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,93 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[dante pour mettre du daemon dans son code]]></title>
+    <link href="http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code.html"/>
+    <updated>2012-05-09T09:43:00+02:00</updated>
+    <id>http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code</id>
+    <content type="html"><![CDATA[<p>J&#8217;ai dernièrement eu besoin de convertir un petit script ruby en daemon.</p>
+
+<p>J&#8217;utilise dans mes déploiements monitrc pour le monitoring de mes
+scripts. Monit check un pidfile pour voir si le processus est actif ou
+pas.</p>
+
+<p>J&#8217;ai donc cherché en Ruby quel était la meilleure solution pour que mon
+script soit un daemon et puisse générer lui-même son pidfile.</p>
+
+<p>Le projet le plus connu est <a href="http://daemons.rubyforge.org/">daemons</a>.
+J&#8217;ai déjà essayé de l&#8217;utiliser, mais je n&#8217;en ai jamais été un grand
+convaincu. Je l&#8217;ai toujours trouvé compliqué. Il ne gére pas la
+génération de pidfile. Il faut donc pratiquement tout gérer soit même.</p>
+
+<p>Le deuxième projet le plus connu est une sur-couche de daemons c&#8217;est
+<a href="https://github.com/kennethkalmer/daemon-kit">daemon-kit</a>. J&#8217;avais déjà
+tenté de l&#8217;utiliser, mais je le trouve vraiment trop rigide pour un
+simple script. C&#8217;est selon moi plus une massue qu&#8217;autre chose pour créer
+un daemon.</p>
+
+<p>C&#8217;est alors que je me suis rappelé avoir entendu parlé d&#8217;un nouveau gem
+pour créer des daemons. J&#8217;ai cherché et j&#8217;ai ainsi pu découvrir
+<a href="https://github.com/bazaarlabs/dante">dante</a>. Ce projet est exactement
+ce que je cherchais. Il est simple et fait le boulot de créer un daemon.</p>
+
+<p>Par défaut, il supporte quelques arguments à passer en ligne de
+commande. Ces arguments font l&#8217;essentiel du travail d&#8217;un daemon.</p>
+
+<p>Voici une liste des arguments par défaut disponible.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-p, --port PORT           Specify port
+</span><span class='line'>                          (default: )
+</span><span class='line'>-P, --pid FILE            save PID in FILE when using -d option.
+</span><span class='line'>                          (default: /var/run/scheduler.pid)
+</span><span class='line'>-d, --daemon              Daemonize mode
+</span><span class='line'>-l, --log FILE            Logfile for output
+</span><span class='line'>-k, --kill [PORT]         Kill specified running daemons - leave
+</span><span class='line'>blank to kill all.
+</span><span class='line'>-u, --user USER           User to run as
+</span><span class='line'>-G, --group GROUP         Group to run as
+</span><span class='line'>-?, --help                Display this usage information.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On peux ainsi définir, le PID, le fichier de log, l&#8217;utilisateur et le
+group lançant le daemon ( si lancé en root ). Seul petit argument qui ne
+me semble pas essentiel, c&#8217;est l&#8217;argument du port. Mais l&#8217;usage initial
+de dante est de lancé des applications rack. Voila pourquoi on
+retrouve cet argument.</p>
+
+<p>Une de ses autre fonctionnalités intéressantes est tout simplement le
+fait que l&#8217;on peux ajouter des options. Il peux donc aussi servir de
+gestion d&#8217;option pour son application.</p>
+
+<p>Pour l&#8217;utiliser rien de plus simple. Il suffit de mettre votre script
+dans un block <code>Dante.run</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Dante</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;myapp&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">opts</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">myapp</span><span class="o">.</span><span class="n">run</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Je suis vraiment impressionné par ce gem qui est issu de la société
+<a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d&#8217;avoir
+d&#8217;aussi bon gem.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[moped le nouveau driver mongodb pour ruby]]></title>
@@ -1057,35 +1144,6 @@ associations françaises de Ruby (RubyFrance), Python (AFPy) et Perl (Mongueurs
 <p>En tout cas je suis très heureux de pouvoir y présenter une petite
 conférence sur <a href="http://cukes.info/">Cucumber</a>. J&#8217;espère vous y
 retrouver.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Open-notification v0.1.0 est sortie]]></title>
-    <link href="http://blog.shingara.fr//open-notification-v0-1-0-est-sortie.html"/>
-    <updated>2009-08-08T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr//open-notification-v0-1-0-est-sortie</id>
-    <content type="html"><![CDATA[<p>
-Il y a maintenant un mois, j&#8217;ai commencé à jouer avec <a href="http://github.com/ezmobius/nanite">nanite</a>. Pour essayer un peu cette technologie, j&#8217;ai réaliser une mini application en sinatra et un agent nanite qui envoi des notifications par Jabber.
-</p>
-
-<p>
-De fil en aiguille, le code s&#8217;est agrémenté et est surtout passé à Merb avec un système de persistance en CouchDB.
-</p>
-
-<p>
-L&#8217;idée de base est extrêmement simple, gérer plein de notification de tous type. Il existe déjà ce genre de système comme <a href="http://messagepub.com">messagepub</a>. Mais là ca sera open source.
-</p>
-
-<p>
-<a href="http://github.com/shingara/open-notification">Open notification</a> sort donc en version 0.1.0 pour sa première version. Le code sera mis sous licence <a href="http://www.fsf.org/licensing/licenses/agpl-3.0.html">AGPLv3</a>. Il est composé d&#8217;un agent nanite qui gére l&#8217;envoi des notifications jabber et d&#8217;une application avec Merb/CouchDB.
-</p>
-
-<p>
-La méthode de déploiement est assez compliqué je l&#8217;avoue car il n&#8217;y a aucune documentation. Cela arrivera dans les prochaines versions.
-</p>
-
-<p>Une version complête est utilisable par tout un chacun sur <a href="http://open-notification.com">open-notification.com</a>. Ce service n&#8217;a pour l&#8217;instant aucune pérennité. Mais on verra dans le futur ce que ca donnera.</p>
 ]]></content>
   </entry>
   

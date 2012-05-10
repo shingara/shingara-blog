@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: daemon | Shiny happy people coding]]></title>
+  <link href="http://blog.shingara.fr//blog/categories/daemon/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr//"/>
+  <updated>2012-05-10T09:56:54+02:00</updated>
+  <id>http://blog.shingara.fr//</id>
+  <author>
+    <name><![CDATA[Cyril Mougel]]></name>
+    <email><![CDATA[cyril.mougel@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[dante pour mettre du daemon dans son code]]></title>
+    <link href="http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code.html"/>
+    <updated>2012-05-09T09:43:00+02:00</updated>
+    <id>http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code</id>
+    <content type="html"><![CDATA[<p>J'ai dernièrement eu besoin de convertir un petit script ruby en daemon.</p>
+
+<p>J'utilise dans mes déploiements monitrc pour le monitoring de mes
+scripts. Monit check un pidfile pour voir si le processus est actif ou
+pas.</p>
+
+<p>J'ai donc cherché en Ruby quel était la meilleure solution pour que mon
+script soit un daemon et puisse générer lui-même son pidfile.</p>
+
+<p>Le projet le plus connu est <a href="http://daemons.rubyforge.org/">daemons</a>.
+J'ai déjà essayé de l'utiliser, mais je n'en ai jamais été un grand
+convaincu. Je l'ai toujours trouvé compliqué. Il ne gére pas la
+génération de pidfile. Il faut donc pratiquement tout gérer soit même.</p>
+
+<p>Le deuxième projet le plus connu est une sur-couche de daemons c'est
+<a href="https://github.com/kennethkalmer/daemon-kit">daemon-kit</a>. J'avais déjà
+tenté de l'utiliser, mais je le trouve vraiment trop rigide pour un
+simple script. C'est selon moi plus une massue qu'autre chose pour créer
+un daemon.</p>
+
+<p>C'est alors que je me suis rappelé avoir entendu parlé d'un nouveau gem
+pour créer des daemons. J'ai cherché et j'ai ainsi pu découvrir
+<a href="https://github.com/bazaarlabs/dante">dante</a>. Ce projet est exactement
+ce que je cherchais. Il est simple et fait le boulot de créer un daemon.</p>
+
+<p>Par défaut, il supporte quelques arguments à passer en ligne de
+commande. Ces arguments font l'essentiel du travail d'un daemon.</p>
+
+<p>Voici une liste des arguments par défaut disponible.</p>
+
+<p>```</p>
+
+<pre><code>-p, --port PORT           Specify port
+                          (default: )
+-P, --pid FILE            save PID in FILE when using -d option.
+                          (default: /var/run/scheduler.pid)
+-d, --daemon              Daemonize mode
+-l, --log FILE            Logfile for output
+-k, --kill [PORT]         Kill specified running daemons - leave
+</code></pre>
+
+<p>blank to kill all.</p>
+
+<pre><code>-u, --user USER           User to run as
+-G, --group GROUP         Group to run as
+-?, --help                Display this usage information.
+</code></pre>
+
+<p>```</p>
+
+<p>On peux ainsi définir, le PID, le fichier de log, l'utilisateur et le
+group lançant le daemon ( si lancé en root ). Seul petit argument qui ne
+me semble pas essentiel, c'est l'argument du port. Mais l'usage initial
+de dante est de lancé des applications rack. Voila pourquoi on
+retrouve cet argument.</p>
+
+<p>Une de ses autre fonctionnalités intéressantes est tout simplement le
+fait que l'on peux ajouter des options. Il peux donc aussi servir de
+gestion d'option pour son application.</p>
+
+<p>Pour l'utiliser rien de plus simple. Il suffit de mettre votre script
+dans un block <code>Dante.run</code></p>
+
+<p><code>ruby
+Dante.run('myapp') do |opts|
+  myapp.run
+end
+</code></p>
+
+<p>Je suis vraiment impressionné par ce gem qui est issu de la société
+<a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d'avoir
+d'aussi bon gem.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voila, je vais tenter de vous mettre un peu a contribution. En effet, en ce moment, je suis en train d&#8217;apprendre à coder en JAVA. Hors la &hellip;">
+  <meta name="description" content="La méthode setOpaque de la Classe Jcomponent a un comportement particulier. En effet, j&#8217;ai pris juste deux petites heures à trouver comment &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/setopaque-true-or-false.html">setOpaque true or false ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-02-24T00:00:00+01:00" pubdate data-updated="true">Feb 24<span>th</span>, 2006</time>
+        
+         | <a href="/setopaque-true-or-false.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+La méthode <a href="http://java.sun.com/j2se/1.5.0/docs/api/javax/swing/JComponent.html#setOpaque(boolean)">setOpaque</a> de la Classe Jcomponent a un comportement particulier. En effet, j&#8217;ai pris juste deux petites heures à trouver comment mettre un JLabel avec une couleur de fond. Une fois la métode setBackground(Color) utilisé, je ne constatais aucun résultat. J&#8217;ai donc quand même fini par comprendre.
+</p>
+<p>
+En effet, la méthode setOpaque est à &#8220;false&#8221; dans le cas d&#8217;un JLabel, il n&#8217;est à true que pour les JButton. Maintenant que je le sais, je ne referais plus cette erreur.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -534,6 +577,10 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
+    
+      <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
       </li>
     
@@ -567,10 +614,6 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

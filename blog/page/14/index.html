@@ -9,7 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, la pagination dans Rails a été supprimée sur le trunk de Ruby On Rails. Maintenant cela ne sera qu&#8217;en plugin qu&#8217;on pourra &hellip;">
+  <meta name="description" content="En codant avec un ami, je lui ai fait la réflection qu&#8217;en ruby, il était
+plus rubyiesque d&#8217;utiliser le système de block et la méthode &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,134 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/each-vs-for.html">Each vs For</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-13T00:00:00+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2007</time>
+        
+         | <a href="/each-vs-for.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>En codant avec un ami, je lui ai fait la réflection qu&#8217;en ruby, il était
+plus rubyiesque d&#8217;utiliser le système de block et la méthode each sur un list
+plutôt que d&#8217;utiliser une boucle for à la Java comme il voulait le faire.</p>
+
+<p>Partant de cette interrogation, je me suis demandé quel pouvait bien être
+la méthode réellement la plus rapide ?</p>
+
+<p>Pour tester ce genre d&#8217;allégation, rien de mieux qu&#8217;un petit script ruby et
+un bon benchmark pour être sûr de ce qu&#8217;il en est réellement. J&#8217;ai donc
+utilisé le script suivant pour faire mon benchmark :</p>
+
+<pre>
+#! /usr/bin/ruby -w
+
+require 'benchmark'
+
+a = 1
+n = 5_000_000
+b = []
+n.times { b << a; a+= 1;}
+Benchmark.bmbm(10) do |x|
+  x.report("each{}") { b.each { |r| r + 1}}
+  x.report("each do end") {b.each do |r| r + 1; end}
+  x.report("for do end") {for r in b do r + 1; end}
+end
+</pre>
+
+<p>Voici les résultats que j&#8217;ai obtenu :</p>
+
+<p>
+Sur un INSPIRON 1300 avec les caractéristiques suivantes :
+</p>
+
+<ul>
+<li>Processeur : Intel(R) Pentium(R) M processor 1.70GHz</li>
+<li>Memoire RAM : 508636 kB</li>
+<li>Distribution : Debian/Linux
+<li>ruby : ruby 1.8.6 (2007-03-13 patchlevel 0) [i486-linux]</li>
+</ul>
+
+<pre>
+concerto-linux-15:06:50:~$ ./bench_boucle.rb 
+Rehearsal -----------------------------------------------
+each{}        5.060000   1.060000   6.120000 (  6.584567)
+each do end   5.140000   0.980000   6.120000 (  6.149548)
+for do end    4.620000   1.060000   5.680000 (  5.720802)
+------------------------------------- total: 17.920000sec
+
+                  user     system      total        real
+each{}        5.030000   1.080000   6.110000 (  6.542022)
+each do end   5.020000   1.100000   6.120000 (  6.137550)
+for do end    4.600000   1.080000   5.680000 (  5.700844)
+</pre>
+
+<p>
+Sur un HP Pavilion ze4900 avec les caractéristiques suivantes :
+</p>
+
+<ul>
+<li>Processeur : Intel(R) Pentium(R) M processor 1.50GHz
+<li>Memoire RAM : 481108 kB</li>
+<li>Distribution : Gentoo/Linux
+<li>ruby : ruby 1.8.6 (2007-03-13 patchlevel 0) [i686-linux]</li>
+</ul>
+
+<pre>
+shingara@shalamarette ~ $ ./bench_boucle.rb 
+Rehearsal -----------------------------------------------
+each{}        2.900000   0.000000   2.900000 (  2.897030)
+each do end   2.840000   0.000000   2.840000 (  2.873575)
+for do end    2.360000   0.010000   2.370000 (  2.355282)
+-------------------------------------- total: 8.110000sec
+
+                  user     system      total        real
+each{}        2.870000   0.000000   2.870000 (  2.876499)
+each do end   2.870000   0.000000   2.870000 (  2.882328)
+for do end    2.350000   0.000000   2.350000 (  2.747947)
+</pre>
+
+<p>
+Finalement en regardant ces résultats, nous pouvons constater que la méthode la plus rapide 
+semble être le for, alors que c&#8217;est vrai que ma première impression aurait été que le each serait 
+plus rapide que le for. Une fois de plus, il n&#8217;y a vraiment que les test qui permettent de savoir 
+exactement ce qui est plus ou moins rapide.
+</p>
+
+<p>
+L&#8217;autre petite remarque que nous pouvons faire sur ce benchmark est la différence entre {} ou le do end. En
+effet nous pouvons constater qu&#8217;il n&#8217;y a
+absolument aucune incidence sur la performance. Cela ne sert vraiment qu&#8217;à la priorisation de l&#8217;un par rapport à l&#8217;autre.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -524,52 +653,6 @@ Est-ce un bug ou pas ?
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/pizza-on-rails-premie%CC%80re-a%CC%80-lille.html">Pizza On Rails première à Lille</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-03-18T00:00:00+01:00" pubdate data-updated="true">Mar 18<span>th</span>, 2007</time>
-        
-         | <a href="/pizza-on-rails-premie%CC%80re-a%CC%80-lille.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>J&#8217;ai mis du temps pour le blogguer avec mon week-end plein de déplacement, mais je le fais maintenant.</p>
-
-<p>Jeudi dernier (15 mars 2007), je suis allez à la première <a href="http://pizzaonrails.org/lille">Pizza On Rails de Lille</a>. Nous avons été 5. Le nombre était peut-être faible, mais l&#8217;intensité était là.</p>
-
-<p>Pas mal de discussion, autour de l&#8217;intégration de Ruby On Rails dans les grandes entreprises et implicitement la différence Java/Ruby qui sans conteste était gagné par Ruby. Mais après nous n&#8217;étions peut-être pas forcement impartial.</p>
-
-<p>En tout cas, j&#8217;ai passé une bonne soirée avec entre autres, <a href="http://nicolas-delsaux.is-a-geek.net/wordpress/">Nicolas Delsaux</a> et <a href="http://blog.boldr.fr/">Nicolas Merouze</a>, qui sont deux personnes très interressante. Il y avait ensuite Samuel Morello et Christophe Willaert.</p>
-
-<p>Il y a pas à dire, je commence vraiment à devenir Lillois :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -585,6 +668,10 @@ Est-ce un bug ou pas ?
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -620,10 +707,6 @@ Est-ce un bug ou pas ?
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

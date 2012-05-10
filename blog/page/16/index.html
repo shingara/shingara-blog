@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Salut, Je fais appel au net pour une logique de conception Java et surtout une aide sur Hibernate. En effet sans système de mapping Hibernate j&# &hellip;">
+  <meta name="description" content="Java 6 est sorti depuis quelques temps et il est aussi disponible sur debian. Je vais donc expliquer rapidement comment l&#8217;installer et surtout &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/java-6-sur-debian.html">Java 6 sur Debian</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2007</time>
+        
+         | <a href="/java-6-sur-debian.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Java 6 est sorti depuis quelques temps et il est aussi disponible sur debian. Je vais donc expliquer rapidement comment l&#8217;installer et surtout le mettre en place :)
+</p>
+
+<ul>
+<li>Se connecter en tant que root</li>
+<li>Installer java 6 : <code># aptitude install sun-java6-jdk</code></li>
+<li>Définir Java 6 comme la JVM par défaut de votre debian : <code># update-java-alternatives -s java-6-sun</code></li>
+</ul>
+
+<p>
+La commande update-java-alternative permet de mettre à jour et définir votre environnement JVM. C&#8217;est une commande très simple et ca vous permet de basculer d&#8217;une version à l&#8217;autre très facilement.
+</p>
+
+<p>
+Sinon je rappelle que sun a voulu que Java soit compatible de façon ascendante. En conséquence, il n&#8217;y a aucun risque sur vos applications développé en Java 1.4 ou Java 5. elles fonctionneront. J&#8217;ai ainsi par exemple lancé tomcat 5.5 et mon site Web que je crée en Java et je n&#8217;ai eu aucun problème.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -683,59 +737,6 @@ Voici donc le patch que je préconise :
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/subversion-et-le-svn-ignore.html">Subversion et le svn:ignore</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-04T00:00:00+02:00" pubdate data-updated="true">Sep 4<span>th</span>, 2006</time>
-        
-         | <a href="/subversion-et-le-svn-ignore.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis quelque temps, je cherchais désespérement comment faire un svn:ignore efficace en ligne de commande. Je savais les commandes à utiliser, mais pas trop comment les utiliser. Je vais donc expliquer ce que j&#8217;ai finalement fini par comprendre.</p>
-
-<ul>
-<li>Ne pas committer le fichier que l&#8217;on veux ignorer. Si il est commité, ce n&#8217;est pas la peine de tenter de l&#8217;ignorer. Il faut le supprimer du versionning et ensuite l&#8217;ignorer.</li>
-<li>Ce mettre dans le dossier où le ou les fichiers à ignorer se trouve, pour une question de simplicité plus qu&#8217;autre chose.</li>
-<li>Ajouter une propriété de svn:ignore dans le dossier courant avec la commande : <code>$ svn propset svn:ignore file .</code> Il ne faut pas oublier le point à la fin, c&#8217;est le dossier pour lequel la propriété est défini. Le mot file est à remplacer par le nom de votre fichier à ignorer</li>
-</ul>
-
-<p>Si vous n&#8217;avez qu&#8217;un seul fichier à ignorer, cette procédure suffit. Mais si vous désirez rajouter des fichiers à ignorer, voici ce qu&#8217;il faut faire :</p>
-
-<ul>
-<li>Utiliser la commande propedit comme ceci : <code>$ svn propedit svn:ignore .</code>. Encore une fois, n&#8217;oubliez pas le point qui défini le dossier dans lequel la propriété s&#8217;exerce.</li>
-<li>Une fois cette commande effectué, si vous avez déjà mis un fichier dans votre propriété, un éditeur de texte s&#8217;ouvre avec dedans écrit le fichier précédement indiqué. Il vous suffit donc d&#8217;ajouter sur chaque ligne, le fichier que vous voulez ignorer. Une fois fini, fermez votre éditeur et votre propriété sera mis à jour.</li>
-</ul>
-
-<p>Dans votre svn:ignore, vous pouvez mettre comme nom, tout type de nom comme lors d&#8217;une recherche dans un shell avec le charactère * comme charactère joker. Après chaque mis à jour de votre propriété svn, n&#8217;oubliez pas de committer pour prendre tout ça en compte.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -751,6 +752,10 @@ Voici donc le patch que je préconise :
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -786,10 +791,6 @@ Voici donc le patch que je préconise :
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

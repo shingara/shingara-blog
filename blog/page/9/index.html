@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ça y est, un peu moins de 2 mois après la sortie de pictrails 0.1.0, voici la version 0.2.2 de Pictrails. Cette version est cette fois ci considéré &hellip;">
+  <meta name="description" content="Depuis quelque temps, j&#8217;ai commencé à utiliser yoolink pour remplacer del.icio.us. Yoolink est exactement comme del.icio.us dans son concept. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/yoolink-sidebar-pour-typo.html">Yoolink-sidebar pour Typo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-03-23T00:00:00+01:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2008</time>
+        
+         | <a href="/yoolink-sidebar-pour-typo.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis quelque temps, j&#8217;ai commencé à utiliser <a href="http://yoolink.fr">yoolink</a> pour remplacer <a href="http://del.icio.us/">del.icio.us</a>. Yoolink est exactement comme del.icio.us dans son concept. Mais il a une interface beaucoup plus sympathique et avec des nouvelles fonctionnalités plus interressante. J&#8217;utilisais sur ce blog propulsé par <a href="http://typosphere.org"">Typo</a> le plugin del.icio.us pour afficher les derniers bookmarks que j&#8217;ai ajouté sur del.icio.us. Mais n&#8217;utilisant plus ce service et utilisant yoolink à la place, j&#8217;ai décidé d&#8217;adapter le plugin del.icio.us pour yoolink.</p>
+
+<p>Voici comment vous pouvez l&#8217;installer :</p>
+
+<ol>
+<li>Récupérer le plugin en le téléchargeant sur <a href="http://github.com">Github</a> : <a href="http://github.com/shingara/yoolink-typo-sidebar/tarball/yoolink-sidebar-0.1.0">Yoolink-sidebar-0.1.0</a></li>
+<li>Copier le contenu du plugin dans le dossier /vendor/plugins</li>
+<li>Redémarrer Typo</li>
+<li>Dans l&#8217;administration, vous pouvez désormais placé le plugin yoolink.</li>
+<li>
+<span>Configurer le plugin yoolink :</span>
+<ul>
+<li>Login : indiquez votre login yoolink</li>
+<li>items limit : indiquez le nombre de bookmark afficher par le plugin</li>
+<li>groups link by days : Groupez les bookmarks par date avec celle-ci d&#8217;afficher</li>
+<li>Allow links in description : Permettre les hyperliens dans les descriptions des bookmark. Par défaut, ils sont désactivés</li>
+</ul>
+</li>
+</ol>
+
+<p>Au niveau des CSS, le plugin est contenu dans une balise div avec comme id &#8220;yoolink&#8221;. De base, c&#8217;est celle utilisé par votre thème.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -832,54 +890,6 @@ Index: themes/dirtylicious/stylesheets/application.css
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/whotowho-0-2-0-est-sortie.html">WhoToWho 0.2.0 est sortie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-06T00:00:00+01:00" pubdate data-updated="true">Jan 6<span>th</span>, 2008</time>
-        
-         | <a href="/whotowho-0-2-0-est-sortie.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Après un peu moins de 3 mois depuis la version 0.1.0, voici la version 0.2.0 de <a href="http://whotowho.rubyforge.org/">WhoToWho</a> que je viens de finir. Cette nouvelle version était quasiment fini depuis un bout de temps, mais il manquait surtout les finissions et j&#8217;ai enfin pris le temps de le faire. Voici les évolutions sur cette version : </p>
-
-<ul>
-<li>Changement de Licence, car j&#8217;ai décidé de mettre WhoToWho sous licence MIT et plus GPLv3</li>
-<li>Création d&#8217;un nouveau site pour WhoToWho grâce à l&#8217;utilisation de <a href="http://newgem.rubyforge.org/">newgem</a> qui est bien pratique.</li>
-<li>Ajout de la possibilité de gérer un système d&#8217;exclusion dans la liste. Ainsi on peux dire que tel personne ne pourra pas être choisi par tel autre personne. Très pratique pour faire des exclusions au niveau des couples (ce que j&#8217;ai fait et où a été mon Use Case).</li>
-<li>Utilisation d&#8217;un vrai mode verbeux avec suppression des logs inutile si l&#8217;option -v n&#8217;est pas activé et l&#8217;ajout de plusieurs logs si l&#8217;option est activé</li>
-<li>Passage des Log avec le Logger de Ruby et non plus simplement des puts tout bête.</li>
-</ul>
-
-<p>Mes prochaines évolutions seront au niveau de l&#8217;interface pour la rendre plus utilisable par un non informaticien qui ne connait pas Ruby. J&#8217;ai donc l&#8217;intention de mettre une interface en QT4 pour WhoToWho.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -895,6 +905,10 @@ Index: themes/dirtylicious/stylesheets/application.css
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -930,10 +944,6 @@ Index: themes/dirtylicious/stylesheets/application.css
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis peu, je tente d&#8217;utiliser Merb et DataMapper. Une différence notable entre Merb et Rails est le système de log. Comme Merb est ORM &hellip;">
+  <meta name="description" content="Voici la nouvelle traduction de Vivre avec Edge. Par contre, cette fois ci, comme annoncé dans cette news, cette news est issu du blog officiel de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,227 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances.html">Vivre avec Edge (ou quoi de neuf dans Rails Edge) #1 - changement d&#8217;API et des tests de performances</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-27T00:00:00+02:00" pubdate data-updated="true">Jun 27<span>th</span>, 2008</time>
+        
+         | <a href="/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Voici la nouvelle traduction de Vivre avec Edge. Par contre, cette fois ci, comme annoncé dans cette news, cette news est issu du <a href="http://weblog.rubyonrails.com">blog officiel de rubyonrails</a> et non plus du blog de <a href="http://blog.codefront.net/">Chu Yeow</a></p>
+
+<p>Comme Gregg Pollack <a href="http://weblog.rubyonrails.org/2008/6/10/two-new-weekly-columns">l&#8217;indique il y a une semaine</a>, Je conserve une note hebdomadaire au sujet des changements de edge Rails. C&#8217;est la première fois que Living on the Edge(of Rails) est apparu officiellement sur le blog officiel de Ruby on Rails.</p>
+
+
+<p><a href="http://blog.codefront.net/category/edge-rails/">Living on the Edge</a> est une note hebdomadaire que je mettais sur mon <a href="http://blog.codefront.net/">propre blog</a> après plusieurs  récupération par Gregg Pollack of <a href="http://railsenvy.com/">Rails Envy</a> depuis décembre 2007. J&#8217;avais l&#8217;habitude d&#8217;être une contributeur actif de rails et non pas trop une personne qui réfléchis. Gregg et Jason ont été génial de m&#8217;ajouter à leur <a href="http://railsenvy.com/podcast">podcast</a> hebdomadaire.</p>
+
+<p>Et maintenant je suis ici, alors je vais essayer de faire de mon mieux et n&#8217;hésitez pas à être très critique pour que ça soit utile pour vous. Quand je blogguais cela dans mon petit blog personnel, ce n&#8217;était pas vital d&#8217;avoir une audience large et <em>significative</em> (NdT: Au moins sur ce blog ça reste toujours le cas). Laissez vos suggestions et critique dans les commentaires. Ils seront grandement appréciés.</p>
+
+<p>De toutes façon il y a eu énormément de nouveauté durant les deux semaines après la release de Rails 2.1, changement de l&#8217;<span class="caps">API</span> et amélioration des performances. Donc au lieu de faire une très gros post, j&#8217;ai décidé de le séparé en 2 posts pour les nouveautés et changement d&#8217;API et les améliorations de performances. Dans ce post, je parlerais des nouveautés et changement de l&#8217;<span class="caps">API</span>
+
+
+	<h4>Changements mineurs de l&#8217;<span class="caps">API</span></h4>
+
+
+	<p>Commençons avec les changements mineurs de l&#8217;<span class="caps">API</span>.</p>
+
+
+	<h5>link_to peux désormais prendre un block</h5>
+
+
+	<p>Le helper <code>link_to</code> peux désormais prendre en argument un block. Utile dans les cas où vous avez long texte d&#8217;hyperlien avec des variables.:</p>
+
+
+<typo:code lang="ruby">
+<% link_to(@profile) do %>
+
+  <strong><%= @profile.name %></strong> -
+  <span>Status: <%= @profile.status %></span>
+<% end %></typo:code>
+
+	<p>Certaine personne trouve cela plus propre que:</p>
+
+
+<typo:code lang="ruby"><%= link_to "<strong>#{@profile.name}</strong> &#8211; <span>Status: #{@profile.status}</span>&#8221;, @profile %></typo:code>
+
+	<p>Ce changement a été apporté par Sam Stephenson (du fameux Prototype) et <span class="caps">DHH</span>.</p>
+
+
+	<p><a href="http://github.com/rails/rails/commit/8190bce8bc7249b7b9f3680195336eb3ca9508ee">Changeset details</a></p>
+
+
+	<h5>ActiveRecord::Base#merge_conditions fait maintenant partie de l&#8217;<span class="caps">API</span> public</h5>
+
+
+	<p>Jeremy Kemper a rendu public la méthode <code>ActiveRecord::Base#merge_conditions</code>.</p>
+
+
+	<p>C&#8217;est vraiment très pratique si vous avez des conditions issues de multiples sources ou qui se combine pour différentes raisons.</p>
+
+
+<typo:code lang="ruby">Post.merge_conditions(
+  {:title => &#8216;Lucky ☆ Star&#8217;},
+  [&#8216;rating IN (?)&#8217;, 1..5]
+)
+=> &#8220;(`posts`.`title` = &#8216;Lucky ☆ Star&#8217;) AND (rating IN (1,2,3,4,5))&#8221;</typo:code>
+
+	<p>Notez bien que cela merge uniquement avec un boolean <span class="caps">SQL</span> <code>AND</code>  (pas <code>OR</code>s).</p>
+
+
+	<p><a href="http://github.com/rails/rails/commit/e328bdaab6c1cf920af3cabc0a27e32798a9fcb6">Changeset details</a></p>
+
+
+	<h5>Les associations peuvent prendre une option :validate </h5>
+
+
+	<p>les associations   peuvent désormais accepter une option c<ode>:validate</code> comme ceci:</p>
+
+
+<typo:code lang="ruby">class Anime < ActiveRecord::Base
+  has_many :characters, :validate => true
+end</typo:code>
+
+	<p>Cela indique à ActiveRecord de valider l&#8217;association <code>characters</code> quand vous enregistrer le model <code>Anime</code> - exactement comment fonctionnait  <code>:validates_associated</code>. La valeur par défaut est <code>false</code>, qui est le comportement actuel dans Rails 2.1 et plus récent, donc pas d&#8217;agitation à avoir. Cela fonctionne pour toutes les autre associations comme (<code>has_one</code>, <code>belongs_to</code>, <code>has_and_belongs_to_many</code>).</p>
+
+
+	<p>Merci à Jan De Poorter et Pratik Naik pour cela, qui permette aussi de résoudre un <a href="http://rails.lighthouseapp.com/projects/8994/tickets/301">mauvais bug</a>.</p>
+
+
+	<p><a href="http://github.com/rails/rails/commit/7f140bbddaf70abc61570f6cfdcbfba5771ffc78">Changeset details</a> &#8211; <a href="http://rails.lighthouseapp.com/projects/8994/tickets/301">Ticket</a></p>
+
+
+	<h5>ActiveSupport::StringInquirer et avantage de la méthode Rails.env.development? </h5>
+
+
+	<p>David Heinemeier Hansson (généralement abbrégé par <span class="caps">DHH</span> &#8211; désolé!) a récemment ajouté un sous-classe à String, <code>ActiveSupport::StringInquirer</code> qui permet de faire ceci: </p>
+
+
+<typo:code lang="ruby">s = ActiveSupport::StringInquirer.new(&#8216;awesome&#8217;)
+=> &#8220;awesome&#8221; 
+s.awesome?
+=> true
+s.sucks?
+=>; false</typo:code>
+
+	<p>Une utilisation immédiate de cette classe est quand vous voulez vérifier l&#8217;environnement de votre application en fonctionnement : <code>Rails.env</code> est enrobé en StringInquirer alors vous pouvez utiliser des méthodes comme <code>Rails.env.development?</code> et <code>Rails.env.production?</code>.</p>
+
+
+	<p><a href="http://github.com/rails/rails/commit/8afa725f4b98a6e0ceee4792e8ebaebb6189e5f6">Changeset details</a></p>
+
+
+	<h5>Core extensions: Object#present? et Enumerable#many?</h5>
+
+
+	<p><span class="caps">DHH</span> a aussi ajouté une extensions au core. C&#8217;est quelque peu trivial, mais peu rendre le code plus lisible. Le première est <code>Object#present?</code>, qui est essentiellement <code>!Object#blank?</code></p>
+
+
+<typo:code lang="ruby">[].present?
+=> false
+[1, 2].present?
+=> true
+&#8221;&#8221;.present?
+=> false
+&#8220;i&#8217;m here&#8221;.present?
+=> true</typo:code>
+
+	<p>Une extension <code>Enumerable#many?</code> a aussi été ajouté qui réalise simplement un test conditionnel sur <code>enumerable.size &gt; 1</code>:</p>
+
+
+<typo:code lang="ruby">[].many?
+=> false
+[:just_me].many?
+=> false
+[:just_me, &#8216;my_friend&#8217;].many?
+=> true</typo:code>
+
+	<p><a href="http://github.com/rails/rails/commit/a3caf28da3a22c1326d3d98dcf71483a8edaa55a">Object#present? changeset</a> &#8211; <a href="http://github.com/rails/rails/commit/556204abaf95f7c995576cb1358f13de406682ab">Enumerable#many? changeset</a></p>
+
+
+	<h4>Syntaxe de block déclaratif pour l&#8217;écriture de tests</h4>
+
+
+	<p><span class="caps">DHH</span> s&#8217;est inspiré de <a href="http://blog.jayfields.com/">Jay Fields</a> quand il commita cette nouvelle syntaxe. Vous pouvez maintenant écrire vos tests <code>(Test::Unit)</code>  avec un style de block déclaratif comme :</p>
+
+
+<typo:code lang="ruby">test &#8220;an anime should be invalid if any of its characters are invalid&#8221; do
+  # Your usual test code here.
+end</typo:code>
+
+	<p>J&#8217;utilise rarement Test::Unit (sauf pour soumettre des patchs à Rails) et préfère RSpec &#8211;  Ce style déclaratif pour écrire des tests est vraiment plus lisible.</p>
+
+
+	<p>Tous les tests générés par Rails utilisent désormais cette syntaxe.</p>
+
+	<p><a href="http://github.com/rails/rails/commit/f74ba37f4e4175d5a1b31da59d161b0020b58e94">Changeset details</a></p>
+
+
+	<h4>Performance tests</h4>
+
+
+	<p>Jeremy Kemper a fait un travail en profondeur pour optimiser et améliorer les performances de Rails, alors c&#8217;est sans surprise que cela a été introduit comme nouveau type de test d&#8217;intégration. Les tests de performances.</p>
+
+
+	<p>Vous pouvez utiliser le générateur de test de performance (ajouté par Pratik dans <a href="http://github.com/rails/rails/commit/2e232af91f7e276904e02cbb1ea42ea24c19255b">23232a</a>) pour générer des tests de performances.</p>
+
+
+<typo:code>script/generate performance_test LoginStories</typo:code>
+
+<p>Le lancement du test de performance nécessite ruby-prof &gt;= 0.6.1, qui n&#8217;est pas encore sortie. Mais vous pouvez récupérer sa version en développement à partir des sources et en installant vous même le gem (Je vous conseille de récupérer le <a href="http://github.com/jeremy/ruby-prof/">ruby-prof que Jeremy a forké</a>). Il est intéressant de remarquer qu&#8217;avec la sortie de ruby-prof 0.6.1, ruby-prof supportera le profiling des tests écrits avec Test::Unit</p>
+
+<p>Attention - Si vous faites un petit code de test (requêtes sur plusieurs actions, quelque soit le cas d&#8217;utilisateur que vous voulez testez en performance) et lancez le test. Vous aurez la sortie suivante (si vous avez dirigé la sortie habituel de ruby-prof vers le répertoire test/tmp/performance de votre application Rails):</p>
+
+
+<typo:code>> ruby performance/login_stories_test.rb 
+Loaded suite performance/login_stories_test
+Started
+LoginStoriesTest#test_homepage (32 ms warmup)
+        process_time: 11 ms
+              memory: unsupported
+             objects: unsupported
+.
+Finished in 0.870842 seconds.</typo:code>
+
+<p>Les résultats <code>memory</code> et <code>objects</code> ne sont pas supporté, parce que je n&#8217;avais pas patché mon interpréteur Ruby au support du proflling de mémoire. Vous aurez besoin de patcher certain interpréteur ruby pour activer le profiling de la mémoire et de GC. Je souhaiterais vous en dire plus à ce sujet, mais je suis en terrain inconnu. Il y a <a href="http://blog.pluron.com/2008/02/memory-profilin.html">plus de détail ici (en)</a> sur la méthode à suivre pour patcher Ruby pour le profilling de la mémoire. Je laisse les personnes plus qualifiée sur ce sujet expliquer tout ça.</p>
+
+
+	<p><a href="http://github.com/rails/rails/commit/eab71208db1afead6803501c8d51d77625e5ad6e">Changeset details</a></p>
+
+
+	<h4>Outro</h4>
+
+<p>C&#8217;est tout pour le moment concernant les nouvelles fonctionnalités et changement dans Rails depuis Rails 2.1 - Les améliorations de performances arriveront dans un prochain post et j&#8217;ai laissé aussi intentionnellement de coté le <a href="http://github.com/ezmobius/rails/">support de Rack </a> qui n&#8217;est que partiellement mergé dans Edge.</p>
+
+<p>Si il y a des erreurs ou que vous avez des suggestions sur comment faire un meilleur post, s&#8217;il vous plait indiquez le en commentaire. Toute information sur le patch de l&#8217;interpréteur Ruby pour supporter le profiling de la mémoire et aussi le bienvenue. Si j&#8217;ai laissé de coté des éléments qui ne vous semblez pas le nécessiter, laisser moi un commentaire.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -682,84 +903,6 @@ end</typo:code>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-18.html">Vivre avec Rails Edge #18</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-29T00:00:00+02:00" pubdate data-updated="true">Apr 29<span>th</span>, 2008</time>
-        
-         | <a href="/vivre-avec-rails-edge-18.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Traduction de la <a href="http://blog.codefront.net/2008/04/27/living-on-the-edge-of-rails-18/">news #18</a></p>
-
-<p>Le rapport de cette semaine couvre les changement du 21 Avril 2008 au 27 Avril 2008 (Jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
-
-<p>Très peu de chose interressant dans le rapport de cette semaine. Il y a eu
-principalement un paquet de résolutions de bug et des <a href="http://github.com/rails/rails/commits/master">commits</a> pour la compatibilité avec Ruby 1.8.7.</p>
-
-<h3>Introduction d&#8217;ActiveResource::Base.timeout et récupération de
-Timeout::Error dans ActionResource::Connection</h3>
-
-<p>I y a <a href="http://github.com/rails/rails/commit/105910429d5873dce677ef32eef5f705e0625d86">2</a>
-<a href="http://github.com/rails/rails/commit/cf32baf915442ffe153ec0e4d8148f147776c30a">changements</a>
-qui ont <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">été
-expliqué par Chu Yeow</a> la semaine dernière
-et ne seront donc pas détaillé. Lisez donc l&#8217;article <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">ActiveResource
-timeouts and why it matters (en)</a></p>
-
-<h3>Le type entier inteligent pour l&#8217;adaptater MySQL dans les migrations</h3>
-
-<p>L&#8217;adaptater MySQL dans Rails fait correspondre la colonne de type
-<code>integer</code> dans vos migrations aux type smalling, int ou biging
-dépendant de l&#8217;option :limit.</p>
-
-<p>Cela signifie qu&#8217;une migration comme ceci:</p>
-
-<typo:code lang="ruby">
-def self.up
-  create_table :searches do |t|
-    t.integer :foo, :limit => 2
-  end
-end
-</typo:code>
-<p>
-Créera la colonne <code>foo</code> comme un type <code>smallint(2)</code>
-dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement). (Plus d&#8217;information sur <a href="http://dev.mysql.com/doc/refman/5.0/en/numeric-types.html">les types numériques MySQL</a>
-<p>
-
-<p>Ce path a été réalisé par DHH.</p>
-
-<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8">http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8</a></p>
-<p>Comme toujours, vous pouvez laissez tout suggestion pour améliorer cette série de Vive avec Rails.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -775,6 +918,10 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -810,10 +957,6 @@ dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement).
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>

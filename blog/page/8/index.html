@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Il y a quelques jours, j&#8217;ai réalisé un premier screencast en français de démonstration sur la création d&#8217;une application Ruby on Rails. &hellip;">
+  <meta name="description" content="Traduction de la news #18 Le rapport de cette semaine couvre les changement du 21 Avril 2008 au 27 Avril 2008 (Jour correspondant à l&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-18.html">Vivre avec Rails Edge #18</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-29T00:00:00+02:00" pubdate data-updated="true">Apr 29<span>th</span>, 2008</time>
+        
+         | <a href="/vivre-avec-rails-edge-18.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de la <a href="http://blog.codefront.net/2008/04/27/living-on-the-edge-of-rails-18/">news #18</a></p>
+
+<p>Le rapport de cette semaine couvre les changement du 21 Avril 2008 au 27 Avril 2008 (Jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<p>Très peu de chose interressant dans le rapport de cette semaine. Il y a eu
+principalement un paquet de résolutions de bug et des <a href="http://github.com/rails/rails/commits/master">commits</a> pour la compatibilité avec Ruby 1.8.7.</p>
+
+<h3>Introduction d&#8217;ActiveResource::Base.timeout et récupération de
+Timeout::Error dans ActionResource::Connection</h3>
+
+<p>I y a <a href="http://github.com/rails/rails/commit/105910429d5873dce677ef32eef5f705e0625d86">2</a>
+<a href="http://github.com/rails/rails/commit/cf32baf915442ffe153ec0e4d8148f147776c30a">changements</a>
+qui ont <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">été
+expliqué par Chu Yeow</a> la semaine dernière
+et ne seront donc pas détaillé. Lisez donc l&#8217;article <a href="http://blog.codefront.net/2008/04/22/new-in-rails-activeresource-timeouts-and-why-it-matters/">ActiveResource
+timeouts and why it matters (en)</a></p>
+
+<h3>Le type entier inteligent pour l&#8217;adaptater MySQL dans les migrations</h3>
+
+<p>L&#8217;adaptater MySQL dans Rails fait correspondre la colonne de type
+<code>integer</code> dans vos migrations aux type smalling, int ou biging
+dépendant de l&#8217;option :limit.</p>
+
+<p>Cela signifie qu&#8217;une migration comme ceci:</p>
+
+<typo:code lang="ruby">
+def self.up
+  create_table :searches do |t|
+    t.integer :foo, :limit => 2
+  end
+end
+</typo:code>
+<p>
+Créera la colonne <code>foo</code> comme un type <code>smallint(2)</code>
+dans votre base de donnée MySQL (au lieu de <code>int(2)</code> précédement). (Plus d&#8217;information sur <a href="http://dev.mysql.com/doc/refman/5.0/en/numeric-types.html">les types numériques MySQL</a>
+<p>
+
+<p>Ce path a été réalisé par DHH.</p>
+
+<p>Révision concernant cette fonctionnalité: <a href="http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8">http://github.com/rails/rails/commit/a37546517dad9f6d9a7de6e1dba4d960909d71e8</a></p>
+<p>Comme toujours, vous pouvez laissez tout suggestion pour améliorer cette série de Vive avec Rails.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -863,64 +941,6 @@ Story: Un Utilisateur s&#8217;authentifie
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/yoolink-sidebar-pour-typo.html">Yoolink-sidebar pour Typo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-03-23T00:00:00+01:00" pubdate data-updated="true">Mar 23<span>rd</span>, 2008</time>
-        
-         | <a href="/yoolink-sidebar-pour-typo.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Depuis quelque temps, j&#8217;ai commencé à utiliser <a href="http://yoolink.fr">yoolink</a> pour remplacer <a href="http://del.icio.us/">del.icio.us</a>. Yoolink est exactement comme del.icio.us dans son concept. Mais il a une interface beaucoup plus sympathique et avec des nouvelles fonctionnalités plus interressante. J&#8217;utilisais sur ce blog propulsé par <a href="http://typosphere.org"">Typo</a> le plugin del.icio.us pour afficher les derniers bookmarks que j&#8217;ai ajouté sur del.icio.us. Mais n&#8217;utilisant plus ce service et utilisant yoolink à la place, j&#8217;ai décidé d&#8217;adapter le plugin del.icio.us pour yoolink.</p>
-
-<p>Voici comment vous pouvez l&#8217;installer :</p>
-
-<ol>
-<li>Récupérer le plugin en le téléchargeant sur <a href="http://github.com">Github</a> : <a href="http://github.com/shingara/yoolink-typo-sidebar/tarball/yoolink-sidebar-0.1.0">Yoolink-sidebar-0.1.0</a></li>
-<li>Copier le contenu du plugin dans le dossier /vendor/plugins</li>
-<li>Redémarrer Typo</li>
-<li>Dans l&#8217;administration, vous pouvez désormais placé le plugin yoolink.</li>
-<li>
-<span>Configurer le plugin yoolink :</span>
-<ul>
-<li>Login : indiquez votre login yoolink</li>
-<li>items limit : indiquez le nombre de bookmark afficher par le plugin</li>
-<li>groups link by days : Groupez les bookmarks par date avec celle-ci d&#8217;afficher</li>
-<li>Allow links in description : Permettre les hyperliens dans les descriptions des bookmark. Par défaut, ils sont désactivés</li>
-</ul>
-</li>
-</ol>
-
-<p>Au niveau des CSS, le plugin est contenu dans une balise div avec comme id &#8220;yoolink&#8221;. De base, c&#8217;est celle utilisé par votre thème.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -936,6 +956,10 @@ Story: Un Utilisateur s&#8217;authentifie
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
     
       <li class="post">
         <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
@@ -971,10 +995,6 @@ Story: Un Utilisateur s&#8217;authentifie
     
       <li class="post">
         <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/que-cherche-un-developpeur-dans-une-offre-demploi.html">Que cherche un développeur dans une offre d&#8217;emploi ?</a>
       </li>
     
   </ul>
