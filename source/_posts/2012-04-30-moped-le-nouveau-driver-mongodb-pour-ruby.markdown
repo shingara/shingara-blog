@@ -9,7 +9,7 @@ categories:
   - mongoid
 ---
 
-Depuis décembre 2012, [Bernerd Schaefer](https://github.com/bernerdschaefer) a commencé a créer un
+Depuis décembre 2011, [Bernerd Schaefer](https://github.com/bernerdschaefer) a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n'a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
 [mongo-ruby-driver](https://github.com/mongodb/mongo-ruby-driver).
