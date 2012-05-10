@@ -4,7 +4,7 @@
   <title><![CDATA[Category: mongoid | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//blog/categories/mongoid/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-10T09:56:54+02:00</updated>
+  <updated>2012-05-10T09:58:26+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
     <updated>2012-04-30T09:42:00+02:00</updated>
     <id>http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby</id>
-    <content type="html"><![CDATA[<p>Depuis décembre 2012, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
+    <content type="html"><![CDATA[<p>Depuis décembre 2011, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n'a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
 <a href="https://github.com/mongodb/mongo-ruby-driver">mongo-ruby-driver</a>.</p>
