@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Java 6 est sorti depuis quelques temps et il est aussi disponible sur debian. Je vais donc expliquer rapidement comment l&#8217;installer et surtout &hellip;">
+  <meta name="description" content="Régulièrement je me pose la question de savoir où ce trouve le module qui gére le beep système dans le noyau linux. Je vais donc l&#8217;écrire ici &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/de%CC%81sactiver-le-beep-syste%CC%80me-dans-son-noyau-linux.html">désactiver le beep système dans son noyau linux</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-01-25T00:00:00+01:00" pubdate data-updated="true">Jan 25<span>th</span>, 2007</time>
+        
+         | <a href="/de%CC%81sactiver-le-beep-syste%CC%80me-dans-son-noyau-linux.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Régulièrement je me pose la question de savoir où ce trouve le module qui gére le beep système dans le noyau linux. Je vais donc l&#8217;écrire ici</p>
+
+<ul>
+<li>Input device support</li>
+<li> &#8211;> Miscellaneous devices</li>
+<li> &#8211;> &#8211;> PC Speaker support (NEW)</li>
+</ul>
+
+<p>En espérant que ça puisse vous aussi vous aider :)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -689,54 +735,6 @@ Voici donc le patch que je préconise :
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/merci-marco-ditri.html">Merci Marco d&#8217;Itri</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-09-09T00:00:00+02:00" pubdate data-updated="true">Sep 9<span>th</span>, 2006</time>
-        
-         | <a href="/merci-marco-ditri.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Je voulais faire un petit billet, pour remercier ce très cher Marco d&#8217;Itri. Grâce à lui, je me suis retrouvé ce matin avec un ordinateur inutilisable. En effet, cette gentille personne est le mainteneur du paquet debian udev. Pour ceux qui ne le savent pas, udev est maintenant une pierre de voute de linux. Grâce à lui, les modules du noyau necessaire sont chargé. Ainsi, sans udev, on se retrouve comme moi ce matin :</p>
-
-<ul>
-<li>Plus de reseau car carte réseau non détecté</li>
-<li>Plus de X, car xorg ne détecte pas ma souris</li>
-<li>Plus de possibilité de lire une clé usb</li>
-</ul>
-
-<p>Pour réparer ce problème, ma seule solution fut un downgrade de udev, de la version 0.100-1 à la version 0.093-2.</p>
-
-<p>Ainsi, je vous le dit, n&#8217;upgradez pas la version 0.100-1, vous risqueriez des problèmes. Pour marco, je lui conseillerais de passer un peu par expérimentale de temps en temps.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -752,6 +750,10 @@ Voici donc le patch que je préconise :
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -787,10 +789,6 @@ Voici donc le patch que je préconise :
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

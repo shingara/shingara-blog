@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis quelque temps, j&#8217;ai commencé à utiliser yoolink pour remplacer del.icio.us. Yoolink est exactement comme del.icio.us dans son concept. &hellip;">
+  <meta name="description" content="Sous ce titre particulier, je voudrais parler un peu des stories de Rspec. En effet, depuis la version 1.0 de RSpec, les stories ont été ajouté à &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,205 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/et-si-on-ecrivait-une-histoire-a-rails.html">Et si on écrivait une histoire à Rails ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-04-03T00:00:00+02:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2008</time>
+        
+         | <a href="/et-si-on-ecrivait-une-histoire-a-rails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Sous ce titre particulier, je voudrais parler un peu des <a href="http://rspec.info/documentation/stories.html">stories de Rspec</a>. En effet, depuis la version 1.0 de <a href="http://rspec.info/">RSpec</a>, les stories ont été ajouté à Rspec. Ce système de story peux tout à fait être utilisé au sein de Rails pour permettre de créer des test d&#8217;intégrations. En effet, avec les spec traditionnels, nous ne pouvons pas réellement réaliser de test d&#8217;intégration. Avec les story nous pouvons le faire très facilement, que ca soit lisible et surtout très facilement répétable et modifiable. Mais le mieux est de vous montrer comment l&#8217;intégrer et l&#8217;utiliser à Rails.
+</p>
+
+<p>Si vous avez installer Rspec pour Rails et lancé la génération de rspec alors vous devez avoir dans votre arborescence un dossier stories. C&#8217;est en général dans ce dossier que nous mettons les stories.</p>
+
+<h3>Votre première histoire</h3>
+
+<p>Nous allons supposer que vous avez un petit système de login et que vous voulez le tester. Il suffit de créer le fichier login_story.rb comme ci-dessous</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_story.rb">
+Story &#8220;Un Utilisateur s&#8217;authentifie&#8221;, %{
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+}, :type => RailsStory do
+  
+  Scenario &#8220;Logged successful&#8221; do
+    Given &#8220;un login&#8221;, &#8220;shingara&#8221; do |login|
+      @login = login
+    end
+    
+    And &#8220;un mot de passe&#8221;, &#8220;mon_password&#8221; do |password|
+      @password = password
+    end
+    
+    And &#8220;l&#8217;utilisateur est creer&#8221; do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When &#8220;je vais sur&#8221;, &#8220;/&#8221; do |page|
+      get page
+    end
+    
+    Then &#8220;je suis redirige vers la page de login&#8221; do
+      response.should redirect_to &#8216;/login&#8221;
+      follow_redirect!
+    end
+
+   When &#8220;Je me log&#8221; do
+     post &#8220;/login&#8221;, :login => @login, :password => @password
+   end
+
+   Then &#8220;Je suis redirige vers &#8220;, &#8220;/&#8221; do |path|
+      response.should redirect_to (&#8220;/&#8221;)
+      follow_redirect!
+   end
+  end
+</typo:code>
+
+<p>Voici donc un test de story avec Rails. Il faut bien penser à utiliser le type RailsStory pour que Story soit un Objet qui hérite de ActionController::IntegrationTest et puisse ainsi avoir toutes les méthodes utilent comme le follow_redirect!. Par contre, il faut faire attention, car le load des fixtures n&#8217;existent pas dans les Story, il faut créer soit-même un étape qui le fasse pour que cela soit possible.</p>
+
+<h3>Et en plus répétable ?</h3>
+
+<p>Maintenant une autre grande fonctionnalité des Story de Rspec est la possibilité de faire des stories en plain-text. Ainsi notre story précédente deviendrait tout simplement :</p>
+
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s&#8217;authentifie
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+</typo:code>
+
+<p>A ce moment là plus besoin d&#8217;être développeur pour comprendre ce que fait le test. Pour cela en fait il faut créer toute une batterie de jeu d&#8217;étapes. Les étapes sont de 3 Types :</p>
+
+<ul>
+<li>Given : qui sont les données de base ou postulat</li>
+<li>When : qui sont les actions</li>
+<li>Then : qui sont les résultats</li>
+</ul>
+
+<p>
+Il suffit donc de créer un fichier d&#8217;étapes qui comprenne toutes les étapes indiqués dans le fichier texte :
+</p>
+
+<typo:code lang="ruby" linenumber="true" title="login_steps.rb">
+steps_for(:gallery) do
+
+    Given &#8220;un login $login&#8221; do |login|
+      @login = login
+    end
+    
+    And &#8220;un mot de passe $password&#8221; do |password|
+      @password = password
+    end
+    
+    And &#8220;l&#8217;utilisateur est creer&#8221; do
+      User.create {:login => @login, :password => @password}
+    end
+    
+    When &#8220;je vais sur $page do |page|
+      get page
+    end
+    
+    Then &#8220;je suis redirige vers la page de login&#8221; do
+      response.should redirect_to &#8216;/login&#8221;
+      follow_redirect!
+    end
+
+   When &#8220;Je me log&#8221; do
+     post &#8220;/login&#8221;, :login => @login, :password => @password
+   end
+
+   Then &#8220;Je suis redirige vers  $path&#8221; do |path|
+      response.should redirect_to (&#8220;/&#8221;)
+      follow_redirect!
+   end
+end
+</typo:code>
+
+<p>En indiquant que le fichier texte prend appui sur ce fichier d&#8217;étape, Rspec fait tout le reste. On appelle notre test de la façon suivante :</p>
+
+<typo:code lang="ruby" linenumber="true" title="all.rb">
+require File.join(File.dirname(__FILE__), *%w[helper])
+
+with_steps_for(:login) do
+  run File.join(File.dirname(__FILE__), &#8220;login_story&#8221;, :type => RailsStory
+end
+
+</typo:code>
+
+<p>Ce qui est vraiment génial dans tout ça c&#8217;est la possibilité du coup de changer l&#8217;ordre des étapes voir de leur paramètres. Ainsi le test suivant peux être réalisé sans nouveau code ruby d&#8217;ajouté : </p>
+<typo:code linenumber="true" title="login_story.rb">
+Story: Un Utilisateur s&#8217;authentifie
+  Je suis un utilisateur et je veux m&#8217;authentifier
+  Alors j&#8217;y arrive
+  
+  Scenario: Logged successful
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /
+    
+    Then je suis redirige vers la page de login
+
+   When Je me log
+
+   Then Je suis redirige vers /
+
+  Scenario: Je vais directement sur la page de login et j&#8217;y reste
+    Given un login shingara
+    And un mot de passe mon_password  
+    And l&#8217;utilisateur est creer
+    
+    When je vais sur /login
+   And Je me log
+
+   Then Je suis redirige vers /login
+
+</typo:code>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -850,46 +1049,6 @@ Index: themes/dirtylicious/stylesheets/application.css
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/desactiver-les-contraintes-d-integrites-sous-rails-2-0.html">Désactiver les contraintes d&#8217;intégrités sous Rails 2.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-01-08T00:00:00+01:00" pubdate data-updated="true">Jan 8<span>th</span>, 2008</time>
-        
-         | <a href="/desactiver-les-contraintes-d-integrites-sous-rails-2-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Suite à une petite discussion sur IRC sur le chan #rubyonrails.fr, j&#8217;ai constaté qu&#8217;une nouvelle méthode avait été ajouté dans Rails 2.0 et que je l&#8217;avais utilisé.</p>
-
-<p>Cette nouvelle méthode est <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/AbstractAdapter.html#M001287">AbastractAdapter#disable_referential_integrity</a>. Elle permet tout simplement désactiver les contraintes d&#8217;intégrités dans le bloc de code donné en paramètre de cette méthode. C&#8217;est vraiment une méthode très pratique dans le cas où on veux réaliser un gros INSERT dans la base de donnée. Ainsi elle est utilisée dans la classe Fixture pour insérer les données.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/10/">&larr; Older</a>
@@ -905,6 +1064,10 @@ Index: themes/dirtylicious/stylesheets/application.css
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -940,10 +1103,6 @@ Index: themes/dirtylicious/stylesheets/application.css
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

@@ -106,9 +106,9 @@
 
 <div class="entry-content"><p>Ca y est ce blog a été migré vers la branche 5.0 Stable de <a href="http://www.typosphere.org/">Typo</a>. Cette nouvelle version apporte <a href="http://fredericdevillamil.com/sortie-de-typo-5-0-eugene-atget-pour-rails-2-0">énormément de changement</a> que je ne détaillerais pas ici, car elles ont tout à fait bien été décrite.</p>
 
-<p>J&#8217;ai même eu la chance d&#8217;avoir vu <a href="http://trac.typosphere.org/search?q=shingara&ticket=on">plusieurs de mes patchs</a> <a href="http://trac.typosphere.org/changeset/1587">intégrés</a> à cette version.</p>
+<p>J'ai même eu la chance d'avoir vu <a href="http://trac.typosphere.org/search?q=shingara&ticket=on">plusieurs de mes patchs</a> <a href="http://trac.typosphere.org/changeset/1587">intégrés</a> à cette version.</p>
 
-<p>Pour effectuer la migration vers cette nouvelle version de Typo, j&#8217;ai dû hélas faire quelques petites modifications. En effet, j&#8217;ai appris par <a href="http://fredericdevillamil.com/">Frédéric</a>, qu&#8217;il y avait un petit bug à l&#8217;heure actuel. <a href="http://trac.typosphere.org/ticket/1110">Les tags ne peuvent pas avoir de point dans leur nom</a>. J&#8217;ai ainsi indiqué sur ce ticket la modification ci-jointe que j&#8217;ai réalisé pour faire passer la pillule à Typo. Hélas cela n&#8217;est qu&#8217;un contournement. Il suffit donc d&#8217;utiliser la magie de la console Rails pour éviter le problème en supprimant le point dans son tag.</p>
+<p>Pour effectuer la migration vers cette nouvelle version de Typo, j'ai dû hélas faire quelques petites modifications. En effet, j'ai appris par <a href="http://fredericdevillamil.com/">Frédéric</a>, qu'il y avait un petit bug à l'heure actuel. <a href="http://trac.typosphere.org/ticket/1110">Les tags ne peuvent pas avoir de point dans leur nom</a>. J'ai ainsi indiqué sur ce ticket la modification ci-jointe que j'ai réalisé pour faire passer la pillule à Typo. Hélas cela n'est qu'un contournement. Il suffit donc d'utiliser la magie de la console Rails pour éviter le problème en supprimant le point dans son tag.</p>
 
 <pre>
 rails@shinydedi /var/rails/typoblog-dev/current $ ./script/console production
@@ -127,15 +127,15 @@ Loading production environment.
 => true
 </pre>
 
-<p>J&#8217;ai ensuite eu un nouveau petit problème lors du lancement de la tâche de migration de la base de donnée. Il me manquait le gem Rcov. Comme le serveur est mon serveur de production, j&#8217;ai préféré enlevé le fichier qui me demandait cette dépendance que d&#8217;installer ce gem. Par contre j&#8217;ai récupéré les sources du SVN de Typo. Donc peut-être que sur les versions releasés, ce fichier a été enlevé.</p>
+<p>J'ai ensuite eu un nouveau petit problème lors du lancement de la tâche de migration de la base de donnée. Il me manquait le gem Rcov. Comme le serveur est mon serveur de production, j'ai préféré enlevé le fichier qui me demandait cette dépendance que d'installer ce gem. Par contre j'ai récupéré les sources du SVN de Typo. Donc peut-être que sur les versions releasés, ce fichier a été enlevé.</p>
 
 <pre>
 rails@shinydedi /var/rails/typo-5-0-stable $ rm lib/tasks/rcov.rake
 </pre>
 
-<p>Et après tout est passé. A part ma petite erreur d&#8217;oubli de changement de localisation du dossier static pour mon serveur. Mais là c&#8217;est que de l&#8217;administration pur et dur.</p>
+<p>Et après tout est passé. A part ma petite erreur d'oubli de changement de localisation du dossier static pour mon serveur. Mais là c'est que de l'administration pur et dur.</p>
 
-<p>Enfin au niveau des modifications, j&#8217;ai aussi changé de thème pour conserver le nouveau thème par défaut de Typo. J&#8217;ai juste réalisé quelques modifications au niveau du fichier CSS pour que ça corresponde plus à mes envies. Je vous fournis les modifications pour les curieux.</p>
+<p>Enfin au niveau des modifications, j'ai aussi changé de thème pour conserver le nouveau thème par défaut de Typo. J'ai juste réalisé quelques modifications au niveau du fichier CSS pour que ça corresponde plus à mes envies. Je vous fournis les modifications pour les curieux.</p>
 
 <pre>
 Index: themes/dirtylicious/stylesheets/application.css
@@ -258,6 +258,10 @@ Index: themes/dirtylicious/stylesheets/application.css
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -291,10 +295,6 @@ Index: themes/dirtylicious/stylesheets/application.css
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>vundle ou le bundler de vim - Shiny happy people coding</title>
+  <meta name="author" content="Cyril Mougel">
+
+  
+  <meta name="description" content="Personnellement, j&#8217;utilise vim comme éditeur de texte depuis mon
+école. J&#8217;ai toujours apprécié vim et je ne compte toujours pas changer
+d &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Shiny happy people coding" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11352302-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Shiny happy people coding</a></h1>
+  
+    <h2>Codons avec le sourire</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.shingara.fr/" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">vundle ou le bundler de vim</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-24T09:40:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Personnellement, j&#8217;utilise vim comme éditeur de texte depuis mon
+école. J&#8217;ai toujours apprécié vim et je ne compte toujours pas changer
+d&#8217;éditeur.</p>
+
+<h1>Mon évolution de la gestions des plugins vim.</h1>
+
+<p>Vim a une très grande quantité de plugins disponibles et il est très
+rapidement indispensable d&#8217;en utiliser plusieurs. La gestion des plugins
+est donc très importante. Au fil des années, j&#8217;ai changé de technique en
+fonction des possibilités apportées par vim ou par les développeurs.</p>
+
+<h2>Gestion manuelle</h2>
+
+<p>Au début, je gérais manuellement mes plugins en les ajoutant dans les
+dossiers correspondant. Je versionnais mon dossier <code>.vim</code> et <code>.vimrc</code> et je pouvais le faire
+évoluer globalement. Le soucis de cette technique est qu&#8217;il est pas
+forcement évident de gérer les mises à jour des plugins et leur
+installation n&#8217;est pas forcement simple car il faut mettre plusieurs
+fichiers à plusieurs endroits.</p>
+
+<h2>L&#8217;arrivée des vimballs</h2>
+
+<p>Dans une évolution de vim, il y a eu la possibilité de gérer des
+vimballs. L&#8217;avantage de cette technique est qu&#8217;on avait moins de
+problème lors de l&#8217;installation et on pouvait gérer un peu plus
+facilement les mises à jour car on savait rapidement quelle version on
+utilisait. Mais la encore il fallait allez régulièrement sur
+vimscript.org
+pour voir si nos plugins avaient changé de version. Chose que finalement
+on faisait très peu au final.</p>
+
+<h2>Gestion par git-submodule</h2>
+
+<p>Avec l&#8217;arrivée de github, les choses ont pu changer. Les plugins vim ont
+commencé à avoir un dépôt centralisé, on pouvait suivre directement
+l&#8217;évolution des scripts. Même vimscript a converti tous les plugins
+qu&#8217;il hébergeait en repository git. Maintenant on peux gérer tous ses plugins
+en faisant des mises à jour de repository git. J&#8217;ai ainsi commencé a gérer des
+submodule et des liens symboliques vers ces submodules. La mise à jour
+était automatique, mais l&#8217;installation devenait encore plus compliqué
+qu&#8217;avant.</p>
+
+<h2>Janus, la distribution vim</h2>
+
+<p>C&#8217;est alors que Yehuda Katz et Carl Lerche ont commencé à créer
+<a href="https://github.com/carlhuda/janus">janus</a>. Ce projet se veut comme une
+distribution de gestion de plugins vim. Il contient un jeu de tâche rake
+qui permette de mettre à jour facilement ses plugins. Un <code>.vimrc</code> est aussi
+fourni pour utiliser les plugins par défaut et ajouter une configuration
+minimal pratique. Ce projet est vraiment génial pour commencer à
+pratiquer vim. On peux ainsi avoir un jeu de plugins pratique et
+intéressant. Par contre, la gestion des versions de janus avec ses
+propres usage peux vite devenir compliquée. En gros c&#8217;est bien si on ne veut
+jamais modifier sa conf vim.</p>
+
+<h2>Pathogen, le premier plugin vim de gestions de ses plugins</h2>
+
+<p>Très peu de temps après <a href="https://github.com/tpope">Tim Pope</a> ( très prolifique développeur de plugins
+vim ) a sorti <a href="https://github.com/tpope/vim-pathogen">Pathogen</a>. Ce
+plugin permet de gérer directement la gestion de ses plugins dans son vimrc. J&#8217;avoue ne pas avoir
+trop regardé comment fonctionne ce plugin. On m&#8217;en a toute fois dit du
+bien. Il y a eu pas mal de projet pour que janus utilise pathogen
+typiquement.</p>
+
+<h2>Vundle, le bundler de vim.</h2>
+
+<p>Mais c&#8217;est là qu&#8217;on m&#8217;a parlé du plugin qui me semble le meilleur
+actuellement concernant la gestion de ses plugins vim.
+<a href="https://github.com/gmarik/vundle">Vundle</a>. Comme pathogen, la gestion
+des plugins est faite directement dans son vimrc. Son usage y est très
+simplifié et pratique. Si vous connaissez
+<a href="http://gembundler.org">Bundler</a> alors vous comprendrez facilement sont
+usage car il en est très inspirés.</p>
+
+<h1>Utilisation de Vundle</h1>
+
+<h2>Installation de Vundle</h2>
+
+<p>Pour installer vundle, un simple clone du repository du projet et 2
+lignes dans votre <code>.vimrc</code> suffisent.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">set</span> <span class="nb">rtp</span><span class="p">+=~</span><span class="sr">/.vim/</span>bundle<span class="sr">/vundle/</span>
+</span><span class='line'><span class="k">call</span> vundle#rc<span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Configuration de ses plugins</h2>
+
+<p>Pour utiliser vundle une fois installé. C&#8217;est extrêmement simple. il
+suffit d&#8217;utiliser la commande <code>Bundle</code> et le chemin de votre plugin.
+Ainsi pour installer le plugin <code>vim-rails</code> il suffit juste de faire :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>Bundle <span class="s1">&#39;tpope/vim-rails.git&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Installation de ses plugins</h2>
+
+<p>Ensuite, une fois votre vim lancé deux commandes vous suffisent.
+<code>BundleInstall</code> qui permet d&#8217;installer tous les plugins que vous avez
+définis et <code>BundleInstall!</code> qui permet de les mettre à jour.</p>
+
+<p>Désormais ils ne vous reste plus qu&#8217;à trouver les plugins que vous
+souhaitez et les utiliser.</p>
+
+<h1>Mon vimrc</h1>
+
+<p>Si vous souhaitez découvrir mon usage de vim, <a href="https://github.com/shingara/vim-conf">mon vimrc est ainsi
+disponible sur github</a>. Grâce à
+Vundle rien de plus simple que de le lire et découvrir rapidement les
+plugins vim que j&#8217;utilise.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cyril Mougel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-24T09:40:00+02:00" pubdate data-updated="true">May 24<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/editeur/'>editeur</a>, <a class='category' href='/blog/categories/vim/'>vim</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html" data-via="shingara" data-counturl="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/dante-pour-mettre-du-daemon-dans-son-code.html" title="Previous Post: dante pour mettre du daemon dans son code">&laquo; dante pour mettre du daemon dans son code</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l'aide au staging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+      <li class="post">
+        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("shingara", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/shingara" class="twitter-follow-button" data-show-count="true">Follow @shingara</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Cyril Mougel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html';
+        var disqus_url = 'http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

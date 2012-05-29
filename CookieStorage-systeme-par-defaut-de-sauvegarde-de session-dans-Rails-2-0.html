@@ -104,7 +104,7 @@
   </header>
 
 
-<div class="entry-content"><p>Je suis actuellement en train de tenter de faire la migration de <a href="http://redmine.org">Redmine</a> vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de contribuer à ce projet que j&#8217;adore.</p>
+<div class="entry-content"><p>Je suis actuellement en train de tenter de faire la migration de <a href="http://redmine.org">Redmine</a> vers Rails 2.0. Ça me permet de découvrir un peu Rails 2.0 et aussi de contribuer à ce projet que j'adore.</p>
 
 <p>Durant cette migration, je suis tombé sur une exception que je ne comprenais pas :</p>
 
@@ -112,7 +112,7 @@
 CGI::Session::CookieStore::CookieOverflow (CGI::Session::CookieStore::CookieOverflow)
 </pre>
 
-<p>J&#8217;ai donc lancé une recherche pour comprendre pourquoi j&#8217;avais cette erreur. J&#8217;ai ainsi découvert que cette exception est dû à la taille de ma session. En effet, les sessions de redmine peuvent parfois être supérieures à 4Ko car elle englobe pas mal d&#8217;information. Hors il y a une limitation de cette taille de session à 4Ko. En faite cette limitation n&#8217;a lieu qu&#8217;avec les sessions enregistrés dans les Cookies. Hors ce nouveau système de stockage de session est une des améliorations de Rails 2.0 et il a été mis par défaut.</p>
+<p>J'ai donc lancé une recherche pour comprendre pourquoi j'avais cette erreur. J'ai ainsi découvert que cette exception est dû à la taille de ma session. En effet, les sessions de redmine peuvent parfois être supérieures à 4Ko car elle englobe pas mal d'information. Hors il y a une limitation de cette taille de session à 4Ko. En faite cette limitation n'a lieu qu'avec les sessions enregistrés dans les Cookies. Hors ce nouveau système de stockage de session est une des améliorations de Rails 2.0 et il a été mis par défaut.</p>
 
 <p>Pensez donc à changer ce mode de stockage de Session si vous avez de grosses sessions à stocker. Pour revenir à un mode de stockage par fichier vous pouvez mettre dans votre fichier environnement.rb :</p>
 
@@ -123,7 +123,7 @@ config.action_controller.session_store = :PStore
 <p>Voici quelque lien intéressant traitant de ce sujet :</p>
 
 <ul>
-<li><a href="http://ryandaigle.com/articles/2007/2/21/what-s-new-in-edge-rails-cookie-based-sessions">What&#8217;s New in Edge Rails: Cookie Based Sessions are the New Default (en)</a></li>
+<li><a href="http://ryandaigle.com/articles/2007/2/21/what-s-new-in-edge-rails-cookie-based-sessions">What's New in Edge Rails: Cookie Based Sessions are the New Default (en)</a></li>
 <li><a href="http://dev.rubyonrails.org/changeset/6184">Révision intégrant le système de Session par Cookies</a></li>
 <li><a href="http://www.caboo.se/articles/2007/2/21/new-controversial-default-rails-session-storage-cookies">Discussion sur la controverse lié à ce système de session (en)</a></li>
 </ul>
@@ -186,6 +186,10 @@ config.action_controller.session_store = :PStore
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -219,10 +223,6 @@ config.action_controller.session_store = :PStore
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

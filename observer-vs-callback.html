@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment. L&# &hellip;">
+  <meta name="description" content="Il y a peu au boulot, j'ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment. L' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,25 +104,25 @@
   </header>
 
 
-<div class="entry-content"><p>Il y a peu au boulot, j&#8217;ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
+<div class="entry-content"><p>Il y a peu au boulot, j'ai indiqué ma désapprobation des Observeurs face au Callback. Je vais donc le coucher ici par écrit mon sentiment.</p>
 
-<h2>L&#8217;Observeur</h2>
+<h2>L'Observeur</h2>
 
-<p>Dans Rails, il y a au premier abord une fonctionnalité vraiment intéressante. L&#8217;<a href="http://api.rubyonrails.org/classes/ActiveRecord/Observer.html">Observeur</a>. Grâce à lui, on peux définir une classe qui vérifie le comportement d&#8217;un model et effectue certaine action suite à ses observations. Il permet d&#8217;ajouter des événements avant/après l&#8217;enregistrement, la mise a jour ou la destruction d&#8217;un model.</p>
+<p>Dans Rails, il y a au premier abord une fonctionnalité vraiment intéressante. L'<a href="http://api.rubyonrails.org/classes/ActiveRecord/Observer.html">Observeur</a>. Grâce à lui, on peux définir une classe qui vérifie le comportement d'un model et effectue certaine action suite à ses observations. Il permet d'ajouter des événements avant/après l'enregistrement, la mise a jour ou la destruction d'un model.</p>
 
 <p>Pour mettre en place un observeur, il suffit de créer une classe héritant de <code>ActiveRecord::Observer</code>, mettre son code dedans et la définir comme observeur dans le fichier environment.rb. Rien de plus simple et ça marche très bien.</p>
 
 <h2>Le Callback</h2>
 
-<p>Mais Rails a déjà intégré dans ses models, les fonctions de callback utilisé par le observeur. En effet, on peux tout à fait définir N action after_save ou before_create. Ces méthodes seront appelés à l&#8217;événement voulu.</p>
+<p>Mais Rails a déjà intégré dans ses models, les fonctions de callback utilisé par le observeur. En effet, on peux tout à fait définir N action after_save ou before_create. Ces méthodes seront appelés à l'événement voulu.</p>
 
 <h2>Mais que choisir ?</h2>
 
-<p>C&#8217;est là où je dis que le callback est plus intéressant que l&#8217;observeur. En effet, un callback fait exactement la même chose qu&#8217;un Observeur. Mais lui au moins on sait qu&#8217;il est là. En ouvrant la classe on découvre le callback. Pour détecter un Observeur, il faut regarder les fichiers de config de Rails et ouvrir une à une les classes Observeurs.</p>
+<p>C'est là où je dis que le callback est plus intéressant que l'observeur. En effet, un callback fait exactement la même chose qu'un Observeur. Mais lui au moins on sait qu'il est là. En ouvrant la classe on découvre le callback. Pour détecter un Observeur, il faut regarder les fichiers de config de Rails et ouvrir une à une les classes Observeurs.</p>
 
-<p>Même le cas du nombre de ligne n&#8217;est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
+<p>Même le cas du nombre de ligne n'est pas réel car il est tout à fait possible de sortir ses callbacks dans des modules. De même pour une réutilisation sur plusieurs classes. Le module le permet sans problème.</p>
 
-<p>Personnellement, je n&#8217;ai jamais constater un seul cas où l&#8217;observeur avait plus d&#8217;intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
+<p>Personnellement, je n'ai jamais constater un seul cas où l'observeur avait plus d'intérêt que des callback. Si vous en trouvez, je suis vraiment curieux.</p>
 
 </div>
 
@@ -189,6 +189,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -222,10 +226,6 @@
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

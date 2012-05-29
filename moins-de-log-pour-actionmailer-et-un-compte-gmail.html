@@ -104,19 +104,19 @@
   </header>
 
 
-<div class="entry-content"><p>Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le <a href="http://comscreens.free.fr/screens.php?act=see&scr=1609090355">post de Stephen Chu sur l&#8217;utilisation de votre compte Gmail avec ActionMailer.</a>. J&#8217;ai ainsi mis sa classe dans mon <a href="http://whotowho.rubyforge.org">WhoToWho</a> avec une option qui permet de l&#8217;utiliser le cas échéant.</p>
+<div class="entry-content"><p>Si comme moi vous avez cherché un système pour envoyer un email par ActionMailer avec votre compte Gmail, vous êtes forcément tombé sur le <a href="http://comscreens.free.fr/screens.php?act=see&scr=1609090355">post de Stephen Chu sur l'utilisation de votre compte Gmail avec ActionMailer.</a>. J'ai ainsi mis sa classe dans mon <a href="http://whotowho.rubyforge.org">WhoToWho</a> avec une option qui permet de l'utiliser le cas échéant.</p>
 
-<p>Mais voilà, par défaut il y a pas mal de logs qui sorte sur la sortie d&#8217;erreur STDERR. J&#8217;ai donc cherché comment la limiter voir la supprimer. J&#8217;ai ainsi trouvé les 2 lignes qui affichent ces logs. Il s&#8217;agit de la ligne suivante qui est répété deux fois. :</p>
+<p>Mais voilà, par défaut il y a pas mal de logs qui sorte sur la sortie d'erreur STDERR. J'ai donc cherché comment la limiter voir la supprimer. J'ai ainsi trouvé les 2 lignes qui affichent ces logs. Il s'agit de la ligne suivante qui est répété deux fois. :</p>
 
 <pre>
 @socket.debug_output = STDERR #@debug_output
 </pre>
 
-</p>Après avoir commenté ces lignes, je n&#8217;ai plus eu de logs. J&#8217;ai bien sûr pour WhoToWho permis de les afficher avec l&#8217;option -v.</p>
+</p>Après avoir commenté ces lignes, je n'ai plus eu de logs. J'ai bien sûr pour WhoToWho permis de les afficher avec l'option -v.</p>
 
 <p>Avec un peu de chance je devrais sortir une nouvelle version de WhoToWho très bientôt.</p>
 
-<p>En lisant dans les commentaires du post de Stephen, j&#8217;ai ainsi lu que quelqu&#8217;un avait tout simplement utilisé le gem tlsmail et avait simplement ajouté la ligne suivante :</p>
+<p>En lisant dans les commentaires du post de Stephen, j'ai ainsi lu que quelqu'un avait tout simplement utilisé le gem tlsmail et avait simplement ajouté la ligne suivante :</p>
 
 <pre>
 require 'tlsmail'
@@ -132,7 +132,7 @@ ActionMailer::Base.server_settings = {
 }
 </pre>
 
-<p>C&#8217;est à tester :)</p>
+<p>C'est à tester :)</p>
 </div>
 
 
@@ -192,6 +192,10 @@ ActionMailer::Base.server_settings = {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -225,10 +229,6 @@ ActionMailer::Base.server_settings = {
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

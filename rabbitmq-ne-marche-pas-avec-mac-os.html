@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de RabbitMQ, j&#8217;ai eu un gros problème. Alors qu&#8217; &hellip;">
+  <meta name="description" content="Il y a quelque semaine, alors que je me remettais tout simplement à l'utilisation de RabbitMQ, j'ai eu un gros problème. Alors qu'il faut configurer &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,13 +104,13 @@
   </header>
 
 
-<div class="entry-content"><p>Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j&#8217;ai eu un gros problème. Alors qu&#8217;il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n&#8217;ayant pas un besoin urgent de RabbitMQ, j&#8217;ai repoussé la recherche du problème.</p>
+<div class="entry-content"><p>Il y a quelque semaine, alors que je me remettais tout simplement à l'utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j'ai eu un gros problème. Alors qu'il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n'ayant pas un besoin urgent de RabbitMQ, j'ai repoussé la recherche du problème.</p>
 
-<p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j&#8217;ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
+<p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j'ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
 
-<p>Que faire si votre noeud de contrôle rabbitMQ n&#8217;arrive pas à discuter avec le noeud maitre ?</p>
+<p>Que faire si votre noeud de contrôle rabbitMQ n'arrive pas à discuter avec le noeud maitre ?</p>
 
-<p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l&#8217;ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C&#8217;est parfois tellement simple la résolution d&#8217;un problème.</p>
+<p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l'ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C'est parfois tellement simple la résolution d'un problème.</p>
 
 <p><a href="http://blog.shingara.fr/en/2009-11-18-rabbitmq-doesn-t-works-with-macosx.html">English translation</a></p>
 </div>
@@ -172,6 +172,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -205,10 +209,6 @@
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

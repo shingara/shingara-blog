@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ce que j&#8217;écris en français peut par le plus grand des hasard avoir un intérêt pour des personnes anglophile. J&#8217;ai donc décidé de traduire &hellip;">
+  <meta name="description" content="Pour découvrir le bug dont j&#8217;ai <a href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur"> &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,115 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/profiler-une-requete-rails.html">Profiler une requête rails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-03T00:00:00+02:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2008</time>
+        
+         | <a href="/profiler-une-requete-rails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pour découvrir le bug dont j&#8217;ai <a 
+href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur">reporté précédement les
+effets</a>, j&#8217;ai voulu
+réaliser un profile de la requête executée. Ca devait me permettre de voir ce
+qui prenait vraiment beaucoup de temps dans l&#8217;execution de cette page.</p>
+
+<h3>Utilisation du script Request Profiler</h3>
+
+<p>Depuis Rails 2.0, un nouveau script a été ajouté,
+    <code>script/performance/request</code>. Ce script permet de réaliser un
+    profile d&#8217;une ou plusieurs requête internet.</p>
+
+<p>Pour indiquer les requêtes à executer il suffit de réaliser un petit fichier
+de script avec le même format que les tests d&#8217;intégrations. Voici un exemple
+issue du changelog de rails.</p>
+
+<typo:code lang="ruby">
+get_with_redirect &#8216;/&#8217;
+say &#8220;GET / => #{path}&#8221;
+post_with_redirect &#8216;/sessions&#8217;, :username => &#8216;john&#8217;, :password => &#8216;doe&#8217;
+say &#8220;POST /sessions => #{path}&#8221;
+</typo:code>
+
+<p>Une fois le script réalisé, il suffit de lancer la commande en définissant
+le nombre de requêtes qui seront effectuées</p>
+
+<pre>
+$ ./script/performance/request -n 10 login_session.rb
+</pre>
+
+<p>Par contre, il faut faire très attention, il n&#8217;y a aucune solution (ou tout
+        du moins à ma connaissance) pour définir les valeurs de la session. La 
+session est vierge à chaque lancement de script. Il
+faut donc réaliser la connection de login au préalable pour avoir un
+utilisateur loggé par exemple.</p>
+
+<h3>Incompatibilité Rails 2.1 et ruby-prof</h3>
+
+<p>Alors que j&#8217;avais indiqué <a 
+href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">l&#8217;ajout d&#8217;un nouveau script dans Rails Edge qui
+nécessitait ruby-prof 0.6.1</a>, je pensais que c&#8217;était le seul endroit qui
+nécessitait cette version de <a 
+href="http://ruby-prof.rubyforge.org/">ruby-prof</a> qui n&#8217;existe pas encore 
+(dernière version stable : 0.6.0 en téléchargement sur rubyforge). Hélas, ce
+n&#8217;est pas le cas. Depuis la version 2.1 de Rails, le script
+performance/request nécessite aussi ruby-prof 0.6.1. Mais cette version, n&#8217;est
+toujours pas encore sortie officielement. Il faut donc générer et installer ce
+gem pour arriver à avoir cette fonctionnalité. En effet, même en modifiant la
+version de ruby-prof des méthodes n&#8217;existent pas dans les versions antérieurs à
+la version 0.6.1</p>
+
+<h3>Génération et installation de ruby-prof-0.6.1</h3>
+
+<p>Il faut d&#8217;abord récupérer les sources directements à partir du svn de
+ruby-prof</p>
+
+<pre>
+svn co http://ruby-prof.rubyforge.org/svn/
+</pre>
+
+<p>Ensuite, il faut générer le gem</p>
+
+<pre>$ rake package</pre>
+
+<p>Enfin, il suffit d&#8217;installer le gem.</p>
+
+<pre># gem install pkg/ruby-prof-0.6.1.gem</pre>
+
+<p>Désormais, ruby-prof 0.6.1 est installé et vous pouvez utiliser pleinement
+le script performance/request.</p>
+
+<p><a href="http://blog.shingara.fr/en/2008-09-03-profile-a-request-in-rails.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -670,50 +779,6 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes.html">Le monde du libre fait de la sélection même pour les fêtes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-28T00:00:00+02:00" pubdate data-updated="true">Jun 28<span>th</span>, 2008</time>
-        
-         | <a href="/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Après avoir lu les <a href="http://t37.net/la-soiree-firefox-3-ne-passera-pas-par-moi">remarques de frédéric au sujet de la soirée Firefox 3</a>. Je ne peux m&#8217;empêcher de l&#8217;approuver et de rédiger ce billet. J&#8217;écris rarement pour critiquer quelque chose, mais j&#8217;avoue que cette pratique est vraiment anti-libriste.</p>
-
-<p>En effet, la fondation Mozilla trie sur le volet ses invités pour la grande soirée Firefox 3. Que Mozilla fasse une grande fête chez elle avec les invités qu&#8217;elle souhaite c&#8217;est tout à fait normal. Mais qu&#8217;elle annonce une grande fête et ouvre les portes de cette fête à seulement des personnes triés sur le volet en fonction de leur projet open source et de leur contribution au standard du web, je trouve ça affligeant.</p>
-
-<p>Le personne qui permette de faire ces fêtes sont justement les madame Michou. Ceux qui télécharge Firefox et qui trouve juste le produit bien. Par des personnes qui font de l&#8217;open source ou contribue à des standards. C&#8217;est peut-être même pas des utilisateurs de Firefox. En effet, Firefox n&#8217;est pas le seul navigateur à suivre les standards. Que ce soit Opera ou Safari, ces deux navigateurs sont au moins aussi respectueux des standards si ce n&#8217;est plus. Là vraiment Firefox me déçoit.</p>
-
-<p>Personnellement, j&#8217;aurais largement préféré une bonne réunion à la bonne franquette. Chacun se retrouve sur le champs de Mars avec sa bouffe. Pas de micro, pas de speech pompeux. Juste des gens réuni en un point pour être heureux.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -729,6 +794,10 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -764,10 +833,6 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

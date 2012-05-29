@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis maintenant 8 jours, j&#8217;ai eu la chance de voir un de mes patchs intégrés dans Rails. Ainsi depuis ce commit, je peux dire que j&#8217;ai &hellip;">
+  <meta name="description" content="Si comme moi, vous avez besoin d&#8217;atteindre des dossier dans votre Rails.root. Un des nouveautés de Rails 2.3 intégrée dans ce commit, vous &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root.html">Quelles nouvelles dans Rails Edge : Plus de File.join avec Rails.root</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-11-30T00:00:00+01:00" pubdate data-updated="true">Nov 30<span>th</span>, 2008</time>
+        
+         | <a href="/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si comme moi, vous avez besoin d&#8217;atteindre des dossier dans votre Rails.root. Un des nouveautés de Rails 2.3 intégrée dans ce <a href="http://github.com/rails/rails/commit/fdfcdf467387c4db3d79c1f46eadbb55a88ef814">commit</a>, vous réduira le travail.</p>
+
+<typo:code lang="ruby">
+Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File.join(Rails.root, &#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;)
+</typo:code>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -580,115 +622,6 @@ development:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/profiler-une-requete-rails.html">Profiler une requête rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-03T00:00:00+02:00" pubdate data-updated="true">Sep 3<span>rd</span>, 2008</time>
-        
-         | <a href="/profiler-une-requete-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pour découvrir le bug dont j&#8217;ai <a 
-href="http://blog.shingara.fr/2008/08/28/gettext-avec-Rails-ca-peux-etre-long-pour-un-formulaire-en-erreur">reporté précédement les
-effets</a>, j&#8217;ai voulu
-réaliser un profile de la requête executée. Ca devait me permettre de voir ce
-qui prenait vraiment beaucoup de temps dans l&#8217;execution de cette page.</p>
-
-<h3>Utilisation du script Request Profiler</h3>
-
-<p>Depuis Rails 2.0, un nouveau script a été ajouté,
-    <code>script/performance/request</code>. Ce script permet de réaliser un
-    profile d&#8217;une ou plusieurs requête internet.</p>
-
-<p>Pour indiquer les requêtes à executer il suffit de réaliser un petit fichier
-de script avec le même format que les tests d&#8217;intégrations. Voici un exemple
-issue du changelog de rails.</p>
-
-<typo:code lang="ruby">
-get_with_redirect &#8216;/&#8217;
-say &#8220;GET / => #{path}&#8221;
-post_with_redirect &#8216;/sessions&#8217;, :username => &#8216;john&#8217;, :password => &#8216;doe&#8217;
-say &#8220;POST /sessions => #{path}&#8221;
-</typo:code>
-
-<p>Une fois le script réalisé, il suffit de lancer la commande en définissant
-le nombre de requêtes qui seront effectuées</p>
-
-<pre>
-$ ./script/performance/request -n 10 login_session.rb
-</pre>
-
-<p>Par contre, il faut faire très attention, il n&#8217;y a aucune solution (ou tout
-        du moins à ma connaissance) pour définir les valeurs de la session. La 
-session est vierge à chaque lancement de script. Il
-faut donc réaliser la connection de login au préalable pour avoir un
-utilisateur loggé par exemple.</p>
-
-<h3>Incompatibilité Rails 2.1 et ruby-prof</h3>
-
-<p>Alors que j&#8217;avais indiqué <a 
-href="http://blog.shingara.fr/2008/06/27/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-1-changement-dapi-et-des-tests-de-performances">l&#8217;ajout d&#8217;un nouveau script dans Rails Edge qui
-nécessitait ruby-prof 0.6.1</a>, je pensais que c&#8217;était le seul endroit qui
-nécessitait cette version de <a 
-href="http://ruby-prof.rubyforge.org/">ruby-prof</a> qui n&#8217;existe pas encore 
-(dernière version stable : 0.6.0 en téléchargement sur rubyforge). Hélas, ce
-n&#8217;est pas le cas. Depuis la version 2.1 de Rails, le script
-performance/request nécessite aussi ruby-prof 0.6.1. Mais cette version, n&#8217;est
-toujours pas encore sortie officielement. Il faut donc générer et installer ce
-gem pour arriver à avoir cette fonctionnalité. En effet, même en modifiant la
-version de ruby-prof des méthodes n&#8217;existent pas dans les versions antérieurs à
-la version 0.6.1</p>
-
-<h3>Génération et installation de ruby-prof-0.6.1</h3>
-
-<p>Il faut d&#8217;abord récupérer les sources directements à partir du svn de
-ruby-prof</p>
-
-<pre>
-svn co http://ruby-prof.rubyforge.org/svn/
-</pre>
-
-<p>Ensuite, il faut générer le gem</p>
-
-<pre>$ rake package</pre>
-
-<p>Enfin, il suffit d&#8217;installer le gem.</p>
-
-<pre># gem install pkg/ruby-prof-0.6.1.gem</pre>
-
-<p>Désormais, ruby-prof 0.6.1 est installé et vous pouvez utiliser pleinement
-le script performance/request.</p>
-
-<p><a href="http://blog.shingara.fr/en/2008-09-03-profile-a-request-in-rails.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -704,6 +637,10 @@ le script performance/request.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -739,10 +676,6 @@ le script performance/request.</p>
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

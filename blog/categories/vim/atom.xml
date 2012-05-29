@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | Shiny happy people coding]]></title>
+  <link href="http://blog.shingara.fr//blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr//"/>
+  <updated>2012-05-29T10:05:17+02:00</updated>
+  <id>http://blog.shingara.fr//</id>
+  <author>
+    <name><![CDATA[Cyril Mougel]]></name>
+    <email><![CDATA[cyril.mougel@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[vundle ou le bundler de vim]]></title>
+    <link href="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html"/>
+    <updated>2012-05-24T09:40:00+02:00</updated>
+    <id>http://blog.shingara.fr//vundle-ou-le-bundler-de-vim</id>
+    <content type="html"><![CDATA[<p>Personnellement, j'utilise vim comme éditeur de texte depuis mon
+école. J'ai toujours apprécié vim et je ne compte toujours pas changer
+d'éditeur.</p>
+
+<h1>Mon évolution de la gestions des plugins vim.</h1>
+
+<p>Vim a une très grande quantité de plugins disponibles et il est très
+rapidement indispensable d'en utiliser plusieurs. La gestion des plugins
+est donc très importante. Au fil des années, j'ai changé de technique en
+fonction des possibilités apportées par vim ou par les développeurs.</p>
+
+<h2>Gestion manuelle</h2>
+
+<p>Au début, je gérais manuellement mes plugins en les ajoutant dans les
+dossiers correspondant. Je versionnais mon dossier <code>.vim</code> et <code>.vimrc</code> et je pouvais le faire
+évoluer globalement. Le soucis de cette technique est qu'il est pas
+forcement évident de gérer les mises à jour des plugins et leur
+installation n'est pas forcement simple car il faut mettre plusieurs
+fichiers à plusieurs endroits.</p>
+
+<h2>L'arrivée des vimballs</h2>
+
+<p>Dans une évolution de vim, il y a eu la possibilité de gérer des
+vimballs. L'avantage de cette technique est qu'on avait moins de
+problème lors de l'installation et on pouvait gérer un peu plus
+facilement les mises à jour car on savait rapidement quelle version on
+utilisait. Mais la encore il fallait allez régulièrement sur
+vimscript.org
+pour voir si nos plugins avaient changé de version. Chose que finalement
+on faisait très peu au final.</p>
+
+<h2>Gestion par git-submodule</h2>
+
+<p>Avec l'arrivée de github, les choses ont pu changer. Les plugins vim ont
+commencé à avoir un dépôt centralisé, on pouvait suivre directement
+l'évolution des scripts. Même vimscript a converti tous les plugins
+qu'il hébergeait en repository git. Maintenant on peux gérer tous ses plugins
+en faisant des mises à jour de repository git. J'ai ainsi commencé a gérer des
+submodule et des liens symboliques vers ces submodules. La mise à jour
+était automatique, mais l'installation devenait encore plus compliqué
+qu'avant.</p>
+
+<h2>Janus, la distribution vim</h2>
+
+<p>C'est alors que Yehuda Katz et Carl Lerche ont commencé à créer
+<a href="https://github.com/carlhuda/janus">janus</a>. Ce projet se veut comme une
+distribution de gestion de plugins vim. Il contient un jeu de tâche rake
+qui permette de mettre à jour facilement ses plugins. Un <code>.vimrc</code> est aussi
+fourni pour utiliser les plugins par défaut et ajouter une configuration
+minimal pratique. Ce projet est vraiment génial pour commencer à
+pratiquer vim. On peux ainsi avoir un jeu de plugins pratique et
+intéressant. Par contre, la gestion des versions de janus avec ses
+propres usage peux vite devenir compliquée. En gros c'est bien si on ne veut
+jamais modifier sa conf vim.</p>
+
+<h2>Pathogen, le premier plugin vim de gestions de ses plugins</h2>
+
+<p>Très peu de temps après <a href="https://github.com/tpope">Tim Pope</a> ( très prolifique développeur de plugins
+vim ) a sorti <a href="https://github.com/tpope/vim-pathogen">Pathogen</a>. Ce
+plugin permet de gérer directement la gestion de ses plugins dans son vimrc. J'avoue ne pas avoir
+trop regardé comment fonctionne ce plugin. On m'en a toute fois dit du
+bien. Il y a eu pas mal de projet pour que janus utilise pathogen
+typiquement.</p>
+
+<h2>Vundle, le bundler de vim.</h2>
+
+<p>Mais c'est là qu'on m'a parlé du plugin qui me semble le meilleur
+actuellement concernant la gestion de ses plugins vim.
+<a href="https://github.com/gmarik/vundle">Vundle</a>. Comme pathogen, la gestion
+des plugins est faite directement dans son vimrc. Son usage y est très
+simplifié et pratique. Si vous connaissez
+<a href="http://gembundler.org">Bundler</a> alors vous comprendrez facilement sont
+usage car il en est très inspirés.</p>
+
+<h1>Utilisation de Vundle</h1>
+
+<h2>Installation de Vundle</h2>
+
+<p>Pour installer vundle, un simple clone du repository du projet et 2
+lignes dans votre <code>.vimrc</code> suffisent.</p>
+
+<p><code>
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+</code></p>
+
+<p><code>vim
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+</code></p>
+
+<h2>Configuration de ses plugins</h2>
+
+<p>Pour utiliser vundle une fois installé. C'est extrêmement simple. il
+suffit d'utiliser la commande <code>Bundle</code> et le chemin de votre plugin.
+Ainsi pour installer le plugin <code>vim-rails</code> il suffit juste de faire :</p>
+
+<p><code>vim
+Bundle 'tpope/vim-rails.git'
+</code></p>
+
+<h2>Installation de ses plugins</h2>
+
+<p>Ensuite, une fois votre vim lancé deux commandes vous suffisent.
+<code>BundleInstall</code> qui permet d'installer tous les plugins que vous avez
+définis et <code>BundleInstall!</code> qui permet de les mettre à jour.</p>
+
+<p>Désormais ils ne vous reste plus qu'à trouver les plugins que vous
+souhaitez et les utiliser.</p>
+
+<h1>Mon vimrc</h1>
+
+<p>Si vous souhaitez découvrir mon usage de vim, <a href="https://github.com/shingara/vim-conf">mon vimrc est ainsi
+disponible sur github</a>. Grâce à
+Vundle rien de plus simple que de le lire et découvrir rapidement les
+plugins vim que j'utilise.</p>
+]]></content>
+  </entry>
+  
+</feed>

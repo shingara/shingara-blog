@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Au niveau de mon travail, on m&#8217;a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un &hellip;">
+  <meta name="description" content="Au niveau de mon travail, on m'a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un pom. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,11 +104,11 @@
   </header>
 
 
-<div class="entry-content"><p>Au niveau de mon travail, on m&#8217;a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un pom.xml complet (pour projet Maven) pour ainsi avoir toutes les dépendances nécessaires.</p>
+<div class="entry-content"><p>Au niveau de mon travail, on m'a demandé de réaliser une sortie console de nos tests unitaires. Hélas on a jamais pris le temps de réaliser un pom.xml complet (pour projet Maven) pour ainsi avoir toutes les dépendances nécessaires.</p>
 
-<p>Comme toujours on m&#8217;a demandé de réaliser cette sortie assez rapidement. J&#8217;ai donc trouvé une petite bidouille pour arriver à réaliser mon test en console en conservant complètement mon classpath défini par Eclipse.</p>
+<p>Comme toujours on m'a demandé de réaliser cette sortie assez rapidement. J'ai donc trouvé une petite bidouille pour arriver à réaliser mon test en console en conservant complètement mon classpath défini par Eclipse.</p>
 
-<p>Tout d&#8217;abord il faut récupérer la commande réaliser par Eclipse pour lancer le test. Pour cela, il suffit de mettre un point d&#8217;arrêt dans son script Junit, lancer le script en mode « Debug » et ensuite quand le point d&#8217;arrêt à stopper le processus, un clic droit sur le thread permet de consulter le menu de propriété de lancement de ce thread.</p>
+<p>Tout d'abord il faut récupérer la commande réaliser par Eclipse pour lancer le test. Pour cela, il suffit de mettre un point d'arrêt dans son script Junit, lancer le script en mode « Debug » et ensuite quand le point d'arrêt à stopper le processus, un clic droit sur le thread permet de consulter le menu de propriété de lancement de ce thread.</p>
 
 <p>On copie entièrement la ligne de commande qui est de la forme suivante :</p>
 
@@ -129,11 +129,11 @@ org.eclipse.jdt.internal.junit.runner.RemoteTestRunner
 <p>Maintenant que vous avez cette ligne de commande, il suffit de faire quelque modification dessus et vous aurez votre ligne de commande complète. Les modifications à réaliser sont les suivantes :</p>
 
 <ul>
-<li>Suppression de l&#8217;option -Xdebug</li>
-<li>Suppression de l&#8217;option -Xnoagent</li>
-<li>Suppression de l&#8217;option -Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859</li>
+<li>Suppression de l'option -Xdebug</li>
+<li>Suppression de l'option -Xnoagent</li>
+<li>Suppression de l'option -Xrunjdwp:transport=dt_socket,suspend=y,address=localhost:1859</li>
 <li>Suppression de -port 1858 </li>
-<li>Transformer l&#8217;exécutable de lancement pas java.exe au lieu de javaw.exe</li>
+<li>Transformer l'exécutable de lancement pas java.exe au lieu de javaw.exe</li>
 <li>Transformer la classe de lancement par junit.textui.TestRunner au lieu de org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestLoader qui est spécifique à Eclipse.</li>
 </ul>
 
@@ -145,7 +145,7 @@ junit.textui.TestRunner
 -version 3 
 -classNames ${CLASSE_LANCER_POUR_LE_TEST}</pre>
 
-<p>Bien sûr il y a d&#8217;autres techniques qui sont de simplement récupérer le CLASSPATH par exemple et de le mettre dans notre ligne de commande.</p>
+<p>Bien sûr il y a d'autres techniques qui sont de simplement récupérer le CLASSPATH par exemple et de le mettre dans notre ligne de commande.</p>
 </div>
 
 
@@ -205,6 +205,10 @@ junit.textui.TestRunner
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -238,10 +242,6 @@ junit.textui.TestRunner
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

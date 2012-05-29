@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Avec Merb-mailer, merb fourni un système d&#8217;envoi d&#8217;email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer &hellip;">
+  <meta name="description" content="Avec Merb-mailer, merb fourni un système d'envoi d'email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,9 +104,9 @@
   </header>
 
 
-<div class="entry-content"><p>Avec Merb-mailer, merb fourni un système d&#8217;envoi d&#8217;email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré comme un controller et non comme un model. De ce fait l&#8217;utilisation de la méthode send_mail n&#8217;est disponible que dans les controllers. Mais alors comment utiliser la méthode send_mail dans son model ? C&#8217;est très simple. Là encore merb utilise un système entièrement ruby ce qui facilite le méchanisme</p>
+<div class="entry-content"><p>Avec Merb-mailer, merb fourni un système d'envoi d'email. Par contre merb étant un framework web se voulant ORM agnostique, merb-mailer est considéré comme un controller et non comme un model. De ce fait l'utilisation de la méthode send_mail n'est disponible que dans les controllers. Mais alors comment utiliser la méthode send_mail dans son model ? C'est très simple. Là encore merb utilise un système entièrement ruby ce qui facilite le méchanisme</p>
 
-<p>Après une courte recherche dans le code de merb-mailer, j&#8217;ai pu constater que que la commande send_mail était dans un mixin. l&#8217;inclusion de ce mixin suffit donc à avoir la commande pour l&#8217;utiliser.</p>
+<p>Après une courte recherche dans le code de merb-mailer, j'ai pu constater que que la commande send_mail était dans un mixin. l'inclusion de ce mixin suffit donc à avoir la commande pour l'utiliser.</p>
 
 <typo:code lang="ruby">
 class Member
@@ -119,9 +119,9 @@ class Member
   def register
     // some code
     send_mail (UserMailer, :register, {
-        :from => &#8220;no-reply@example.com&#8221;,
+        :from => "no-reply@example.com",
         :to => person.email,
-        :subject => &#8220;Please activate your account&#8221; 
+        :subject => "Please activate your account" 
     }
   end
 </typo:code>
@@ -186,6 +186,10 @@ class Member
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -219,10 +223,6 @@ class Member
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

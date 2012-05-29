@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voici la nouvelle traduction de Vivre avec Edge. Par contre, cette fois ci, comme annoncé dans cette news, cette news est issu du blog officiel de &hellip;">
+  <meta name="description" content="Après avoir lu les remarques de frédéric au sujet de la soirée Firefox 3. Je ne peux m&#8217;empêcher de l&#8217;approuver et de rédiger ce billet. J &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes.html">Le monde du libre fait de la sélection même pour les fêtes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-28T00:00:00+02:00" pubdate data-updated="true">Jun 28<span>th</span>, 2008</time>
+        
+         | <a href="/le-monde-du-libre-fait-de-la-selection-meme-pour-les-fetes.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Après avoir lu les <a href="http://t37.net/la-soiree-firefox-3-ne-passera-pas-par-moi">remarques de frédéric au sujet de la soirée Firefox 3</a>. Je ne peux m&#8217;empêcher de l&#8217;approuver et de rédiger ce billet. J&#8217;écris rarement pour critiquer quelque chose, mais j&#8217;avoue que cette pratique est vraiment anti-libriste.</p>
+
+<p>En effet, la fondation Mozilla trie sur le volet ses invités pour la grande soirée Firefox 3. Que Mozilla fasse une grande fête chez elle avec les invités qu&#8217;elle souhaite c&#8217;est tout à fait normal. Mais qu&#8217;elle annonce une grande fête et ouvre les portes de cette fête à seulement des personnes triés sur le volet en fonction de leur projet open source et de leur contribution au standard du web, je trouve ça affligeant.</p>
+
+<p>Le personne qui permette de faire ces fêtes sont justement les madame Michou. Ceux qui télécharge Firefox et qui trouve juste le produit bien. Par des personnes qui font de l&#8217;open source ou contribue à des standards. C&#8217;est peut-être même pas des utilisateurs de Firefox. En effet, Firefox n&#8217;est pas le seul navigateur à suivre les standards. Que ce soit Opera ou Safari, ces deux navigateurs sont au moins aussi respectueux des standards si ce n&#8217;est plus. Là vraiment Firefox me déçoit.</p>
+
+<p>Personnellement, j&#8217;aurais largement préféré une bonne réunion à la bonne franquette. Chacun se retrouve sur le champs de Mars avec sa bouffe. Pas de micro, pas de speech pompeux. Juste des gens réuni en un point pour être heureux.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -811,98 +855,6 @@ assert_equal &#8216;You gotta be kidding me!&#8217;, flash.now[:notice]
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-19.html">Vivre avec Rails Edge #19</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-05T00:00:00+02:00" pubdate data-updated="true">May 5<span>th</span>, 2008</time>
-        
-         | <a href="/vivre-avec-rails-edge-19.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Traduction de la <a href="http://blog.codefront.net/2008/05/04/living-on-the-edge-of-rails-19-change_table-for-migrations-and-more/">news #19</a></p>
-
-<p>Le rapport de cette semaine couvre les changements du 29 Avril 2008 au 4 Mai 2008 (jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
-
-<h3>change_table pour les migrations d&#8217;ActiveRecord</h3>
-
-<p>Merci à <a href="http://zilkey.com/">Jeff Dean</a>, qui a aussi <a href="http://zilkey.com/2008/4/29/new-rails-core-feature-proposal-super-sexy-migrations">blogué au sujet de la nouvelle fonctionnalité change_table des migrations d&#8217;ActiveRecord</a>. Vous pouvez donc maintenant changer une table avec un block comme ceci :</p>
-
-<typo:code lang="ruby">change_table :videos do |t|
-  t.add_timestamps
-  t.add_belongs_to :goat
-  t.add_string :name, :email, :limit =&gt; 20
-  t.remove_column :name, :email # prend de multiples arguments
-  t.rename :new_name
-  t.string :new_string_column # execute avec le changement de nom de la table
-end</typo:code>
-
-<p>Parmis les principaux points à noter :</p>
-
-<ul>
-<li><code>add_XXX</code> permettant d&#8217;ajouter une nouvelle colonne, exemple : <code>add_string</code> qui ajoutera un nouveau champs string.</li>
-<li>Bien-sûr,<code> add_timestamps</code> permet d&#8217;ajouter les champs datetime magics <code>created_at</code> et <code>updated_at</code></li>
-<li><code>remove_column</code> peux dorénavant prendre plusieurs arguments.</li>
-<li><code>rename</code> qui renommera la table.</li>
-</ul>
-
-<p>Très belle amélioration DRY proposée par <a href="http://zilkey.com/">Jeff Dean</a> une fois encore.</p>
-
-<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/96980bd561d79824b6cb6efbcbecdcbf8785d452">http://github.com/rails/rails/commit/96980bd561d79824b6cb6efbcbecdcbf8785d452</a></p>
-
-<h3>ActiveRecord::Base.create prend un block comme ActiveRecord::Base.new</h3>
-
-<p>Youpie, maintenant vous pouvez aussi créer (<code>ActiveRecord::Base.create</code>) un objet ActiveRecord avec un block en argument exactement comme vous pouviez le faire avec <code>ActiveRecord::Base.new</code>:</p>
-
-<typo:code lang="ruby">@person = Person.create(params[:person]) do |p|
-  p.name = &#8216;Konata Izumi&#8217;
-  p.age = 17
-end</typo:code>
-
-<p>Merci a <a href="http://www.workingwithrails.com/person/11022-adam-meehan">Adam Meehan</a> pour ce patch.</p>
-
-<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/dd120ede53eaf71dee76894998a81626b7a689fc">http://github.com/rails/rails/commit/dd120ede53eaf71dee76894998a81626b7a689fc</a></p>
-
-<h3>Bugfix: change_column doit permettre d&#8217;utiliser :null => true sur les champs qui ne l&#8217;étaient pas précédement.</h3>
-
-
-<p>Vous pouvez désormais utiliser <code>change_column</code> dans vos migrations pour modifier une colonne en nullable si elle était précédement </code>NOT NULL</code>.</p>
-
-<p>Ce bugfix est gentiment offert par Nate Wiger.</p>
-
-<p>Révision concernant cette fonctionnalité : <a href="http://github.com/rails/rails/commit/10ef65a3b054270ed3d458ec8eb7c2b9a3e638f7">http://github.com/rails/rails/commit/10ef65a3b054270ed3d458ec8eb7c2b9a3e638f7</a></p>
-
-<p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vive avec Rails.</p>
-
-<p>Enfin merci à <a href="http://blog.codefront.net/">Chu Yeow</a> de <a href="http://blog.codefront.net/2008/05/01/living-on-the-edge-of-rails-in-french/">m&#8217;encourager dans la traduction de ses magnifiques news</a><p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -918,6 +870,10 @@ end</typo:code>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -953,10 +909,6 @@ end</typo:code>
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

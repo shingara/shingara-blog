@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voulant utiliser capistrano2 et mettre en place un blog Typo, j&#8217;ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici &hellip;">
+  <meta name="description" content="Mislav Marohnic a réalisé un petit script Ruby pour tester si votre application Rails valide 1.2.3 l&#8217;est aussi pour la prochaine migration à &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/un-script-pour-tester-votre-application-pour-rails-2-0.html">Un script pour tester votre application pour Rails 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-09-29T00:00:00+02:00" pubdate data-updated="true">Sep 29<span>th</span>, 2007</time>
+        
+         | <a href="/un-script-pour-tester-votre-application-pour-rails-2-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Mislav Marohnic a réalisé un petit script Ruby pour tester si votre application Rails valide 1.2.3 l&#8217;est aussi pour la prochaine migration à Rails 2.0 (attendu avec impatience). Ce script fait une vérification de toutes les alertes (warning) que vous avez concernant les méthodes déprécié (deprecated)</p>
+
+<p>Pour tester ce script, il suffit de lancer la commande suivante quand vous êtes dans le dossier de votre application :</p>
+
+<pre>
+wget http://pastie.caboo.se/99900.txt?key=krcevozww61drdeza13e3a -q -O- | ruby -
+</pre>
+
+<p>Sinon vous pouvez aussi regarder les <a href="http://pastie.caboo.se/private/krcevozww61drdeza13e3a">sources</a></p>
+
+<p> source issue de : <a href="http://www.rubyinside.com/interesting-ruby-tidbits-that-dont-need-separate-posts-3-613.html">Peter Cooper</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -725,55 +773,6 @@ Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option.html">Comment faire croire que notre librairie ruby a sa propre option ?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-08-22T00:00:00+02:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2007</time>
-        
-         | <a href="/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d&#8217;implémentation qui m&#8217;a fait sourire.</p>
-
-<p>J&#8217;ai trouvé dans mes lib ruby un fichier qui s&#8217;appele ubygem.rb. Je me suis posé la question de savoir à quoi servait ce fichier. En l&#8217;éditant, j&#8217;ai compris son utilité en lisant le commentaire :</p>
-
-<pre>
-# This file allows for the running of rubygems with a nice
-# command line look-and-feel: ruby -rubygems foo.rb
-</pre>
-
-<p>En fait ce fichier ne sert qu&#8217;à permettre de faire un require de rubygems en faisant croire que rubygem était une option de ruby. En effet dans les paramètres de ruby il y a le -r auquel on colle le nom de la librairie à require.</p>
-
-<p>Moralité, vous rédigez une librairie qui comment par r, créez un fichier sans ce r et mettez juste la ligne <code>require rxxx</code>. Ca fait toujours bien d&#8217;avoir sa librairie qui est comme une option sur ruby</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -789,6 +788,10 @@ Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -824,10 +827,6 @@ Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

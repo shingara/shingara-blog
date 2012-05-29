@@ -104,9 +104,9 @@
   </header>
 
 
-<div class="entry-content"><p>Sur une <a href="http://lysscreen.no-ip.org">application en rails</a> que je développe pour un <a href="http://www.conquest-lys.net/">jeu on line</a>, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour prend 2-3 minutes et durant ce temps il faut que mon application devienne inaccessible pour éviter d&#8217;avoir des discordances dans mes données. J&#8217;ai fini par trouver une technique en m&#8217;inspirant d&#8217;un tuto sur Capistrano qui expliquait comment mettre en maintenance son site lors d&#8217;un déploiement avec Capistrano.</p>
+<div class="entry-content"><p>Sur une <a href="http://lysscreen.no-ip.org">application en rails</a> que je développe pour un <a href="http://www.conquest-lys.net/">jeu on line</a>, je dois parfois faire une grosse mise à jour de mes données. Cette mise à jour prend 2-3 minutes et durant ce temps il faut que mon application devienne inaccessible pour éviter d'avoir des discordances dans mes données. J'ai fini par trouver une technique en m'inspirant d'un tuto sur Capistrano qui expliquait comment mettre en maintenance son site lors d'un déploiement avec Capistrano.</p>
 
-<p>Pour cela il faut ajouter une configuration dans son serveur web testant l&#8217;existence ou non d&#8217;un fichier. Pour <a href="http://nginx.net/">Nginx</a> vous pouvez donc faire comme cela :</p>
+<p>Pour cela il faut ajouter une configuration dans son serveur web testant l'existence ou non d'un fichier. Pour <a href="http://nginx.net/">Nginx</a> vous pouvez donc faire comme cela :</p>
 
 <pre>
     location /maintenance.html {
@@ -119,9 +119,9 @@
     }
 </pre>
 
-<p>Ensuite au niveau de votre application Rails il ne vous reste plus qu&#8217;à ajouter un petit code qui permet de créer et supprimer le fichier maintenance.html.</p>
+<p>Ensuite au niveau de votre application Rails il ne vous reste plus qu'à ajouter un petit code qui permet de créer et supprimer le fichier maintenance.html.</p>
 
-<p>Grâce à cette technique le serveur web fera un test sur l&#8217;existence ou non du fichier maintenance.html. Si ce fichier existe, il redirigera toutes les requêtes sur cette page. Vous bloquez ainsi l&#8217;appel à votre application.</p>
+<p>Grâce à cette technique le serveur web fera un test sur l'existence ou non du fichier maintenance.html. Si ce fichier existe, il redirigera toutes les requêtes sur cette page. Vous bloquez ainsi l'appel à votre application.</p>
 </div>
 
 
@@ -181,6 +181,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -214,10 +218,6 @@
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

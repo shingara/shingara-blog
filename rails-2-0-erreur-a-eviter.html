@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ayant annoncé la sortie de Rails 2.0 en PR, je me devais de tester cette version. Je l&#8217;ai donc fait immédiatement le soir. Après un petit : &hellip;">
+  <meta name="description" content="Ayant annoncé la sortie de Rails 2.0 en PR, je me devais de tester cette version. Je l'ai donc fait immédiatement le soir. Après un petit : rake &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,7 +104,7 @@
   </header>
 
 
-<div class="entry-content"><p>Ayant annoncé la <a href="http://blog.shingara.fr/articles/2007/10/01/rails-2-0-preview-release-est-sortie">sortie de Rails 2.0 en PR</a>, je me devais de tester cette version. Je l&#8217;ai donc fait immédiatement le soir.</p>
+<div class="entry-content"><p>Ayant annoncé la <a href="http://blog.shingara.fr/articles/2007/10/01/rails-2-0-preview-release-est-sortie">sortie de Rails 2.0 en PR</a>, je me devais de tester cette version. Je l'ai donc fait immédiatement le soir.</p>
 
 <p>Après un petit :</p>
 
@@ -113,7 +113,7 @@
 <li>rake rails:update</li>
 </ul>
 
-<p>J&#8217;ai lancé mon serveur et là patatra. Erreur et serveur qui ne démarrais pas. J&#8217;avais l&#8217;erreur suivante :</p>
+<p>J'ai lancé mon serveur et là patatra. Erreur et serveur qui ne démarrais pas. J'avais l'erreur suivante :</p>
 
 <pre>
 # hello-21:44:11:~/programmation/ruby/rails/screeneur/trunk$ ./script/server
@@ -137,20 +137,20 @@
 # from ./script/server:3
 </pre>
 
-<p>J&#8217;ai ensuite tenté une autre technique. Installer le gem de Rails 2.0 PR :</p>
+<p>J'ai ensuite tenté une autre technique. Installer le gem de Rails 2.0 PR :</p>
 
 <pre>
 gem install rails --source http://gems.rubyonrails.org 
 </pre>
 
-<p>Là miracle tout fonctionnait normalement. Je ne comprenais pas pourquoi. J&#8217;enlève donc les gems installés, retente et même erreur.</p>
+<p>Là miracle tout fonctionnait normalement. Je ne comprenais pas pourquoi. J'enlève donc les gems installés, retente et même erreur.</p>
 
-<p>J&#8217;ai donc lancé des recherches sur internet et auprès de personnes qui utilisaient Rails Edge, mais sans succès. J&#8217;ai donc fini par lancer la question sur la <a href="http://groups.google.com/group/rubyonrails-core/browse_frm/thread/e1cb5d99ff0313c5">liste de discussion de Ruby On Rails Core (en)</a>. Très rapidement j&#8217;obtiens ainsi ma réponse.</p>
+<p>J'ai donc lancé des recherches sur internet et auprès de personnes qui utilisaient Rails Edge, mais sans succès. J'ai donc fini par lancer la question sur la <a href="http://groups.google.com/group/rubyonrails-core/browse_frm/thread/e1cb5d99ff0313c5">liste de discussion de Ruby On Rails Core (en)</a>. Très rapidement j'obtiens ainsi ma réponse.</p>
 
-<p>En fait il s&#8217;agit d&#8217;ActiveResource qui a été supprimé et remplacé par ActionWebService. Ainsi les requires perdait un peu les pédales. Une des solutions pour résoudre ce problème est de mettre dans son environnement.rb une exclusion d&#8217;ActiveResource :</p>
+<p>En fait il s'agit d'ActiveResource qui a été supprimé et remplacé par ActionWebService. Ainsi les requires perdait un peu les pédales. Une des solutions pour résoudre ce problème est de mettre dans son environnement.rb une exclusion d'ActiveResource :</p>
 <pre>config.frameworks -= [ :active_resource ] </pre>
 
-<p>Par contre si vous utilisez cette méthode n&#8217;oubliez pas de le commenter pour l&#8217;enlever dans le futur.</p>
+<p>Par contre si vous utilisez cette méthode n'oubliez pas de le commenter pour l'enlever dans le futur.</p>
 </div>
 
 
@@ -210,6 +210,10 @@ gem install rails --source http://gems.rubyonrails.org
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -243,10 +247,6 @@ gem install rails --source http://gems.rubyonrails.org
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous : &hellip;">
+  <meta name="description" content="Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous : Logger.debug { "My &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,22 +104,22 @@
   </header>
 
 
-<div class="entry-content"><p>Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous :</p>
+<div class="entry-content"><p>Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous :</p>
 
 <typo:code lang="ruby">
-Logger.debug { &#8220;My object is #{self.map(&:id)}&#8221; }
+Logger.debug { "My object is #{self.map(&:id)}" }
 </typo:code>
 
-<p>Par défaut, on l&#8217;utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
+<p>Par défaut, on l'utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
 
 <p>La différence entre ces deux écritures ?</p>
 
-<p>La première permet d&#8217;éviter d&#8217;évaluer la chaine qui sera loggé si elle n&#8217;en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s&#8217;en faire ressentir.</p>
+<p>La première permet d'éviter d'évaluer la chaine qui sera loggé si elle n'en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s'en faire ressentir.</p>
 
 <p>Grâce à ça, on peux facilement éviter les fameux :</p>
 
 <typo:code lang="ruby">
-Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Logger::DEBUG
+Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
 </typo:code>
 
 <p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
@@ -182,6 +182,10 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -215,10 +219,6 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

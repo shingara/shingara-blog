@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="La méthode setOpaque de la Classe Jcomponent a un comportement particulier. En effet, j&#8217;ai pris juste deux petites heures à trouver comment &hellip;">
+  <meta name="description" content="J&#8217;ai suivi les explications d&#8217;un tuto trouve sur le site doc.ubuntu-fr.org pour faire la modification suivante principalement des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/installation-java-sdk-1-5-sous-debian-en-manuelle.html">Installation java SDK 1.5 sous debian en manuelle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-09T00:00:00+01:00" pubdate data-updated="true">Mar 9<span>th</span>, 2006</time>
+        
+         | <a href="/installation-java-sdk-1-5-sous-debian-en-manuelle.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+J&#8217;ai suivi les explications d&#8217;un <a href="http://doc.ubuntu-fr.org/applications/java">tuto</a> trouve sur le site doc.ubuntu-fr.org pour faire la modification suivante principalement des suppressions de sudo et aussi de changement de version.
+
+<ul>
+<li>telecharger le binaire (pas le rpm) de sun JDK 1.5 update 6 sur le site de <a href="http://javashoplm.sun.com/ECom/docs/Welcome.jsp?StoreId=22&PartDetailId=jdk-1.5.0_06-oth-JPR&SiteId=JSC&TransactionId=noreg">sun</a></li>
+<li>Une fois telecharge, il faut rendre ce binaire executable</li>
+<li>#chmod +x jdk-1_5_0_06-linux-i586.bin</li>
+<li>lancer l&#8217;execution du binaire</li>
+<li>#./jdk-1_5_0_06-linux-i586.bin</li>
+<li>Accepter la licence et laisser l&#8217;installation se faire. Un dossier sera creer sous le nom de jdk-1_5_0_06</li>
+<li>Deplacer ce dossier dans /opt/</li>
+<li>#mv jdk-1_5_0_06 /opt/</li>
+<li>faire un lien symbolique sur /usr/local/bin</li>
+<li>#ln -s /opt/jdk1.5.0_06/bin/java /usr/local/bin/java</li>
+<li>#ln -s /opt/jdk1.5.0_06/bin/policytool /usr/local/bin/policytool</li>
+<li>Renseigner dans votre environement le JAVA HOME : Editer /etc/environment et rajouter la ligne suivante :</li>
+<li>JAVA_HOME=/opt/jdk1.5.0_06</li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -577,6 +632,10 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -610,10 +669,6 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

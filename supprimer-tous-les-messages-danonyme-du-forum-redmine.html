@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu&#8217;un utilisateur ne soit obligé de s&#8217;inscrire pour poster sur le &hellip;">
+  <meta name="description" content="Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu'un utilisateur ne soit obligé de s'inscrire pour poster sur le forum, vous &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,13 +104,13 @@
   </header>
 
 
-<div class="entry-content"><p>Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu&#8217;un utilisateur ne soit obligé de s&#8217;inscrire pour poster sur le forum, vous êtes sujet au Spam, vu que Redmine n&#8217;a encore aucun système anti-spam. Vous pouvez ainsi vous retrouver dans cette position.</p>
+<div class="entry-content"><p>Si comme moi vous avez ouvert le forum Redmine au anonyme pour éviter qu'un utilisateur ne soit obligé de s'inscrire pour poster sur le forum, vous êtes sujet au Spam, vu que Redmine n'a encore aucun système anti-spam. Vous pouvez ainsi vous retrouver dans cette position.</p>
 
 <p>
 <img src="http://blog.shingara.fr/files/snapshoot_spam_forum_redmine.png" alt="screenshot de mon forum redmine spammé" />
 </p>
 
-<p>Une fois que vous avez bloqué l&#8217;ajout de message par les anonymes, il faut maintenant faire le ménage. Soit, vous prenez message par message et faite le bouton supprimer. Soit vous utilisez la console comme moi. Voici donc les commandes à réaliser pour supprimer tous les messages d&#8217;anonyme du forum. Bien-sûr, cela implique que si vous avez des utilisateurs qui ont posté en tant qu&#8217;anonyme, leur poste sera détruit.</p>
+<p>Une fois que vous avez bloqué l'ajout de message par les anonymes, il faut maintenant faire le ménage. Soit, vous prenez message par message et faite le bouton supprimer. Soit vous utilisez la console comme moi. Voici donc les commandes à réaliser pour supprimer tous les messages d'anonyme du forum. Bien-sûr, cela implique que si vous avez des utilisateurs qui ont posté en tant qu'anonyme, leur poste sera détruit.</p>
 
 <typo:code lang="text">
 rails@shinydedi /var/rails/redmine/current $ ./script/console production                                                                                                                          
@@ -122,7 +122,7 @@ Loading production environment (Rails 2.0.2)
 >> Message.find_all_by_author_id(User.anonymous.id).size
 => 1693
 >> Message.find_all_by_author_id(User.anonymous.id).each { |me| me.destroy }
-=> [&#8230;&#8230;&#8230;]
+=> [.........]
 >>
 </typo:code>
 <p><a href="http://blog.shingara.fr/en/2008-11-14-delete-all-anonymous-message-in-forum-redmine.html">English translation</a></p>
@@ -185,6 +185,10 @@ Loading production environment (Rails 2.0.2)
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -218,10 +222,6 @@ Loading production environment (Rails 2.0.2)
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

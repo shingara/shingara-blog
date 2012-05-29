@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voulant utiliser capistrano2 et mettre en place un blog Typo, j&#8217;ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici &hellip;">
+  <meta name="description" content="Voulant utiliser capistrano2 et mettre en place un blog Typo, j'ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici toutes &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,32 +104,32 @@
   </header>
 
 
-<div class="entry-content"><p>Voulant utiliser <a href="http://www.capify.org/">capistrano2</a> et mettre en place un blog <a href="http://typosphere.org/">Typo</a>, j&#8217;ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici toutes les étapes que j&#8217;ai effectuées. Ce post aura ainsi un double intérêt.</p>
+<div class="entry-content"><p>Voulant utiliser <a href="http://www.capify.org/">capistrano2</a> et mettre en place un blog <a href="http://typosphere.org/">Typo</a>, j'ai décidé de déployer mon blog Typo grâce à Capistrano2. Je vais indiqué ici toutes les étapes que j'ai effectuées. Ce post aura ainsi un double intérêt.</p>
 
 <ul>
 <li>Expliquer comment deployer une application Typo avec Capistrano2</li>
-<li>Expliquer par l&#8217;exemple d&#8217;une utilisation de Capistrano2</li>
+<li>Expliquer par l'exemple d'une utilisation de Capistrano2</li>
 </ul>
 
-<p>Pour commencer Capistrano2 est vraiment très dépendant d&#8217;un système de versionning. Dans mon cas j&#8217;ai utilisé le dépôt subversion de Typo et comme je voulais utiliser leur version 4.1, j&#8217;ai récupérer l&#8217;url suivante qui est le tag de la version 4.1:</p>
+<p>Pour commencer Capistrano2 est vraiment très dépendant d'un système de versionning. Dans mon cas j'ai utilisé le dépôt subversion de Typo et comme je voulais utiliser leur version 4.1, j'ai récupérer l'url suivante qui est le tag de la version 4.1:</p>
 
 <pre>
 http://svn.typosphere.org/typo/tags/release_4_1/
 </pre>
 
-<h2>Préparation de l&#8217;application à déployer</h2>
+<h2>Préparation de l'application à déployer</h2>
 
 <h3>Préparation en local</h3>
 
-<p>Il faut commencer d&#8217;abord par faire un checkout complet de la version que l&#8217;on désire déployer. Ca permet surtout d&#8217;avoir une sorte de miroir de la version qui sera sur le serveur et ainsi faire des modifications sur cette version pour testé et ensuite les déployer sur le serveur.</p>
+<p>Il faut commencer d'abord par faire un checkout complet de la version que l'on désire déployer. Ca permet surtout d'avoir une sorte de miroir de la version qui sera sur le serveur et ainsi faire des modifications sur cette version pour testé et ensuite les déployer sur le serveur.</p>
 
-<p>On va maintenant commencer à créer un projet capistrano2. Pour cela, il suffit d&#8217;aller à la racine du répertoire de checkout et de lancer la commande :</p>
+<p>On va maintenant commencer à créer un projet capistrano2. Pour cela, il suffit d'aller à la racine du répertoire de checkout et de lancer la commande :</p>
 
 <pre>capify</pre>
 
-<p>Grâce à cette commande le fichier <code>config/deploy.rb</code> est crée. C&#8217;est lui qui nous permettra de définir la configuration de notre application sur le serveur distant. Le fichier <code>Capfile</code> est lui aussi crée à la racine et il permet d&#8217;ajouter des tâches. Il suffit de le considérer comme une sorte de fichier de RakeFile.</p>
+<p>Grâce à cette commande le fichier <code>config/deploy.rb</code> est crée. C'est lui qui nous permettra de définir la configuration de notre application sur le serveur distant. Le fichier <code>Capfile</code> est lui aussi crée à la racine et il permet d'ajouter des tâches. Il suffit de le considérer comme une sorte de fichier de RakeFile.</p>
 
-<p>Voici ce que j&#8217;ai mis dans mon fichier deploy.rb. Bien sur, il n&#8217;y avait pas ces informations à la base</p>
+<p>Voici ce que j'ai mis dans mon fichier deploy.rb. Bien sur, il n'y avait pas ces informations à la base</p>
 
 <pre>
 set :application, "typoblog-dev"
@@ -152,18 +152,18 @@ role :db,  "shingara.fr", :primary => true
 <p>Voici une explication de chaque champs</p>
 
 <ul>
-<li>set :application => Défini le nom de l&#8217;application qu&#8217;on va être déployé. C&#8217;est surtout utilisé pour le nom du répertoire de déploiement.</li>
+<li>set :application => Défini le nom de l'application qu'on va être déployé. C'est surtout utilisé pour le nom du répertoire de déploiement.</li>
 <li>set :repository => le chemin du dépôt Subversion qui sera récupéré lors du déploiement.</li>
-<li>set :deploy_to => Défini le répertoire sur le serveur distant où seront placés les sources de l&#8217;application</li>
-<li>set :scm => Le type de système de versionning qui permettra de récupérer les sources. Par défaut il s&#8217;agit de subversion.</li>
-<li>role :xxx => permet de définir les serveur où seront chaque rôle. serveur web, mysql et fichier. Dans mon cas il s&#8217;agit du même serveur.</li>
+<li>set :deploy_to => Défini le répertoire sur le serveur distant où seront placés les sources de l'application</li>
+<li>set :scm => Le type de système de versionning qui permettra de récupérer les sources. Par défaut il s'agit de subversion.</li>
+<li>role :xxx => permet de définir les serveur où seront chaque rôle. serveur web, mysql et fichier. Dans mon cas il s'agit du même serveur.</li>
 </ul>
 
-<p>Il ne reste plus qu&#8217;à voir pour le fichier Capfile, mais je le ferais dans un second temps.</p>
+<p>Il ne reste plus qu'à voir pour le fichier Capfile, mais je le ferais dans un second temps.</p>
 
 <h3>Préparation sur le serveur</h3>
 
-<p>Il faut penser à préparer la base de donnée qui recevra les informations de notre blog. Il faut donc que la base et les accès soient prêts. C&#8217;est la seule manipulation réelle à effectuer sur le serveur.</p>
+<p>Il faut penser à préparer la base de donnée qui recevra les informations de notre blog. Il faut donc que la base et les accès soient prêts. C'est la seule manipulation réelle à effectuer sur le serveur.</p>
 
 <h2>Déploiement</h2>
 
@@ -182,11 +182,11 @@ $cap deploy:migrations
 <li>le serveur est lancé en fastcgi</li>
 </ul>
 
-<p>Mais voilà, rien ne fonctionnera, car il n&#8217;y a pas de fichier database.yml sur le serveur car il n&#8217;existe pas sur le dépôt subversion. Il va donc falloir en ajouter un sur le serveur.</p>
+<p>Mais voilà, rien ne fonctionnera, car il n'y a pas de fichier database.yml sur le serveur car il n'existe pas sur le dépôt subversion. Il va donc falloir en ajouter un sur le serveur.</p>
 
 <h3>Création de tâches personnalisées</h3>
 
-<p>Voici le fichier CapFile que j&#8217;ai ainsi créé.</p>
+<p>Voici le fichier CapFile que j'ai ainsi créé.</p>
 
 <pre>
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
@@ -216,19 +216,19 @@ namespace :deploy do
 end
 </pre>
 
-<p>Dans ce fichier j&#8217;ai ainsi créé une nouvelle tâche. Cette tâche me permettra de créer un fichier database.yml sur le serveur et ainsi en avoir un spécifique à mon serveur. J&#8217;ai aussi défini que cette tâche sera toujours lancée après la tâche deploy:symlink. Tâche qui est réalisée lors de la tâche deploy.</p>
+<p>Dans ce fichier j'ai ainsi créé une nouvelle tâche. Cette tâche me permettra de créer un fichier database.yml sur le serveur et ainsi en avoir un spécifique à mon serveur. J'ai aussi défini que cette tâche sera toujours lancée après la tâche deploy:symlink. Tâche qui est réalisée lors de la tâche deploy.</p>
 
-<p>Pour créer la tâche d&#8217;envoi sur le serveur du fichier database.yml, j&#8217;ai utilisé la méthode &#8220;put&#8221; de Capistrano. Elle se base sur le système de connexion au serveur pour envoyer des fichiers dessus. Avec la variable #{current_path}, j&#8217;ai pu définir le chemin vers le dossier contenant les sources utilisées pour lancer l&#8217;application.</p>
+<p>Pour créer la tâche d'envoi sur le serveur du fichier database.yml, j'ai utilisé la méthode "put" de Capistrano. Elle se base sur le système de connexion au serveur pour envoyer des fichiers dessus. Avec la variable #{current_path}, j'ai pu définir le chemin vers le dossier contenant les sources utilisées pour lancer l'application.</p>
 
-<p>Pour définir que cette tâche se lance après une autre tâche Capistrano, il suffit tout simplement d&#8217;appeler la méthode after.</p>
+<p>Pour définir que cette tâche se lance après une autre tâche Capistrano, il suffit tout simplement d'appeler la méthode after.</p>
 
 <p>Ca y est maintenant si vous relancez toute la procédure que je vous ai indiquée précédemment avec les tâches Cap vous aurez votre application qui démarrera avec FastCGI.</p>
 
 <h2>Et avec Mongrel_Rails et Nginx</h2>
 
-<p>Personnellement, je ne passe pas par FastCGHI, j&#8217;utilise mongrel_rails et Nginx. Donc voici les modifications que j&#8217;ai réalisées pour que tout passe de la même manière.</p>
+<p>Personnellement, je ne passe pas par FastCGHI, j'utilise mongrel_rails et Nginx. Donc voici les modifications que j'ai réalisées pour que tout passe de la même manière.</p>
 
-<p>J&#8217;ai tout d&#8217;abord ajouté des tâches Cap:</p>
+<p>J'ai tout d'abord ajouté des tâches Cap:</p>
 
 <pre>
 
@@ -261,7 +261,7 @@ namespace deploy do
 end
 </pre>
 
-<p>Une tâche qui permet d&#8217;envoyer mon fichier mongrel_cluster.yml sur le serveur. Une tâche qui démarre le serveur avec mongrel_cluster, une tâche qui arrête le serveur et une tâche qui le redémarre. La tâche d&#8217;envoi est bien sûr après la tâche de symlink. Par contre, pour les trois autres tâches, elle remplace en fait les originales qui lancaient FastCGI.</p>
+<p>Une tâche qui permet d'envoyer mon fichier mongrel_cluster.yml sur le serveur. Une tâche qui démarre le serveur avec mongrel_cluster, une tâche qui arrête le serveur et une tâche qui le redémarre. La tâche d'envoi est bien sûr après la tâche de symlink. Par contre, pour les trois autres tâches, elle remplace en fait les originales qui lancaient FastCGI.</p>
 
 <p>Enfin il ne reste plus que la conf de nginx</p>
 
@@ -373,6 +373,10 @@ end
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -406,10 +410,6 @@ end
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

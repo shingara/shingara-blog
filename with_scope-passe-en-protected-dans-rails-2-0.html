@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Toujours en train de m&#8217;amuser à la migration de Redmine sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2 &hellip;">
+  <meta name="description" content="Toujours en train de m'amuser à la migration de Redmine sur Rails 2.0, j'ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,7 +104,7 @@
   </header>
 
 
-<div class="entry-content"><p>Toujours en train de m&#8217;amuser à la migration de <a href="http://redmine.org">Redmine</a> sur Rails 2.0, j&#8217;ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet, j&#8217;ai découvert que la méthode with_scope a été déplacé en &#8220;protected&#8221;. Elle n&#8217;est donc plus accessible en public.</p>
+<div class="entry-content"><p>Toujours en train de m'amuser à la migration de <a href="http://redmine.org">Redmine</a> sur Rails 2.0, j'ai fait une nouvelle découverte sur les mises à jours de Rails 2.0. En effet, j'ai découvert que la méthode with_scope a été déplacé en "protected". Elle n'est donc plus accessible en public.</p>
 
 <p>Cette modification a fait suite au <a href="http://dev.rubyonrails.org/ticket/8524">ticket 8524</a> et a été mis à jours dans la <a href="http://dev.rubyonrails.org/changeset/6909">révision 6909</a>.</p>
 
@@ -112,7 +112,7 @@
 
 <p>Je vais vous faire une rapide traduction du passage concernant with_scope.</p>
 
-<quote>ActiveRecord::Base.with_scope a été déplacé en &#8220;protected&#8221; pour décourager son utilisation dans les controllers et en particulier dans les filtres. Désormais il est encouragé de l&#8217;utiliser uniquement dans le modèle lui-même. Ce pourquoi il a été initialement conçut et d&#8217;où il ne devrait pas sortir. Bien sûr, c&#8217;est tout ce qui concerne l&#8217;encouragement et le découragement. Si vous avez pesé le pour et les contres de l&#8217;utilisation de with_scope en dehors du modèle, vous pouvez toujours l&#8217;appeler de la manière suivante :  <code>.send(:with_scope)</code></quote>
+<quote>ActiveRecord::Base.with_scope a été déplacé en "protected" pour décourager son utilisation dans les controllers et en particulier dans les filtres. Désormais il est encouragé de l'utiliser uniquement dans le modèle lui-même. Ce pourquoi il a été initialement conçut et d'où il ne devrait pas sortir. Bien sûr, c'est tout ce qui concerne l'encouragement et le découragement. Si vous avez pesé le pour et les contres de l'utilisation de with_scope en dehors du modèle, vous pouvez toujours l'appeler de la manière suivante :  <code>.send(:with_scope)</code></quote>
 </div>
 
 
@@ -172,6 +172,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -205,10 +209,6 @@
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr//atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-10T09:58:26+02:00</updated>
+  <updated>2012-05-29T10:05:17+02:00</updated>
   <id>http://blog.shingara.fr//</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,134 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vundle ou le bundler de vim]]></title>
+    <link href="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html"/>
+    <updated>2012-05-24T09:40:00+02:00</updated>
+    <id>http://blog.shingara.fr//vundle-ou-le-bundler-de-vim</id>
+    <content type="html"><![CDATA[<p>Personnellement, j&#8217;utilise vim comme éditeur de texte depuis mon
+école. J&#8217;ai toujours apprécié vim et je ne compte toujours pas changer
+d&#8217;éditeur.</p>
+
+<h1>Mon évolution de la gestions des plugins vim.</h1>
+
+<p>Vim a une très grande quantité de plugins disponibles et il est très
+rapidement indispensable d&#8217;en utiliser plusieurs. La gestion des plugins
+est donc très importante. Au fil des années, j&#8217;ai changé de technique en
+fonction des possibilités apportées par vim ou par les développeurs.</p>
+
+<h2>Gestion manuelle</h2>
+
+<p>Au début, je gérais manuellement mes plugins en les ajoutant dans les
+dossiers correspondant. Je versionnais mon dossier <code>.vim</code> et <code>.vimrc</code> et je pouvais le faire
+évoluer globalement. Le soucis de cette technique est qu&#8217;il est pas
+forcement évident de gérer les mises à jour des plugins et leur
+installation n&#8217;est pas forcement simple car il faut mettre plusieurs
+fichiers à plusieurs endroits.</p>
+
+<h2>L&#8217;arrivée des vimballs</h2>
+
+<p>Dans une évolution de vim, il y a eu la possibilité de gérer des
+vimballs. L&#8217;avantage de cette technique est qu&#8217;on avait moins de
+problème lors de l&#8217;installation et on pouvait gérer un peu plus
+facilement les mises à jour car on savait rapidement quelle version on
+utilisait. Mais la encore il fallait allez régulièrement sur
+vimscript.org
+pour voir si nos plugins avaient changé de version. Chose que finalement
+on faisait très peu au final.</p>
+
+<h2>Gestion par git-submodule</h2>
+
+<p>Avec l&#8217;arrivée de github, les choses ont pu changer. Les plugins vim ont
+commencé à avoir un dépôt centralisé, on pouvait suivre directement
+l&#8217;évolution des scripts. Même vimscript a converti tous les plugins
+qu&#8217;il hébergeait en repository git. Maintenant on peux gérer tous ses plugins
+en faisant des mises à jour de repository git. J&#8217;ai ainsi commencé a gérer des
+submodule et des liens symboliques vers ces submodules. La mise à jour
+était automatique, mais l&#8217;installation devenait encore plus compliqué
+qu&#8217;avant.</p>
+
+<h2>Janus, la distribution vim</h2>
+
+<p>C&#8217;est alors que Yehuda Katz et Carl Lerche ont commencé à créer
+<a href="https://github.com/carlhuda/janus">janus</a>. Ce projet se veut comme une
+distribution de gestion de plugins vim. Il contient un jeu de tâche rake
+qui permette de mettre à jour facilement ses plugins. Un <code>.vimrc</code> est aussi
+fourni pour utiliser les plugins par défaut et ajouter une configuration
+minimal pratique. Ce projet est vraiment génial pour commencer à
+pratiquer vim. On peux ainsi avoir un jeu de plugins pratique et
+intéressant. Par contre, la gestion des versions de janus avec ses
+propres usage peux vite devenir compliquée. En gros c&#8217;est bien si on ne veut
+jamais modifier sa conf vim.</p>
+
+<h2>Pathogen, le premier plugin vim de gestions de ses plugins</h2>
+
+<p>Très peu de temps après <a href="https://github.com/tpope">Tim Pope</a> ( très prolifique développeur de plugins
+vim ) a sorti <a href="https://github.com/tpope/vim-pathogen">Pathogen</a>. Ce
+plugin permet de gérer directement la gestion de ses plugins dans son vimrc. J&#8217;avoue ne pas avoir
+trop regardé comment fonctionne ce plugin. On m&#8217;en a toute fois dit du
+bien. Il y a eu pas mal de projet pour que janus utilise pathogen
+typiquement.</p>
+
+<h2>Vundle, le bundler de vim.</h2>
+
+<p>Mais c&#8217;est là qu&#8217;on m&#8217;a parlé du plugin qui me semble le meilleur
+actuellement concernant la gestion de ses plugins vim.
+<a href="https://github.com/gmarik/vundle">Vundle</a>. Comme pathogen, la gestion
+des plugins est faite directement dans son vimrc. Son usage y est très
+simplifié et pratique. Si vous connaissez
+<a href="http://gembundler.org">Bundler</a> alors vous comprendrez facilement sont
+usage car il en est très inspirés.</p>
+
+<h1>Utilisation de Vundle</h1>
+
+<h2>Installation de Vundle</h2>
+
+<p>Pour installer vundle, un simple clone du repository du projet et 2
+lignes dans votre <code>.vimrc</code> suffisent.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'><span class="k">set</span> <span class="nb">rtp</span><span class="p">+=~</span><span class="sr">/.vim/</span>bundle<span class="sr">/vundle/</span>
+</span><span class='line'><span class="k">call</span> vundle#rc<span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Configuration de ses plugins</h2>
+
+<p>Pour utiliser vundle une fois installé. C&#8217;est extrêmement simple. il
+suffit d&#8217;utiliser la commande <code>Bundle</code> et le chemin de votre plugin.
+Ainsi pour installer le plugin <code>vim-rails</code> il suffit juste de faire :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='vim'><span class='line'>Bundle <span class="s1">&#39;tpope/vim-rails.git&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Installation de ses plugins</h2>
+
+<p>Ensuite, une fois votre vim lancé deux commandes vous suffisent.
+<code>BundleInstall</code> qui permet d&#8217;installer tous les plugins que vous avez
+définis et <code>BundleInstall!</code> qui permet de les mettre à jour.</p>
+
+<p>Désormais ils ne vous reste plus qu&#8217;à trouver les plugins que vous
+souhaitez et les utiliser.</p>
+
+<h1>Mon vimrc</h1>
+
+<p>Si vous souhaitez découvrir mon usage de vim, <a href="https://github.com/shingara/vim-conf">mon vimrc est ainsi
+disponible sur github</a>. Grâce à
+Vundle rien de plus simple que de le lire et découvrir rapidement les
+plugins vim que j&#8217;utilise.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[dante pour mettre du daemon dans son code]]></title>
@@ -1128,22 +1256,6 @@ Rspec dispose d&#8217;une possibilité sous estimés, les tests partagés. En ef
 <h2>Compatibilité Test::Unit</h2>
 
 <p>Le passage a Rspec est assez aisé de part sa compatibilité avec Test::Unit. En effet, si vous n&#8217;êtes pas familier ou que vous n&#8217;aimez pas la formalation <code>my_array.should be_empty</code>, rien ne vous y oblige. Vous pouvez tout à fait utiliser la syntaxe Test::Unit <code>assert my_array.empty?</code>. La migration s&#8217;en trouve très largement aisée.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[l'OSDC.fr 2009, j'y serais]]></title>
-    <link href="http://blog.shingara.fr//losdc-fr-2009-jy-serais.html"/>
-    <updated>2009-09-17T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr//losdc-fr-2009-jy-serais</id>
-    <content type="html"><![CDATA[<p>Le 2 et 3 Octobre aura lieu en première française, un rassemblement de
-codeur d&#8217;environnement différent, <a href="http://act.osdc.fr/osdc2009fr/">l&#8217;OSDC.fr</a>. Cette conférence est organisé par les                                                     
-associations françaises de Ruby (RubyFrance), Python (AFPy) et Perl (Mongueurs
-    de Perl). Mais ce ne seront pas les seuls langage qui seront présenté. On peux ainsi trouver des sujets sur du PHP.</p>
-
-<p>En tout cas je suis très heureux de pouvoir y présenter une petite
-conférence sur <a href="http://cukes.info/">Cucumber</a>. J&#8217;espère vous y
-retrouver.</p>
 ]]></content>
   </entry>
   

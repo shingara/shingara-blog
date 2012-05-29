@@ -109,13 +109,13 @@
 <typo:code>
 ** IMPORTANT UPGRADE NOTES FOR RAILS USERS **
  
-Running Cucumber features in the same Ruby interpreter as Rake doesn&#8217;t seem to work,
+Running Cucumber features in the same Ruby interpreter as Rake doesn't seem to work,
 so you have to explicitly tell the task to fork (like it was doing by default in prior
 versions). In lib/tasks/cucumber.rake:
  
   Cucumber::Rake::Task.new(:features) do |t|
     t.fork = true # Explicitly fork
-    t.cucumber_opts = %w{&#8211;format pretty}
+    t.cucumber_opts = %w{--format pretty}
   end
  
 (If you run script/generate cucumber this will be done for you).
@@ -123,13 +123,13 @@ Alternatively you can omit forking and run features like this:
  
   RAILS_ENV=test rake features
  
-However, setting the RAILS_ENV is easy to forget, so I don&#8217;t recommend relying on this.
+However, setting the RAILS_ENV is easy to forget, so I don't recommend relying on this.
 </typo:code>
 
 <p>
-Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l&#8217;heure actuel. En effet, la tâche <code>rake features</code> n&#8217;utilise pas les bonnes options pour cucumber.</p>
+Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisateurs de Merb, vous avez utilisé le plugin <a href="http://github.com/roman/merb_cucumber/tree/master">merb_cucumber de Roman</a>. Hélas celui-ci a un générateur incomplet à l'heure actuel. En effet, la tâche <code>rake features</code> n'utilise pas les bonnes options pour cucumber.</p>
 
-<p>Après un long et rude combat avec cucumber, j&#8217;ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en &#8220;live&#8221; sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j&#8217;ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l&#8217;utilisation de Cucumber 0.3.4 et plus</a></p>
+<p>Après un long et rude combat avec cucumber, j'ai fini par trouver les options adéquates pour avoir le même comportement que pour les précédentes version de Cucumber. Pour voir un exemple en "live" sur une application, vous pouvez regarder <a href="http://github.com/shingara/oupsnow/commit/13ab272f31bbf49537e9addc8166661ced91c694">mon commit sur Oupsnow</a>. Sinon, j'ai forké le merb_cucumber de roman, et ajouter <a href="http://github.com/shingara/merb_cucumber/commit/317d64d45204c01a6ccbadfe1bd95e5ad06f7012">un patch pour permettre l'utilisation de Cucumber 0.3.4 et plus</a></p>
 
 <p>EDIT : Mes modifications de merb_cucumber ont été intégré dans la branche de Roman</p>
 
@@ -193,6 +193,10 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -226,10 +230,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

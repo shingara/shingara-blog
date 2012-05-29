@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d&#8217;utiliser le module d&#8217;authentification &hellip;">
+  <meta name="description" content="Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d'utiliser le module d'authentification basic. Pour l' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,11 +104,11 @@
   </header>
 
 
-<div class="entry-content"><p>Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d&#8217;utiliser le <a href="http://wiki.codemongers.com/NginxHttpAuthBasicModule">module d&#8217;authentification basic</a>. Pour l&#8217;utiliser c&#8217;est très simple. Il suffit d&#8217;ajouter dans votre niveau d&#8217;url, les directives suivantes :</p>
+<div class="entry-content"><p>Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d'utiliser le <a href="http://wiki.codemongers.com/NginxHttpAuthBasicModule">module d'authentification basic</a>. Pour l'utiliser c'est très simple. Il suffit d'ajouter dans votre niveau d'url, les directives suivantes :</p>
 
 <ul>
-<li>auth_basic : qui permet de définir qu&#8217;il y a une authentification HTTP si il n&#8217;y a pas &#8220;off&#8221;. Le texte ainsi donnée à cette directive sera affiché pour informer l&#8217;utilisateur que l&#8217;url contactée est sécurisée par HTTP.</li>
-<li>auth_basic_user_file : donne un chemin de fichier contenant la liste des utilisateurs ayant accès à l&#8217;url avec leur mot de passe. Les mots de passes peuvent ainsi être écrit en clair ou de la même façon qu&#8217;Apache avec crypt(3). Ainsi vous pouvez directement utiliser vos anciens fichiers Apache, ce qui est très pratique.</li> 
+<li>auth_basic : qui permet de définir qu'il y a une authentification HTTP si il n'y a pas "off". Le texte ainsi donnée à cette directive sera affiché pour informer l'utilisateur que l'url contactée est sécurisée par HTTP.</li>
+<li>auth_basic_user_file : donne un chemin de fichier contenant la liste des utilisateurs ayant accès à l'url avec leur mot de passe. Les mots de passes peuvent ainsi être écrit en clair ou de la même façon qu'Apache avec crypt(3). Ainsi vous pouvez directement utiliser vos anciens fichiers Apache, ce qui est très pratique.</li> 
 </ul>
 
 <p>Voici donc un exemple pour mettre une authentification HTTP sur un Vhost :</p>
@@ -198,6 +198,10 @@ user3:pass3
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -231,10 +235,6 @@ user3:pass3
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

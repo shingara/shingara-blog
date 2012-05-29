@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="En jouant avec Oupsnow, j&#8217;ai découvert une astuce sur DM-sweatshop qui est vraiment génial. Aucun exemple n&#8217;indique ça et pourtant, c&# &hellip;">
+  <meta name="description" content="En jouant avec Oupsnow, j'ai découvert une astuce sur DM-sweatshop qui est vraiment génial. Aucun exemple n'indique ça et pourtant, c'est selon moi &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,7 +104,7 @@
   </header>
 
 
-<div class="entry-content"><p>En jouant avec <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, j&#8217;ai découvert une astuce sur <a href="http://github.com/datamapper/dm-more/tree/master/dm-sweatshop">DM-sweatshop</a> qui est vraiment génial. Aucun exemple n&#8217;indique ça et pourtant, c&#8217;est selon moi révolutionnaire et même un atout face à <a href="http://dev.thoughtbot.com/factory_girl/">Factory Girl</a>.</p>
+<div class="entry-content"><p>En jouant avec <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, j'ai découvert une astuce sur <a href="http://github.com/datamapper/dm-more/tree/master/dm-sweatshop">DM-sweatshop</a> qui est vraiment génial. Aucun exemple n'indique ça et pourtant, c'est selon moi révolutionnaire et même un atout face à <a href="http://dev.thoughtbot.com/factory_girl/">Factory Girl</a>.</p>
 
 <h2>dm-sweatshop</h2>
 
@@ -113,7 +113,7 @@ Pour ceux qui ne le savent pas dm-sweatshop est un gem de génération de donné
 </p>
 
 <p>
-Factory Girl a été conçu pour éviter les fixtures dans Rails. Il a aussi l&#8217;avantage de permettre une meilleure vue des données présentes dans sa base de donnée durant son test. Je conseille tout à fait son utilisation et migre progressivement tous mes tests à l&#8217;utilisation de ce genre d&#8217;outil.
+Factory Girl a été conçu pour éviter les fixtures dans Rails. Il a aussi l'avantage de permettre une meilleure vue des données présentes dans sa base de donnée durant son test. Je conseille tout à fait son utilisation et migre progressivement tous mes tests à l'utilisation de ce genre d'outil.
 </p>
 
 <p>
@@ -123,16 +123,16 @@ dm-sweatshop est le Factory Girl dédié à <a href="http://datamapper.github.co
 <h2>Son petit plus</h2>
 
 <p>
-dm-sweatshop contrairement à Factory gril, génére un Hash d&#8217;attribut, qu&#8217;il surcharge avec les données fournis et génére un objet à partir de ce hash. Ceci entraine par exemple, l&#8217;impossibilité d&#8217;utiliser les méthodes d&#8217;association, il faut directement associer les identifiants.
+dm-sweatshop contrairement à Factory gril, génére un Hash d'attribut, qu'il surcharge avec les données fournis et génére un objet à partir de ce hash. Ceci entraine par exemple, l'impossibilité d'utiliser les méthodes d'association, il faut directement associer les identifiants.
 </p>
 
 <p>
-Mais là où est son petit plus est que justement à cause de cette génération d&#8217;un Hash, il y a un Proc qui est généré et rien n&#8217;empêche de mettre du code ruby pour générer d&#8217;autre objets ou récupérer des objets déjà existant. On peux ainsi écrire l&#8217;exemple suivant :
+Mais là où est son petit plus est que justement à cause de cette génération d'un Hash, il y a un Proc qui est généré et rien n'empêche de mettre du code ruby pour générer d'autre objets ou récupérer des objets déjà existant. On peux ainsi écrire l'exemple suivant :
 </p>
 
 <typo:code lang="ruby">
 Member.fixture {
- user = User.first(:login.not => &#8216;admin&#8217;) || User.gen!
+ user = User.first(:login.not => 'admin') || User.gen!
  project = Project.first || Project.gen!
  not_project_id = []
  while project.has_member?(user)
@@ -146,11 +146,11 @@ Member.fixture {
 </typo:code>
 
 <p>
-Dans cette exemple, je crée un objet Membre qui est la liaison entre un Projet et un User. Mais au préalable, j&#8217;ai récupéré et créé des éléments Projet et User si rien n&#8217;existait.
+Dans cette exemple, je crée un objet Membre qui est la liaison entre un Projet et un User. Mais au préalable, j'ai récupéré et créé des éléments Projet et User si rien n'existait.
 </p>
 
 <p>
-Grâce à dm-sweatshop, c&#8217;est enfin fini, les problèmes de multiples liaisons qui avec Factory Girl ne peuvent être contourné (d&#8217;après mon expérience en tout cas) ce qui entrainait la création de méthode complète pour créer tout ça. Désormais tout est au même endroit.
+Grâce à dm-sweatshop, c'est enfin fini, les problèmes de multiples liaisons qui avec Factory Girl ne peuvent être contourné (d'après mon expérience en tout cas) ce qui entrainait la création de méthode complète pour créer tout ça. Désormais tout est au même endroit.
 </p>
 <p>
 Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet DataMapper à la place de Factory Girl.
@@ -214,6 +214,10 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -247,10 +251,6 @@ Je ne saurais donc vous encourager à utiliser dm-sweatshop sur tout projet Data
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Dans un billet très récent, j&#8217;avais parlé des nouveautés de Capistrano 2 indiquant sa sortie très proche. Et bien il est sorti le lendemain de &hellip;">
+  <meta name="description" content="Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d&#8217;implémentation qui m&#8217;a fait sourire. J&#8217;ai &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,55 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option.html">Comment faire croire que notre librairie ruby a sa propre option ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-22T00:00:00+02:00" pubdate data-updated="true">Aug 22<span>nd</span>, 2007</time>
+        
+         | <a href="/comment-faire-croire-que-notre-librairie-ruby-a-sa-propre-option.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d&#8217;implémentation qui m&#8217;a fait sourire.</p>
+
+<p>J&#8217;ai trouvé dans mes lib ruby un fichier qui s&#8217;appele ubygem.rb. Je me suis posé la question de savoir à quoi servait ce fichier. En l&#8217;éditant, j&#8217;ai compris son utilité en lisant le commentaire :</p>
+
+<pre>
+# This file allows for the running of rubygems with a nice
+# command line look-and-feel: ruby -rubygems foo.rb
+</pre>
+
+<p>En fait ce fichier ne sert qu&#8217;à permettre de faire un require de rubygems en faisant croire que rubygem était une option de ruby. En effet dans les paramètres de ruby il y a le -r auquel on colle le nom de la librairie à require.</p>
+
+<p>Moralité, vous rédigez une librairie qui comment par r, créez un fichier sans ce r et mettez juste la ligne <code>require rxxx</code>. Ca fait toujours bien d&#8217;avoir sa librairie qui est comme une option sur ruby</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -520,54 +569,6 @@ Si par hasard vous souhaitez déjà l&#8217;utiliser, c&#8217;est assez facile. 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ajouter-des-headers-http-dans-ses-re%CC%81ponses-rails.html">Ajouter des Headers HTTP dans ses réponses Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-06-15T00:00:00+02:00" pubdate data-updated="true">Jun 15<span>th</span>, 2007</time>
-        
-         | <a href="/ajouter-des-headers-http-dans-ses-re%CC%81ponses-rails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Actuellement à fond sur mon projet Rails pour l&#8217;école, je me suis heurté à un problème tout bête et je n&#8217;ai trouvé aucune documentation complète sur l&#8217;API de Rails. En effet, je voulais renvoyé un status 201 et un header HTTP &#8216;Location&#8217;. Dans un premier temps, j&#8217;arrivais à faire l&#8217;un ou l&#8217;autre, mais pas les deux. Le status 201 avec un <code>render :nothing => true, :status => 201</code>, ou le Header Location avec un redirect_to, mais qui envoyait un status 302.
-</p>
-
-<p>C&#8217;est alors que je me suis penché un peu plus sur le code même de rails et encore une fois, il ne faut surtout pas hésiter à mettre les mains dans le camboui.J&#8217;ai ainsi découvert l&#8217;utilisation des objets response et request disponible directement dans notre controlleur. Ainsi avec un simple :</p>
-
-<pre>
-response.headers['Location'] = 'new/url'
-</pre>
-
-<p>Nous pourrons constater dans notre réponse HTTP l&#8217;information suivante : Location : &#8216;http://localhost:3000/new/url&#8217;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -583,6 +584,10 @@ response.headers['Location'] = 'new/url'
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -618,10 +623,6 @@ response.headers['Location'] = 'new/url'
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Utilisant de plus en plus Merb sur mon temps personnel et dans mes projets open source, j&#8217;ai dû étudier un peu plus profondément le système de &hellip;">
+  <meta name="description" content="Si comme moi vous être un fan des pretty URL, vous savez surement comment faire avec RubyOnRails. Il suffit de modifier le retour de la méthode &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/les-merb-pretty-url.html">Les Merb pretty URL</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-19T00:00:00+01:00" pubdate data-updated="true">Jan 19<span>th</span>, 2009</time>
+        
+         | <a href="/les-merb-pretty-url.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Si comme moi vous être un fan des pretty URL, vous savez surement comment faire avec RubyOnRails. Il suffit de modifier le retour de la méthode <code>to_params</code>. Utilisant Merb, j&#8217;ai voulu faire de même avec Merb. J&#8217;ai bien sûr commencé par modifier la méthode <code>to_params</code>. Hélas, ce n&#8217;est pas du tout la bonne méthode à suivre avec Merb. Mais finalement, la méthode est encore plus simple. Ce qu&#8217;il faut c&#8217;est utiliser l&#8217;option <code>:identify</code> pour votre resources dans votre routeur. J&#8217;ai ainsi pu pour Oupsnow définir la méthode <code>ticket_permalink</code> comme méthode définissant un ticket. Je n&#8217;ai plus ensuite qu&#8217;a définir ce que je souhaite comme retour de permalink. Cette string de retour sera ainsi utilisée dans les URL générées par <code>resource</code>. En créant ensuite la méthode <code>def self.get_by_permalink(ticket_permalink)</code> que j&#8217;utilise à la place d&#8217;un <code>Ticket.get(id)</code>. je peux facilement modifier mon permalink dans le temps. En mettant ma valeur de retour de permalink et de récupération de ticket par ce permalink à jour.</p>
+
+<p>Ce qu&#8217;il faut par contre savoir, c&#8217;est que contrairement à Rails, le paramètre utilisé ne sera donc plus <code>id</code> et <code>ticket_id</code> dans les routes imbriquées. Ça sera obligatoirement <code>ticket_permalink</code>.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-01-21-pretty-url-in-merb.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -698,48 +740,6 @@ AÉÈB
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root.html">Quelles nouvelles dans Rails Edge : Plus de File.join avec Rails.root</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-11-30T00:00:00+01:00" pubdate data-updated="true">Nov 30<span>th</span>, 2008</time>
-        
-         | <a href="/quelles-nouvelles-dans-rails-edge-plus-de-file-join-avec-rails-root.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Si comme moi, vous avez besoin d&#8217;atteindre des dossier dans votre Rails.root. Un des nouveautés de Rails 2.3 intégrée dans ce <a href="http://github.com/rails/rails/commit/fdfcdf467387c4db3d79c1f46eadbb55a88ef814">commit</a>, vous réduira le travail.</p>
-
-<typo:code lang="ruby">
-Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File.join(Rails.root, &#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;)
-</typo:code>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -755,6 +755,10 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -790,10 +794,6 @@ Rails.root(&#8216;public&#8217;, &#8216;files&#8217;, &#8216;foo&#8217;) == File
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

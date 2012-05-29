@@ -9,8 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ça y est, une nouvelle version de Typo est lancée dans la nature. Je n&#8217;ai
-hélas que très peu participé à cette nouvelle version faute de &hellip;">
+  <meta name="description" content="Ça y est, une nouvelle version de Typo est lancée dans la nature. Je n'ai
+hélas que très peu participé à cette nouvelle version faute de
+motivation/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -105,79 +106,79 @@ hélas que très peu participé à cette nouvelle version faute de &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Ça y est, une nouvelle version de <a href="http://typosphere.org">Typo</a> est lancée dans la nature. Je n&#8217;ai
+<div class="entry-content"><p>Ça y est, une nouvelle version de <a href="http://typosphere.org">Typo</a> est lancée dans la nature. Je n'ai
 hélas que très peu participé à cette nouvelle version faute de
 motivation/temps. Mais je suis toujours très content de voir une nouvelle
 version de ce blog sortir.</p>
 
 <p>A chaque release, une nouvelle admin fait son apparition, mais à chaque
-fois elle est meilleure que la précédente, donc c&#8217;est une excellente chose.</p>
+fois elle est meilleure que la précédente, donc c'est une excellente chose.</p>
 
-<p>J&#8217;ai bien-sûr mis à jour ce blog et j&#8217;ai aussi switché sur le nouveau thème
+<p>J'ai bien-sûr mis à jour ce blog et j'ai aussi switché sur le nouveau thème
 par défaut. Je suis toujours aussi nul en design.</p>
 
-<p>En petit cadeau, voici mon fichier <a href="http://capify.org/">capistrano</a> que j&#8217;utilise pour déployer
+<p>En petit cadeau, voici mon fichier <a href="http://capify.org/">capistrano</a> que j'utilise pour déployer
 ce blog. Ça peux toujours vous servir. On ne sait jamais.</p>
 
 <typo:code lang="ruby">
-set :application, &#8220;typo&#8221;
-set :repository,  &#8220;git://github.com/fdv/typo.git&#8221;
-set :domain, &#8220;blog.shingara.fr&#8221;
+set :application, "typo"
+set :repository,  "git://github.com/fdv/typo.git"
+set :domain, "blog.shingara.fr"
 
-# If you aren&#8217;t deploying to /u/apps/#{application} on the target
+# If you aren't deploying to /u/apps/#{application} on the target
 # # servers (which is the default), you can specify the actual location
 # # via the :deploy_to variable:
-set :deploy_to, &#8220;/var/rails/blog-typo&#8221;
+set :deploy_to, "/var/rails/blog-typo"
 #
-# # If you aren&#8217;t using Subversion to manage your source code, specify
+# # If you aren't using Subversion to manage your source code, specify
 # # your SCM below:
 set :scm, :git
 
-set :runner, &#8220;rails&#8221;
-set :user, &#8220;rails&#8221;
+set :runner, "rails"
+set :user, "rails"
 set :use_sudo, false
 
-set :thin_conf, &#8220;/etc/thin/#{domain}.yml&#8221;
+set :thin_conf, "/etc/thin/#{domain}.yml"
 
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
 
 task :update_config, :roles => [:app] do
-  run &#8220;cp -Rf #{shared_path}/config/* #{release_path}/config/&#8221;
-  run &#8220;ln -s #{shared_path}/files #{release_path}/public/files&#8221;
+  run "cp -Rf #{shared_path}/config/* #{release_path}/config/"
+  run "ln -s #{shared_path}/files #{release_path}/public/files"
 end
 
 task :update_gems, :roles => [:app] do
-  run &#8220;cd #{release_path} && RAILS_ENV=production rake gems:install&#8221;
+  run "cd #{release_path} && RAILS_ENV=production rake gems:install"
 end
 
 
-after &#8220;deploy:update_code&#8221;, :update_config
-after &#8220;deploy:update_code&#8221;, :update_gems
+after "deploy:update_code", :update_config
+after "deploy:update_code", :update_gems
 
 
 namespace :deploy do
   task :start, :roles => [:app] do
-    run &#8220;thin -C #{thin_conf} start&#8221;
+    run "thin -C #{thin_conf} start"
   end
 
   task :stop, :roles => [:app] do
-    run &#8220;thin -C #{thin_conf} stop&#8221;
+    run "thin -C #{thin_conf} stop"
   end
 
   task :restart, :roles => [:app] do
-    run &#8220;thin -C #{thin_conf} restart&#8221;
+    run "thin -C #{thin_conf} restart"
   end
 end
 
 task :clear_cache, :roles => [:app] do
-  run &#8220;cd #{current_path} && RAILS_ENV=production rake sweep_cache&#8221;
-  run &#8220;cd #{current_path} && RAILS_ENV=production rake tmp:cache:clear&#8221;
+  run "cd #{current_path} && RAILS_ENV=production rake sweep_cache"
+  run "cd #{current_path} && RAILS_ENV=production rake tmp:cache:clear"
 end
 
-after &#8220;deploy:restart&#8221;, :clear_cache
-after &#8220;deploy:start&#8221;, :clear_cache
+after "deploy:restart", :clear_cache
+after "deploy:start", :clear_cache
 </typo:code>
 
 <p><a href="http://blog.shingara.fr/en/2009-12-21-typo-5-4-0-released.html">English Translation</a></p>
@@ -240,6 +241,10 @@ after &#8220;deploy:start&#8221;, :clear_cache
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
       </li>
     
@@ -273,10 +278,6 @@ after &#8220;deploy:start&#8221;, :clear_cache
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d'application web ?</a>
       </li>
     
   </ul>

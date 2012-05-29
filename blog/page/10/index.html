@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Après un peu moins de 3 mois depuis la version 0.1.0, voici la version 0.2.0 de WhoToWho que je viens de finir. Cette nouvelle version était &hellip;">
+  <meta name="description" content="Suite à une petite discussion sur IRC sur le chan #rubyonrails.fr, j&#8217;ai constaté qu&#8217;une nouvelle méthode avait été ajouté dans Rails 2.0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/desactiver-les-contraintes-d-integrites-sous-rails-2-0.html">Désactiver les contraintes d&#8217;intégrités sous Rails 2.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-08T00:00:00+01:00" pubdate data-updated="true">Jan 8<span>th</span>, 2008</time>
+        
+         | <a href="/desactiver-les-contraintes-d-integrites-sous-rails-2-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Suite à une petite discussion sur IRC sur le chan #rubyonrails.fr, j&#8217;ai constaté qu&#8217;une nouvelle méthode avait été ajouté dans Rails 2.0 et que je l&#8217;avais utilisé.</p>
+
+<p>Cette nouvelle méthode est <a href="http://api.rubyonrails.com/classes/ActiveRecord/ConnectionAdapters/AbstractAdapter.html#M001287">AbastractAdapter#disable_referential_integrity</a>. Elle permet tout simplement désactiver les contraintes d&#8217;intégrités dans le bloc de code donné en paramètre de cette méthode. C&#8217;est vraiment une méthode très pratique dans le cas où on veux réaliser un gros INSERT dans la base de donnée. Ainsi elle est utilisée dans la classe Fixture pour insérer les données.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -674,57 +714,6 @@ données personnelles sans que nous ayons aucun recours.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/bienvenue-au-nouveau-logo-de-ruby.html">Bienvenue au nouveau Logo de Ruby</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-30T00:00:00+01:00" pubdate data-updated="true">Oct 30<span>th</span>, 2007</time>
-        
-         | <a href="/bienvenue-au-nouveau-logo-de-ruby.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Il y a un mois, un concours avait été organisé pour renouveler le Logo de Ruby. Le résultat est sorti aujourd&#8217;hui et voici donc le nouveau logo pour le langage Ruby.</p>
-
-<p>Vous pouvez donc remplacer cet ancien logo :</p>
-
-<p style="text-align:center;"><img src="http://blog.shingara.fr/files/old_logo.gif" alt="ancien logo du langage ruby" style="background-color:white;"/></p>
-
-<p>Pour utiliser désormais celui-ci :</p>
-
-<p style="text-align:center;"><img src="http://blog.shingara.fr/files/ruby-logo.jpg" alt="nouveau logo du langage ruby" /></p>
-
-<p>Bienvenue à toi nouveau Logo.</p>
-
-<p><a href="http://groups.google.com/group/ruby-talk-google/browse_thread/thread/42f8052b9a31b5f2?hl=en">L&#8217;annonce officiel</a> de ce nouveau logo a été fait sur la Mailling list ruby par Matz en personne.</p>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -740,6 +729,10 @@ données personnelles sans que nous ayons aucun recours.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
     
       <li class="post">
         <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
@@ -775,10 +768,6 @@ données personnelles sans que nous ayons aucun recours.</p>
     
       <li class="post">
         <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
-      <li class="post">
-        <a href="/pourquoi-ruby-et-ruby-on-rails-dans-le-developpement-dapplication-web.html">Pourquoi Ruby et Ruby On Rails dans le développement d&#8217;application web ?</a>
       </li>
     
   </ul>

@@ -799,11 +799,15 @@
         <lastmod>2012-05-10T09:55:57+02:00</lastmod>
     </url>
     <url>
+        <loc>http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html</loc>
+        <lastmod>2012-05-29T10:04:12+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.shingara.fr//blog/archives/</loc>
-        <lastmod>2012-05-10T09:58:19+02:00</lastmod>
+        <lastmod>2012-05-29T10:04:12+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.shingara.fr//</loc>
-        <lastmod>2012-05-10T09:58:19+02:00</lastmod>
+        <lastmod>2012-05-29T10:04:12+02:00</lastmod>
     </url>
 </urlset>
