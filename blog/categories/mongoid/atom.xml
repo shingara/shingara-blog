@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: mongoid | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/mongoid/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/mongoid/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[moped le nouveau driver mongodb pour ruby]]></title>
-    <link href="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
+    <link href="http://blog.shingara.fr/moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
     <updated>2012-04-30T09:42:00+02:00</updated>
-    <id>http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby</id>
+    <id>http://blog.shingara.fr/moped-le-nouveau-driver-mongodb-pour-ruby</id>
     <content type="html"><![CDATA[<p>Depuis décembre 2011, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n'a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
@@ -113,9 +113,9 @@ gem 'mongoid', :git =&gt; 'git://github.com/mongoid/mongoid'
   
   <entry>
     <title type="html"><![CDATA[Localize avec mongoid]]></title>
-    <link href="http://blog.shingara.fr//translate-on-mongoid.html"/>
+    <link href="http://blog.shingara.fr/translate-on-mongoid.html"/>
     <updated>2012-02-06T22:02:00+01:00</updated>
-    <id>http://blog.shingara.fr//translate-on-mongoid</id>
+    <id>http://blog.shingara.fr/translate-on-mongoid</id>
     <content type="html"><![CDATA[<p>Depuis la version 2.4.0 de <a href="http://mongoid.org">Mongoid</a>, une nouvelle
 fonctionnalité à été ajoutée très discrétement. C'est tout simplement la
 gestion native des traductions en base.</p>

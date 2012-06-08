@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: editeur | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/editeur/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/editeur/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[vundle ou le bundler de vim]]></title>
-    <link href="http://blog.shingara.fr//vundle-ou-le-bundler-de-vim.html"/>
+    <link href="http://blog.shingara.fr/vundle-ou-le-bundler-de-vim.html"/>
     <updated>2012-05-24T09:40:00+02:00</updated>
-    <id>http://blog.shingara.fr//vundle-ou-le-bundler-de-vim</id>
+    <id>http://blog.shingara.fr/vundle-ou-le-bundler-de-vim</id>
     <content type="html"><![CDATA[<p>Personnellement, j'utilise vim comme éditeur de texte depuis mon
 école. J'ai toujours apprécié vim et je ne compte toujours pas changer
 d'éditeur.</p>
@@ -85,7 +85,7 @@ typiquement.</p>
 <h2>Vundle, le bundler de vim.</h2>
 
 <p>Mais c'est là qu'on m'a parlé du plugin qui me semble le meilleur
-actuellement concernant la gestion de ses plugins vim.
+actuellement concernant la gestion de ses plugins vim,
 <a href="https://github.com/gmarik/vundle">Vundle</a>. Comme pathogen, la gestion
 des plugins est faite directement dans son vimrc. Son usage y est très
 simplifié et pratique. Si vous connaissez

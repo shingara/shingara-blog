@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: translate | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/translate/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/translate/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Localize avec mongoid]]></title>
-    <link href="http://blog.shingara.fr//translate-on-mongoid.html"/>
+    <link href="http://blog.shingara.fr/translate-on-mongoid.html"/>
     <updated>2012-02-06T22:02:00+01:00</updated>
-    <id>http://blog.shingara.fr//translate-on-mongoid</id>
+    <id>http://blog.shingara.fr/translate-on-mongoid</id>
     <content type="html"><![CDATA[<p>Depuis la version 2.4.0 de <a href="http://mongoid.org">Mongoid</a>, une nouvelle
 fonctionnalité à été ajoutée très discrétement. C'est tout simplement la
 gestion native des traductions en base.</p>

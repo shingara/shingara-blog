@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/ruby/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[dante pour mettre du daemon dans son code]]></title>
-    <link href="http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code.html"/>
+    <link href="http://blog.shingara.fr/dante-pour-mettre-du-daemon-dans-son-code.html"/>
     <updated>2012-05-09T09:43:00+02:00</updated>
-    <id>http://blog.shingara.fr//dante-pour-mettre-du-daemon-dans-son-code</id>
+    <id>http://blog.shingara.fr/dante-pour-mettre-du-daemon-dans-son-code</id>
     <content type="html"><![CDATA[<p>J'ai dernièrement eu besoin de convertir un petit script ruby en daemon.</p>
 
 <p>J'utilise dans mes déploiements monitrc pour le monitoring de mes
@@ -95,9 +95,9 @@ d'aussi bon gem.</p>
   
   <entry>
     <title type="html"><![CDATA[moped le nouveau driver mongodb pour ruby]]></title>
-    <link href="http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
+    <link href="http://blog.shingara.fr/moped-le-nouveau-driver-mongodb-pour-ruby.html"/>
     <updated>2012-04-30T09:42:00+02:00</updated>
-    <id>http://blog.shingara.fr//moped-le-nouveau-driver-mongodb-pour-ruby</id>
+    <id>http://blog.shingara.fr/moped-le-nouveau-driver-mongodb-pour-ruby</id>
     <content type="html"><![CDATA[<p>Depuis décembre 2011, <a href="https://github.com/bernerdschaefer">Bernerd Schaefer</a> a commencé a créer un
 driver MongoDB pour ruby. Ce nouveau driver MongoDB n'a pas été crée par
 10Gen (créateur de MongoDB) contrairement au gem
@@ -193,9 +193,9 @@ gem 'mongoid', :git =&gt; 'git://github.com/mongoid/mongoid'
   
   <entry>
     <title type="html"><![CDATA[Récupération de ses fichiers sur basecamp]]></title>
-    <link href="http://blog.shingara.fr//telecharger-fichier-de-basecamp.html"/>
+    <link href="http://blog.shingara.fr/telecharger-fichier-de-basecamp.html"/>
     <updated>2012-04-20T09:38:00+02:00</updated>
-    <id>http://blog.shingara.fr//telecharger-fichier-de-basecamp</id>
+    <id>http://blog.shingara.fr/telecharger-fichier-de-basecamp</id>
     <content type="html"><![CDATA[<p>Au niveau de mon travail actuel chez <a href="http://bemyboat.com">Be My Boat</a>,
 nous sommes actuellement en train de migrer de
 <a href="http://basecamphq.com">Basecamp</a> vers

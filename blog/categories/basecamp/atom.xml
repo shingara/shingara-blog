@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: basecamp | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/basecamp/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/basecamp/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Récupération de ses fichiers sur basecamp]]></title>
-    <link href="http://blog.shingara.fr//telecharger-fichier-de-basecamp.html"/>
+    <link href="http://blog.shingara.fr/telecharger-fichier-de-basecamp.html"/>
     <updated>2012-04-20T09:38:00+02:00</updated>
-    <id>http://blog.shingara.fr//telecharger-fichier-de-basecamp</id>
+    <id>http://blog.shingara.fr/telecharger-fichier-de-basecamp</id>
     <content type="html"><![CDATA[<p>Au niveau de mon travail actuel chez <a href="http://bemyboat.com">Be My Boat</a>,
 nous sommes actuellement en train de migrer de
 <a href="http://basecamphq.com">Basecamp</a> vers

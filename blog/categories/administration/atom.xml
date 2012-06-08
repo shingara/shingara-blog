@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: administration | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/administration/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/administration/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Mailtrap l'aide au staging]]></title>
-    <link href="http://blog.shingara.fr//mailtrap-l-aide-au-staging.html"/>
+    <link href="http://blog.shingara.fr/mailtrap-l-aide-au-staging.html"/>
     <updated>2012-01-24T22:17:00+01:00</updated>
-    <id>http://blog.shingara.fr//mailtrap-l-aide-au-staging</id>
+    <id>http://blog.shingara.fr/mailtrap-l-aide-au-staging</id>
     <content type="html"><![CDATA[<p>Avant chaque mise en production d'un projet, il faut le test dans un
 environement de staging. Pour avoir un environement le plus proche de
 notre environement de production, une pratique courante est d'éffectuer

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rails | Shiny happy people coding]]></title>
-  <link href="http://blog.shingara.fr//blog/categories/rails/atom.xml" rel="self"/>
-  <link href="http://blog.shingara.fr//"/>
-  <updated>2012-05-29T10:17:02+02:00</updated>
-  <id>http://blog.shingara.fr//</id>
+  <link href="http://blog.shingara.fr/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2012-06-08T15:07:48+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
     <email><![CDATA[cyril.mougel@gmail.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Quiet Assets le gem qui limite les logs]]></title>
-    <link href="http://blog.shingara.fr//quiet-assets-le-limiteur-de-log.html"/>
+    <link href="http://blog.shingara.fr/quiet-assets-le-limiteur-de-log.html"/>
     <updated>2012-04-25T09:42:00+02:00</updated>
-    <id>http://blog.shingara.fr//quiet-assets-le-limiteur-de-log</id>
+    <id>http://blog.shingara.fr/quiet-assets-le-limiteur-de-log</id>
     <content type="html"><![CDATA[<p>Voici une semaine, j'ai découvert un gem vraiment pratique.
 <a href="https://github.com/evrone/quiet_assets">quiet_assets</a>.</p>
 
