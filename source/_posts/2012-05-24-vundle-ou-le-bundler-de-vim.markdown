@@ -76,7 +76,7 @@ typiquement.
 ## Vundle, le bundler de vim.
 
 Mais c'est là qu'on m'a parlé du plugin qui me semble le meilleur
-actuellement concernant la gestion de ses plugins vim.
+actuellement concernant la gestion de ses plugins vim,
 [Vundle](https://github.com/gmarik/vundle). Comme pathogen, la gestion
 des plugins est faite directement dans son vimrc. Son usage y est très
 simplifié et pratique. Si vous connaissez

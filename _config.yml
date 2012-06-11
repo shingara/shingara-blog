@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://blog.shingara.fr/
+url: http://blog.shingara.fr
 title: Shiny happy people coding
 subtitle: Codons avec le sourire
 author: Cyril Mougel
@@ -73,12 +73,12 @@ twitter_show_follower_count: true
 twitter_tweet_button: true
 
 # Google +1
-google_plus_one: false
+google_plus_one: true
 google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
+googleplus_user: Cyril Mougel
 googleplus_hidden: false
 
 # Pinboard
