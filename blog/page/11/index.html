@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Il y a un mois, un concours avait été organisé pour renouveler le Logo de Ruby. Le résultat est sorti aujourd&#8217;hui et voici donc le nouveau logo &hellip;">
+  <meta name="description" content="Redmine 0.6 est sortie le 4 Novembre 2007. Redmine est application web de gestion de projet, multi-projet avec système de tracking, de news, de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/redmine-0-6-est-sortie.html">Redmine 0.6 est sortie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-09T00:00:00+01:00" pubdate data-updated="true">Nov 9<span>th</span>, 2007</time>
+        
+         | <a href="/redmine-0-6-est-sortie.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Redmine 0.6 est sortie le 4 Novembre 2007.</p>
+
+<p><a href="http://redmine.org">Redmine</a> est application web de gestion de projet, multi-projet avec système de tracking, de news, de gestion de document, un wiki, un navigateur de SCM et un forum. Il est développé entièrement avec Ruby On Rails.</p>
+
+<p>Cette version se voit doté d&#8217;un nouveau design complet et comme à son habitude les fonctionnalités ajoutés foisonnent.</p>
+
+<p>Voici une petite liste de fonctionnalités importantes ajoutés&nbsp;:</p>
+
+<ul>
+<li>Ajout de traduction en Polonais, Tcheque, Roumain, Hebreux, Serbe et Koréen.</li>
+<li>Ajout de système de migration à partir de Trac et Mantis par tâche rake.</li>
+<li>Ajout d&#8217;un système pour ajouter des plugins à redmine</li>
+</ul>
+
+<p>Pour obtenir une liste complète des fonctionnalités ajoutés vous pouvez consulter le <a href="http://rubyforge.org/frs/shownotes.php?group_id=1850&release_id=16072">changelog</a></p>
+
+<p>Désormais le site web de Redmine utilise lui-même redmine pour avoir une petite idée de l&#8217;utilisation de cette application</p>
+
+<p>Pour cette version, j&#8217;ai réalisé un <a href="http://rubyforge.org/tracker/index.php?func=detail&aid=15167&group_id=1850&atid=7162">patch</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -588,56 +644,6 @@ user3:pass3
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/script-generate-directement-dans-svn.html">script/generate directement dans svn</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-30T00:00:00+02:00" pubdate data-updated="true">Sep 30<span>th</span>, 2007</time>
-        
-         | <a href="/script-generate-directement-dans-svn.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A chaque fois que j&#8217;utilisais le script de génération de code de Ruby On Rails, je devais lancer ensuite un ajout des sources dans subversion avec un petit <code>svn add</code>.</p>
-
-<p>Mais voilà, je viens de découvrir que cette commande est tout à fait inutile. En effet, le script de génération comprend une option qui nous permet d&#8217;éviter ce genre de manipulation inutile. Il y a l&#8217;option -c.</p>
-
-<pre>
-$ ./script/generate migration -c change_type_format
-      exists  db/migrate
-      create  db/migrate/030_change_type_format.rb
-A         db/migrate/030_change_type_format.rb
-
-</pre>
-
-<p>J&#8217;adore l&#8217;implémentation de Subversion dans Ruby On Rails</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -653,6 +659,10 @@ A         db/migrate/030_change_type_format.rb
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -690,20 +700,16 @@ A         db/migrate/030_change_type_format.rb
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, la version 0.2.0 de whois est sortie. Elle commence tout de suite par la version 0.2.0 pour laisser la version de Michael Neumann en &hellip;">
+  <meta name="description" content="Pour toutes les personnes comme moi qui ont des problèmes avec la connection en ssh à partir d&#8217;un ordinateur et uniquement celui-ci. Première &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/ssh-et-le-host-deny.html">ssh et le host.deny</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-03-20T00:00:00+01:00" pubdate data-updated="true">Mar 20<span>th</span>, 2007</time>
+        
+         | <a href="/ssh-et-le-host-deny.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Pour toutes les personnes comme moi qui ont des problèmes avec la connection en ssh à partir d&#8217;un ordinateur et uniquement celui-ci. Première chose à faire ? vérifier que le fichier /etc/hosts.deny n&#8217;a pas votre IP ou Host. Moi j&#8217;ai réussi à me bloquer tout seul. Bon <a href="http://denyhosts.sourceforge.net">denyhost</a> y est aussi surement pour quelque chose.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -628,56 +666,6 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/retour-a%CC%80-gentoo.html">Retour à Gentoo</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-02-01T00:00:00+01:00" pubdate data-updated="true">Feb 1<span>st</span>, 2007</time>
-        
-         | <a href="/retour-a%CC%80-gentoo.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est, c&#8217;est décidé, je reviens à Gentoo.</p>
-
-<p>J&#8217;étais depuis quelques temps sous une distribution debian. A l&#8217;époque, le temps de compilation de Gentoo m&#8217;embêtait beaucoup et la stabilité de debian m&#8217;a convaincu. Actuellement, le temps de compilation de Gentoo est toujours selon moi un de ses défauts, mais c&#8217;est aussi ce qui fait une de ses forces de par sa flexibilité.</p>
-
-<p>J&#8217;ai aussi acquis une certaine expérience de linux qui me permet de ne pas installer ou désinstaller des paquets tous les jours et donc après avoir fait une installation propre de mon système, de n&#8217;avoir qu&#8217;a faire les updates nécessaire pour avoir une distribution stable. </p>
-
-<p>De plus ce que je trouve vraiment bien chez Gentoo est leur clarté. Si on a un problème, il y a toujours un log qui te dit où est ton problème, alors qu&#8217;avec debian, au démarrage, on n&#8217;arrive même pas à savoir ce qui est réellement lancé comme service et il y a des warning qui sont «&nbsp;normal&nbsp;». Avec gentoo, on a tout d&#8217;indiqué et on peux ainsi plus facilement résoudre les problèmes.</p>
-
-<p>Cette résolution est arrivée avec la mise à jour d&#8217;un ordinateur portable sous gentoo qui n&#8217;avait pas été mis à jour depuis pas moins de 1 an. Après de grosses difficultés dû aux différentes migrations qui ont eu lieu durant cette période (Xorg, KDE, GCC), j&#8217;ai fini par réussir à tout remettre en place et maintenant mon portable a retrouvé une deuxième jeunesse. Je suis vraiment impressionné, par la capacité de gentoo à évoluer aussi facilement avec le temps.</p>
-
-<p>Maintenant avec mon basculement vers gentoo, j&#8217;ai de nouveau envie d&#8217;aider cette communauté. Ainsi durant mes migrations et la lecture des documentations française, j&#8217;ai pu faire corriger une ou deux coquilles dans celle-ci. La réactivité de <a href="http://gentoo.neysx.org/">neyxs</a> (chef de la traduction française sur gentoo), ces coquilles ont été modifiés immédiatement. J&#8217;ai vraiment retrouvé un esprit de communauté que j&#8217;avais complètement perdu avec Debian où à chaque fois que j&#8217;arrivais sur leur channel IRC, je m&#8217;engueulais avec l&#8217;un ou l&#8217;autre des développeurs. Je pense que Gentoo est assez jeune dans sa communauté, mais elle évolue sans cesse dans le bon sens et n&#8217;a absolument pas la grosse tête. C&#8217;est vraiment génial.</p>
-
-<p>Ainsi, aujourd&#8217;hui, j&#8217;ai retrouvé mes accès au CVS de traduction de la <a href="http://www.gentoo.org/news/en/gwn/gwn.xml">Gentoo Weekly News</a> et j&#8217;ai repris pas mal de relecture que l&#8217;équipe avait hélas laissé tombé en désuétude. J&#8217;espère maintenant vraiment pouvoir participer à cette superbe communauté qu&#8217;est Gentoo.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/16/">&larr; Older</a>
@@ -693,6 +681,10 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -730,20 +722,16 @@ Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

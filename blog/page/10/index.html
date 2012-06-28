@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Suite à une petite discussion sur IRC sur le chan #rubyonrails.fr, j&#8217;ai constaté qu&#8217;une nouvelle méthode avait été ajouté dans Rails 2.0 &hellip;">
+  <meta name="description" content="Ca y est ce blog a été migré vers la branche 5.0 Stable de Typo. Cette nouvelle version apporte énormément de changement que je ne détaillerais pas &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,138 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/migration-vers-typo-5-0.html">Migration vers Typo 5.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-01-11T00:00:00+01:00" pubdate data-updated="true">Jan 11<span>th</span>, 2008</time>
+        
+         | <a href="/migration-vers-typo-5-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est ce blog a été migré vers la branche 5.0 Stable de <a href="http://www.typosphere.org/">Typo</a>. Cette nouvelle version apporte <a href="http://fredericdevillamil.com/sortie-de-typo-5-0-eugene-atget-pour-rails-2-0">énormément de changement</a> que je ne détaillerais pas ici, car elles ont tout à fait bien été décrite.</p>
+
+<p>J&#8217;ai même eu la chance d&#8217;avoir vu <a href="http://trac.typosphere.org/search?q=shingara&ticket=on">plusieurs de mes patchs</a> <a href="http://trac.typosphere.org/changeset/1587">intégrés</a> à cette version.</p>
+
+<p>Pour effectuer la migration vers cette nouvelle version de Typo, j&#8217;ai dû hélas faire quelques petites modifications. En effet, j&#8217;ai appris par <a href="http://fredericdevillamil.com/">Frédéric</a>, qu&#8217;il y avait un petit bug à l&#8217;heure actuel. <a href="http://trac.typosphere.org/ticket/1110">Les tags ne peuvent pas avoir de point dans leur nom</a>. J&#8217;ai ainsi indiqué sur ce ticket la modification ci-jointe que j&#8217;ai réalisé pour faire passer la pillule à Typo. Hélas cela n&#8217;est qu&#8217;un contournement. Il suffit donc d&#8217;utiliser la magie de la console Rails pour éviter le problème en supprimant le point dans son tag.</p>
+
+<pre>
+rails@shinydedi /var/rails/typoblog-dev/current $ ./script/console production
+Loading production environment.
+>> t = Tag.find_by_name "rubyonrails2.0"
+=> #<Tag:0xb70bb848 @attributes={"name"=>"rubyonrails2.0", "updated_at"=>"2007-09-29 23:48:11.980446", "id"=>"18", "display_name"=>"rubyonrails2.0", "created_at"=>"2007-09-29 23:48:11.980446"}>
+>> t.name "rubyonrails-2-0"
+=> "rubyonrails2.0"
+>> t.display_name = "rubyonrails-2-0"
+=> "rubyonrails-2-0"
+>> t.name = "rubyonrails-2-0"
+=> "rubyonrails-2-0"
+>> t
+=> #<Tag:0xb70bb848 @attributes={"name"=>"rubyonrails-2-0", "updated_at"=>"2007-09-29 23:48:11.980446", "id"=>"18", "display_name"=>"rubyonrails-2-0", "created_at"=>"2007-09-29 23:48:11.980446"}>
+>> t.save
+=> true
+</pre>
+
+<p>J&#8217;ai ensuite eu un nouveau petit problème lors du lancement de la tâche de migration de la base de donnée. Il me manquait le gem Rcov. Comme le serveur est mon serveur de production, j&#8217;ai préféré enlevé le fichier qui me demandait cette dépendance que d&#8217;installer ce gem. Par contre j&#8217;ai récupéré les sources du SVN de Typo. Donc peut-être que sur les versions releasés, ce fichier a été enlevé.</p>
+
+<pre>
+rails@shinydedi /var/rails/typo-5-0-stable $ rm lib/tasks/rcov.rake
+</pre>
+
+<p>Et après tout est passé. A part ma petite erreur d&#8217;oubli de changement de localisation du dossier static pour mon serveur. Mais là c&#8217;est que de l&#8217;administration pur et dur.</p>
+
+<p>Enfin au niveau des modifications, j&#8217;ai aussi changé de thème pour conserver le nouveau thème par défaut de Typo. J&#8217;ai juste réalisé quelques modifications au niveau du fichier CSS pour que ça corresponde plus à mes envies. Je vous fournis les modifications pour les curieux.</p>
+
+<pre>
+Index: themes/dirtylicious/stylesheets/application.css
+===================================================================
+--- themes/dirtylicious/stylesheets/application.css     (révision 1624)
++++ themes/dirtylicious/stylesheets/application.css     (copie de travail)
+@@ -21,8 +21,8 @@
+
+ li {list-style: none;}
+
+-h1 {font: normal 1.8em Tahoma,sans-serif;}
+-h2 {font: normal 1.6em sans-serif;}
++h1 {font: normal 2.3em Tahoma,sans-serif;}
++h2 {font: normal 2em sans-serif;}
+ h3 {font: bold 1em Tahoma,sans-serif;}
+
+ h1,h2,h3 {padding-top: 6px; color: #553; margin-bottom: 4px;}
+@@ -167,6 +167,16 @@
+     color: #654;
+ }
+
++#sidebar #categories li a {
++    display: inline;
++    padding: 0 0 0 5%;
++}
++
++#sidebar #archives li a {
++    display: inline;
++    padding: 0 0 0 5%;
++}
++
+ /* footer */
+ #footer {
+     background: #949490;
+@@ -325,3 +335,26 @@
+ #sidebar table tfoot #next a {text-align:center;}
+
+ #searchform {padding: 10px;}
++
++#delicious {
++    border: 4px solid rgb(188, 204, 235);
++    padding-left: 5%;
++    padding-right: 2%;
++    padding-bottom: 10px;
++}                                                   
++
++pre {
++    background-color: black;
++    color: white;
++    font-size: 1.3em;
++    padding: 2%;
++}
++
++.content h1 {
++    font-size:1.6em;
++}
++
++.content h2 {
++    font-size: 1.4em;
++    padding-left: 5%;
++}
+
+</pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -658,62 +790,6 @@ données personnelles sans que nous ayons aucun recours.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/redmine-0-6-est-sortie.html">Redmine 0.6 est sortie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-11-09T00:00:00+01:00" pubdate data-updated="true">Nov 9<span>th</span>, 2007</time>
-        
-         | <a href="/redmine-0-6-est-sortie.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Redmine 0.6 est sortie le 4 Novembre 2007.</p>
-
-<p><a href="http://redmine.org">Redmine</a> est application web de gestion de projet, multi-projet avec système de tracking, de news, de gestion de document, un wiki, un navigateur de SCM et un forum. Il est développé entièrement avec Ruby On Rails.</p>
-
-<p>Cette version se voit doté d&#8217;un nouveau design complet et comme à son habitude les fonctionnalités ajoutés foisonnent.</p>
-
-<p>Voici une petite liste de fonctionnalités importantes ajoutés&nbsp;:</p>
-
-<ul>
-<li>Ajout de traduction en Polonais, Tcheque, Roumain, Hebreux, Serbe et Koréen.</li>
-<li>Ajout de système de migration à partir de Trac et Mantis par tâche rake.</li>
-<li>Ajout d&#8217;un système pour ajouter des plugins à redmine</li>
-</ul>
-
-<p>Pour obtenir une liste complète des fonctionnalités ajoutés vous pouvez consulter le <a href="http://rubyforge.org/frs/shownotes.php?group_id=1850&release_id=16072">changelog</a></p>
-
-<p>Désormais le site web de Redmine utilise lui-même redmine pour avoir une petite idée de l&#8217;utilisation de cette application</p>
-
-<p>Pour cette version, j&#8217;ai réalisé un <a href="http://rubyforge.org/tracker/index.php?func=detail&aid=15167&group_id=1850&atid=7162">patch</a>.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -729,6 +805,10 @@ données personnelles sans que nous ayons aucun recours.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -766,20 +846,16 @@ données personnelles sans que nous ayons aucun recours.</p>
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

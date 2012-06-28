@@ -126,7 +126,10 @@ fichiers.</p>
 <noscript><pre><code>require 'faraday'
 require 'faraday_middleware'
 
+url_project = 'https://ciblonet.basecamphq.com'
 project_id = 3684800
+user_name = 'shingara'
+password = 'xxxx'
 
 class Attachment
 
@@ -144,39 +147,68 @@ class Attachment
     collection
   end
 
-  def execute
+  def fetch
     File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
   end
 end
 
-con = Faraday.new(:url =&gt; 'https://ciblonet.basecamphq.com') do |builder|
-  builder.use Faraday::Request::BasicAuthentication, 'shingara', ''
+class Attachments
+  def initialize(conn, project_id, step=nil)
+    @conn = conn
+    @project_id = project_id
+    @attachments_index = 100
+    @step = step
+  end
+
+  def url
+    if @step
+      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
+    else
+      &quot;/projects/#{@project_id}/attachments.xml&quot;
+    end
+  end
+
+  def entries
+    @entries ||= @conn.get(url) do |req|
+      req.headers['Accept'] = 'application/xml'
+      req.headers['Content-Type'] = 'application/xml'
+    end.body['attachments']
+  end
+
+  def fetch
+    entries.each do |attachment|
+      Attachment.new(@conn, attachment).fetch
+    end
+  end
+
+  def more?
+    entries.size &gt; 99
+  end
+end
+
+
+class FetchAttachments
+
+  def self.execute(conn, project_id)
+    a = Attachments.new(conn, project_id)
+    a.fetch
+    step = 100
+    while a.more?
+      a = Attachments.new(conn, project_id, step)
+      a.fetch
+      step += 100
+    end
+  end
+end
+
+con = Faraday.new(:url =&gt; url_project) do |builder|
+  builder.use Faraday::Request::BasicAuthentication, user_name, password
   builder.use Faraday::Response::Logger
   builder.response :xml,  :content_type =&gt; /\bxml$/
   builder.use Faraday::Adapter::NetHttp
 end
-attachment_size = 100
 
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-
-while attachments.size &gt; 99
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml?n=#{attachment_size}&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-  attachment_size += 100
-end
+FetchAttachments.execute(con, project_id)
 </code></pre></noscript></div>
 
 
@@ -238,7 +270,7 @@ requêtage HTTP.</p>
         <a class="basic-alignment left" href="/translate-on-mongoid.html" title="Previous Post: Localize avec mongoid">&laquo; Localize avec mongoid</a>
       
       
-        <a class="basic-alignment right" href="/quiet-assets-le-limiteur-de-log.html" title="next Post: Quiet Assets le gem qui limite les logs">Quiet Assets le gem qui limite les logs &raquo;</a>
+        <a class="basic-alignment right" href="/quiet-assets-le-limiteur-de-log.html" title="Next Post: Quiet Assets le gem qui limite les logs">Quiet Assets le gem qui limite les logs &raquo;</a>
       
     </p>
   </footer>
@@ -257,6 +289,10 @@ requêtage HTTP.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -294,20 +330,16 @@ requêtage HTTP.</p>
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

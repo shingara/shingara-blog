@@ -9,9 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Personnellement, j&#8217;utilise vim comme éditeur de texte depuis mon
-école. J&#8217;ai toujours apprécié vim et je ne compte toujours pas changer
-d &hellip;">
+  <meta name="description" content="Personnelement, quand je fais des API, j&#8217;utilise le gem
+Rabl. Je trouve ce gems vraiment
+génial. Avant son utilisation, je faisais mes API json &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,163 @@ d &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T09:40:00+02:00" pubdate data-updated="true">Jun 28<span>th</span>, 2012</time>
+        
+         | <a href="/tester-ses-vues-rabl.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Personnelement, quand je fais des API, j&#8217;utilise le gem
+<a href="https://github.com/nesquena/rabl">Rabl</a>. Je trouve ce gems vraiment
+génial. Avant son utilisation, je faisais mes API json avec la méthode
+<code>#to_json</code>. Mais pour ceux qui l&#8217;on utilisé, vous savez que c&#8217;est un
+enfer à maintenir. Surtout si vous avez plusieurs type de représentation
+de votre objet à différent endroit.</p>
+
+<h1>Rabl la simplicité d&#8217;expression</h1>
+
+<p>Pour gérer ses vues en JSON ou XML, les gems classique sont <code>JBuilder</code>
+et <code>XmlBuilder</code>. Deux gems réalisées par DHH. Mais, personnelement, je
+les trouves assez verbeuses comme vues. A contrario, Rabl a une syntaxe
+trés simplifiée. On peux ausi avoir un système de partial qui permet une
+réutilisation compléte. Petit bonus par rapport à JBuilder/XmlBuilder
+est qu&#8217;il utilise la même vue pour générer du XML ou du JSON. Donc pas
+besoin de faire plusieurs vues en fonction du format de sortie.</p>
+
+<p>Voici un example de vue Rabl :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">object</span> <span class="vi">@post</span>
+</span><span class='line'><span class="n">attribute</span> <span class="ss">:content</span>
+</span><span class='line'><span class="n">child</span><span class="p">(</span><span class="ss">:author</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">attribute</span> <span class="ss">:firstname</span><span class="p">,</span> <span class="ss">:lastname</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Tester sa vue Rabl</h1>
+
+<p>Pour tester le résultat de cette vue Rabl, deux possibilités s&#8217;offre à
+nous. Un test de la génération de la vue par un test d&#8217;intégration
+couplé avec le test du controller, soit un test de la vue. Finalement
+tester une vue Rabl c&#8217;est ni plus ni moins que tester un retour de la
+méthode <code>#to_json</code>. Donc si nous testons notre vue directement à partir
+des données passées, c&#8217;est plus rapide et plus unitaire.</p>
+
+<p>Depuis la version 0.6.0 de Rabl, une méthode permet de générer la vue
+directement. C&#8217;est cela que nous allons utiliser pour faire notre test
+de vue.</p>
+
+<p>Voici donc un test de notre vue ( défini dans
+<code>spec/views/posts/show_rabl_spec.rb</code> )</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">describe</span> <span class="s2">&quot;blogs/show.rabl&quot;</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:auhor</span><span class="p">)</span> <span class="p">{</span> <span class="no">Author</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Cyril&#39;</span><span class="p">,</span> <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mougel&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:blog</span><span class="p">)</span> <span class="p">{</span> <span class="no">Blog</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:valid_json</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="n">blog</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>          <span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">firstname</span><span class="p">,</span>
+</span><span class='line'>          <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">lastname</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:render</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="no">Rabl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">blog</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;blog/show&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:view_path</span> <span class="o">=&gt;</span> <span class="s1">&#39;app/views&#39;</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">it</span> <span class="s1">&#39;should render valid_json&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">render</span><span class="o">.</span><span class="n">should</span> <span class="n">eql</span><span class="p">(</span><span class="n">valid_json</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On obtient ainsi un test unitaire vraiment simple et une validation
+compléte du json obtenu. Le test est vraiment très rapide et n&#8217;est pas
+pollué par le test du controller.</p>
+
+<p>J&#8217;ai par contre découvert des limitations à ce test car, on ne peux
+passer à la méthode <code>#render</code> que les objects définis par <code>object</code> ou
+<code>collection</code>. Si on veux tester une vue rabl qui utilise plusieurs
+variables, la tâche devient très hardu. J&#8217;ai donc commencé à proposer un
+<a href="https://github.com/nesquena/rabl/pull/261">Pull Request</a> pour passer directement des variables dans sa vue Rabl, de
+la même méthode que les partials avec l&#8217;options <code>:locals</code>. Vous pouvez
+la <a href="https://github.com/nesquena/rabl/pull/261">suivre sur github</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -610,7 +767,10 @@ fichiers.</p>
 <noscript><pre><code>require 'faraday'
 require 'faraday_middleware'
 
+url_project = 'https://ciblonet.basecamphq.com'
 project_id = 3684800
+user_name = 'shingara'
+password = 'xxxx'
 
 class Attachment
 
@@ -628,39 +788,68 @@ class Attachment
     collection
   end
 
-  def execute
+  def fetch
     File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
   end
 end
 
-con = Faraday.new(:url =&gt; 'https://ciblonet.basecamphq.com') do |builder|
-  builder.use Faraday::Request::BasicAuthentication, 'shingara', ''
+class Attachments
+  def initialize(conn, project_id, step=nil)
+    @conn = conn
+    @project_id = project_id
+    @attachments_index = 100
+    @step = step
+  end
+
+  def url
+    if @step
+      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
+    else
+      &quot;/projects/#{@project_id}/attachments.xml&quot;
+    end
+  end
+
+  def entries
+    @entries ||= @conn.get(url) do |req|
+      req.headers['Accept'] = 'application/xml'
+      req.headers['Content-Type'] = 'application/xml'
+    end.body['attachments']
+  end
+
+  def fetch
+    entries.each do |attachment|
+      Attachment.new(@conn, attachment).fetch
+    end
+  end
+
+  def more?
+    entries.size &gt; 99
+  end
+end
+
+
+class FetchAttachments
+
+  def self.execute(conn, project_id)
+    a = Attachments.new(conn, project_id)
+    a.fetch
+    step = 100
+    while a.more?
+      a = Attachments.new(conn, project_id, step)
+      a.fetch
+      step += 100
+    end
+  end
+end
+
+con = Faraday.new(:url =&gt; url_project) do |builder|
+  builder.use Faraday::Request::BasicAuthentication, user_name, password
   builder.use Faraday::Response::Logger
   builder.response :xml,  :content_type =&gt; /\bxml$/
   builder.use Faraday::Adapter::NetHttp
 end
-attachment_size = 100
 
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-
-while attachments.size &gt; 99
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml?n=#{attachment_size}&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-  attachment_size += 100
-end
+FetchAttachments.execute(con, project_id)
 </code></pre></noscript></div>
 
 
@@ -1093,136 +1282,6 @@ de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utili
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-15T00:00:00+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2010</time>
-        
-         | <a href="/oupsnow-0-5-0-est-sortie.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est, j&#8217;ai presque pris un cycle de release pas trop mauvais. Ainsi après seulement un mois après la version 0.4.1 de <a href="http://oupsnow.rubyforge.org">Oupsnow</a>, voici la version 0.5.0. Cette version apporte quelque feature, mais marque surtout un moment de stabilité dans le code.</p>
-
-<h2>Les nouveautés</h2>
-
-<ul>
-<li>Ajout d&#8217;un filtre sur la recherche des tickets pour ne voir que les tickets fermé ou non</li>
-<li>Possibilité d&#8217;éditer une milestone pour les admin d&#8217;un projet</li>
-<li>Possibilité de définir une milestone comme actuelle. Par défaut, c&#8217;est la première milestone créée</li>
-<li>Possibilité de récupérer son password par email</li>
-<li>Possibilité de rester connecter avec un remember_me</li>
-<li>Ajout d&#8217;information concernant le nombre de tickets filtrés ou vues</li>
-<li>Possibilité pour chaque utilisateur loggé de suivre un ticket. Un utilisateur qui suit un ticket recevra ainsi à chaque mise à jour de ce ticket un email concernant cette modification.</li>
-<li>Les utilisateurs ne peuvent plus changer leur email.</li>
-</ul>
-
-
-<p>Enfin comme d&#8217;habitude voici mon fichier capistrano de déployement pour faciliter celui-ci.</p>
-
-<h2>Ficher de déployement capistrano</h2>
-
-<p>&lt;typo:code lang=&#8221;ruby&#8221;>
-set :application, &#8220;oupsnow&#8221;
-set :repository,  &#8220;git://github.com/shingara/oupsnow.git&#8221;
-set :domain, &#8220;dev.shingara.fr&#8221;</p>
-
-<h1>If you aren&#8217;t deploying to /u/apps/#{application} on the target</h1>
-
-<h1>servers (which is the default), you can specify the actual location</h1>
-
-<h1>via the :deploy_to variable:</h1>
-
-<p>set :deploy_to, &#8220;XXXXXXXXX&#8221;</p>
-
-<h1>If you aren&#8217;t using Subversion to manage your source code, specify</h1>
-
-<h1>your SCM below:</h1>
-
-<h1>set :scm, :subversion</h1>
-
-<p>set :scm, :git
-set :git_enable_submodules, 1</p>
-
-<p>set :runner, &#8220;xxxx&#8221;
-set :user, &#8220;xxxx&#8221;
-set :use_sudo, false</p>
-
-<p>set :thin_conf, &#8220;/etc/thin/#{domain}.yml&#8221;</p>
-
-<p>set :rails_env, &#8220;production&#8221;</p>
-
-<p>role :app, domain
-role :web, domain
-role :db,  domain, :primary => true</p>
-
-<p>task :update_config, :roles => [:app] do
-  run &#8220;ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml&#8221;
-  run &#8220;ln -s #{shared_path}/config/email.yml #{release_path}/config/email.yml&#8221;
-  run &#8220;ln -s #{shared_path}/config/initializers/errornot.rb #{release_path}/config/initializers/errornot.rb&#8221;
-  run &#8220;cd #{release_path} &amp;&amp; echo &#8216;GOOGLE_ANALYTICS=&#34;XXXXXXXX&#34;&#8217; >> config/environment.rb&#8221;
-end</p>
-
-<p>namespace :deploy do
-  task :start, :roles => [:app] do</p>
-
-<pre><code>run "thin -C #{thin_conf} start"
-</code></pre>
-
-<p>  end</p>
-
-<p>  task :stop, :roles => [:app] do</p>
-
-<pre><code>run "thin -C #{thin_conf} stop"
-</code></pre>
-
-<p>  end</p>
-
-<p>  task :restart, :roles => [:app] do</p>
-
-<pre><code>run "thin -C #{thin_conf} restart"
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>task :update_db do
-  run &#8220;cd #{current_path} &amp;&amp; RAILS_ENV=#{rails_env} rake db:update&#8221;
-end</p>
-
-<p>after &#8220;deploy:update_code&#8221;, :update_config
-after &#8220;deploy:symlink&#8221;, :update_db
-&lt;/typo:code></p>
-
-<p><a href="http://blog.shingara.fr/en/2010-03-13-oupsnow-0-5-0-released.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1236,6 +1295,10 @@ after &#8220;deploy:symlink&#8221;, :update_db
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -1273,20 +1336,16 @@ after &#8220;deploy:symlink&#8221;, :update_db
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

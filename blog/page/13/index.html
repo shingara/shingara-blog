@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Le titre de ce billet est assez long, mais je suis tombé par hasard sur une petite d&#8217;implémentation qui m&#8217;a fait sourire. J&#8217;ai &hellip;">
+  <meta name="description" content="Adepte du Ruby, j&#8217;essaye de l&#8217;utiliser pour tout ce que je développe. A l&#8217;heure actuel, je développe principalement des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,63 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/qt4-pour-ruby-sous-windows.html">QT4 pour Ruby sous Windows</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-28T00:00:00+02:00" pubdate data-updated="true">Aug 28<span>th</span>, 2007</time>
+        
+         | <a href="/qt4-pour-ruby-sous-windows.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Adepte du Ruby, j&#8217;essaye de l&#8217;utiliser pour tout ce que je développe. A l&#8217;heure actuel, je développe principalement des applications web, donc je suis fortement tourné vers RubyOnRails. Mais voilà, j&#8217;ai aussi parfois des envies de Desktop. Je n&#8217;en ai jamais trop fait à part avec Swing en Java. Je me suis donc dit que ca pourrait être sympa d&#8217;utiliser <a href="http://trolltech.com/products/qt">QT4</a> en Ruby.</p>
+
+<p>il existe un <a href="http://rubyforge.org/projects/korundum/">binding de QT4 pour Ruby</a>. Mais j&#8217;ai hélas la possibilité de ne développé que sous Windows et sur le support Officiel, il n&#8217;y a aucune version pour Windows.</p>
+
+<p>Heureusement jzkey a réaliser un <a href="http://www.jzkey.com/qtruby/">binaire complet comprennant QT4 et QTRuby4</a>. Je viens de le testé et il marche pas trop mal sur le tutorial et d&#8217;autres samples. Certain n&#8217;ont hélas pas marché, mais je n&#8217;en connais pas la raison. Je vais décrire ici la procédure pour installer QTRuby4 sous windows.</p>
+
+<ul>
+<li>Télécharger le zip complet comprenant QT4 et le binding Ruby sur le site de <a href="http://www.jzkey.com/qtruby/">jzkey</a></li>
+<li>Dezipper le tout dans votre arborescence. Ensuite il faut faire plusieurs copier coller. (C&#8217;est en tout cas la technique que j&#8217;ai employé)</li>
+<li>Copier tous les fichiers (*.exe et *.dll) qui se trouve dans le dossier /bin/ et les mettres dans le dossiers /bin/ de votre dossier Ruby</li>
+<li>Copier le dossier /lib/ruby/site_ruby/1.8/Qt/ dans /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier les fichier QT4.rb, QT3.rb et QT.rb dans le dossier /lib/ruby/site_ruby/1.8/ de votre répertoire Ruby</li>
+<li>Copier le fichier qtruby4.so qui se trouve dans /lib/ruby/site_ruby/1.8/i386-msvcrt/ dans le dossier /lib/ruby/site_ruby/1.8/i386-msvcrt/ de votre répertoire Ruby</li>
+</ul>
+
+<p>Voilà, normalement vous pouvez lancer vos applications Ruby avec le require QT4. Pour test, lancer le tutorial /samples/qt/tutorial/t14/t14.rb. Si vous arrivez à jouer au petit jeu de tir, alors l&#8217;installation à réussi et vous pouvez maintenant coder directement vos applications QT4 sous Windows.</p>
+
+<p>Bien-sûr, je vous conseille toujours de développez sous Linux</p>
+
+<p>Edit du 07 Août 2009 : Quelqu&#8217;un m&#8217;ayant fait remarqué que le lien sur jzkey n&#8217;existe plus, j&#8217;ai constaté que sur rubyforge, un binding windows pour qt4 est désormais disponible (http://rubyforge.org/frs/?group_id=181&release_id=32620) et même un gem. N&#8217;utilisant plus windows, je n&#8217;ai pas pu tester.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -525,50 +582,6 @@ Pour l&#8217;école, j&#8217;ai du réaliser avec d&#8217;autres personnes une a
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes.html">Nouvelle tâche rake sur Rails : rake routes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
-        
-         | <a href="/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Voici une nouvelle tâche rake qui a été ajouté à Rails à partir de la révision 7149, suite au ticket #8795. Je trouve cette tâche assez intéressante pour la blogger et en parler. Grâce à elle on arrivera à retrouver très rapidement toutes les routes que nous avons défini. Ca sera vraiment très pratique pour lire un code existant et retrouvé des routes.
-</p>
-
-<p>
-Si par hasard vous souhaitez déjà l&#8217;utiliser, c&#8217;est assez facile. il suffit de récupérer le fichier <a href="http://dev.rubyonrails.org/browser/trunk/railties/lib/tasks/routes.rake">routes.rake</a> sur le trunk et le mettre dans son projet dans votre dossier /lib/tasks/. Immédiatement vous pourrez le tester avec un petit <code>rake routes</code>. J&#8217;adore.
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -584,6 +597,10 @@ Si par hasard vous souhaitez déjà l&#8217;utiliser, c&#8217;est assez facile. 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -621,20 +638,16 @@ Si par hasard vous souhaitez déjà l&#8217;utiliser, c&#8217;est assez facile. 
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

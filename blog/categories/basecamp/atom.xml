@@ -4,7 +4,7 @@
   <title><![CDATA[Category: basecamp | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/basecamp/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-06-08T15:07:48+02:00</updated>
+  <updated>2012-06-28T10:37:17+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -37,7 +37,10 @@ fichiers.</p>
 <noscript><pre><code>require 'faraday'
 require 'faraday_middleware'
 
+url_project = 'https://ciblonet.basecamphq.com'
 project_id = 3684800
+user_name = 'shingara'
+password = 'xxxx'
 
 class Attachment
 
@@ -55,39 +58,68 @@ class Attachment
     collection
   end
 
-  def execute
+  def fetch
     File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
   end
 end
 
-con = Faraday.new(:url =&gt; 'https://ciblonet.basecamphq.com') do |builder|
-  builder.use Faraday::Request::BasicAuthentication, 'shingara', ''
+class Attachments
+  def initialize(conn, project_id, step=nil)
+    @conn = conn
+    @project_id = project_id
+    @attachments_index = 100
+    @step = step
+  end
+
+  def url
+    if @step
+      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
+    else
+      &quot;/projects/#{@project_id}/attachments.xml&quot;
+    end
+  end
+
+  def entries
+    @entries ||= @conn.get(url) do |req|
+      req.headers['Accept'] = 'application/xml'
+      req.headers['Content-Type'] = 'application/xml'
+    end.body['attachments']
+  end
+
+  def fetch
+    entries.each do |attachment|
+      Attachment.new(@conn, attachment).fetch
+    end
+  end
+
+  def more?
+    entries.size &gt; 99
+  end
+end
+
+
+class FetchAttachments
+
+  def self.execute(conn, project_id)
+    a = Attachments.new(conn, project_id)
+    a.fetch
+    step = 100
+    while a.more?
+      a = Attachments.new(conn, project_id, step)
+      a.fetch
+      step += 100
+    end
+  end
+end
+
+con = Faraday.new(:url =&gt; url_project) do |builder|
+  builder.use Faraday::Request::BasicAuthentication, user_name, password
   builder.use Faraday::Response::Logger
   builder.response :xml,  :content_type =&gt; /\bxml$/
   builder.use Faraday::Adapter::NetHttp
 end
-attachment_size = 100
 
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-
-while attachments.size &gt; 99
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml?n=#{attachment_size}&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-  attachment_size += 100
-end
+FetchAttachments.execute(con, project_id)
 </code></pre></noscript></div>
 </p>
 

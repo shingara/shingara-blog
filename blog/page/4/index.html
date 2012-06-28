@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Si comme moi vous être un fan des pretty URL, vous savez surement comment faire avec RubyOnRails. Il suffit de modifier le retour de la méthode &hellip;">
+  <meta name="description" content="Je suis assez content de vous présenter Oupsnow. En effet, après avoir participé à redmine et l&#8217;avoir utilisé, j&#8217;ai décidé de créer mon &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,106 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/sortie-de-la-premiere-version-de-oupsnow-0-1-0.html">Sortie de la première version de Oupsnow 0.1.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-01-21T00:00:00+01:00" pubdate data-updated="true">Jan 21<span>st</span>, 2009</time>
+        
+         | <a href="/sortie-de-la-premiere-version-de-oupsnow-0-1-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Je suis assez content de vous présenter <a href="http://oupsnow.rubyforge.org/">Oupsnow</a>. En effet, après avoir participé à redmine et l&#8217;avoir utilisé, j&#8217;ai décidé de créer mon propre bug tracker. Je trouvais de plus en plus de défauts à Redmine qui n&#8217;était pas comblé. Il est très fortement inspiré de Lighthouse qui a l&#8217;avantage d&#8217;être vraiment simple d&#8217;utilisation.</p>
+
+<p>Voici donc la première version qui sort après 2 mois de développement. Elle est encore loin d&#8217;être un produit complètement fini. Mais elle commence à avoir un début de fonctionnalité suffisante. De plus Oupsnow est un produit réalisé avec Merb. J&#8217;ai ainsi pu découvrir et approfondir Merb grâce à ce projet.</p>
+
+<p>Dans la prochaine release, j&#8217;améliorerais un peu l&#8217;administration. Je créerais aussi un convertisseur de Redmine vers Oupsnow. Cela entrainera ma migration vers Oupsnow à la place de redmine pour ma <a href="http://dev.shingara.fr/">plateforme de développement</a></p>
+
+<p>J&#8217;ai mis en place une <a href="http://oupsnow.shingara.fr">version de démonstration</a> pour vous que ayez une idée de ce que Oupsnow permet.</p>
+
+<p>En bonus, voici mon fichier <code>deploy.rb</code> qui m&#8217;a permis de déployer la version de démonstration de Oupsnow par capistrano</p>
+
+<typo:code lang="ruby">
+set :application, &#8220;oupsnow&#8221;
+set :repository,  &#8220;git://github.com/shingara/oupsnow.git&#8221;
+set :domain, &#8220;shingara.fr&#8221;
+
+# If you aren&#8217;t deploying to /u/apps/#{application} on the target
+# servers (which is the default), you can specify the actual location
+# via the :deploy_to variable:
+set :deploy_to, &#8220;/var/rails/oupsnow-demo&#8221;
+set :deploy_via,            :remote_cache
+set :repository_cache,      &#8220;#{application}-src&#8221;
+
+
+
+# If you aren&#8217;t using Subversion to manage your source code, specify
+# your SCM below:
+# set :scm, :subversion
+set :scm, :git
+set :git_enable_submodules, 1
+
+set :runner, &#8220;rails&#8221;
+set :user, &#8220;rails&#8221;
+set :use_sudo, false
+set :rack_up, &#8220;/etc/thin/oupsnow-demo.ru&#8221;
+set :merb_port, 46000
+
+role :app, domain
+role :web, domain
+role :db,  domain, :primary => true
+
+task :update_config, :roles => [:app] do
+  run &#8220;ln -s #{shared_path}/config/database.yml #{release_path}/config/database.yml&#8221;
+end
+
+namespace :deploy do
+  task :start, :roles => [:app] do
+    run &#8220;merb -u #{user} -G #{user} -d -c 1 -p #{merb_port} -n #{application} -a thin -e production -m &#8216;#{deploy_to}/current/&#8217;&#8221;
+  end
+
+  task :stop, :roles => [:app] do
+    run &#8220;merb -u #{user} -G #{user} -d -c 1 -K all -p #{merb_port} -n #{application} -a thin -e production -m &#8216;#{deploy_to}/current/&#8217;&#8221;
+  end
+
+  task :restart, :roles => [:app] do
+    deploy.stop
+    deploy.start
+  end
+end
+
+after &#8220;deploy:update_code&#8221;, :update_config
+</typo:code>
+
+<p><a href="http://blog.shingara.fr/en/2009-01-21-oupsnow-0-1-0-released.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -692,54 +792,6 @@ AÉÈB
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/la-rails-party-fini-voici-les-slides.html">La Rails party fini, voici les slides</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-02T00:00:00+01:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2008</time>
-        
-         | <a href="/la-rails-party-fini-voici-les-slides.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://blog.shingara.fr/2008/11/21/la-before-paris-on-rails-cest-la-rails-party-le-30-novembre-2008">La Rails party</a> est désormais fini. Comme prévu, j&#8217;y ai fait 3 présentations. Je vous joins ici les PDF de ces présentations sous licence CC</p>
-
-<ul>
-<li><a href="http://shingara.fr/export/initiation-rails-rspec.pdf">Initiation à Rails et Rspec</a></li>
-<li><a href="http://shingara.fr/export/migration-rails-2.0-2.2.pdf">Migration d&#8217;une application de Rails 2.0 à Rails 2.2 avec Typo comme exemple</a></li>
-<li><a href="http://shingara.fr/export/pictrails-20081130.pdf">Présentation de Pictrails</a></li>
-</ul>
-
-<p>Cette après midi a vraiment été très enrichissante. Énormément de bonne présentation. Quand on sait que tout cela a été réalisé en presque seulement 6 semaines, un grand chapeau au vice-président de RubyFrance Jean-François Trân.</p>
-
-<p>Grâce à cet évènement, j&#8217;ai pu découvrir un peu plus en profondeur la communauté Rails. Elle est vraiment très enrichissante. Beaucoup de discussion se sont engagées toutes plus intéressantes les une que les autres. Vivement que l&#8217;on se retrouve tous à nouveau. On pourra coder encore plus de <a href="http://typosphere.org">Typo</a> :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -755,6 +807,10 @@ AÉÈB
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -792,20 +848,16 @@ AÉÈB
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

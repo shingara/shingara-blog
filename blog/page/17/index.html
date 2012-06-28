@@ -9,7 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Je voulais faire un petit billet, pour remercier ce très cher Marco d&#8217;Itri. Grâce à lui, je me suis retrouvé ce matin avec un ordinateur &hellip;">
+  <meta name="description" content="Avec un ami, nous utilisons tous les deux le logiciel weechat.
+J&#8217;ai adopté ce logiciel pour quatre points : Son environnement ncurse, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,116 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/plugin-sound-pl-de-weechat.html">Plugin sound.pl de weechat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-10-07T00:00:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
+        
+         | <a href="/plugin-sound-pl-de-weechat.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Avec un ami, nous utilisons tous les deux le logiciel <a href="http://weechat.flashtux.org">weechat</a>.
+J&#8217;ai adopté ce logiciel pour quatre points :
+</p>
+
+<ul>
+<li>Son environnement ncurse, environnement que j&#8217;utilisais déjà avec IRSSI.</li>
+<li>Sa rapidité de développement. En effet ce projet a de fréquente release. On
+  me dira que c&#8217;est normal vu que irssi a déjà tout et donc il n&#8217;a plus rien à ajouter.
+  Mais cela serait un énorme troll et ce n&#8217;est pas mon but ici.</li>
+<li>La possibilité de voir le nom des personnes connectés sur le salon</li>
+<li>sa facilité de configuration à partir d&#8217;un simple fichier de configuration.</li>
+</ul>
+
+<p>
+Comme je fais tourner ce logiciel dans un screen, j&#8217;ai voulu que pour chaque Highlight et
+message en privé, un son me soit envoyé pour ainsi pouvoir répondre si le temps me le permet.
+</p>
+<p>
+Après quelque recherche sur le site de weechat, j&#8217;ai découvert un plugin déjà existant qui permettait
+de faire cela. Il s&#8217;agit du script sound.pl. Il est réalisé en perl. Après m&#8217;être battu sur sa configuration
+et avoir
+constaté que mon ami ce battait aussi sur le même problème, j&#8217;ai pris le taureau par les cornes et
+j&#8217;ai décidé de voir où était le problème et le patcher le cas échéant.
+</p>
+<p>
+Voici donc le symptôme que j&#8217;ai constaté :
+</p>
+<p>
+Si le script est lancé une fois sans avoir été modifié au préalable, nous
+  avons beau modifier le fichier sound.pl pour indiquer les nouvelles valeurs de commande,
+  celle-ci ne sont pas prise en compte. J&#8217;ai donc découvert que dans le fichier ~/.weechat/plugin.rc,
+  les valeurs pour les commandes à effectuer en cas de highlight sont celle d&#8217;origine et non celle indiqué
+  dans mon fichier. Si je modifie ces valeurs directement dans le fichier ~/.weechat/plugin.rc, les
+  commandes sont effectuées lors du highlight suivant.
+</p>
+<p>
+Mes connaissances en perl sont limité, mais je pensais bien que le problème constaté devait avoir une
+raison assez simple. En éditant le code, j&#8217;ai donc trouvé les lignes incriminés. Il s&#8217;agit des lignes 41, 42 et 43.
+</p>
+<p>
+Sur ces lignes, le programme va chercher si les valeurs cmd_highlight, cmd_pv et cmd_ctcp existent et
+si elles n&#8217;existent pas, le programme va les créer et les initialiser avec les valeurs définis plus haut dans le programme.
+Par contre, il n&#8217;y a aucune vérification d&#8217;un changement de valeur. En effet si cette fois-ci nous rajoutons un
+test de vérification de changement de valeur, les valeurs sont changé. Ainsi l&#8217;utilisateur une fois avoir redéfini
+ses valeurs dans le fichier sound.pl devra juste relancer le script et les nouvelles valeurs seront remplacées dans le
+~/.weechat/plugin.rc
+</p>
+<p>
+Voici donc le patch que je préconise :
+</p>
+
+<pre>
+--- sound.pl    2006-10-06 23:46:22.000000000 +0200
++++ sound-0.4.pl        2006-10-06 23:46:06.000000000 +0200
+@@ -39,8 +39,11 @@
+
+ weechat::register("Sound", $version, "", "Sound for highlights/privates & CTCP sound events");
+ weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") eq "");
++weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") ne $default_cmd_highlight);
+ weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") eq "");
++weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") ne $default_cmd_pv );
+ weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") eq "");
++weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") ne $default_cmd_ctcp);
+
+ weechat::add_message_handler("PRIVMSG", "sound");
+ weechat::add_message_handler("weechat_highlight", "highlight");
+</pre>
+
+<p>
+ Je vais soumettre ce patch à l&#8217;auteur du script. En tout cas, j&#8217;espère que cette petite explication permettra au
+ prochain utilisateur de weechat avec son plugin sound.pl de moins bloquer sur la configuration du plugin.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -586,52 +697,6 @@ Tout est revenu dans l&#8217;ordre. Pour essayer que ce petit problème ne soit 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/installation-plugin-java-1-5-sur-firefox.html">Installation plugin Java 1.5 sur firefox</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-03-10T00:00:00+01:00" pubdate data-updated="true">Mar 10<span>th</span>, 2006</time>
-        
-         | <a href="/installation-plugin-java-1-5-sur-firefox.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Suite à mon précédent billet expliquant comment installer java à partir des sources sur sa debian, je vais expliquer maintenant comment mettre le plugin java sur firefox. C&#8217;est toujours pratique.
-</p>
-<p>
-Je vais supposer que le dossier où est java est le dossier <code>/opt/jdk1.5_0_6/</code>. Pour mettre en place le plug-in, il suffit juste de faire un lien symbolique dessus comme ceci :
-</p>
-<ul>
-<li><code>#ln -s /opt/jdk1.5.0_06/jre/plugin/i386/ns7/libjavaplugin_oji.so /usr/lib/firefox/plugins/</code></li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -647,6 +712,10 @@ Je vais supposer que le dossier où est java est le dossier <code>/opt/jdk1.5_0_
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -684,20 +753,16 @@ Je vais supposer que le dossier où est java est le dossier <code>/opt/jdk1.5_0_
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>tester ses vues rabl - Shiny happy people coding</title>
+  <meta name="author" content="Cyril Mougel">
+
+  
+  <meta name="description" content="Personnelement, quand je fais des API, j&#8217;utilise le gem
+Rabl. Je trouve ce gems vraiment
+génial. Avant son utilisation, je faisais mes API json &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.shingara.fr/tester-ses-vues-rabl.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Shiny happy people coding" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11352302-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Shiny happy people coding</a></h1>
+  
+    <h2>Codons avec le sourire</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.shingara.fr" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">tester ses vues rabl</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T09:40:00+02:00" pubdate data-updated="true">Jun 28<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Personnelement, quand je fais des API, j&#8217;utilise le gem
+<a href="https://github.com/nesquena/rabl">Rabl</a>. Je trouve ce gems vraiment
+génial. Avant son utilisation, je faisais mes API json avec la méthode
+<code>#to_json</code>. Mais pour ceux qui l&#8217;on utilisé, vous savez que c&#8217;est un
+enfer à maintenir. Surtout si vous avez plusieurs type de représentation
+de votre objet à différent endroit.</p>
+
+<h1>Rabl la simplicité d&#8217;expression</h1>
+
+<p>Pour gérer ses vues en JSON ou XML, les gems classique sont <code>JBuilder</code>
+et <code>XmlBuilder</code>. Deux gems réalisées par DHH. Mais, personnelement, je
+les trouves assez verbeuses comme vues. A contrario, Rabl a une syntaxe
+trés simplifiée. On peux ausi avoir un système de partial qui permet une
+réutilisation compléte. Petit bonus par rapport à JBuilder/XmlBuilder
+est qu&#8217;il utilise la même vue pour générer du XML ou du JSON. Donc pas
+besoin de faire plusieurs vues en fonction du format de sortie.</p>
+
+<p>Voici un example de vue Rabl :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">object</span> <span class="vi">@post</span>
+</span><span class='line'><span class="n">attribute</span> <span class="ss">:content</span>
+</span><span class='line'><span class="n">child</span><span class="p">(</span><span class="ss">:author</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">attribute</span> <span class="ss">:firstname</span><span class="p">,</span> <span class="ss">:lastname</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Tester sa vue Rabl</h1>
+
+<p>Pour tester le résultat de cette vue Rabl, deux possibilités s&#8217;offre à
+nous. Un test de la génération de la vue par un test d&#8217;intégration
+couplé avec le test du controller, soit un test de la vue. Finalement
+tester une vue Rabl c&#8217;est ni plus ni moins que tester un retour de la
+méthode <code>#to_json</code>. Donc si nous testons notre vue directement à partir
+des données passées, c&#8217;est plus rapide et plus unitaire.</p>
+
+<p>Depuis la version 0.6.0 de Rabl, une méthode permet de générer la vue
+directement. C&#8217;est cela que nous allons utiliser pour faire notre test
+de vue.</p>
+
+<p>Voici donc un test de notre vue ( défini dans
+<code>spec/views/posts/show_rabl_spec.rb</code> )</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">describe</span> <span class="s2">&quot;blogs/show.rabl&quot;</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:auhor</span><span class="p">)</span> <span class="p">{</span> <span class="no">Author</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Cyril&#39;</span><span class="p">,</span> <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mougel&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:blog</span><span class="p">)</span> <span class="p">{</span> <span class="no">Blog</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:valid_json</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="n">blog</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>          <span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">firstname</span><span class="p">,</span>
+</span><span class='line'>          <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">lastname</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:render</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="no">Rabl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">blog</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;blog/show&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:view_path</span> <span class="o">=&gt;</span> <span class="s1">&#39;app/views&#39;</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">it</span> <span class="s1">&#39;should render valid_json&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">render</span><span class="o">.</span><span class="n">should</span> <span class="n">eql</span><span class="p">(</span><span class="n">valid_json</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On obtient ainsi un test unitaire vraiment simple et une validation
+compléte du json obtenu. Le test est vraiment très rapide et n&#8217;est pas
+pollué par le test du controller.</p>
+
+<p>J&#8217;ai par contre découvert des limitations à ce test car, on ne peux
+passer à la méthode <code>#render</code> que les objects définis par <code>object</code> ou
+<code>collection</code>. Si on veux tester une vue rabl qui utilise plusieurs
+variables, la tâche devient très hardu. J&#8217;ai donc commencé à proposer un
+<a href="https://github.com/nesquena/rabl/pull/261">Pull Request</a> pour passer directement des variables dans sa vue Rabl, de
+la même méthode que les partials avec l&#8217;options <code>:locals</code>. Vous pouvez
+la <a href="https://github.com/nesquena/rabl/pull/261">suivre sur github</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Cyril Mougel</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-28T09:40:00+02:00" pubdate data-updated="true">Jun 28<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rabl/'>rabl</a>, <a class='category' href='/blog/categories/rspec/'>rspec</a>, <a class='category' href='/blog/categories/test/'>test</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/tester-ses-vues-rabl.html" data-via="shingara" data-counturl="http://blog.shingara.fr/tester-ses-vues-rabl.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/vundle-ou-le-bundler-de-vim.html" title="Previous Post: vundle ou le bundler de vim">&laquo; vundle ou le bundler de vim</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l'aide au staging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("shingara", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/shingara" class="twitter-follow-button" data-show-count="true">Follow @shingara</a>
+  
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Cyril Mougel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.shingara.fr/tester-ses-vues-rabl.html';
+        var disqus_url = 'http://blog.shingara.fr/tester-ses-vues-rabl.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

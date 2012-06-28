@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-06-08T15:07:48+02:00</updated>
+  <updated>2012-06-28T10:37:17+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,134 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[tester ses vues rabl]]></title>
+    <link href="http://blog.shingara.fr/tester-ses-vues-rabl.html"/>
+    <updated>2012-06-28T09:40:00+02:00</updated>
+    <id>http://blog.shingara.fr/tester-ses-vues-rabl</id>
+    <content type="html"><![CDATA[<p>Personnelement, quand je fais des API, j&#8217;utilise le gem
+<a href="https://github.com/nesquena/rabl">Rabl</a>. Je trouve ce gems vraiment
+génial. Avant son utilisation, je faisais mes API json avec la méthode
+<code>#to_json</code>. Mais pour ceux qui l&#8217;on utilisé, vous savez que c&#8217;est un
+enfer à maintenir. Surtout si vous avez plusieurs type de représentation
+de votre objet à différent endroit.</p>
+
+<h1>Rabl la simplicité d&#8217;expression</h1>
+
+<p>Pour gérer ses vues en JSON ou XML, les gems classique sont <code>JBuilder</code>
+et <code>XmlBuilder</code>. Deux gems réalisées par DHH. Mais, personnelement, je
+les trouves assez verbeuses comme vues. A contrario, Rabl a une syntaxe
+trés simplifiée. On peux ausi avoir un système de partial qui permet une
+réutilisation compléte. Petit bonus par rapport à JBuilder/XmlBuilder
+est qu&#8217;il utilise la même vue pour générer du XML ou du JSON. Donc pas
+besoin de faire plusieurs vues en fonction du format de sortie.</p>
+
+<p>Voici un example de vue Rabl :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">object</span> <span class="vi">@post</span>
+</span><span class='line'><span class="n">attribute</span> <span class="ss">:content</span>
+</span><span class='line'><span class="n">child</span><span class="p">(</span><span class="ss">:author</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">attribute</span> <span class="ss">:firstname</span><span class="p">,</span> <span class="ss">:lastname</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Tester sa vue Rabl</h1>
+
+<p>Pour tester le résultat de cette vue Rabl, deux possibilités s&#8217;offre à
+nous. Un test de la génération de la vue par un test d&#8217;intégration
+couplé avec le test du controller, soit un test de la vue. Finalement
+tester une vue Rabl c&#8217;est ni plus ni moins que tester un retour de la
+méthode <code>#to_json</code>. Donc si nous testons notre vue directement à partir
+des données passées, c&#8217;est plus rapide et plus unitaire.</p>
+
+<p>Depuis la version 0.6.0 de Rabl, une méthode permet de générer la vue
+directement. C&#8217;est cela que nous allons utiliser pour faire notre test
+de vue.</p>
+
+<p>Voici donc un test de notre vue ( défini dans
+<code>spec/views/posts/show_rabl_spec.rb</code> )</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">describe</span> <span class="s2">&quot;blogs/show.rabl&quot;</span> <span class="k">do</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:auhor</span><span class="p">)</span> <span class="p">{</span> <span class="no">Author</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Cyril&#39;</span><span class="p">,</span> <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mougel&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:blog</span><span class="p">)</span> <span class="p">{</span> <span class="no">Blog</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:valid_json</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="n">blog</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:author</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span><span class='line'>          <span class="ss">:firstname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">firstname</span><span class="p">,</span>
+</span><span class='line'>          <span class="ss">:lastname</span> <span class="o">=&gt;</span> <span class="n">author</span><span class="o">.</span><span class="n">lastname</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">let</span><span class="p">(</span><span class="ss">:render</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="no">Rabl</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+</span><span class='line'>        <span class="n">blog</span><span class="p">,</span>
+</span><span class='line'>        <span class="s1">&#39;blog/show&#39;</span><span class="p">,</span>
+</span><span class='line'>        <span class="ss">:view_path</span> <span class="o">=&gt;</span> <span class="s1">&#39;app/views&#39;</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">it</span> <span class="s1">&#39;should render valid_json&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">render</span><span class="o">.</span><span class="n">should</span> <span class="n">eql</span><span class="p">(</span><span class="n">valid_json</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On obtient ainsi un test unitaire vraiment simple et une validation
+compléte du json obtenu. Le test est vraiment très rapide et n&#8217;est pas
+pollué par le test du controller.</p>
+
+<p>J&#8217;ai par contre découvert des limitations à ce test car, on ne peux
+passer à la méthode <code>#render</code> que les objects définis par <code>object</code> ou
+<code>collection</code>. Si on veux tester une vue rabl qui utilise plusieurs
+variables, la tâche devient très hardu. J&#8217;ai donc commencé à proposer un
+<a href="https://github.com/nesquena/rabl/pull/261">Pull Request</a> pour passer directement des variables dans sa vue Rabl, de
+la même méthode que les partials avec l&#8217;options <code>:locals</code>. Vous pouvez
+la <a href="https://github.com/nesquena/rabl/pull/261">suivre sur github</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[vundle ou le bundler de vim]]></title>
@@ -403,7 +531,10 @@ fichiers.</p>
 <noscript><pre><code>require 'faraday'
 require 'faraday_middleware'
 
+url_project = 'https://ciblonet.basecamphq.com'
 project_id = 3684800
+user_name = 'shingara'
+password = 'xxxx'
 
 class Attachment
 
@@ -421,39 +552,68 @@ class Attachment
     collection
   end
 
-  def execute
+  def fetch
     File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
   end
 end
 
-con = Faraday.new(:url =&gt; 'https://ciblonet.basecamphq.com') do |builder|
-  builder.use Faraday::Request::BasicAuthentication, 'shingara', ''
+class Attachments
+  def initialize(conn, project_id, step=nil)
+    @conn = conn
+    @project_id = project_id
+    @attachments_index = 100
+    @step = step
+  end
+
+  def url
+    if @step
+      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
+    else
+      &quot;/projects/#{@project_id}/attachments.xml&quot;
+    end
+  end
+
+  def entries
+    @entries ||= @conn.get(url) do |req|
+      req.headers['Accept'] = 'application/xml'
+      req.headers['Content-Type'] = 'application/xml'
+    end.body['attachments']
+  end
+
+  def fetch
+    entries.each do |attachment|
+      Attachment.new(@conn, attachment).fetch
+    end
+  end
+
+  def more?
+    entries.size &gt; 99
+  end
+end
+
+
+class FetchAttachments
+
+  def self.execute(conn, project_id)
+    a = Attachments.new(conn, project_id)
+    a.fetch
+    step = 100
+    while a.more?
+      a = Attachments.new(conn, project_id, step)
+      a.fetch
+      step += 100
+    end
+  end
+end
+
+con = Faraday.new(:url =&gt; url_project) do |builder|
+  builder.use Faraday::Request::BasicAuthentication, user_name, password
   builder.use Faraday::Response::Logger
   builder.response :xml,  :content_type =&gt; /\bxml$/
   builder.use Faraday::Adapter::NetHttp
 end
-attachment_size = 100
 
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-
-while attachments.size &gt; 99
-  attachments = con.get(&quot;/projects/#{project_id}/attachments.xml?n=#{attachment_size}&quot;) do |req|
-    req.headers['Accept'] = 'application/xml'
-    req.headers['Content-Type'] = 'application/xml'
-  end.body['attachments']
-
-  attachments.each do |attachment|
-    Attachment.new(con, attachment).execute
-  end
-  attachment_size += 100
-end
+FetchAttachments.execute(con, project_id)
 </code></pre></noscript></div>
 
 
@@ -1216,46 +1376,6 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
 </typo:code>
 
 <p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Pourquoi Rspec au lieu de Test::Unit?]]></title>
-    <link href="http://blog.shingara.fr/pourquoi-rspec-au-lieu-de-test-unit.html"/>
-    <updated>2009-10-04T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr/pourquoi-rspec-au-lieu-de-test-unit</id>
-    <content type="html"><![CDATA[<p>Dernièrement, on m&#8217;a posé la question toute bête :</p>
-
- <p><strong>Pourquoi Rspec au lieu de Test::Unit ?</strong>
-
- <p>C&#8217;est vrai que je suis un adepte de <a href="http://rspec.info/">Rspec</a> et que je n&#8217;utilise que ça si c&#8217;est possible. mais je
- n&#8217;ai jamais expliqué ici clairement ce qui me pousse dans ce choix. Donc
- voici un résumé très bref de mon choix.</p>
-
- <h2>Les formateurs</h2>
-
-<p>
- Une des options méconnues de Rspec est la possibilité de définir son formateur.
- Il existe ainsi plusieurs formateurs base. On peux ainsi avoir un retour
- direct sous format HTML ou text avec les points ( classique avec Test::Unit).
- Mais certain formateur peuvent aussi calculer le temps que dure un exemple.
- Ainsi nous avons une facilité de détection des test les plus lent pour les
- refactorer et essayer d&#8217;améliorer le temps de réalisation de ses tests. Dans ce sens, j&#8217;ai moi même créer mon <a href="http://github.com/shingara/rspec-formatter">propre formateur Rspec</a>.
-</p>
-
- <h2>Les tests partagés</h2>
-
-<p>
-Rspec dispose d&#8217;une possibilité sous estimés, les tests partagés. En effet, on peux définir
- certain jeux de test comme &#8220;partageable&#8221; on a ainsi la possibilité de les
- incorporer facilement dans divers tests. C&#8217;est une fonction vraiment pratique
- dans le cadre de test fonctionnel principalement. Plus besoin de
- copier/coller son code. :)
-</p>
-
-<h2>Compatibilité Test::Unit</h2>
-
-<p>Le passage a Rspec est assez aisé de part sa compatibilité avec Test::Unit. En effet, si vous n&#8217;êtes pas familier ou que vous n&#8217;aimez pas la formalation <code>my_array.should be_empty</code>, rien ne vous y oblige. Vous pouvez tout à fait utiliser la syntaxe Test::Unit <code>assert my_array.empty?</code>. La migration s&#8217;en trouve très largement aisée.</p>
 ]]></content>
   </entry>
   

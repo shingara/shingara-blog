@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Actuellement à fond sur mon projet Rails pour l&#8217;école, je me suis heurté à un problème tout bête et je n&#8217;ai trouvé aucune documentation &hellip;">
+  <meta name="description" content="Voici une nouvelle tâche rake qui a été ajouté à Rails à partir de la révision 7149, suite au ticket #8795. Je trouve cette tâche assez intéressante &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes.html">Nouvelle tâche rake sur Rails : rake routes</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
+        
+         | <a href="/nouvelle-ta%CC%82che-rake-sur-rails-rake-routes.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Voici une nouvelle tâche rake qui a été ajouté à Rails à partir de la révision 7149, suite au ticket #8795. Je trouve cette tâche assez intéressante pour la blogger et en parler. Grâce à elle on arrivera à retrouver très rapidement toutes les routes que nous avons défini. Ca sera vraiment très pratique pour lire un code existant et retrouvé des routes.
+</p>
+
+<p>
+Si par hasard vous souhaitez déjà l&#8217;utiliser, c&#8217;est assez facile. il suffit de récupérer le fichier <a href="http://dev.rubyonrails.org/browser/trunk/railties/lib/tasks/routes.rake">routes.rake</a> sur le trunk et le mettre dans son projet dans votre dossier /lib/tasks/. Immédiatement vous pourrez le tester avec un petit <code>rake routes</code>. J&#8217;adore.
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -622,44 +666,6 @@ Est-ce un bug ou pas ?
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ssh-et-le-host-deny.html">ssh et le host.deny</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-03-20T00:00:00+01:00" pubdate data-updated="true">Mar 20<span>th</span>, 2007</time>
-        
-         | <a href="/ssh-et-le-host-deny.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Pour toutes les personnes comme moi qui ont des problèmes avec la connection en ssh à partir d&#8217;un ordinateur et uniquement celui-ci. Première chose à faire ? vérifier que le fichier /etc/hosts.deny n&#8217;a pas votre IP ou Host. Moi j&#8217;ai réussi à me bloquer tout seul. Bon <a href="http://denyhosts.sourceforge.net">denyhost</a> y est aussi surement pour quelque chose.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -675,6 +681,10 @@ Est-ce un bug ou pas ?
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -712,20 +722,16 @@ Est-ce un bug ou pas ?
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="J&#8217;ai suivi les explications d&#8217;un tuto trouve sur le site doc.ubuntu-fr.org pour faire la modification suivante principalement des &hellip;">
+  <meta name="description" content="Suite à mon précédent billet expliquant comment installer java à partir des sources sur sa debian, je vais expliquer maintenant comment mettre le &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/installation-plugin-java-1-5-sur-firefox.html">Installation plugin Java 1.5 sur firefox</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-03-10T00:00:00+01:00" pubdate data-updated="true">Mar 10<span>th</span>, 2006</time>
+        
+         | <a href="/installation-plugin-java-1-5-sur-firefox.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Suite à mon précédent billet expliquant comment installer java à partir des sources sur sa debian, je vais expliquer maintenant comment mettre le plugin java sur firefox. C&#8217;est toujours pratique.
+</p>
+<p>
+Je vais supposer que le dossier où est java est le dossier <code>/opt/jdk1.5_0_6/</code>. Pour mettre en place le plug-in, il suffit juste de faire un lien symbolique dessus comme ceci :
+</p>
+<ul>
+<li><code>#ln -s /opt/jdk1.5.0_06/jre/plugin/i386/ns7/libjavaplugin_oji.so /usr/lib/firefox/plugins/</code></li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,88 +582,9 @@ Un jour il faudra que je comprenne l&#8217;informatique materielle, car la c&#82
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/mon-premier-script-perl.html">Mon premier script Perl</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2005</time>
-        
-         | <a href="/mon-premier-script-perl.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Eh bien, voila. Cela faisait plusieurs semaines maintenant que je suis en plein apprentissage du perl. Je tente de l&#8217;apprendre par moi-meme grace a une methode qui se normalement nous apprend le perl 5 en 21 jours. Personnelement ca fait deja plus de 21 jours que je tente de lire cette methode et j&#8217;en suis encore au jour 15. Mais la fin de la methode approche. Le deuxieme avantage pour moi de cette methode est qu&#8217;elle est completement rediger en anglais. Donc je suis bien obliger de lire l&#8217;anglais.
-</p>
-
-<p>
-Mais ceci me sort du sujet qui est mon premier script perl. J&#8217;ai quand meme mis 2 jours a le realiser. C&#8217;est la que l&#8217;on voit que certaine chose prenne beaucoup plus de temps que d&#8217;autre. Ce script perl est un script qui s&#8217;utilise avec le client irc <a href="http://www.irssi.org">irssi</a>.<br />
-Son but est aussi tres simple.<br />
-Sur beaucoup de client irc, il y a la commande /amsg qui existe et qui permet de dire sur plusieurs channel en meme temps la meme phrase. Hors irssi n&#8217;a pas implemente cette fonction. Apres discution avec certaine personne sur le channel officiel de Irssi (#irssi sur le server irc.freenode.net), j&#8217;ai appris qu&#8217;il considere cette fonction comme une sorte de flood. C&#8217;est pourquoi je ne leur enverrais donc pas mon mini script.<br />
-J&#8217;ai donc fait une fonction que j&#8217;ai nommer /helloall qui permet d&#8217;envoyer sur tous les chans ont la personne est connecter, la meme phrase. La petite amelioration par rapport a /amsg est que ma fonction est multiserver, contrairement a /amsg qui est ce que l&#8217;on peux appeler &#8220;uniserver&#8221;. Mais treve de parole, voici mon petit code :)</p>
-
-<p><code>
-#!/usr/bin/perl<br />
-<br />
-use Irssi;<br />
-use strict;<br />
-use vars qw($VERSION %IRSSI);<br />
-<br />
-$VERSION = '0.10';<br />
-%IRSSI = (<br />
-    authors     => 'Cyril Mougel',<br />
-    contact     => 'cyril.mougel [AT] gmail [DOT] com',<br />
-    name        => 'helloall',<br />
-    description => 'it\'s useless',<br />
-    license     => 'GPL',<br />
-);<br />
-<br />
-<br />
-sub cmd_helloall {<br />
-# message : param for the message to send all chan<br />
-<br />
-   my ($message) = @_;<br />
-<br />
-   foreach my $server (Irssi::servers()){<br />
-      Irssi::print(" We were in the server : $server");<br />
-<br />
-      foreach my $chan ($server->channels){<br />
-         Irssi::print("Message send to $chan->{name}, with $message");<br />
-         $server->command("msg ".$chan->{name}." $message");<br />
-      }<br />
-   }<br />
-}<br />
-<br />
-Irssi::command_bind('helloall', 'cmd_helloall');<br />
-</code></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/19/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -630,6 +597,10 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -667,20 +638,16 @@ Irssi::command_bind('helloall', 'cmd_helloall');<br />
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){

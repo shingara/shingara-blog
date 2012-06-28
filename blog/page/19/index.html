@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Shiny happy people coding</title>
+  <meta name="author" content="Cyril Mougel">
+
+  
+  <meta name="description" content="Eh bien, voila. Cela faisait plusieurs semaines maintenant que je suis en plein apprentissage du perl. Je tente de l&#8217;apprendre par moi-meme &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.shingara.fr/blog/page/19/index.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Shiny happy people coding" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11352302-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Shiny happy people coding</a></h1>
+  
+    <h2>Codons avec le sourire</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.shingara.fr" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/mon-premier-script-perl.html">Mon premier script Perl</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2005-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2005</time>
+        
+         | <a href="/mon-premier-script-perl.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Eh bien, voila. Cela faisait plusieurs semaines maintenant que je suis en plein apprentissage du perl. Je tente de l&#8217;apprendre par moi-meme grace a une methode qui se normalement nous apprend le perl 5 en 21 jours. Personnelement ca fait deja plus de 21 jours que je tente de lire cette methode et j&#8217;en suis encore au jour 15. Mais la fin de la methode approche. Le deuxieme avantage pour moi de cette methode est qu&#8217;elle est completement rediger en anglais. Donc je suis bien obliger de lire l&#8217;anglais.
+</p>
+
+<p>
+Mais ceci me sort du sujet qui est mon premier script perl. J&#8217;ai quand meme mis 2 jours a le realiser. C&#8217;est la que l&#8217;on voit que certaine chose prenne beaucoup plus de temps que d&#8217;autre. Ce script perl est un script qui s&#8217;utilise avec le client irc <a href="http://www.irssi.org">irssi</a>.<br />
+Son but est aussi tres simple.<br />
+Sur beaucoup de client irc, il y a la commande /amsg qui existe et qui permet de dire sur plusieurs channel en meme temps la meme phrase. Hors irssi n&#8217;a pas implemente cette fonction. Apres discution avec certaine personne sur le channel officiel de Irssi (#irssi sur le server irc.freenode.net), j&#8217;ai appris qu&#8217;il considere cette fonction comme une sorte de flood. C&#8217;est pourquoi je ne leur enverrais donc pas mon mini script.<br />
+J&#8217;ai donc fait une fonction que j&#8217;ai nommer /helloall qui permet d&#8217;envoyer sur tous les chans ont la personne est connecter, la meme phrase. La petite amelioration par rapport a /amsg est que ma fonction est multiserver, contrairement a /amsg qui est ce que l&#8217;on peux appeler &#8220;uniserver&#8221;. Mais treve de parole, voici mon petit code :)</p>
+
+<p><code>
+#!/usr/bin/perl<br />
+<br />
+use Irssi;<br />
+use strict;<br />
+use vars qw($VERSION %IRSSI);<br />
+<br />
+$VERSION = '0.10';<br />
+%IRSSI = (<br />
+    authors     => 'Cyril Mougel',<br />
+    contact     => 'cyril.mougel [AT] gmail [DOT] com',<br />
+    name        => 'helloall',<br />
+    description => 'it\'s useless',<br />
+    license     => 'GPL',<br />
+);<br />
+<br />
+<br />
+sub cmd_helloall {<br />
+# message : param for the message to send all chan<br />
+<br />
+   my ($message) = @_;<br />
+<br />
+   foreach my $server (Irssi::servers()){<br />
+      Irssi::print(" We were in the server : $server");<br />
+<br />
+      foreach my $chan ($server->channels){<br />
+         Irssi::print("Message send to $chan->{name}, with $message");<br />
+         $server->command("msg ".$chan->{name}." $message");<br />
+      }<br />
+   }<br />
+}<br />
+<br />
+Irssi::command_bind('helloall', 'cmd_helloall');<br />
+</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/18/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
+    
+      <li class="post">
+        <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
+      </li>
+    
+      <li class="post">
+        <a href="/dante-pour-mettre-du-daemon-dans-son-code.html">dante pour mettre du daemon dans son code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/moped-le-nouveau-driver-mongodb-pour-ruby.html">moped le nouveau driver mongodb pour ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/quiet-assets-le-limiteur-de-log.html">Quiet Assets le gem qui limite les logs</a>
+      </li>
+    
+      <li class="post">
+        <a href="/telecharger-fichier-de-basecamp.html">Récupération de ses fichiers sur basecamp</a>
+      </li>
+    
+      <li class="post">
+        <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
+      </li>
+    
+      <li class="post">
+        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
+      </li>
+    
+      <li class="post">
+        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
+      </li>
+    
+      <li class="post">
+        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'shingara',
+            count: 10,
+            skip_forks: false,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("shingara", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/shingara" class="twitter-follow-button" data-show-count="true">Follow @shingara</a>
+  
+</section>
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Cyril Mougel -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'shinydevblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

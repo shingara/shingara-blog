@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Régulièrement je me pose la question de savoir où ce trouve le module qui gére le beep système dans le noyau linux. Je vais donc l&#8217;écrire ici &hellip;">
+  <meta name="description" content="Ca y est, c&#8217;est décidé, je reviens à Gentoo. J&#8217;étais depuis quelques temps sous une distribution debian. A l&#8217;époque, le temps de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/retour-a%CC%80-gentoo.html">Retour à Gentoo</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-01T00:00:00+01:00" pubdate data-updated="true">Feb 1<span>st</span>, 2007</time>
+        
+         | <a href="/retour-a%CC%80-gentoo.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, c&#8217;est décidé, je reviens à Gentoo.</p>
+
+<p>J&#8217;étais depuis quelques temps sous une distribution debian. A l&#8217;époque, le temps de compilation de Gentoo m&#8217;embêtait beaucoup et la stabilité de debian m&#8217;a convaincu. Actuellement, le temps de compilation de Gentoo est toujours selon moi un de ses défauts, mais c&#8217;est aussi ce qui fait une de ses forces de par sa flexibilité.</p>
+
+<p>J&#8217;ai aussi acquis une certaine expérience de linux qui me permet de ne pas installer ou désinstaller des paquets tous les jours et donc après avoir fait une installation propre de mon système, de n&#8217;avoir qu&#8217;a faire les updates nécessaire pour avoir une distribution stable. </p>
+
+<p>De plus ce que je trouve vraiment bien chez Gentoo est leur clarté. Si on a un problème, il y a toujours un log qui te dit où est ton problème, alors qu&#8217;avec debian, au démarrage, on n&#8217;arrive même pas à savoir ce qui est réellement lancé comme service et il y a des warning qui sont «&nbsp;normal&nbsp;». Avec gentoo, on a tout d&#8217;indiqué et on peux ainsi plus facilement résoudre les problèmes.</p>
+
+<p>Cette résolution est arrivée avec la mise à jour d&#8217;un ordinateur portable sous gentoo qui n&#8217;avait pas été mis à jour depuis pas moins de 1 an. Après de grosses difficultés dû aux différentes migrations qui ont eu lieu durant cette période (Xorg, KDE, GCC), j&#8217;ai fini par réussir à tout remettre en place et maintenant mon portable a retrouvé une deuxième jeunesse. Je suis vraiment impressionné, par la capacité de gentoo à évoluer aussi facilement avec le temps.</p>
+
+<p>Maintenant avec mon basculement vers gentoo, j&#8217;ai de nouveau envie d&#8217;aider cette communauté. Ainsi durant mes migrations et la lecture des documentations française, j&#8217;ai pu faire corriger une ou deux coquilles dans celle-ci. La réactivité de <a href="http://gentoo.neysx.org/">neyxs</a> (chef de la traduction française sur gentoo), ces coquilles ont été modifiés immédiatement. J&#8217;ai vraiment retrouvé un esprit de communauté que j&#8217;avais complètement perdu avec Debian où à chaque fois que j&#8217;arrivais sur leur channel IRC, je m&#8217;engueulais avec l&#8217;un ou l&#8217;autre des développeurs. Je pense que Gentoo est assez jeune dans sa communauté, mais elle évolue sans cesse dans le bon sens et n&#8217;a absolument pas la grosse tête. C&#8217;est vraiment génial.</p>
+
+<p>Ainsi, aujourd&#8217;hui, j&#8217;ai retrouvé mes accès au CVS de traduction de la <a href="http://www.gentoo.org/news/en/gwn/gwn.xml">Gentoo Weekly News</a> et j&#8217;ai repris pas mal de relecture que l&#8217;équipe avait hélas laissé tombé en désuétude. J&#8217;espère maintenant vraiment pouvoir participer à cette superbe communauté qu&#8217;est Gentoo.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -625,116 +675,6 @@ Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/plugin-sound-pl-de-weechat.html">Plugin sound.pl de weechat</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-10-07T00:00:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2006</time>
-        
-         | <a href="/plugin-sound-pl-de-weechat.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Avec un ami, nous utilisons tous les deux le logiciel <a href="http://weechat.flashtux.org">weechat</a>.
-J&#8217;ai adopté ce logiciel pour quatre points :
-</p>
-
-<ul>
-<li>Son environnement ncurse, environnement que j&#8217;utilisais déjà avec IRSSI.</li>
-<li>Sa rapidité de développement. En effet ce projet a de fréquente release. On
-  me dira que c&#8217;est normal vu que irssi a déjà tout et donc il n&#8217;a plus rien à ajouter.
-  Mais cela serait un énorme troll et ce n&#8217;est pas mon but ici.</li>
-<li>La possibilité de voir le nom des personnes connectés sur le salon</li>
-<li>sa facilité de configuration à partir d&#8217;un simple fichier de configuration.</li>
-</ul>
-
-<p>
-Comme je fais tourner ce logiciel dans un screen, j&#8217;ai voulu que pour chaque Highlight et
-message en privé, un son me soit envoyé pour ainsi pouvoir répondre si le temps me le permet.
-</p>
-<p>
-Après quelque recherche sur le site de weechat, j&#8217;ai découvert un plugin déjà existant qui permettait
-de faire cela. Il s&#8217;agit du script sound.pl. Il est réalisé en perl. Après m&#8217;être battu sur sa configuration
-et avoir
-constaté que mon ami ce battait aussi sur le même problème, j&#8217;ai pris le taureau par les cornes et
-j&#8217;ai décidé de voir où était le problème et le patcher le cas échéant.
-</p>
-<p>
-Voici donc le symptôme que j&#8217;ai constaté :
-</p>
-<p>
-Si le script est lancé une fois sans avoir été modifié au préalable, nous
-  avons beau modifier le fichier sound.pl pour indiquer les nouvelles valeurs de commande,
-  celle-ci ne sont pas prise en compte. J&#8217;ai donc découvert que dans le fichier ~/.weechat/plugin.rc,
-  les valeurs pour les commandes à effectuer en cas de highlight sont celle d&#8217;origine et non celle indiqué
-  dans mon fichier. Si je modifie ces valeurs directement dans le fichier ~/.weechat/plugin.rc, les
-  commandes sont effectuées lors du highlight suivant.
-</p>
-<p>
-Mes connaissances en perl sont limité, mais je pensais bien que le problème constaté devait avoir une
-raison assez simple. En éditant le code, j&#8217;ai donc trouvé les lignes incriminés. Il s&#8217;agit des lignes 41, 42 et 43.
-</p>
-<p>
-Sur ces lignes, le programme va chercher si les valeurs cmd_highlight, cmd_pv et cmd_ctcp existent et
-si elles n&#8217;existent pas, le programme va les créer et les initialiser avec les valeurs définis plus haut dans le programme.
-Par contre, il n&#8217;y a aucune vérification d&#8217;un changement de valeur. En effet si cette fois-ci nous rajoutons un
-test de vérification de changement de valeur, les valeurs sont changé. Ainsi l&#8217;utilisateur une fois avoir redéfini
-ses valeurs dans le fichier sound.pl devra juste relancer le script et les nouvelles valeurs seront remplacées dans le
-~/.weechat/plugin.rc
-</p>
-<p>
-Voici donc le patch que je préconise :
-</p>
-
-<pre>
---- sound.pl    2006-10-06 23:46:22.000000000 +0200
-+++ sound-0.4.pl        2006-10-06 23:46:06.000000000 +0200
-@@ -39,8 +39,11 @@
-
- weechat::register("Sound", $version, "", "Sound for highlights/privates & CTCP sound events");
- weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") eq "");
-+weechat::set_plugin_config("cmd_highlight", $default_cmd_highlight) if (weechat::get_plugin_config("cmd_highlight") ne $default_cmd_highlight);
- weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") eq "");
-+weechat::set_plugin_config("cmd_pv", $default_cmd_pv) if (weechat::get_plugin_config("cmd_pv") ne $default_cmd_pv );
- weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") eq "");
-+weechat::set_plugin_config("cmd_ctcp", $default_cmd_ctcp) if (weechat::get_plugin_config("cmd_ctcp") ne $default_cmd_ctcp);
-
- weechat::add_message_handler("PRIVMSG", "sound");
- weechat::add_message_handler("weechat_highlight", "highlight");
-</pre>
-
-<p>
- Je vais soumettre ce patch à l&#8217;auteur du script. En tout cas, j&#8217;espère que cette petite explication permettra au
- prochain utilisateur de weechat avec son plugin sound.pl de moins bloquer sur la configuration du plugin.
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -750,6 +690,10 @@ Voici donc le patch que je préconise :
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
+      </li>
     
       <li class="post">
         <a href="/vundle-ou-le-bundler-de-vim.html">vundle ou le bundler de vim</a>
@@ -787,20 +731,16 @@ Voici donc le patch que je préconise :
         <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
-      <li class="post">
-        <a href="/oupsnow-0-5-0-est-sortie.html">Oupsnow 0.5.0 est sortie</a>
-      </li>
-    
   </ul>
 </section>
 
 <section>
-  <h1>Github Repos</h1>
+  <h1>GitHub Repos</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating&#8230;</li>
   </ul>
   
-  <a href="https://github.com/shingara">@shingara</a> on Github
+  <a href="https://github.com/shingara">@shingara</a> on GitHub
   
   <script type="text/javascript">
     $.domReady(function(){
