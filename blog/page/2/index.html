@@ -9,7 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, j&#8217;ai presque pris un cycle de release pas trop mauvais. Ainsi après seulement un mois après la version 0.4.1 de Oupsnow, voici la &hellip;">
+  <meta name="description" content="EventMachine est une des meilleures librairies Ruby,
+tout en étant une des plus sous-estimées et mal connues. J&#8217;ai donc commencé à regarder un &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,172 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-27T00:00:00+01:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
+        
+         | <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://rubyeventmachine.com/">EventMachine</a> est une des meilleures librairies Ruby,
+tout en étant une des plus sous-estimées et mal connues.</p>
+
+<p>J&#8217;ai donc commencé à regarder un peu dans quels cas utiliser EventMachine.
+La première application que j&#8217;en ai trouvé c&#8217;est tout simplement le <a href="http://eventmachine.rubyforge.org/EventMachine/PeriodicTimer.html">PeriodicTimer</a>.</p>
+
+<p>Son utilisation la plus simple est le remplacement d&#8217;une cronjob.</p>
+
+<p>Je m&#8217;explique : une cronjob est vraiment une très bonne chose. On peut définir très précisément l&#8217;heure à laquelle on souhaite qu&#8217;une tâche s&#8217;exécute. Celle-ci s&#8217;exécute alors à ce moment précis. Cron est vraiment un outil magnifique. Cependant, dans
+le cas d&#8217;une tâche récurrente qui doit être effectuée régulièrement, l&#8217;utilisation d&#8217;un cronjob peut avoir un gros inconvénient.</p>
+
+<p>Cron n&#8217;a aucune gestion de queue. Ainsi on peut se retrouver très simplement avec une quantité astronomique de tâches essayant de s&#8217;exécuter en même temps. Votre « load » explose et il faut redémarrer votre serveur. Bien sûr cela n&#8217;arrive que si vous lancez une tâche plus fréquemment que son temps d&#8217;exécution.</p>
+
+<p>La seule solution serait d&#8217;avoir une petite application - comme : <a href="http://forge.bearstech.com/trac/wiki/JobQueue">jobq</a> - qui gére pour vous un système de queue. Bien sûr, si le fait d&#8217;avoir une queue ne sert strictement à rien, cette solution peut être un peu overkill.</p>
+
+<p>L&#8217;avantage de PeriodicTimer est que les tâches sont exécutées après un temps défini. Il n&#8217;y a aucune gestion d&#8217;heure de lancement. Il y a juste un lancement de la tâche après X secondes une fois que la précédente tâche est finie et qu&#8217;aucune autre tâche ne soit en cours d&#8217;exécution. Cela entraîne effectivement un glissement progressif de l&#8217;heure de lancement. Mais globalement, ça ne pose aucun problème. L&#8217;important est que la tâche soit exécutée régulièrement. C&#8217;est le cas, par exemple dans le cas de récupération de statistique.</p>
+
+<p>Voici <a href="http://gist.github.com/345000">un exemple de code</a> qui utilise
+PeriodicTimer</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;eventmachine&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;timeout&#39;</span>
+</span><span class='line'><span class="no">EventMachine</span><span class="o">.</span><span class="n">run</span> <span class="p">{</span>
+</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="si">}</span><span class="s2"> : I am 10&quot;</span>
+</span><span class='line'>   <span class="nb">sleep</span> <span class="mi">10</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">puts</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Voici la sortie qui est effectuée si on lance l&#8217;application pendant 50s.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">ruby</span> <span class="n">em_periodic</span><span class="o">.</span><span class="n">rb</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">43</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">44</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">45</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">46</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">47</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">48</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">58</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">59</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">00</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">01</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">02</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">03</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">04</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">05</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">06</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">18</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">20</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">21</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">22</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">23</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">25</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">27</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
+</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>On peut constater que la tâche qui doit s&#8217;exécuter toutes les
+secondes le fait bien. Par contre la tâche qui s&#8217;exécute au bout de 10
+secondes effectue un lock sur le thread. Ainsi la tâche qui s&#8217;exécute toutes
+les secondes attend que le lock soit libéré. Une fois terminée,
+l&#8217;exécution de la tâche toutes les secondes recommence. La tache qui doit s&#8217;exécuter toutes les 10
+secondes attendra, quand à elle, 10 nouvelles secondes après avoir été terminée.</p>
+
+<p>C&#8217;est là une grande puissance de PeriodicTimer. On a facilement une succession
+de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utilise plus que</p>
+
+<p>cette solution pour créer des scripts de récupération de données.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -764,62 +931,6 @@ bienvenue.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/le-logger-ruby-avec-son-bloc.html">Le logger ruby avec son bloc</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
-        
-         | <a href="/le-logger-ruby-avec-son-bloc.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous :</p>
-
-<typo:code lang="ruby">
-Logger.debug { &#8220;My object is #{self.map(&:id)}&#8221; }
-</typo:code>
-
-<p>Par défaut, on l&#8217;utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
-
-<p>La différence entre ces deux écritures ?</p>
-
-<p>La première permet d&#8217;éviter d&#8217;évaluer la chaine qui sera loggé si elle n&#8217;en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s&#8217;en faire ressentir.</p>
-
-<p>Grâce à ça, on peux facilement éviter les fameux :</p>
-
-<typo:code lang="ruby">
-Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Logger::DEBUG
-</typo:code>
-
-<p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -835,6 +946,10 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -870,10 +985,6 @@ Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Lo
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

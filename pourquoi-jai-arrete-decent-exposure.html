@@ -5,11 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Et si Rails était si génial ? - Shiny happy people coding</title>
+  <title>pourquoi j'ai arrêté decent_exposure - Shiny happy people coding</title>
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ce soir, j&#8217;ai eu la chance d&#8217;assister à trois conférences au sujet de Ruby On Rails. Ces conférences étaient issues des conférences de &hellip;">
+  <meta name="description" content="A la sortie de
+decent_exposure, j&#8217;ai été
+très enthousiaste. J&#8217;utilisais avant
+inherited_ressources, mais je
+commençais à découvrir les &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.shingara.fr/et-si-rails-e%CC%81tait-si-ge%CC%81nial.html">
+  <link rel="canonical" href="http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +83,7 @@
   
   <header>
     
-      <h1 class="entry-title">Et si Rails était si génial ?</h1>
+      <h1 class="entry-title">pourquoi j'ai arrêté decent_exposure</h1>
     
     
       <p class="meta">
@@ -95,7 +99,7 @@
   
 
 
-<time datetime="2006-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2006</time>
+<time datetime="2012-07-04T09:49:00+02:00" pubdate data-updated="true">Jul 4<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,11 +108,88 @@
   </header>
 
 
-<div class="entry-content"><p>Ce soir, j&#8217;ai eu la chance d&#8217;assister à trois conférences au sujet de <a href="http://www.rubyonrails.org/">Ruby On Rails</a>. Ces conférences étaient issues des conférences de <a href="http://paris.onrails.info/">Paris On Rails</a>.</p>
+<div class="entry-content"><p>A la sortie de
+<a href="https://github.com/voxdolo/decent_exposure">decent_exposure</a>, j&#8217;ai été
+très enthousiaste. J&#8217;utilisais avant
+<a href="https://github.com/josevalim/inherited_resources/">inherited_ressources</a>, mais je
+commençais à découvrir les problèmes de <code>inherited_resources</code>. La
+personnalisation de son controller peut vite devenir compliqué et peux
+lisible si on sort du cadre d&#8217;un controller qui soit plus qu&#8217;un CRUD
+simple. On finissait par avoir un code moyennement
+DRY et les test étaient loin d&#8217;être évident car impossible coté controller
+( limitation indiqué dans le README lui-même ).</p>
 
-<p>Après ces présentations et ma grosse difficulté à réaliser un site web en J2EE avec Struts et hibernate où pour faire une simple page, il faut remplir 4Km de fichier de configuration, je me dis vraiment que Rails c&#8217;est simple. Il te suffit de si peu de code pour faire une application web original, avec test unitaire et tout. C&#8217;est impressionnant. Par contre la réflexion que certain de mes camarades ont eu et que je comprends tout en pensant un peu la même chose c&#8217;est que finalement, a quoi sert le développeur dans tout ça ? N&#8217;est-ce pas justement pour ça que Java est si verbeux ? pour faire écrire et encore écrire le développeur ?</p>
+<p>Le grand avantage que j&#8217;ai vu dans <code>decent_exposure</code> est la facilité
+d&#8217;accès des variables dans les vues. Plus besoin de faire appel à des
+instances. On appelait simplement l&#8217;objet. Si celui-ci n&#8217;était pas
+instancié alors <code>decent_exposure</code> le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
+chargeait les objets qu&#8217;au moment ou il était nécessaire. Un eager
+loading intégré permettait d&#8217;éviter de rechercher en base plusieurs fois
+le même objet. On pouvait aussi réutiliser plusieurs fois la même vue.
+plus besoin de faire des assignations dans certaine action pour être sur
+que l&#8217;objet existe. Il suffit juste d&#8217;exposer l&#8217;objet. Après on
+l&#8217;utilise ou pas. De même l&#8217;utilisation des partials devient plus aisé
+car, on peux surcharger facilement des variables par l&#8217;usage des
+<code>locals</code>. J&#8217;y ai vu beaucoup d&#8217;intérêts.</p>
 
-<p>Au final, moi qui pensait réaliser ma prochaine application web en Python, je pense que je vais finalement la réaliser en Ruby avec RoR. En effet, même si le Python est beaucoup moins verbeux que le Java, il l&#8217;est quand même un plus que le RoR au niveau de son mapping Objet Relationnel tout du moins. Il lui manque aussi beaucoup de test unitaire et fonctionnel simple d&#8217;execution. Par contre le seul gros défaut de RoR à mon avis est quand même ses performances. Le Python semblerait plus rapide pour ça, d&#8217;après les tests disséminés sur internet et même selon les développeurs de la communauté RoR. Mais vu que je fais du Python quotidiennement à mon travail et que je vais apprendre le RoR en fin d&#8217;année dans mon cursus scolaire. Je vais donc créer mon prochain projet en Ruby On Rails et qui sait si un jour je suis assez fou pour me lancer dans l&#8217;aventure, transcrire tout RoR en Python et créer ainsi PyRor ;)</p>
+<p>Mais finalement cet intérêt n&#8217;existe que par l&#8217;usage de la méthode de
+class d&#8217;un controller <code>helper_method</code>. Si on crée soit même sa propre
+méthode avec son eager loading <code>decent_exposure</code> devient inutile.</p>
+
+<p><code>decent_exposure</code> a été pour moi un révélateur de l&#8217;utilité de la
+méthode <code>helper_method</code>. Mais à l&#8217;usage, je trouve qu&#8217;il fait
+finalement trop de chose caché si on utilise la méthode d&#8217;appel <code>expose</code>
+sans bloc. Je me suis ainsi retrouvé à faire des <code>update_attributes</code> 2
+fois sur mon objet. Un dans le <code>decent_exposure</code> l&#8217;autre dans mon
+action. Forcement ça posait quelques soucis. Quand on sait que cela peut
+arriver, pas de soucis. Mais c&#8217;est toujours embêtant de perdre quelques
+heures à débugger le problème quand on le voit. Sans compter les fois ou
+on ne le voit pas.</p>
+
+<p>Une des limitations de <code>decent_exposure</code> selon moi est l&#8217;override de
+cette méthode. Parfois pour éviter les <code>if</code> infini dans cette méthode il
+est plus judicieux de définir directement la valeur de retour de cette
+méthode dans sa méthode d&#8217;action. Cela permet de savoir exactement ce
+que retourne cette méthode, mais aussi d&#8217;éviter les conflits dans
+d&#8217;autre action.</p>
+
+<p>Pour réalisé cela ma méthode stocke en mémoisation la variable
+d&#8217;instance égale au nom de la méthode. Ainsi ma méthode ressemble à ceci
+:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">post</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">||=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="n">helper_method</span> <span class="ss">:post</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si je souhaite donc avoir un nouveau Post retourné par cette méthode
+j&#8217;ai juste à faire :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">new</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Je surcharge le retour de la méthode post par la valeur <code>Post.new</code>. Pour
+faire cela avec <code>decent_exposure</code> il faut surchargé la variable
+<code>@_resource[:post]</code>. Mais rien ne m&#8217;assure que ce nom de variable d&#8217;instance
+soit conservé dans les futurs version de <code>decent_exposure</code>. Une solution serait peut-être de créer une
+méthode <code>post=()</code> lors de l&#8217;exposition d&#8217;un <code>post</code>, mais cela devient
+peut-être moins pratique.</p>
+
+<p>Voilà donc les raisons de mon arrêt d&#8217;utilisation de <code>decent_exposure</code>.
+Je peux très facilement émuler le comportement de <code>decent_exposure</code> et
+tout ça sans aucune dépendance externe.</p>
 </div>
 
 
@@ -131,15 +212,21 @@
   
 
 
-<time datetime="2006-12-15T00:00:00+01:00" pubdate data-updated="true">Dec 15<span>th</span>, 2006</time>
+<time datetime="2012-07-04T09:49:00+02:00" pubdate data-updated="true">Jul 4<span>th</span>, 2012</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/decent-exposure/'>decent_exposure</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/et-si-rails-e%CC%81tait-si-ge%CC%81nial.html" data-via="shingara" data-counturl="http://blog.shingara.fr/et-si-rails-e%CC%81tait-si-ge%CC%81nial.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html" data-via="shingara" data-counturl="http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -152,14 +239,18 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/schemaspy-aide-les-de%CC%81veloppeurs.html" title="Previous Post: SchemaSpy aide les développeurs">&laquo; SchemaSpy aide les développeurs</a>
+        <a class="basic-alignment left" href="/tester-ses-vues-rabl.html" title="Previous Post: tester ses vues rabl">&laquo; tester ses vues rabl</a>
       
-      
-        <a class="basic-alignment right" href="/netbeans-et-eclipse-pour-du-j2ee.html" title="Next Post: NetBeans et Eclipse pour du J2EE">NetBeans et Eclipse pour du J2EE &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -277,7 +368,10 @@
       var disqus_shortname = 'shinydevblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html';
+        var disqus_url = 'http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

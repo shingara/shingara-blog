@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Adepte du Ruby, j&#8217;essaye de l&#8217;utiliser pour tout ce que je développe. A l&#8217;heure actuel, je développe principalement des &hellip;">
+  <meta name="description" content="Alors que je voulais créer un plugin pour weechat qui me permettrait d&#8217;avoir le même comportement que le plugin irssi de Davux permettant un &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/pas-de-chance-avec-weechat.html">Pas de chance avec weechat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-08-31T00:00:00+02:00" pubdate data-updated="true">Aug 31<span>st</span>, 2007</time>
+        
+         | <a href="/pas-de-chance-avec-weechat.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Alors que je voulais créer un plugin pour <a href="http://weechat.flashtux.org/">weechat</a> qui me permettrait d&#8217;avoir le même comportement que le <a href="http://da.weeno.net/code/irssi/jabber_hilight_notify/">plugin irssi de Davux permettant un highlight par XMPP</a>. Mais voilà alors que j&#8217;ai créé un script qui me semble fonctionner, je tombe sur un bug de weechat. En effet, en loadant mon script ruby, il bloque sur le require de  <a href="http://home.gna.org/xmpp4r/">XMPP4R</a> qui me permet de faire ma notification XMPP.
+</p>
+
+<p>J&#8217;ai donc réalisé un <a href="https://savannah.nongnu.org/bugs/?20945">bug</a> sur le bugtracking de Weechat. En espérant qu&#8217;il sera résolu au plus vite.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -544,44 +586,6 @@ Pour l&#8217;école, j&#8217;ai du réaliser avec d&#8217;autres personnes une a
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/utiliser-un-screen-dans-un-screen.html">Utiliser un screen dans un screen</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
-        
-         | <a href="/utiliser-un-screen-dans-un-screen.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est, j&#8217;ai enfin compris comment utiliser un <a href="http://www.gnu.org/software/screen/">screen</a> dans un <a href="http://www.gnu.org/software/screen/">screen</a>. En effet, utilisant sur mon ordinateur local un screen pour mon vim et mes serveurs de développement, je voulais aussi mettre dans un de mes screens une connection ssh à un serveur distant et utiliser aussi sur ce serveur distant un screen. C&#8217;est là que l&#8217;utilisation d&#8217;un screen dans un screen sert. Et bien c&#8217;est vraiment tout simple. Un simple Ctrl-a + a permet de faire un Ctrl-a sur le screen distant. Ainsi en tapant Ctrl-a + a + &#8221; je peux voir la liste des screens de mon screen distant.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/14/">&larr; Older</a>
@@ -597,6 +601,10 @@ Pour l&#8217;école, j&#8217;ai du réaliser avec d&#8217;autres personnes une a
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -632,10 +640,6 @@ Pour l&#8217;école, j&#8217;ai du réaliser avec d&#8217;autres personnes une a
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

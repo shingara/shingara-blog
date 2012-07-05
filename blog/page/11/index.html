@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Redmine 0.6 est sortie le 4 Novembre 2007. Redmine est application web de gestion de projet, multi-projet avec système de tracking, de news, de &hellip;">
+  <meta name="description" content="Ça y est, j&#8217;ai mis à jour ma petite plate-forme de gestion de projet tournant sous Redmine. Ayant annoncé la sortie de Redmine 0.6.0 je me &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/mise-a-jour-de-ma-platforme-de-dev-sous-redmine-0-6-0.html">Mise à jour de ma platforme de dev sous Redmine-0.6.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-11-14T00:00:00+01:00" pubdate data-updated="true">Nov 14<span>th</span>, 2007</time>
+        
+         | <a href="/mise-a-jour-de-ma-platforme-de-dev-sous-redmine-0-6-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ça y est, j&#8217;ai mis à jour ma petite <a href="http://dev.shingara.fr">plate-forme de gestion de projet</a> tournant sous <a href="http://redmine.org">Redmine</a>. Ayant annoncé <a href="http://blog.shingara.fr/articles/2007/11/09/redmine-0-6-est-sortie">la sortie de Redmine 0.6.0</a> je me devais de migrer sous cette nouvelle version.</p>
+
+<p>Encore une fois la migration fut aisé et seule quelques lignes de commandes furent nécessaire.</p>
+
+<p>En parallèle, je commence un nouveau mini-projet que je vais nommer <a href="http://dev.shingara.fr/projects/show/4">WhoToWho</a>. Ça ne sert à rien. Mais c&#8217;est fun.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -572,78 +614,6 @@ gem install rails --source http://gems.rubyonrails.org
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/creer-une-authentification-http-avec-nginx.html">Créer une authentification HTTP avec Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-10-01T00:00:00+02:00" pubdate data-updated="true">Oct 1<span>st</span>, 2007</time>
-        
-         | <a href="/creer-une-authentification-http-avec-nginx.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d&#8217;utiliser le <a href="http://wiki.codemongers.com/NginxHttpAuthBasicModule">module d&#8217;authentification basic</a>. Pour l&#8217;utiliser c&#8217;est très simple. Il suffit d&#8217;ajouter dans votre niveau d&#8217;url, les directives suivantes :</p>
-
-<ul>
-<li>auth_basic : qui permet de définir qu&#8217;il y a une authentification HTTP si il n&#8217;y a pas &#8220;off&#8221;. Le texte ainsi donnée à cette directive sera affiché pour informer l&#8217;utilisateur que l&#8217;url contactée est sécurisée par HTTP.</li>
-<li>auth_basic_user_file : donne un chemin de fichier contenant la liste des utilisateurs ayant accès à l&#8217;url avec leur mot de passe. Les mots de passes peuvent ainsi être écrit en clair ou de la même façon qu&#8217;Apache avec crypt(3). Ainsi vous pouvez directement utiliser vos anciens fichiers Apache, ce qui est très pratique.</li> 
-</ul>
-
-<p>Voici donc un exemple pour mettre une authentification HTTP sur un Vhost :</p>
-
-<pre>
-server {
-  auth_basic "Ce serveur nécessite une authentification";
-  auth_basic_user_file conf/httpassword;
-}
-</pre>
-
-<p>Exemple pour mettre une authentification HTTP sur une url :</p>
-
-<pre>
-server {
-  location /admin {
-    auth_basic "Cette partie nécessite une authentification";
-    auth_basic_user_file conf/httpassword;
-  }
-}
-</pre>
-
-<p>Exemple de fichier de gestion des utilisateurs :</p>
-
-<pre>
-# Les commentaires
-user:pass
-user2:pass2:commentaires
-user3:pass3
-</pre>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/12/">&larr; Older</a>
@@ -659,6 +629,10 @@ user3:pass3
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -694,10 +668,6 @@ user3:pass3
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

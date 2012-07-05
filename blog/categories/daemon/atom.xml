@@ -4,7 +4,7 @@
   <title><![CDATA[Category: daemon | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/daemon/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-06-28T10:38:04+02:00</updated>
+  <updated>2012-07-05T10:02:31+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -90,6 +90,8 @@ end
 <p>Je suis vraiment impressionné par ce gem qui est issu de la société
 <a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d'avoir
 d'aussi bon gem.</p>
+
+<p><a href="http://blog-en.shingara.fr/dante-lets-you-put-some-daemon-in-your-code.html">English Translation</a></p>
 ]]></content>
   </entry>
   

@@ -9,7 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Traduction de l&#8217;article de Ryan Daigle, What&#8217;s new in edge rails : Connection Pools Avec la venue prochaine de Rails thread-safe, il &hellip;">
+  <meta name="description" content="Traduction de l&#8217;article de Ryan Daigle, What&#8217;s new in edge rails
+: Mailer Layouts
+Rails a ajouté la possibilité d&#8217;utiliser des &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,69 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails.html">Quelles nouvelles dans Rails Edge : Les layouts pour les mails</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
+        
+         | <a href="/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de l&#8217;article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-mailer-layouts">What&#8217;s new in edge rails
+: Mailer Layouts</a></p>
+<p>Rails a ajouté la possibilité <a href="http://github.com/rails/rails/commit/e9a8e0053be3b293ab89fb584f1d660063f107aa">d&#8217;utiliser des layouts pour les mails</a>
+exactements comme il est actuellement possible pour leurs grand frère les
+vues. Il faut juste noté que pour qu&#8217;un layout de mail soit automatiquement
+reconnu, il doit se finir par _mailer. Donc pour un mail:</p>
+
+<typo:code lang='ruby'>
+Cass UserMailer < ActionMailer::Base
+  def registration(user)
+    subject    "You've registered"
+    from       "system@example.com"
+  end
+end
+</typo:code>
+
+<p>vous n&#8217;aurait besoin que d&#8217;un layout à <code>layouts/user_mailer.html.erb</code>. Si vous spécifiez explicitement le layout vous n&#8217;avez pas besoin du suffix _mailer. Ainsi, dans l&#8217;exemple suivant, un layout à <code>layouts/email.html.erb</code> suffit:</p>
+
+<typo:code lang='ruby'>
+class UserMailer < ActionMailer::Base
+  layout 'email'
+  ...
+end
+</typo:code>
+
+<p>A partir de maintenant, vous pouvez faire de joli petit email. Vous avez désormais tous les outils.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -715,46 +780,6 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/upgrade-de-typo-en-Typo-5-1-1.html">Upgrade de typo en Typo-5.1.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-07-22T00:00:00+02:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2008</time>
-        
-         | <a href="/upgrade-de-typo-en-Typo-5-1-1.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ce blog a été mis à jour avec succès avec la nouvelle version de <a href="http://typosphere.org/">Typo</a>. En effet, la sortie a été réalisé hier et ce blog est déjà à jour. Pour la première fois plusieurs de mes contributions sont présentes directement dans cette nouvelle mouture avec <a href="http://t37.net/sortie-de-typo-5-1-laquo-cartier-bresson-raquo#">quelques remerciement de Neuro</a>. Ca fait vraiment plaisir.</p>
-
-<p>J&#8217;ai aussi mis le thème par défaut de Typo qui est vraiment très bien. Merci à <a href="http://jeuxdemaux.com">jeuxdemaux.org</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -770,6 +795,10 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -805,10 +834,6 @@ mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

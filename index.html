@@ -9,9 +9,11 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Personnelement, quand je fais des API, j&#8217;utilise le gem
-Rabl. Je trouve ce gems vraiment
-génial. Avant son utilisation, je faisais mes API json &hellip;">
+  <meta name="description" content="A la sortie de
+decent_exposure, j&#8217;ai été
+très enthousiaste. J&#8217;utilisais avant
+inherited_ressources, mais je
+commençais à découvrir les &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +80,125 @@ génial. Avant son utilisation, je faisais mes API json &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-04T09:49:00+02:00" pubdate data-updated="true">Jul 4<span>th</span>, 2012</time>
+        
+         | <a href="/pourquoi-jai-arrete-decent-exposure.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>A la sortie de
+<a href="https://github.com/voxdolo/decent_exposure">decent_exposure</a>, j&#8217;ai été
+très enthousiaste. J&#8217;utilisais avant
+<a href="https://github.com/josevalim/inherited_resources/">inherited_ressources</a>, mais je
+commençais à découvrir les problèmes de <code>inherited_resources</code>. La
+personnalisation de son controller peut vite devenir compliqué et peux
+lisible si on sort du cadre d&#8217;un controller qui soit plus qu&#8217;un CRUD
+simple. On finissait par avoir un code moyennement
+DRY et les test étaient loin d&#8217;être évident car impossible coté controller
+( limitation indiqué dans le README lui-même ).</p>
+
+<p>Le grand avantage que j&#8217;ai vu dans <code>decent_exposure</code> est la facilité
+d&#8217;accès des variables dans les vues. Plus besoin de faire appel à des
+instances. On appelait simplement l&#8217;objet. Si celui-ci n&#8217;était pas
+instancié alors <code>decent_exposure</code> le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
+chargeait les objets qu&#8217;au moment ou il était nécessaire. Un eager
+loading intégré permettait d&#8217;éviter de rechercher en base plusieurs fois
+le même objet. On pouvait aussi réutiliser plusieurs fois la même vue.
+plus besoin de faire des assignations dans certaine action pour être sur
+que l&#8217;objet existe. Il suffit juste d&#8217;exposer l&#8217;objet. Après on
+l&#8217;utilise ou pas. De même l&#8217;utilisation des partials devient plus aisé
+car, on peux surcharger facilement des variables par l&#8217;usage des
+<code>locals</code>. J&#8217;y ai vu beaucoup d&#8217;intérêts.</p>
+
+<p>Mais finalement cet intérêt n&#8217;existe que par l&#8217;usage de la méthode de
+class d&#8217;un controller <code>helper_method</code>. Si on crée soit même sa propre
+méthode avec son eager loading <code>decent_exposure</code> devient inutile.</p>
+
+<p><code>decent_exposure</code> a été pour moi un révélateur de l&#8217;utilité de la
+méthode <code>helper_method</code>. Mais à l&#8217;usage, je trouve qu&#8217;il fait
+finalement trop de chose caché si on utilise la méthode d&#8217;appel <code>expose</code>
+sans bloc. Je me suis ainsi retrouvé à faire des <code>update_attributes</code> 2
+fois sur mon objet. Un dans le <code>decent_exposure</code> l&#8217;autre dans mon
+action. Forcement ça posait quelques soucis. Quand on sait que cela peut
+arriver, pas de soucis. Mais c&#8217;est toujours embêtant de perdre quelques
+heures à débugger le problème quand on le voit. Sans compter les fois ou
+on ne le voit pas.</p>
+
+<p>Une des limitations de <code>decent_exposure</code> selon moi est l&#8217;override de
+cette méthode. Parfois pour éviter les <code>if</code> infini dans cette méthode il
+est plus judicieux de définir directement la valeur de retour de cette
+méthode dans sa méthode d&#8217;action. Cela permet de savoir exactement ce
+que retourne cette méthode, mais aussi d&#8217;éviter les conflits dans
+d&#8217;autre action.</p>
+
+<p>Pour réalisé cela ma méthode stocke en mémoisation la variable
+d&#8217;instance égale au nom de la méthode. Ainsi ma méthode ressemble à ceci
+:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">post</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">||=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="n">helper_method</span> <span class="ss">:post</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si je souhaite donc avoir un nouveau Post retourné par cette méthode
+j&#8217;ai juste à faire :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">new</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Je surcharge le retour de la méthode post par la valeur <code>Post.new</code>. Pour
+faire cela avec <code>decent_exposure</code> il faut surchargé la variable
+<code>@_resource[:post]</code>. Mais rien ne m&#8217;assure que ce nom de variable d&#8217;instance
+soit conservé dans les futurs version de <code>decent_exposure</code>. Une solution serait peut-être de créer une
+méthode <code>post=()</code> lors de l&#8217;exposition d&#8217;un <code>post</code>, mais cela devient
+peut-être moins pratique.</p>
+
+<p>Voilà donc les raisons de mon arrêt d&#8217;utilisation de <code>decent_exposure</code>.
+Je peux très facilement émuler le comportement de <code>decent_exposure</code> et
+tout ça sans aucune dépendance externe.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -386,6 +507,8 @@ souhaitez et les utiliser.</p>
 disponible sur github</a>. Grâce à
 Vundle rien de plus simple que de le lire et découvrir rapidement les
 plugins vim que j&#8217;utilise.</p>
+
+<p><a href="http://blog-en.shingara.fr/vundle-the-bundler-of-vim.html">English Translation</a></p>
 </div>
   
   
@@ -502,6 +625,8 @@ dans un block <code>Dante.run</code></p>
 <p>Je suis vraiment impressionné par ce gem qui est issu de la société
 <a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d&#8217;avoir
 d&#8217;aussi bon gem.</p>
+
+<p><a href="http://blog-en.shingara.fr/dante-lets-you-put-some-daemon-in-your-code.html">English Translation</a></p>
 </div>
   
   
@@ -1116,172 +1241,6 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-03-27T00:00:00+01:00" pubdate data-updated="true">Mar 27<span>th</span>, 2010</time>
-        
-         | <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://rubyeventmachine.com/">EventMachine</a> est une des meilleures librairies Ruby,
-tout en étant une des plus sous-estimées et mal connues.</p>
-
-<p>J&#8217;ai donc commencé à regarder un peu dans quels cas utiliser EventMachine.
-La première application que j&#8217;en ai trouvé c&#8217;est tout simplement le <a href="http://eventmachine.rubyforge.org/EventMachine/PeriodicTimer.html">PeriodicTimer</a>.</p>
-
-<p>Son utilisation la plus simple est le remplacement d&#8217;une cronjob.</p>
-
-<p>Je m&#8217;explique : une cronjob est vraiment une très bonne chose. On peut définir très précisément l&#8217;heure à laquelle on souhaite qu&#8217;une tâche s&#8217;exécute. Celle-ci s&#8217;exécute alors à ce moment précis. Cron est vraiment un outil magnifique. Cependant, dans
-le cas d&#8217;une tâche récurrente qui doit être effectuée régulièrement, l&#8217;utilisation d&#8217;un cronjob peut avoir un gros inconvénient.</p>
-
-<p>Cron n&#8217;a aucune gestion de queue. Ainsi on peut se retrouver très simplement avec une quantité astronomique de tâches essayant de s&#8217;exécuter en même temps. Votre « load » explose et il faut redémarrer votre serveur. Bien sûr cela n&#8217;arrive que si vous lancez une tâche plus fréquemment que son temps d&#8217;exécution.</p>
-
-<p>La seule solution serait d&#8217;avoir une petite application - comme : <a href="http://forge.bearstech.com/trac/wiki/JobQueue">jobq</a> - qui gére pour vous un système de queue. Bien sûr, si le fait d&#8217;avoir une queue ne sert strictement à rien, cette solution peut être un peu overkill.</p>
-
-<p>L&#8217;avantage de PeriodicTimer est que les tâches sont exécutées après un temps défini. Il n&#8217;y a aucune gestion d&#8217;heure de lancement. Il y a juste un lancement de la tâche après X secondes une fois que la précédente tâche est finie et qu&#8217;aucune autre tâche ne soit en cours d&#8217;exécution. Cela entraîne effectivement un glissement progressif de l&#8217;heure de lancement. Mais globalement, ça ne pose aucun problème. L&#8217;important est que la tâche soit exécutée régulièrement. C&#8217;est le cas, par exemple dans le cas de récupération de statistique.</p>
-
-<p>Voici <a href="http://gist.github.com/345000">un exemple de code</a> qui utilise
-PeriodicTimer</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;eventmachine&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;timeout&#39;</span>
-</span><span class='line'><span class="no">EventMachine</span><span class="o">.</span><span class="n">run</span> <span class="p">{</span>
-</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>   <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="si">}</span><span class="s2"> : I am 10&quot;</span>
-</span><span class='line'>   <span class="nb">sleep</span> <span class="mi">10</span>
-</span><span class='line'> <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'> <span class="no">EventMachine</span><span class="o">::</span><span class="no">PeriodicTimer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>   <span class="nb">puts</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
-</span><span class='line'> <span class="k">end</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Voici la sortie qui est effectuée si on lance l&#8217;application pendant 50s.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="err">$</span> <span class="n">ruby</span> <span class="n">em_periodic</span><span class="o">.</span><span class="n">rb</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">39</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">40</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">41</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">42</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">43</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">44</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">45</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">46</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">47</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">48</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">58</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mo">07</span><span class="p">:</span><span class="mi">59</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">00</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">01</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">02</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">03</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">04</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">05</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">06</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">08</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">18</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">19</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">20</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">21</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">22</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">23</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">25</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">26</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">27</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span>
-</span><span class='line'><span class="no">Fri</span> <span class="no">Mar</span> <span class="mi">26</span> <span class="mi">16</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">28</span> <span class="o">+</span><span class="mo">0100</span> <span class="mi">2010</span> <span class="p">:</span> <span class="n">I</span> <span class="n">am</span> <span class="mi">10</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>On peut constater que la tâche qui doit s&#8217;exécuter toutes les
-secondes le fait bien. Par contre la tâche qui s&#8217;exécute au bout de 10
-secondes effectue un lock sur le thread. Ainsi la tâche qui s&#8217;exécute toutes
-les secondes attend que le lock soit libéré. Une fois terminée,
-l&#8217;exécution de la tâche toutes les secondes recommence. La tache qui doit s&#8217;exécuter toutes les 10
-secondes attendra, quand à elle, 10 nouvelles secondes après avoir été terminée.</p>
-
-<p>C&#8217;est là une grande puissance de PeriodicTimer. On a facilement une succession
-de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utilise plus que</p>
-
-<p>cette solution pour créer des scripts de récupération de données.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1295,6 +1254,10 @@ de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utili
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -1330,10 +1293,6 @@ de tâche qui ne se marchent jamais sur les pieds. Désormais,  je n&#8217;utili
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

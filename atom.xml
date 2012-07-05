@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-06-28T10:38:04+02:00</updated>
+  <updated>2012-07-05T10:02:31+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[pourquoi j'ai arrêté decent_exposure]]></title>
+    <link href="http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure.html"/>
+    <updated>2012-07-04T09:49:00+02:00</updated>
+    <id>http://blog.shingara.fr/pourquoi-jai-arrete-decent-exposure</id>
+    <content type="html"><![CDATA[<p>A la sortie de
+<a href="https://github.com/voxdolo/decent_exposure">decent_exposure</a>, j&#8217;ai été
+très enthousiaste. J&#8217;utilisais avant
+<a href="https://github.com/josevalim/inherited_resources/">inherited_ressources</a>, mais je
+commençais à découvrir les problèmes de <code>inherited_resources</code>. La
+personnalisation de son controller peut vite devenir compliqué et peux
+lisible si on sort du cadre d&#8217;un controller qui soit plus qu&#8217;un CRUD
+simple. On finissait par avoir un code moyennement
+DRY et les test étaient loin d&#8217;être évident car impossible coté controller
+( limitation indiqué dans le README lui-même ).</p>
+
+<p>Le grand avantage que j&#8217;ai vu dans <code>decent_exposure</code> est la facilité
+d&#8217;accès des variables dans les vues. Plus besoin de faire appel à des
+instances. On appelait simplement l&#8217;objet. Si celui-ci n&#8217;était pas
+instancié alors <code>decent_exposure</code> le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
+chargeait les objets qu&#8217;au moment ou il était nécessaire. Un eager
+loading intégré permettait d&#8217;éviter de rechercher en base plusieurs fois
+le même objet. On pouvait aussi réutiliser plusieurs fois la même vue.
+plus besoin de faire des assignations dans certaine action pour être sur
+que l&#8217;objet existe. Il suffit juste d&#8217;exposer l&#8217;objet. Après on
+l&#8217;utilise ou pas. De même l&#8217;utilisation des partials devient plus aisé
+car, on peux surcharger facilement des variables par l&#8217;usage des
+<code>locals</code>. J&#8217;y ai vu beaucoup d&#8217;intérêts.</p>
+
+<p>Mais finalement cet intérêt n&#8217;existe que par l&#8217;usage de la méthode de
+class d&#8217;un controller <code>helper_method</code>. Si on crée soit même sa propre
+méthode avec son eager loading <code>decent_exposure</code> devient inutile.</p>
+
+<p><code>decent_exposure</code> a été pour moi un révélateur de l&#8217;utilité de la
+méthode <code>helper_method</code>. Mais à l&#8217;usage, je trouve qu&#8217;il fait
+finalement trop de chose caché si on utilise la méthode d&#8217;appel <code>expose</code>
+sans bloc. Je me suis ainsi retrouvé à faire des <code>update_attributes</code> 2
+fois sur mon objet. Un dans le <code>decent_exposure</code> l&#8217;autre dans mon
+action. Forcement ça posait quelques soucis. Quand on sait que cela peut
+arriver, pas de soucis. Mais c&#8217;est toujours embêtant de perdre quelques
+heures à débugger le problème quand on le voit. Sans compter les fois ou
+on ne le voit pas.</p>
+
+<p>Une des limitations de <code>decent_exposure</code> selon moi est l&#8217;override de
+cette méthode. Parfois pour éviter les <code>if</code> infini dans cette méthode il
+est plus judicieux de définir directement la valeur de retour de cette
+méthode dans sa méthode d&#8217;action. Cela permet de savoir exactement ce
+que retourne cette méthode, mais aussi d&#8217;éviter les conflits dans
+d&#8217;autre action.</p>
+
+<p>Pour réalisé cela ma méthode stocke en mémoisation la variable
+d&#8217;instance égale au nom de la méthode. Ainsi ma méthode ressemble à ceci
+:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">post</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">||=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="n">helper_method</span> <span class="ss">:post</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Si je souhaite donc avoir un nouveau Post retourné par cette méthode
+j&#8217;ai juste à faire :</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">new</span>
+</span><span class='line'>  <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Je surcharge le retour de la méthode post par la valeur <code>Post.new</code>. Pour
+faire cela avec <code>decent_exposure</code> il faut surchargé la variable
+<code>@_resource[:post]</code>. Mais rien ne m&#8217;assure que ce nom de variable d&#8217;instance
+soit conservé dans les futurs version de <code>decent_exposure</code>. Une solution serait peut-être de créer une
+méthode <code>post=()</code> lors de l&#8217;exposition d&#8217;un <code>post</code>, mais cela devient
+peut-être moins pratique.</p>
+
+<p>Voilà donc les raisons de mon arrêt d&#8217;utilisation de <code>decent_exposure</code>.
+Je peux très facilement émuler le comportement de <code>decent_exposure</code> et
+tout ça sans aucune dépendance externe.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[tester ses vues rabl]]></title>
@@ -266,6 +356,8 @@ souhaitez et les utiliser.</p>
 disponible sur github</a>. Grâce à
 Vundle rien de plus simple que de le lire et découvrir rapidement les
 plugins vim que j&#8217;utilise.</p>
+
+<p><a href="http://blog-en.shingara.fr/vundle-the-bundler-of-vim.html">English Translation</a></p>
 ]]></content>
   </entry>
   
@@ -353,6 +445,8 @@ dans un block <code>Dante.run</code></p>
 <p>Je suis vraiment impressionné par ce gem qui est issu de la société
 <a href="http://gomiso.com">gomiso</a>. Merci à elle de nous permettre d&#8217;avoir
 d&#8217;aussi bon gem.</p>
+
+<p><a href="http://blog-en.shingara.fr/dante-lets-you-put-some-daemon-in-your-code.html">English Translation</a></p>
 ]]></content>
   </entry>
   
@@ -1349,33 +1443,6 @@ bienvenue.</p>
 <p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l&#8217;ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C&#8217;est parfois tellement simple la résolution d&#8217;un problème.</p>
 
 <p><a href="http://blog.shingara.fr/en/2009-11-18-rabbitmq-doesn-t-works-with-macosx.html">English translation</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Le logger ruby avec son bloc]]></title>
-    <link href="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html"/>
-    <updated>2009-10-21T00:00:00+02:00</updated>
-    <id>http://blog.shingara.fr/le-logger-ruby-avec-son-bloc</id>
-    <content type="html"><![CDATA[<p>Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous :</p>
-
-<typo:code lang="ruby">
-Logger.debug { &#8220;My object is #{self.map(&:id)}&#8221; }
-</typo:code>
-
-<p>Par défaut, on l&#8217;utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
-
-<p>La différence entre ces deux écritures ?</p>
-
-<p>La première permet d&#8217;éviter d&#8217;évaluer la chaine qui sera loggé si elle n&#8217;en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s&#8217;en faire ressentir.</p>
-
-<p>Grâce à ça, on peux facilement éviter les fameux :</p>
-
-<typo:code lang="ruby">
-Logger.debug(&#8220;My object is #{self.map(&:id)}&#8221;) if Logger.level == Logger::DEBUG
-</typo:code>
-
-<p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: vim | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/vim/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-06-28T10:38:04+02:00</updated>
+  <updated>2012-07-05T10:02:31+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -133,6 +133,8 @@ souhaitez et les utiliser.</p>
 disponible sur github</a>. Grâce à
 Vundle rien de plus simple que de le lire et découvrir rapidement les
 plugins vim que j'utilise.</p>
+
+<p><a href="http://blog-en.shingara.fr/vundle-the-bundler-of-vim.html">English Translation</a></p>
 ]]></content>
   </entry>
   

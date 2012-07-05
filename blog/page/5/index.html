@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="La Rails party est désormais fini. Comme prévu, j&#8217;y ai fait 3 présentations. Je vous joins ici les PDF de ces présentations sous licence CC &hellip;">
+  <meta name="description" content="Alors que sur IRC quelqu&#8217;un demande, comment faire un upcase sur des accents et conserver ces accents en majuscule, je lui répond que ce n&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,71 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/lupcase-daccent-cest-possible-avec-activesupport.html">l&#8217;upcase d&#8217;accent c&#8217;est possible avec ActiveSupport</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-02T00:00:00+01:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2008</time>
+        
+         | <a href="/lupcase-daccent-cest-possible-avec-activesupport.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que sur IRC quelqu&#8217;un demande, comment faire un upcase sur des accents et conserver ces accents en majuscule, je lui répond que ce n&#8217;est pas possible car Ruby 1.8 ne supporte pas l&#8217;UTF8.</p>
+
+<p>Je propose donc une solution peu élégante. Lister chaque éléments qui soient considéré comme non modifié par upcase et faire une liste de gsub comme ceci</p>
+
+<typo:code>
+irb(main):002:0> puts &#8220;aéèb&#8221;.gsub(&#8220;é&#8221;, &#8220;É&#8221;).gsub(&#8220;è&#8221;, &#8220;È&#8221;).upcase
+AÉÈB
+=> nil
+</typo:code>
+
+<p>C&#8217;est alors que <a href="http://farzy.org">Farzy</a> nous fournit un bout de code qui évite mon code peu pratique et surtout fonctionne avec tous les caractères unicode. </p>
+
+<typo:code>
+% irb
+>> $KCODE = &#8216;u&#8217;
+=> &#8220;u&#8221;
+>> &#8220;éè&#8221;.upcase
+=> &#8220;éè&#8221;
+>> require &#8216;activesupport&#8217;
+=> true
+>> &#8220;éè&#8221;.chars.upcase.to_s
+=> &#8220;ÉÈ&#8221;
+>> RUBY_VERSION
+=> &#8220;1.8.5&#8221;
+>>
+</typo:code>
+
+<p>Il faut effectivement utiliser la librairie ActiveSupport qui fournit un support UTF8, mais cela fonctionne parfaitement. Merci à lui pour cet petite astuce.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -553,69 +618,6 @@ article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails.html">Quelles nouvelles dans Rails Edge : Les layouts pour les mails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
-        
-         | <a href="/quelles-nouvelles-dans-rails-edge-les-layouts-pour-les-mails.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Traduction de l&#8217;article de Ryan Daigle, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-mailer-layouts">What&#8217;s new in edge rails
-: Mailer Layouts</a></p>
-<p>Rails a ajouté la possibilité <a href="http://github.com/rails/rails/commit/e9a8e0053be3b293ab89fb584f1d660063f107aa">d&#8217;utiliser des layouts pour les mails</a>
-exactements comme il est actuellement possible pour leurs grand frère les
-vues. Il faut juste noté que pour qu&#8217;un layout de mail soit automatiquement
-reconnu, il doit se finir par _mailer. Donc pour un mail:</p>
-
-<typo:code lang='ruby'>
-Cass UserMailer < ActionMailer::Base
-  def registration(user)
-    subject    "You've registered"
-    from       "system@example.com"
-  end
-end
-</typo:code>
-
-<p>vous n&#8217;aurait besoin que d&#8217;un layout à <code>layouts/user_mailer.html.erb</code>. Si vous spécifiez explicitement le layout vous n&#8217;avez pas besoin du suffix _mailer. Ainsi, dans l&#8217;exemple suivant, un layout à <code>layouts/email.html.erb</code> suffit:</p>
-
-<typo:code lang='ruby'>
-class UserMailer < ActionMailer::Base
-  layout 'email'
-  ...
-end
-</typo:code>
-
-<p>A partir de maintenant, vous pouvez faire de joli petit email. Vous avez désormais tous les outils.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -631,6 +633,10 @@ end
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -666,10 +672,6 @@ end
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

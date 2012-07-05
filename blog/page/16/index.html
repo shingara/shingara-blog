@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, c&#8217;est décidé, je reviens à Gentoo. J&#8217;étais depuis quelques temps sous une distribution debian. A l&#8217;époque, le temps de &hellip;">
+  <meta name="description" content="Comme beaucoup le savent, je suis accro à IRC. Pour IRC, j&#8217;utilise des clients en console dans un souci de pratique. J&#8217;avais &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/plugin-irssi-highlight_sound.html">Plugin Irssi highlight_sound</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-02-06T00:00:00+01:00" pubdate data-updated="true">Feb 6<span>th</span>, 2007</time>
+        
+         | <a href="/plugin-irssi-highlight_sound.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Comme beaucoup le savent, je suis accro à IRC. Pour IRC, j&#8217;utilise des clients en console dans un souci de pratique. J&#8217;avais précédemment écrit un <a href="http://shingara.free.fr/blog/index.php/?2006/10/07/101-plugin-soundpl-de-weechat">billet</a> vantant les mérites du client <a href="http://weechat.flashtux.org/">weechat</a>.
+</p>
+
+<p>
+Avec mon éternelle insatisfaction, j&#8217;ai donc voulu retesté <a href="http://irssi.org">irssi</a>. J&#8217;ai voulu installé un plugin pour faire du son quand je reçois des Highlight ou des messages privés. Après des recherches sur internet, je n&#8217;ai trouvé aucun plugin me permettant ça. En tant que bon développeur, j&#8217;ai créé un plugin pour faire ce que je voulais. Ce plugin est donc diffusé en GPL v2. Ce plugin devient donc mon deuxième plugin pour irssi. Je ferais sûrement une page comme je l&#8217;avais fait pour <a href="http://shingara.free.fr/code/helloall.html">helloall</a>. En attendant voici mon script :
+</p>
+
+<p><a href="http://shingara.free.fr/code/script/highlight_sound.pl">highlight_sound.pl</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -627,54 +673,6 @@ selectTableCommentsSql=select table_name, table_comment comments from informatio
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/html2latex-et-ses-options-miracles.html">Html2Latex et ses options miracles</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-11-07T00:00:00+01:00" pubdate data-updated="true">Nov 7<span>th</span>, 2006</time>
-        
-         | <a href="/html2latex-et-ses-options-miracles.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à partir de fichier LaTeX devrait être exportés en PDF et en HTML. Mais je n&#8217;avais jamais trouvé de « bonne » sortie de mes fichiers LaTeX en HTML. J&#8217;avais testé html2latex et Hevea. Mais mes premiers tests m&#8217;avait fait adopter Hevea à cause de sa sortie en une seule page et son support de l&#8217;utf8. Mais voilà qu&#8217;aujourd&#8217;hui Hevea ne veux pas me lire mes fichiers en UTF-8 et bloque avec. J&#8217;ai donc pris le temps de me repencher sur html2latex et je suis revenu sur mes premières impressions, c&#8217;est génial. Voici en fait les options qu&#8217;il me manquait :
-</p>
-<ul>
-<li>-html_version 4.0,unicode : qui permet d&#8217;avoir un document en UTF-8 si nous l&#8217;avons créer ainsi</li>
-<li>-no_navigation : qui permet de ne pas avoir le petit système de navigation en haut de la page</li>
-<li>-split 0 : qui permet de n&#8217;avoir qu&#8217;un seul fichier HTML et non un par partie</li>
-<li>-info &#8216;blabla&#8217; : qui permet de mettre son propre « A propos » et non pas celui défini de base par html2latex</li>
-</ul>
-
-<p>Je crois que ces options peuvent aussi être défini directement à partir d&#8217;un fichier de configuration, mais je n&#8217;ai pour l&#8217;instant pas rechercher comment faire</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/17/">&larr; Older</a>
@@ -690,6 +688,10 @@ Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -725,10 +727,6 @@ Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à 
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

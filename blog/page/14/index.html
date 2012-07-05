@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voici une nouvelle tâche rake qui a été ajouté à Rails à partir de la révision 7149, suite au ticket #8795. Je trouve cette tâche assez intéressante &hellip;">
+  <meta name="description" content="Ca y est, j&#8217;ai enfin compris comment utiliser un screen dans un screen. En effet, utilisant sur mon ordinateur local un screen pour mon vim et &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/utiliser-un-screen-dans-un-screen.html">Utiliser un screen dans un screen</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-06-29T00:00:00+02:00" pubdate data-updated="true">Jun 29<span>th</span>, 2007</time>
+        
+         | <a href="/utiliser-un-screen-dans-un-screen.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est, j&#8217;ai enfin compris comment utiliser un <a href="http://www.gnu.org/software/screen/">screen</a> dans un <a href="http://www.gnu.org/software/screen/">screen</a>. En effet, utilisant sur mon ordinateur local un screen pour mon vim et mes serveurs de développement, je voulais aussi mettre dans un de mes screens une connection ssh à un serveur distant et utiliser aussi sur ce serveur distant un screen. C&#8217;est là que l&#8217;utilisation d&#8217;un screen dans un screen sert. Et bien c&#8217;est vraiment tout simple. Un simple Ctrl-a + a permet de faire un Ctrl-a sur le screen distant. Ainsi en tapant Ctrl-a + a + &#8221; je peux voir la liste des screens de mon screen distant.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -620,52 +658,6 @@ Est-ce un bug ou pas ?
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortie-de-whois-0-3-0.html">Sortie de Whois 0.3.0</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-03-22T00:00:00+01:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2007</time>
-        
-         | <a href="/sortie-de-whois-0-3-0.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>J&#8217;étais vraiment motivé sur ce projet alors voici une nouvelle version de <a href="http://rubyforge.org/projects/whois/">Whois</a>, la version 0.3.0</p>
-
-<h2>Changelog</h2>
-
-<ul>
-<li>Ajout de la possibilité de construire un objet Whois à partir de l&#8217;objet IPAddr (require &#8216;ipaddr&#8217;)</li>
-<li>Ajout de l&#8217;information d&#8217;hôte quand une recherche whois est effectué avec une IPV4. Cette information est optionnel. Par défaut, elle est à false. Pour que l&#8217;host soit résolu, il faut que le second arguiment de Whois.new soit true.</li>
-<li>Ajout de la possibilité de faire des requêtes whois à partir d&#8217;un host</li>
-</ul>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/15/">&larr; Older</a>
@@ -681,6 +673,10 @@ Est-ce un bug ou pas ?
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -716,10 +712,6 @@ Est-ce un bug ou pas ?
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

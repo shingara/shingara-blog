@@ -9,7 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Traduction de la news #20 Le rapport de cette semaine couvre les changements du 5 Mai 2008 au 11 Mai 2008 (jour correspondant à l&#8217; &hellip;">
+  <meta name="description" content="Traduction de la news #21 C&#8217;est une autre semaine au ralenti (seulement 2 changements à noter selon moi) après la <a
+href="http://www. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-21.html">Vivre avec Rails Edge #21</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-21T00:00:00+02:00" pubdate data-updated="true">May 21<span>st</span>, 2008</time>
+        
+         | <a href="/vivre-avec-rails-edge-21.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de la <a href="http://blog.codefront.net/2008/05/18/living-on-the-edge-of-rails-21/">news #21</a></p>
+
+<p>C&#8217;est une autre semaine au ralenti (seulement 2 changements à noter selon
+        moi) après la <a
+href="http://www.rubyinside.com/rails-21-released-891.html">sortie de la première Release candidate (RC1) de Rails
+2.1</a>.
+Suivez ce lien pour les instructions d&#8217;installation - Mais si vous lisez ce
+blog n&#8217;ayez pas peur (parce que vous savez « vivre avec edge »). Vous pouvez
+ainsi reporter tous les bugs que vous rencontré lors de la migration vers 2.1
+et edge sur le  <a
+href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">bug
+tracker de rails</a> - il s&#8217;agit d&#8217;une RC  donc tous les rapports de bugs sont
+les bienvenue et seront utiles!</p>
+
+<p>Le rapport de cette semaine couvre les changements du 12 Mai 2008 au 18 Mai 2008 (jour correspondant à l&#8217;enregistrement de <a href="http://railsenvy.com/podcast/">Rails Envy podcast</a>).</p>
+
+<h3>caches_action peux être conditionels</h3>
+
+<p><code>caches_action</code> peux désormais prendre une option <code>:if</code> (exactement comme <a href="http://blog.codefront.net/2008/04/20/living-on-the-edge-of-rails-17/">caches_page le fait</a>). Par exemple:</p>
+
+<typo:code lang="ruby">caches_action :index, :if => Proc.new { |c| !c.request.format.json? }</typo:code>
+
+<p>Cette petite amélioration est gentiement apporté par José Valim.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/7708650f73ddb4db300ea2059c60c1d907a4384e">http://github.com/rails/rails/commit/7708650f73ddb4db300ea2059c60c1d907a4384e</a></p>
+
+<h3>Bugfix: :select option est désormais parcouru dans les finders d&#8217;ActiveRecord en s&#8217;assurant que les tables nécessaires sont inclus dans le SQL généré</h3>
+
+<typo:code lang="ruby">Post.find(:all, :include => :author, :select => &#8216;posts.*, authors.id as &#8220;author_id&#8221;&#8217;, :limit => 2)</typo:code>
+
+<p>Cela générerais la requête SQL suivante:</p>
+
+<typo:code lang="sql">SELECT posts.*, authors.id as &#8220;author_id&#8221; FROM &#8220;posts&#8221; LIMIT 2</typo:code>
+
+<p>Constaté que la table <code>authors</code> n&#8217;est pas jointe. Cette erreur est désormais résolu.</p>
+
+<p>Merci à John Devine pour ce bugfix.</p>
+
+<p>Révision concernant cette fonctionnalitée: <a href="http://github.com/rails/rails/commit/b28b54cab090bed8f099ef375b419a8f92390dd4">http://github.com/rails/rails/commit/b28b54cab090bed8f099ef375b419a8f92390dd4</a></p>
+
+<p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vivre avec Rails.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -711,112 +790,6 @@ article.save
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/loader-toutes-les-fixtures-avec-les-story-de-rspec.html">Loader toutes les fixtures avec les Story de Rspec</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-07T00:00:00+02:00" pubdate data-updated="true">Apr 7<span>th</span>, 2008</time>
-        
-         | <a href="/loader-toutes-les-fixtures-avec-les-story-de-rspec.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Dans un article précédent, j&#8217;ai décrit <a href="http://blog.shingara.fr/articles/2008/04/03/et-si-on-ecrivait-une-histoire-a-rails">comment utiliser les stories de Rspec avec Rails</a>. Mais j&#8217;ai indiqué qu&#8217;il n&#8217;y avait pas la possibilité d&#8217;utiliser la méthode fixtures directement. Mais ce n&#8217;est pas pour ça qu&#8217;on ne peux pas loader les fixtures. Je vais vous expliquer comment faire.
-</p>
-
-<h3>Définir où se trouve les fixtures.</h3>
-
-Dans le helper.rb, on peux définir où se trouve le dossier contenant les fixtures :
-
-<typo:code lang="ruby">
-ENV[&#8220;RAILS_ENV&#8221;] = &#8220;test&#8221;
-require File.expand_path(File.dirname(__FILE__) + &#8220;/../config/environment&#8221;)
-require &#8216;spec/rails/story_adapter&#8217;
-
-Spec::Runner.configure do |config|
-  # If you&#8217;re not using ActiveRecord you should remove these
-  # lines, delete config/database.yml and disable :active_record
-  # in your config/boot.rb
-  config.use_transactional_fixtures = true
-  config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + &#8216;/spec/fixtures/&#8217;
-end
-</typo:code>
-
-<p>La configuration fixture_path permet ainsi de définir où se trouve le dossier contenant les fixtures. Dans mon cas c&#8217;est le dossier de fixtures de Rspec.</p>
-
-<h3>Définir des steps qui load les fixtures</h3>
-
-<p>On peux faire une étape qui permette de loader toutes les fixtures :</p>
-
-<typo:code lang="ruby">
-  Given &#8220;load all fixtures&#8221; do
-    [&#8220;galleries&#8221;, &#8220;pictures&#8221;, &#8220;thumbnails&#8221;, &#8220;users&#8221;, &#8220;settings&#8221;].each { |fixture|
-      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixture)
-    }
-  end
-</typo:code>
-
-<p>En appelant &#8220;load all fixtures&#8221; on chargera ainsi toutes les fixtures définis dans la liste. On les appelles de la même manière qu&#8217;avec la méthode fixtures</p>
-
-<p>On peux aussi faire une steps qui ne load qu&#8217;une fixtures en particulier</p>
-
-<typo:code lang="ruby">
-  Given &#8220;load fixtures &#8216;$fixture&#8217;&#8221; do |fixtures|
-      Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, fixtures)
-  end
-</typo:code>
-
-<h3>Appeler les étapes dans son histoire</h3>
-
-<p>
-Une fois ces étapes définis on peux ainsi facilement les utiliser dans ses stories en plain-text.
-</p>
-
-<typo:code>
-Story: Mon Histoire
-
-  Scenario: Une beau scénario
-
-     Given load all fixtures
-     When we go to &#8216;/&#8217;
-     Then we are redirect to &#8216;/login&#8217;
-
-  Scenario: Un autre scénario
-
-     Given load fixtures &#8216;galleries&#8217;
-     And load fixtures &#8216;users&#8217;
-     When we go to &#8216;/&#8217;
-     Then we are redirect to &#8216;/login&#8217;     
-</typo:code>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -832,6 +805,10 @@ Story: Mon Histoire
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -867,10 +844,6 @@ Story: Mon Histoire
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

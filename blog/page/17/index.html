@@ -9,8 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Avec un ami, nous utilisons tous les deux le logiciel weechat.
-J&#8217;ai adopté ce logiciel pour quatre points : Son environnement ncurse, &hellip;">
+  <meta name="description" content="Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à partir de fichier LaTeX devrait être exportés en PDF et en HTML. Mais &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,54 @@ J&#8217;ai adopté ce logiciel pour quatre points : Son environnement ncurse, &h
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/html2latex-et-ses-options-miracles.html">Html2Latex et ses options miracles</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-11-07T00:00:00+01:00" pubdate data-updated="true">Nov 7<span>th</span>, 2006</time>
+        
+         | <a href="/html2latex-et-ses-options-miracles.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à partir de fichier LaTeX devrait être exportés en PDF et en HTML. Mais je n&#8217;avais jamais trouvé de « bonne » sortie de mes fichiers LaTeX en HTML. J&#8217;avais testé html2latex et Hevea. Mais mes premiers tests m&#8217;avait fait adopter Hevea à cause de sa sortie en une seule page et son support de l&#8217;utf8. Mais voilà qu&#8217;aujourd&#8217;hui Hevea ne veux pas me lire mes fichiers en UTF-8 et bloque avec. J&#8217;ai donc pris le temps de me repencher sur html2latex et je suis revenu sur mes premières impressions, c&#8217;est génial. Voici en fait les options qu&#8217;il me manquait :
+</p>
+<ul>
+<li>-html_version 4.0,unicode : qui permet d&#8217;avoir un document en UTF-8 si nous l&#8217;avons créer ainsi</li>
+<li>-no_navigation : qui permet de ne pas avoir le petit système de navigation en haut de la page</li>
+<li>-split 0 : qui permet de n&#8217;avoir qu&#8217;un seul fichier HTML et non un par partie</li>
+<li>-info &#8216;blabla&#8217; : qui permet de mettre son propre « A propos » et non pas celui défini de base par html2latex</li>
+</ul>
+
+<p>Je crois que ces options peuvent aussi être défini directement à partir d&#8217;un fichier de configuration, mais je n&#8217;ai pour l&#8217;instant pas rechercher comment faire</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -651,52 +698,6 @@ Last update @DATE-STAMP@ @USER-NAME@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/fluxbox-fsetbg-et-debian.html">fluxbox fsetbg et Debian</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-04-01T00:00:00+02:00" pubdate data-updated="true">Apr 1<span>st</span>, 2006</time>
-        
-         | <a href="/fluxbox-fsetbg-et-debian.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Depuis mon retour à debian, j&#8217;avais un petit problème de configuration. En effet à chaque démarrage de Fluxbox, j&#8217;avais une petite pop-up m&#8217;indiquant que fsetbg était inconnu. Ainsi, à chaque démarrage, je devais cliquer sur le boutton OK de cette pop-up et je n&#8217;avais ainsi aucun fond d&#8217;écran. Ce matin alors que je me levait tôt. j&#8217;ai décidé de réparer ce problème. Après une petite recherche j&#8217;ai ainsi découvert qu&#8217;il me manquait tout simplement un package. Il s&#8217;agissait de &#8220;gsetroot&#8221;. Ainsi après un petit :
-<p>
-<code>
-# aptitude install gsetroot
-</code>
-<p>
-Tout est revenu dans l&#8217;ordre. Pour essayer que ce petit problème ne soit pas récurent, j&#8217;ai décidé d&#8217;user de mon esprit communautaire. Tout d&#8217;abord je blog cette découverte pour que tout personne confonté au problème puisse avoir dans un coin de la toile une piste (Pour cela il faudrait que je sois plus référencé). Sinon j&#8217;ai aussi ouvert un bug sur le bugtrack de Debian sous la priorité Whishlist. Vous pourrez trouver ce bug <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=360306">ici</a>. Cela porte ainsi mes rapports de bug sur Debian à 4 bugs (2 Whishlists, 1 bugs Normal fermé et 1 bug important fermé).
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -712,6 +713,10 @@ Tout est revenu dans l&#8217;ordre. Pour essayer que ce petit problème ne soit 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -747,10 +752,6 @@ Tout est revenu dans l&#8217;ordre. Pour essayer que ce petit problème ne soit 
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>

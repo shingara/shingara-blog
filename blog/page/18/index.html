@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Suite à mon précédent billet expliquant comment installer java à partir des sources sur sa debian, je vais expliquer maintenant comment mettre le &hellip;">
+  <meta name="description" content="Depuis mon retour à debian, j&#8217;avais un petit problème de configuration. En effet à chaque démarrage de Fluxbox, j&#8217;avais une petite pop- &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/fluxbox-fsetbg-et-debian.html">fluxbox fsetbg et Debian</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-04-01T00:00:00+02:00" pubdate data-updated="true">Apr 1<span>st</span>, 2006</time>
+        
+         | <a href="/fluxbox-fsetbg-et-debian.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Depuis mon retour à debian, j&#8217;avais un petit problème de configuration. En effet à chaque démarrage de Fluxbox, j&#8217;avais une petite pop-up m&#8217;indiquant que fsetbg était inconnu. Ainsi, à chaque démarrage, je devais cliquer sur le boutton OK de cette pop-up et je n&#8217;avais ainsi aucun fond d&#8217;écran. Ce matin alors que je me levait tôt. j&#8217;ai décidé de réparer ce problème. Après une petite recherche j&#8217;ai ainsi découvert qu&#8217;il me manquait tout simplement un package. Il s&#8217;agissait de &#8220;gsetroot&#8221;. Ainsi après un petit :
+<p>
+<code>
+# aptitude install gsetroot
+</code>
+<p>
+Tout est revenu dans l&#8217;ordre. Pour essayer que ce petit problème ne soit pas récurent, j&#8217;ai décidé d&#8217;user de mon esprit communautaire. Tout d&#8217;abord je blog cette découverte pour que tout personne confonté au problème puisse avoir dans un coin de la toile une piste (Pour cela il faudrait que je sois plus référencé). Sinon j&#8217;ai aussi ouvert un bug sur le bugtrack de Debian sous la priorité Whishlist. Vous pourrez trouver ce bug <a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=360306">ici</a>. Cela porte ainsi mes rapports de bug sur Debian à 4 bugs (2 Whishlists, 1 bugs Normal fermé et 1 bug important fermé).
+</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -526,62 +572,6 @@ J&#8217;attend maintenant de voir leur réaction :(
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/la-difference-entre-linformatique-materiel-et-logiciel.html">la difference entre l&#8217;informatique materiel et logiciel</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2005-06-07T00:00:00+02:00" pubdate data-updated="true">Jun 7<span>th</span>, 2005</time>
-        
-         | <a href="/la-difference-entre-linformatique-materiel-et-logiciel.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>
-Voila, pendant 1 semaine je me suis retrouve avec un vieux pc, un vieux coucou. Meme si mon pc n&#8217;est pas magnifique et qu&#8217;il ne fait que 1800 Mhz, par rapport a un 300Mhz, c&#8217;est une vrai formule 1.
-</p>
-<p>
-Mais quel etait le probleme ? qu&#8217;est ce qui m&#8217;a pousse a utiliser un si vieux PC. La raison est simple, l&#8217;enterrement d&#8217;une carte mere. J&#8217;ai detecte la cause quasiment immediatement. Donc, le lendemain je vais chez nos amis de la rue montgallet et bien sur j&#8217;achete un carte mere. Une Asus A7V8X-X, je demande si pour mon processeur ca marchera et bien sur on me repond : &#8220;Oui, oui, ne vous en faites pas, ca marche&#8221;.
-</p>
-<p>
-Un peu allege, je rentre chez moi accompagne de mon reparateur attitre et je monte la carte mere et tout. Mais la, mystere, ca ne marche pas. L&#8217;ecran est toujours noir et la panique m&#8217;envahit. Etait-ce vraiment la carte mere ? Apres tous les tests possibles et immaginables sur tous les autres composants de mon ordinateur et apres avoir verifie leurs fonctionnements a tous, le verdict fut rendu. C&#8217;etait a nouveau la carte mere qui etait dans les choux. Il n&#8217;y avait pas a dire, j&#8217;etais maudit.
-</p>
-<p>
-Je retourne donc chez nos amis de Montgallet et je leur explique le pb, et fini par accepter une revision de mon pc pour voir quelle etait la cause de son non-fonctionnement. Le resultat fu ainsi : &#8220;C&#8217;est la carte mere qui est morte car il y a une incompatibilite avec votre RAM, il aurait fallu vous renseigner avant.&#8221;
-</p>
-<p>
-Dans le coup, j&#8217;ai du payer le controle et racheter une carte mere. Mais la ou je ne comprends vraiment plus rien, c&#8217;est que la carte qu&#8217;il me vend et monte pour montrer qu&#8217;elle marche, c&#8217;est une Asus A7V8X-X. J&#8217;ai vraiment l&#8217;impression de m&#8217;etre fait blouser par le celebre &#8220;Oui, oui ca marche&#8221; de notre petite et celebre rue Montgallet.
-</p>
-
-<p>
-Un jour il faudra que je comprenne l&#8217;informatique materielle, car la c&#8217;est pas du binaire avec des 0 et des 1, c&#8217;est du peut etre tout le temps.
-</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/19/">&larr; Older</a>
@@ -597,6 +587,10 @@ Un jour il faudra que je comprenne l&#8217;informatique materielle, car la c&#82
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
+      </li>
     
       <li class="post">
         <a href="/tester-ses-vues-rabl.html">tester ses vues rabl</a>
@@ -632,10 +626,6 @@ Un jour il faudra que je comprenne l&#8217;informatique materielle, car la c&#82
     
       <li class="post">
         <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
-      </li>
-    
-      <li class="post">
-        <a href="/periodictimer-de-eventmachine-le-cron-simplifie.html">PeriodicTimer de EventMachine, le cron simplifié</a>
       </li>
     
   </ul>
