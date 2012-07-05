@@ -124,3 +124,6 @@ Si vous souhaitez découvrir mon usage de vim, [mon vimrc est ainsi
 disponible sur github](https://github.com/shingara/vim-conf). Grâce à
 Vundle rien de plus simple que de le lire et découvrir rapidement les
 plugins vim que j'utilise.
+
+[English Translation](http://blog-en.shingara.fr/vundle-the-bundler-of-vim.html)
+

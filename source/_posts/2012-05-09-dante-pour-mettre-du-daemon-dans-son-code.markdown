@@ -76,3 +76,5 @@ end
 Je suis vraiment impressionné par ce gem qui est issu de la société
 [gomiso](http://gomiso.com). Merci à elle de nous permettre d'avoir
 d'aussi bon gem.
+
+[English Translation](http://blog-en.shingara.fr/dante-lets-you-put-some-daemon-in-your-code.html)
