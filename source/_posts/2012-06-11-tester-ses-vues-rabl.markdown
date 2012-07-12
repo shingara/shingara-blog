@@ -94,3 +94,5 @@ variables, la tâche devient très hardu. J'ai donc commencé à proposer un
 [Pull Request](https://github.com/nesquena/rabl/pull/261) pour passer directement des variables dans sa vue Rabl, de
 la même méthode que les partials avec l'options `:locals`. Vous pouvez
 la [suivre sur github](https://github.com/nesquena/rabl/pull/261)
+
+[English translation](http://blog-en.shingara.fr/test-your-rabl-view.html)

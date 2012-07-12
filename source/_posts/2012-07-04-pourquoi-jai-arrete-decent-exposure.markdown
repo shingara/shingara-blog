@@ -21,7 +21,7 @@ DRY et les test étaient loin d'être évident car impossible coté controller
 
 Le grand avantage que j'ai vu dans `decent_exposure` est la facilité
 d'accès des variables dans les vues. Plus besoin de faire appel à des
-instances. On appelait simplement l'objet. Si celui-ci n'était pas
+instances. On appele simplement la méthode. Si celui-ci n'était pas
 instancié alors `decent_exposure` le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
 chargeait les objets qu'au moment ou il était nécessaire. Un eager
 loading intégré permettait d'éviter de rechercher en base plusieurs fois
