@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-07-05T10:02:31+02:00</updated>
+  <updated>2012-07-12T09:42:16+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -31,7 +31,7 @@ DRY et les test étaient loin d'être évident car impossible coté controller
 
 <p>Le grand avantage que j'ai vu dans <code>decent_exposure</code> est la facilité
 d'accès des variables dans les vues. Plus besoin de faire appel à des
-instances. On appelait simplement l'objet. Si celui-ci n'était pas
+instances. On appele simplement la méthode. Si celui-ci n'était pas
 instancié alors <code>decent_exposure</code> le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
 chargeait les objets qu'au moment ou il était nécessaire. Un eager
 loading intégré permettait d'éviter de rechercher en base plusieurs fois

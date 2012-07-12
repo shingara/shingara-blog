@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rabl | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/rabl/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-07-05T10:02:31+02:00</updated>
+  <updated>2012-07-12T09:42:16+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -105,6 +105,8 @@ variables, la tâche devient très hardu. J'ai donc commencé à proposer un
 <a href="https://github.com/nesquena/rabl/pull/261">Pull Request</a> pour passer directement des variables dans sa vue Rabl, de
 la même méthode que les partials avec l'options <code>:locals</code>. Vous pouvez
 la <a href="https://github.com/nesquena/rabl/pull/261">suivre sur github</a></p>
+
+<p><a href="http://blog-en.shingara.fr/test-your-rabl-view.html">English translation</a></p>
 ]]></content>
   </entry>
   

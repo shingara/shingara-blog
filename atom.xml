@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-07-05T10:02:31+02:00</updated>
+  <updated>2012-07-12T09:42:16+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -31,7 +31,7 @@ DRY et les test étaient loin d&#8217;être évident car impossible coté contro
 
 <p>Le grand avantage que j&#8217;ai vu dans <code>decent_exposure</code> est la facilité
 d&#8217;accès des variables dans les vues. Plus besoin de faire appel à des
-instances. On appelait simplement l&#8217;objet. Si celui-ci n&#8217;était pas
+instances. On appele simplement la méthode. Si celui-ci n&#8217;était pas
 instancié alors <code>decent_exposure</code> le faisait pour nous. On obtenait ainsi un système beaucoup plus souple qui ne
 chargeait les objets qu&#8217;au moment ou il était nécessaire. Un eager
 loading intégré permettait d&#8217;éviter de rechercher en base plusieurs fois
@@ -228,6 +228,8 @@ variables, la tâche devient très hardu. J&#8217;ai donc commencé à proposer 
 <a href="https://github.com/nesquena/rabl/pull/261">Pull Request</a> pour passer directement des variables dans sa vue Rabl, de
 la même méthode que les partials avec l&#8217;options <code>:locals</code>. Vous pouvez
 la <a href="https://github.com/nesquena/rabl/pull/261">suivre sur github</a></p>
+
+<p><a href="http://blog-en.shingara.fr/test-your-rabl-view.html">English translation</a></p>
 ]]></content>
   </entry>
   
