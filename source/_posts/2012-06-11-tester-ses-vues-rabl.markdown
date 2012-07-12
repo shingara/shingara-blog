@@ -91,8 +91,8 @@ J'ai par contre découvert des limitations à ce test car, on ne peux
 passer à la méthode `#render` que les objects définis par `object` ou
 `collection`. Si on veux tester une vue rabl qui utilise plusieurs
 variables, la tâche devient très hardu. J'ai donc commencé à proposer un
-[Pull Request](https://github.com/nesquena/rabl/pull/261) pour passer directement des variables dans sa vue Rabl, de
+[Pull Request](https://github.com/nesquena/rabl/pull/269) pour passer directement des variables dans sa vue Rabl, de
 la même méthode que les partials avec l'options `:locals`. Vous pouvez
-la [suivre sur github](https://github.com/nesquena/rabl/pull/261)
+la [suivre sur github](https://github.com/nesquena/rabl/pull/269)
 
 [English translation](http://blog-en.shingara.fr/test-your-rabl-view.html)
