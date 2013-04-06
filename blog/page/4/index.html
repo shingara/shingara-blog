@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="A mon tour de vous annoncer la sortie de Typo 5.2. Cette sortie est la première sortie où je participe activement. En effet, depuis Août dernier, je &hellip;">
+  <meta name="description" content="Ca y est, après moins d&#8217;un mois, voici la nouvelle version de Oupsnow. Cette version 0.2.0 est la première version que je mets moi même en &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,62 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/sortie-de-oupsnow-0-2-0-avec-mise-en-production.html">Sortie de Oupsnow 0.2.0 avec mise en production</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-02-10T00:00:00+01:00" pubdate data-updated="true">Feb 10<span>th</span>, 2009</time>
+        
+         | <a href="/sortie-de-oupsnow-0-2-0-avec-mise-en-production.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est,  après moins d&#8217;un mois, voici la nouvelle version de <a href="http://oupsnow.rubyforge.org/">Oupsnow</a>. Cette version 0.2.0 est la première version que je mets moi même en production. En effet, désormais ma <a href="http://dev.shingara.fr/">platforme de développement</a> n&#8217;est plus propulsé par Redmine, c&#8217;est Oupsnow.</p>
+
+<p>Les nouveautés de cette version sont les suivantes :</p>
+
+<ul>
+<li>Un converteur Redmine -> Oupsnow a été intégré. C&#8217;est grâce à lui que j&#8217;ai pu changer ma platforme de développement sans perte.</li>
+</ul>
+
+<p>On été ajouté :</p>
+<ul>
+<li>Une gestion des milestones</li>
+<li>Une gestion des Etats des tickets</li>
+<li>Une gestion des Sévérité des tickets</li>
+<li>Formatage des textes avec RedCloth</li>
+</ul>
+
+<p>Après cette nouvelle release, j&#8217;ai vais pouvoir me reconcentrer sur Typo et ainsi faire <a href="http://typo.lighthouseapp.com/projects/11171/tickets/14-drop-acts_as_ressource-and-add-a-more-flexible-url-system">la fonctionnalité phare</a> de la <a href="http://typo.lighthouseapp.com/projects/11171/milestones/29390-typo-53">version 5.2.1</a>.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-02-10-oupsnow-0-2-0-released.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -776,56 +832,6 @@ class Article
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ma-technique-pour-suivre-twitter.html">Ma technique pour suivre twitter</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-12-02T00:00:00+01:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2008</time>
-        
-         | <a href="/ma-technique-pour-suivre-twitter.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ce soir durant l&#8217;apéro ruby, j&#8217;ai expliqué ma technique personnel pour suivre twitter. Il doit y avoir autant de technique que d&#8217;utilisateur mais je vous explique la mienne.</p>
-
-<p>Premièrement, il faut utiliser le gem <a href="http://twitter.rubyforge.org/">twitter</a>. Ce gem fourni un petit binaire qui permet de poster et vérifier les updates sur son compte twitter. Couplé à une base de donnée en SQLITE, il nous informe que des nouveaux updates.</p>
-
-<p>Enfin, il suffit de coupler ce gem avec un cron en un pipe sur mail pour pouvoir récupérer régulièrement les updates dans sa messagerie mail. Comme dirais Jean-François Tran, je suis un pro-logger. Je log tout. Mais bon, ça me permet de suivre plus facilement une longue liste d&#8217;update de tweet avec un mail par heure.</p>
-
-<p>Voici ma ligne cron :</p>
-
-<typo:code>
-42 * * * * twitter timeline | mail -s &#8216;twitter timeline&#8217; cyril.mougel@gmail.com
-</typo:code>
-
-<p>Simple et efficace. Pourquoi s&#8217;encombrer avec OSX :p</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -841,6 +847,10 @@ class Article
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -876,10 +886,6 @@ class Article
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -938,7 +944,7 @@ class Article
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

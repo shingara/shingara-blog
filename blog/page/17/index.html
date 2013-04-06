@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca fait plusieurs fois que je me dis que tous mes documents qui sont créés à partir de fichier LaTeX devrait être exportés en PDF et en HTML. Mais &hellip;">
+  <meta name="description" content="Ca faisait quelque temps, au niveau de mon stage, j&#8217;utilise une Base de donnée avec plusieurs dizaines de Tables différentes. Mais voilà, &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,118 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/schemaspy-aide-les-de%CC%81veloppeurs.html">SchemaSpy aide les développeurs</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-12-08T00:00:00+01:00" pubdate data-updated="true">Dec 8<span>th</span>, 2006</time>
+        
+         | <a href="/schemaspy-aide-les-de%CC%81veloppeurs.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>
+Ca faisait quelque temps, au niveau de mon stage, j&#8217;utilise une Base de donnée avec plusieurs dizaines de Tables différentes. Mais voilà, aucun document n&#8217;a été réalisé pour suivre l&#8217;évolution de cette Base de Donnée et la seule solution que j&#8217;avais pour la consulter, c&#8217;était de me connecter sur la BDD et de faire mes requêtes directement. J&#8217;ai finalement décidé de me prendre en main et de faire ce document. Mais en tant que bon informaticien, je suis flemmard et j&#8217;ai donc cherché une application qui me permettait de tout faire à ma place. Après plusieurs recherche infructueuse, j&#8217;ai fini par trouver mon bonheur. Il s&#8217;agit de <a href="http://schemaspy.sourceforge.net/">SchemaSpy</a>. Vous pouvez voir un exemple sur leur <a href="http://schemaspy.sourceforge.net/sample/">site</a>. Ce programme est un programme Java et il génére les graphiques à l&#8217;aide de <a href="http://www.graphviz.org/">Graphviz</a>.
+</p>
+
+<p>
+Après plusieurs essais infructueux, j&#8217;ai découvert que ce projet manquait par contre d&#8217;une documentation plus ou moins simple et explicite. Je vais donc expliquer brievement ici comment faire.
+</p>
+
+<ul>
+<li>Installer le JRE 5.0 sur le site internet de Sun</li>
+<li>
+Télécharger le jar driver de la Base de Donnée que vous voulez consulter. Dans mon cas j&#8217;utilise <a href="http://mysql.com">MySQL</a> et vous pouvez le télécharger <a href="http://dev.mysql.com/downloads/connector/j/5.0.html">ici</a>
+</li>
+<li>Installer Graphviz si vous désirez la création des graphiques</li>
+</ul>
+
+<p>Maintenant la ligne de commande pour analyser une base de donnée MySQL il faut faire :</p>
+
+<pre>$java -jar schemaspy -t mysql  -host localhost -db mydatabase -u user -p password -o output</pre>
+
+<p>
+Mais voilà pour moi cela n&#8217;a pas marché. j&#8217;ai donc lu le source du jar et compris comment créer un fichier de configuration pour schemaSpy. Je vais vous expliquer comment en faire un. Voici le fichier que j&#8217;ai appelé <b>mymysql.properties</b>
+</p>
+
+<pre>
+# note that MySQL tables must be of type 'InnoDB' or they won't
+# have foreign key relationships
+description=MySQL
+
+# connection spec
+#  text between &lt;&gt;'s will be prompted for on the command line
+#    e.g. if &lt;host&gt; is in connectionSpec then you must have -host on the command line
+#  if you're missing a required parameter then you're be prompted with the text
+#  that's associated with that paramter
+#    e.g. missing -db then you'll be prompted for 'database name'
+# expected format: jdbc:mysql://[hostname][:port]/dbname
+connectionSpec=jdbc:mysql://localhost/
+#host=hostname[:port] (possibly just localhost)
+db=databasename
+
+driver=com.mysql.jdbc.Driver
+
+# point this to whatever is appropriate on your machine...let me know if there's a standard path/jar
+# you can use the -cp command line option if you prefer
+# The driver should be available at www.mysql.com/products/connector/j/
+driverPath=mysql-connector-java-3.1.13-bin.jar
+
+# if your driver returns failures like "stream already closed" then its metadata
+# services probably aren't thread safe and you'll have to uncomment this line
+# or specify "-dbThreads 1" on the command line.
+#dbThreads=1
+
+# the following SQL is optional
+# fill it in if you want to see the SQL used to create your views or your check constraints
+# send it back to schemaspy.sourceforge.net if it works
+# these named parameters are supported: :schema, :owner, :table and :view
+
+# return text that represents a specific :view / :schema
+#selectViewSql=
+
+# return table_name, constraint_name and text for a specific :schema
+#selectCheckConstraintsSql=
+
+# return table_name, comments for a specific :schema (which MySQL doesn't have, so the db name will be used)
+# useful if db driver doesn't return this info
+selectTableCommentsSql=select table_name, table_comment comments from information_schema.tables where table_schema=:schema
+
+# return table_name, column_name, comments for a specific :schema
+# useful if db driver doesn't return this info
+#selectColumnCommentsSql=select table_name, column_name, column_comment comments from information_schema.columns where table_schema=:schema
+</pre>
+
+<p>Sur le fichier précédent, vous n&#8217;avez qu&#8217;à changer le lien de votre jar MysqlConnector et le nom de la Base de donnée que vous voulez consulter. Une fois ce fichier créer, il suffit de faire comme appele au programme schemaspy la commande suivante :</p>
+
+<pre>$java -jar schemaspy -t mymysql -u user -p password -o output</pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -657,47 +769,6 @@ Last update @DATE-STAMP@ @USER-NAME@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/telecharger-les-informations-de-france-2.html">Telecharger les informations de France 2</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2006-05-08T00:00:00+02:00" pubdate data-updated="true">May 8<span>th</span>, 2006</time>
-        
-         | <a href="/telecharger-les-informations-de-france-2.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Aujourd&#8217;hui, j&#8217;ai vu un reportage qui pouvait m&#8217;interresser au journal de 13h de France 2. Mais voila, il se trouve qu&#8217;il est en plusieurs parties et a 13h, je ne suis que rarement present pour regarder les informations a cette heure.</p>
-<p>En cherchant un peu, j&#8217;ai ainsi decouvert que France 2 mettait a dispositions des internautes un systeme de streaming videp pour consulter les informations diffusees. Mais voila le systeme etant tres simple pour un windowsiens, un linuxien a vite beaucoup de problemes pour consulter la video. J&#8217;ai donc chercher a trouver comment telecharger cette video. J&#8217;ai vite trouve qu&#8217;il s&#8217;agissait d&#8217;un streaming en mms:// (Microsfot Media Streaming). Mais apres une recherche appronfondie, j&#8217;ai fini par trouver l&#8217;application qu&#8217;il me fallait (Comme souvent sous linux). Il s&#8217;agit de <a href="http://savannah.nongnu.org/projects/mimms/">MiMMS</a>. Ainsi une fois le logiciel installer, il suffit de taper la commande suivante :</p>
-<pre>$mimms -o nomFichier mms://<url></pre>
-<p>Nous avons ainsi une copie locale du l&#8217;emission :)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/18/">&larr; Older</a>
@@ -713,6 +784,10 @@ Last update @DATE-STAMP@ @USER-NAME@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -748,10 +823,6 @@ Last update @DATE-STAMP@ @USER-NAME@
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -810,7 +881,7 @@ Last update @DATE-STAMP@ @USER-NAME@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

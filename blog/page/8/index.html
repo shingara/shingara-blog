@@ -9,8 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Traduction de la news #21 C&#8217;est une autre semaine au ralenti (seulement 2 changements à noter selon moi) après la <a
-href="http://www. &hellip;">
+  <meta name="description" content="Traduction de la <a
+href="http://blog.codefront.net/2008/05/25/living-on-the-edge-of-rails-22-pre-railsconf-2008-edition/">news #22 Aucun changement &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,130 @@ href="http://www. &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-22.html">Vivre avec Rails Edge #22</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2008</time>
+        
+         | <a href="/vivre-avec-rails-edge-22.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Traduction de la <a
+href="http://blog.codefront.net/2008/05/25/living-on-the-edge-of-rails-22-pre-railsconf-2008-edition/">news #22</a></p>
+
+<p>Aucun changement hallucinant dans Rails cette semaine avant la RailsConf -
+Comme Gregg le mentionnait la semaine dernière dans le <a
+href="http://railsenvy.com/2008/5/21/rails-envy-podcast-episode-032">Rails
+Envy podcast</a>, ce sont les jours pré-2.1 (Rails 2.1 sera
+        <em>probablement</em> sorti au RailsConf), ce qui sera une façon
+simple de voir pourquoi. Tous les tests de rails passe désormais sur Ruby 1.9
+après un long bug sur <code>#module_eval</code> résolu dans le trunk de Ruby
+1.9 (voir <a
+                href="http://groups.google.com/group/ruby-core-google/browse_thread/thread/6d08e11363bf49b4">ce
+                thread</a> pour plus de détails).</p>
+
+
+<p>Je serais (pour la première fois) au RailsConf 2008 à Portland, Oregon, ce
+jeudi prochain - Si quelqu&#8217;un souhaite me voir et me reconnaitre avec ma <a
+href="http://www.facebook.com/people/Chu_Yeow/500115784">photo de
+Facebook</a>, s&#8217;il vous plait venez me dire salut.</p>
+
+<p>Le rapport de cette semaine couvre les changement du 19 Mai 2008 au 25 Mai
+2008 (le jour correspondant à l&#8217;enregistrement du <a
+        href="http://railsenvy.com/podcast/">Rails
+                Envy podcast</a>).</p>
+
+<h3>Les méthodes first et last fonctionnent désormais avec les associations et
+named_scope</h3>
+
+<p>Vous vous souvenez comment le <a
+href="http://blog.codefront.net/2008/04/05/living-on-the-edge-of-rails-14-the-extreme-edition-extremely-late/">merge
+du gem has_finder à l&#8217;intérieur de rails</a> a
+permis de faire des choses comme <code>Post.first</code> et
+<code>Post.last</code>?</p>
+
+
+<p>Maintenant vous pouvez allez dans l&#8217;étape suivant et utiliser les mêmes
+méthode dans vos association ActiveRecord. Par exemple:</p>
+
+<typo:code lanf="ruby">post = Post.find(1)
+first_comment = post.comments.first</typo:code>
+
+<p>Si vous avez récement utilisé <a
+href="http://ryandaigle.com/articles/2008/3/24/what-s-new-in-edge-rails-has-finder-functionality">named_scope</a>,
+vous pouvez désormais faire ceci:</p>
+
+
+<typo:code lang="ruby">post.comments.recent.last</typo:code>
+
+<p>Cette belle petite fonctionnalitée a été gentiement apporté par <a
+href="http://railscasts.com/">Ryan Bates</a> (oui, le <em>Ryan Bates</em> du
+        fameux
+        <a href="http://railscasts.com/">Railscasts</a>).</p>
+
+<p>Révision concernant cette fonctionnalités: <a
+href="http://github.com/rails/rails/commit/73c59638549686fccc749ffd3ac53cb533c5fd61">http://github.com/rails/rails/commit/73c59638549686fccc749ffd3ac53cb533c5fd61</a></p>
+
+
+<h3>Cache stores a désormais une méthode exist? et ajouté dans le controllers un fragment_exist?</h3>
+
+<p>L&#8217;enregistreur de cache dans Rails (Memcache, file stores, etc.) peux désormais avoir une méthode <code>exist?</code> qui vérifie si une valeur de cache existe pour la clé de cache. Cela permet aux controllers Rails de disposer d&#8217;une méthode <code>fragment_exist?</code> qui permet de vérifier l&#8217;existence d&#8217;un fragment de cache:</p>
+
+
+<typo:code lang="ruby">fragment_exist?(&#8216;example.com/foo/bar&#8217;)</typo:code>
+
+<p>Cette petite amélioration a été gentiement apporté par <a
+href="http://josevalim.blogspot.com/">José Valim</a>.</p>
+
+<p>Révision concernant cette fonctionnalités: <a
+href="http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a84b#diff-2">http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a84b#diff-2</a></p>
+
+<h3>Créer un enregistrement d&#8217;une association avec un block en argument</h3>
+
+<p>Vous pouvez désormez créer des enregistrement pour les associations comment ceci:</p>
+
+<typo:code lang="ruby">post.coments.create!(:title => &#8216;Techcrunch&#8217;) do |c|
+  c.body = &#8220;Rails can&#8217;t scale&#8221;
+  end</typo:code>
+
+<p>Ceci est ajouté au changement de <a
+  href="http://blog.codefront.net/2008/05/04/living-on-the-edge-of-rails-19-change_table-for-migrations-and-more/">ActiveRecord::Base.create
+  indiqué précédement</a>.</p>
+  <p>Ce patch a été réalisé par (encore une fois) <a
+  href="http://railscasts.com/">Ryan Bates</a>.</p>
+  
+  <p>Révision concernant cette fonctionnalités: <a
+  href="http://github.com/rails/rails/commit/6cba97d2a449faf21aec9fe9d4434067e414226f">http://github.com/rails/rails/commit/6cba97d2a449faf21aec9fe9d4434067e414226f</a></p>
+  <p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vivre avec Rails.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -731,65 +855,6 @@ article.save
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/activer-la-capture-du-son-sous-linux-pour-xvidcap.html">Activer la capture du son sous Linux pour xvidcap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-18T00:00:00+02:00" pubdate data-updated="true">Apr 18<span>th</span>, 2008</time>
-        
-         | <a href="/activer-la-capture-du-son-sous-linux-pour-xvidcap.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Voulant tenter de faire des screencasts, j&#8217;ai jeté mon dévolu juste <a href="http://xvidcap.sourceforge.net/">xvidcap</a>. Durant, mon test, je n&#8217;arrivais pas à faire de capture du son. J&#8217;avais bien branché mon micro et je pouvais l&#8217;entendre dans les enceintes. Mais il n&#8217;était pas capturé. je vais donc indiquer toutes les modifications que j&#8217;ai réalisé pour que ça marche, car ce n&#8217;est pas la première fois que j&#8217;ai ce genre de problème.</p>
-
-<h3>XvidCap n&#8217;écoute que OSS</h3>
-
-<p>En effet, xvidcap n&#8217;écoute que le point /dev/dsp, il faut donc réaliser la compatibilité OSS si vous utilisez alsa.</p>
-
-<h3>Activer la capture du micro</h3>
-
-<p>Ensuite, il faut penser à vérifier que la capture du son soit bien activé dans alsamixer. Pour cela, il suffit d&#8217;aller sur la partie Capture d&#8217;alsamixer. Pour y arriver, une petite tabulation suffit. Le screenshot suivant montre le cas de capture désactivé.</p>
-
-<p style="text-align: center;">
-<img src="http://blog.shingara.fr/files/alsamixer-capture-desabled.png" alt="screenshot d alsamixer avec la capture son desactive" >
-</p>
-
-<p>Il suffit ensuite d&#8217;aller sur les éléments désactivés et d&#8217;appuyer sur espace pour valider la capture. On obtient ainsi l&#8217;écran suivant :</p>
-
-
-<p style="text-align: center;">
-<img src="http://blog.shingara.fr/files/alsamixer-capture-activate.png" alt="screenshot d alsamixer avec la capture son active" >
-</p>
-
-<p>J&#8217;ai ainsi pu enfin réussir mon test de screencast pour réaliser les screencasts que je souhaite.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -805,6 +870,10 @@ article.save
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -840,10 +909,6 @@ article.save
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -902,7 +967,7 @@ article.save
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -123,93 +123,7 @@ fichiers.</p>
 <p>Je vous le partage si vous en avez besoin un jour.</p>
 
 <div><script src='https://gist.github.com/2420838.js?file='></script>
-<noscript><pre><code>require 'faraday'
-require 'faraday_middleware'
-
-url_project = 'https://ciblonet.basecamphq.com'
-project_id = 3684800
-user_name = 'shingara'
-password = 'xxxx'
-
-class Attachment
-
-  def initialize(conn, attachment)
-    @conn = conn
-    @attachment = attachment
-  end
-
-  def collection
-    @attachment['collection'].to_s
-  end
-
-  def dir
-    Dir.mkdir(collection) unless Dir.exists?(collection)
-    collection
-  end
-
-  def fetch
-    File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
-  end
-end
-
-class Attachments
-  def initialize(conn, project_id, step=nil)
-    @conn = conn
-    @project_id = project_id
-    @attachments_index = 100
-    @step = step
-  end
-
-  def url
-    if @step
-      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
-    else
-      &quot;/projects/#{@project_id}/attachments.xml&quot;
-    end
-  end
-
-  def entries
-    @entries ||= @conn.get(url) do |req|
-      req.headers['Accept'] = 'application/xml'
-      req.headers['Content-Type'] = 'application/xml'
-    end.body['attachments']
-  end
-
-  def fetch
-    entries.each do |attachment|
-      Attachment.new(@conn, attachment).fetch
-    end
-  end
-
-  def more?
-    entries.size &gt; 99
-  end
-end
-
-
-class FetchAttachments
-
-  def self.execute(conn, project_id)
-    a = Attachments.new(conn, project_id)
-    a.fetch
-    step = 100
-    while a.more?
-      a = Attachments.new(conn, project_id, step)
-      a.fetch
-      step += 100
-    end
-  end
-end
-
-con = Faraday.new(:url =&gt; url_project) do |builder|
-  builder.use Faraday::Request::BasicAuthentication, user_name, password
-  builder.use Faraday::Response::Logger
-  builder.response :xml,  :content_type =&gt; /\bxml$/
-  builder.use Faraday::Adapter::NetHttp
-end
-
-FetchAttachments.execute(con, project_id)
-</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 
 
 <p>Dans ce script j&#8217;utilise
@@ -291,6 +205,10 @@ requêtage HTTP.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
+    
+      <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j'ai arrêté decent_exposure</a>
       </li>
     
@@ -324,10 +242,6 @@ requêtage HTTP.</p>
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l'aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -387,7 +301,7 @@ requêtage HTTP.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Voici comment réaliser simplement une authentification HTTP avec Nginx. Pour cela, il suffit d&#8217;utiliser le module d&#8217;authentification &hellip;">
+  <meta name="description" content="Ca y est Rails 2.0 est vraiment en cours de sortie. En effet hier, Rails 2.0 Preview Release a été taggé sur Subversion et une annonce officielle a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/rails-2-0-preview-release-est-sortie.html">Rails 2.0 Preview Release est sortie</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2007-10-01T00:00:00+02:00" pubdate data-updated="true">Oct 1<span>st</span>, 2007</time>
+        
+         | <a href="/rails-2-0-preview-release-est-sortie.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ca y est Rails 2.0 est vraiment en cours de sortie. En effet hier, Rails 2.0 Preview Release a été <a href="http://dev.rubyonrails.org/changeset/7702">taggé</a> sur Subversion et une <a href="http://weblog.rubyonrails.org/2007/9/30/rails-2-0-0-preview-release">annonce officielle</a> a été réalisée.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -738,64 +776,6 @@ junit.textui.TestRunner
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/lister-un-re%CC%81pertoire-avec-nginx.html">lister un répertoire avec Nginx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-09-06T00:00:00+02:00" pubdate data-updated="true">Sep 6<span>th</span>, 2007</time>
-        
-         | <a href="/lister-un-re%CC%81pertoire-avec-nginx.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Dernièrement, je me tente à migrer ma dédibox sur le serveur Web <a href="http://nginx.net/">Nginx</a> à la place d&#8217;Apache. Nginx est le serveur web qui buzz un peu partout dans le milieu des framework Web en Python et Ruby.</p>
-
-<p>
-Dans ma migration, j&#8217;ai voulu définir une URL qui permette de lister un répertoire et naviguer dedans. Ayant eu quelques petites difficultés et constatant que la documentation française étant très pauvre, je vous livre ma recherche.
-</p>
-
-<p>
-Pour lister un répertoire il faut utiliser le <a href="http://wiki.codemongers.com/NginxHttpAutoindexModule">module AutoIndex</a>. Dans ce module la directive autoindex à &#8220;on&#8221; permet de lister le repertoire. Pour définir l&#8217;URL qui pointera sur ce répertoire, il faut utiliser la directive location en indiquant l&#8217;URL que l&#8217;on souhaite. Enfin pour définir le répertoire qui sera listé sur cette url il faut utiliser la <a href="http://wiki.codemongers.com/NginxHttpCoreModule#alias">directive alias</a> et donner en paramètre le chemin du répertoire.
-</p>
-
-<p>Voici un exemple de configuration a mettre dans votre fichier de conf Nginx.</p>
-
-
-<pre>
-location /votre_path {
-  alias /votre_repertoire/sous_repertoire/; 
-  autoindex  on;
-}
-</pre>
-
-<p>Je trouve que même cette fonctionnalité est plus rapide que sous Apache. Je suis vraiment content d&#8217;Nginx. En plus je comprend enfin la documentation d&#8217;un serveur Web.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/13/">&larr; Older</a>
@@ -811,6 +791,10 @@ location /votre_path {
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -846,10 +830,6 @@ location /votre_path {
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -908,7 +888,7 @@ location /votre_path {
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

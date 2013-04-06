@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ce blog a été mis à jour avec succès avec la nouvelle version de Typo. En effet, la sortie a été réalisé hier et ce blog est déjà à jour. Pour la &hellip;">
+  <meta name="description" content="Alors que je commence un nouvelle emploi, voici la nouvelle version de Pictrails. Cette version 0.4.0 sort assez rapidement après la version 0.3.x. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/sortie-de-pictrails-0-4-0.html">Sortie de Pictrails 0.4.0</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-04T00:00:00+02:00" pubdate data-updated="true">Aug 4<span>th</span>, 2008</time>
+        
+         | <a href="/sortie-de-pictrails-0-4-0.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Alors que je commence un nouvelle emploi, voici la nouvelle version de <a href="http://pictrails.rubyforge.org">Pictrails</a>. Cette version 0.4.0 sort assez rapidement après la <a href="http://blog.shingara.fr/2008/06/15/publication-de-pictrails-0-3-0">version 0.3.x</a>. Elle apporte effectivement assez peu de nouvelles fonctionnalités, mais elle a l&#8217;avantage d&#8217;être maintenant compatible avec Rails 2.1 Les prochaines versions de Pictrails seront peut-être un peu moins fréquente. Mais la roadmap se charge de plus en plus et même quelques personnes commencerait à utiliser Pictrails.</p>
+
+<p>Voici la liste des nouveautés de cette version :</p>
+
+<ul>
+<li>Ajout du support des Tags. Ainsi chaque image peux avoir une série de Tag qui lui ai associé.</li>
+<li>Ajout d&#8217;un flux Atom relié au gallerie</li>
+<li>Ajout d&#8217;une bar de coté avec la liste des galleries disponible sur l&#8217;application. Elle est organisé sous forme d&#8217;arbre exactement comme est l&#8217;arborescence.</li>
+<li>Ajout d&#8217;un nuage de Tag global et gallerie par gallerie dans la bar de coté.</li>
+</ul>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -701,130 +748,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/vivre-avec-rails-edge-22.html">Vivre avec Rails Edge #22</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-05-26T00:00:00+02:00" pubdate data-updated="true">May 26<span>th</span>, 2008</time>
-        
-         | <a href="/vivre-avec-rails-edge-22.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Traduction de la <a
-href="http://blog.codefront.net/2008/05/25/living-on-the-edge-of-rails-22-pre-railsconf-2008-edition/">news #22</a></p>
-
-<p>Aucun changement hallucinant dans Rails cette semaine avant la RailsConf -
-Comme Gregg le mentionnait la semaine dernière dans le <a
-href="http://railsenvy.com/2008/5/21/rails-envy-podcast-episode-032">Rails
-Envy podcast</a>, ce sont les jours pré-2.1 (Rails 2.1 sera
-        <em>probablement</em> sorti au RailsConf), ce qui sera une façon
-simple de voir pourquoi. Tous les tests de rails passe désormais sur Ruby 1.9
-après un long bug sur <code>#module_eval</code> résolu dans le trunk de Ruby
-1.9 (voir <a
-                href="http://groups.google.com/group/ruby-core-google/browse_thread/thread/6d08e11363bf49b4">ce
-                thread</a> pour plus de détails).</p>
-
-
-<p>Je serais (pour la première fois) au RailsConf 2008 à Portland, Oregon, ce
-jeudi prochain - Si quelqu&#8217;un souhaite me voir et me reconnaitre avec ma <a
-href="http://www.facebook.com/people/Chu_Yeow/500115784">photo de
-Facebook</a>, s&#8217;il vous plait venez me dire salut.</p>
-
-<p>Le rapport de cette semaine couvre les changement du 19 Mai 2008 au 25 Mai
-2008 (le jour correspondant à l&#8217;enregistrement du <a
-        href="http://railsenvy.com/podcast/">Rails
-                Envy podcast</a>).</p>
-
-<h3>Les méthodes first et last fonctionnent désormais avec les associations et
-named_scope</h3>
-
-<p>Vous vous souvenez comment le <a
-href="http://blog.codefront.net/2008/04/05/living-on-the-edge-of-rails-14-the-extreme-edition-extremely-late/">merge
-du gem has_finder à l&#8217;intérieur de rails</a> a
-permis de faire des choses comme <code>Post.first</code> et
-<code>Post.last</code>?</p>
-
-
-<p>Maintenant vous pouvez allez dans l&#8217;étape suivant et utiliser les mêmes
-méthode dans vos association ActiveRecord. Par exemple:</p>
-
-<typo:code lanf="ruby">post = Post.find(1)
-first_comment = post.comments.first</typo:code>
-
-<p>Si vous avez récement utilisé <a
-href="http://ryandaigle.com/articles/2008/3/24/what-s-new-in-edge-rails-has-finder-functionality">named_scope</a>,
-vous pouvez désormais faire ceci:</p>
-
-
-<typo:code lang="ruby">post.comments.recent.last</typo:code>
-
-<p>Cette belle petite fonctionnalitée a été gentiement apporté par <a
-href="http://railscasts.com/">Ryan Bates</a> (oui, le <em>Ryan Bates</em> du
-        fameux
-        <a href="http://railscasts.com/">Railscasts</a>).</p>
-
-<p>Révision concernant cette fonctionnalités: <a
-href="http://github.com/rails/rails/commit/73c59638549686fccc749ffd3ac53cb533c5fd61">http://github.com/rails/rails/commit/73c59638549686fccc749ffd3ac53cb533c5fd61</a></p>
-
-
-<h3>Cache stores a désormais une méthode exist? et ajouté dans le controllers un fragment_exist?</h3>
-
-<p>L&#8217;enregistreur de cache dans Rails (Memcache, file stores, etc.) peux désormais avoir une méthode <code>exist?</code> qui vérifie si une valeur de cache existe pour la clé de cache. Cela permet aux controllers Rails de disposer d&#8217;une méthode <code>fragment_exist?</code> qui permet de vérifier l&#8217;existence d&#8217;un fragment de cache:</p>
-
-
-<typo:code lang="ruby">fragment_exist?(&#8216;example.com/foo/bar&#8217;)</typo:code>
-
-<p>Cette petite amélioration a été gentiement apporté par <a
-href="http://josevalim.blogspot.com/">José Valim</a>.</p>
-
-<p>Révision concernant cette fonctionnalités: <a
-href="http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a84b#diff-2">http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a84b#diff-2</a></p>
-
-<h3>Créer un enregistrement d&#8217;une association avec un block en argument</h3>
-
-<p>Vous pouvez désormez créer des enregistrement pour les associations comment ceci:</p>
-
-<typo:code lang="ruby">post.coments.create!(:title => &#8216;Techcrunch&#8217;) do |c|
-  c.body = &#8220;Rails can&#8217;t scale&#8221;
-  end</typo:code>
-
-<p>Ceci est ajouté au changement de <a
-  href="http://blog.codefront.net/2008/05/04/living-on-the-edge-of-rails-19-change_table-for-migrations-and-more/">ActiveRecord::Base.create
-  indiqué précédement</a>.</p>
-  <p>Ce patch a été réalisé par (encore une fois) <a
-  href="http://railscasts.com/">Ryan Bates</a>.</p>
-  
-  <p>Révision concernant cette fonctionnalités: <a
-  href="http://github.com/rails/rails/commit/6cba97d2a449faf21aec9fe9d4434067e414226f">http://github.com/rails/rails/commit/6cba97d2a449faf21aec9fe9d4434067e414226f</a></p>
-  <p>Comme toujours, vous pouvez laissez toutes suggestions pour améliorer cette série de Vivre avec Rails.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -840,6 +763,10 @@ href="http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -875,10 +802,6 @@ href="http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -937,7 +860,7 @@ href="http://github.com/rails/rails/commit/99860b72aebe0348f41e82d4710343498d89a
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

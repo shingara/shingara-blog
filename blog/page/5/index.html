@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que sur IRC quelqu&#8217;un demande, comment faire un upcase sur des accents et conserver ces accents en majuscule, je lui répond que ce n&# &hellip;">
+  <meta name="description" content="Ce soir durant l&#8217;apéro ruby, j&#8217;ai expliqué ma technique personnel pour suivre twitter. Il doit y avoir autant de technique que d&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,56 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/ma-technique-pour-suivre-twitter.html">Ma technique pour suivre twitter</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-12-02T00:00:00+01:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2008</time>
+        
+         | <a href="/ma-technique-pour-suivre-twitter.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Ce soir durant l&#8217;apéro ruby, j&#8217;ai expliqué ma technique personnel pour suivre twitter. Il doit y avoir autant de technique que d&#8217;utilisateur mais je vous explique la mienne.</p>
+
+<p>Premièrement, il faut utiliser le gem <a href="http://twitter.rubyforge.org/">twitter</a>. Ce gem fourni un petit binaire qui permet de poster et vérifier les updates sur son compte twitter. Couplé à une base de donnée en SQLITE, il nous informe que des nouveaux updates.</p>
+
+<p>Enfin, il suffit de coupler ce gem avec un cron en un pipe sur mail pour pouvoir récupérer régulièrement les updates dans sa messagerie mail. Comme dirais Jean-François Tran, je suis un pro-logger. Je log tout. Mais bon, ça me permet de suivre plus facilement une longue liste d&#8217;update de tweet avec un mail par heure.</p>
+
+<p>Voici ma ligne cron :</p>
+
+<typo:code>
+42 * * * * twitter timeline | mail -s &#8216;twitter timeline&#8217; cyril.mougel@gmail.com
+</typo:code>
+
+<p>Simple et efficace. Pourquoi s&#8217;encombrer avec OSX :p</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -541,83 +591,6 @@ Loading production environment (Rails 2.0.2)
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/quelles-nouvelles-dans-rails-edge-les-shallow-routes.html">Quelles nouvelles dans Rails Edge : Les Shallow routes</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-09-08T00:00:00+02:00" pubdate data-updated="true">Sep 8<span>th</span>, 2008</time>
-        
-         | <a href="/quelles-nouvelles-dans-rails-edge-les-shallow-routes.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Traduction de l&#8217;article de <a href="http://ryandaigle.com/">Ryan Daigle</a>, <a href="http://ryandaigle.com/articles/2008/9/7/what-s-new-in-edge-rails-shallow-routes">What&#8217;s new in edge rails
-: Shallow routes</a></p>
-                                                                            
-<p>Le système des routes avec Rails est assez malin. Dans une optique d&#8217;être  
-le plus descriptif possible, la description des ressources est fait au niveau
-des URL avec une DSL spécifique pour les routes :</p>
-                       
-<typo:code lang='ruby'>       
-map.resources :users do |user|         
-  user.resources :articles do |article|
-    article.resourcs :comments
-  end
-end         
-</typo:code>                                                                  
-                                                                              
-<p>Néanmoins, si cette configuration permet de voir les articles disponibles à
-l&#8217;URL <code>/users/1/articles</code> et les commentaires à l&#8217;URL                          
-<code>/users/1/articles/1/comments</code>, il y a des cas où on voudrais outrepasser cette
-hiérarchie et accéder directement à la ressource en question. Désormais avec                                               
-l&#8217;option des <a                                                                                                            
-href="http://github.com/rails/rails/commit/83c6ba18899a9f797d79726ca0078bdf618ec3d4">shallow route</a>, vous le pouvez.</p>
-                       
-<typo:code lang='ruby'>                          
-map.resources :users, :shallow => true do |user|
-  user.resources :articles do |article|
-    article.resources :comments
-  end
-end         
-</typo:code>
-                                          
-<p>Cette configuration permet de conserver les routes imbriquées et vous donne 
-accès directement au route comme ceci:</p>
-                       
-<typo:code lang="ruby">      
-articles_path #=> &#8216;/articles&#8217;                             
-comments_path #=> &#8216;/comments&#8217;                             
-article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
-</typo:code>
-                                                                                                                                                                         
-<p>Plus besoin de déclarer séparement les routes directes en plus des routes imbriquées. l&#8217;option <code>:shallow</code> fait tout les routes nécessaires automatiquement pour vous.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -633,6 +606,10 @@ article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -668,10 +645,6 @@ article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -730,7 +703,7 @@ article_comments_path(@article) #=> &#8216;/articles/1/comments&#8217;
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

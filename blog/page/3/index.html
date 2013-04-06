@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je m&#8217;amusais à étendre le Logger de base de Ruby, j&#8217;ai découvert que l&#8217;on pouvait utiliser le Logger comme ci-dessous : &hellip;">
+  <meta name="description" content="Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de RabbitMQ, j&#8217;ai eu un gros problème. Alors qu&#8217; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/rabbitmq-ne-marche-pas-avec-mac-os.html">RabbitMQ ne marche pas avec Mac OS ?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-04T00:00:00+01:00" pubdate data-updated="true">Nov 4<span>th</span>, 2009</time>
+        
+         | <a href="/rabbitmq-ne-marche-pas-avec-mac-os.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j&#8217;ai eu un gros problème. Alors qu&#8217;il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n&#8217;ayant pas un besoin urgent de RabbitMQ, j&#8217;ai repoussé la recherche du problème.</p>
+
+<p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j&#8217;ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
+
+<p>Que faire si votre noeud de contrôle rabbitMQ n&#8217;arrive pas à discuter avec le noeud maitre ?</p>
+
+<p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l&#8217;ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C&#8217;est parfois tellement simple la résolution d&#8217;un problème.</p>
+
+<p><a href="http://blog.shingara.fr/en/2009-11-18-rabbitmq-doesn-t-works-with-macosx.html">English translation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -610,62 +656,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortie-de-oupsnow-0-2-0-avec-mise-en-production.html">Sortie de Oupsnow 0.2.0 avec mise en production</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-02-10T00:00:00+01:00" pubdate data-updated="true">Feb 10<span>th</span>, 2009</time>
-        
-         | <a href="/sortie-de-oupsnow-0-2-0-avec-mise-en-production.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Ca y est,  après moins d&#8217;un mois, voici la nouvelle version de <a href="http://oupsnow.rubyforge.org/">Oupsnow</a>. Cette version 0.2.0 est la première version que je mets moi même en production. En effet, désormais ma <a href="http://dev.shingara.fr/">platforme de développement</a> n&#8217;est plus propulsé par Redmine, c&#8217;est Oupsnow.</p>
-
-<p>Les nouveautés de cette version sont les suivantes :</p>
-
-<ul>
-<li>Un converteur Redmine -> Oupsnow a été intégré. C&#8217;est grâce à lui que j&#8217;ai pu changer ma platforme de développement sans perte.</li>
-</ul>
-
-<p>On été ajouté :</p>
-<ul>
-<li>Une gestion des milestones</li>
-<li>Une gestion des Etats des tickets</li>
-<li>Une gestion des Sévérité des tickets</li>
-<li>Formatage des textes avec RedCloth</li>
-</ul>
-
-<p>Après cette nouvelle release, j&#8217;ai vais pouvoir me reconcentrer sur Typo et ainsi faire <a href="http://typo.lighthouseapp.com/projects/11171/tickets/14-drop-acts_as_ressource-and-add-a-more-flexible-url-system">la fonctionnalité phare</a> de la <a href="http://typo.lighthouseapp.com/projects/11171/milestones/29390-typo-53">version 5.2.1</a>.</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-02-10-oupsnow-0-2-0-released.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -681,6 +671,10 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -716,10 +710,6 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -778,7 +768,7 @@ Cela est aussi vrai pour les utilisateurs de Merb. En général pour les utilisa
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

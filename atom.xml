@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2012-07-12T10:01:09+02:00</updated>
+  <updated>2013-04-06T16:22:24+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,47 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Release de public folder]]></title>
+    <link href="http://blog.shingara.fr/release-public-folder.html"/>
+    <updated>2013-04-06T09:49:00+02:00</updated>
+    <id>http://blog.shingara.fr/release-public-folder</id>
+    <content type="html"><![CDATA[<p>Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
+Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&#8217;exercice en
+Ruby. Étant un convaincu de l&#8217;open source et étant globalement fier de
+ce que je peux produire, j&#8217;ai décidé de le sortir en open source.</p>
+
+<p>Voici donc <a href="http://github.com/shingara/public_folder">Public Folder</a></p>
+
+<p>Ce projet est extrêment simple, il s&#8217;agit d&#8217;une interface de gestion de
+répertoires. A partir de la racine, on peut ainsi naviguer à travers une
+arborescence que l&#8217;on peut créer soit même. On peut donc créer des
+répertoires et uploader des fichiers directement dans l&#8217;applications.</p>
+
+<p>Le stockage des fichiers se fait directement sur disque dans la même
+arborescence que celle défini dans l&#8217;application. Elle est juste comme
+git, si vous créez un dossier dans l&#8217;application et qu&#8217;il ne contient
+aucun fichier, le dossier ne sera pas créé sur le disque.</p>
+
+<p>Au niveau de la navigation, l&#8217;url correspond à l&#8217;architecture du dossier
+et on peut trier chaque listings par date/type/poids ou noms.</p>
+
+<p>Pour réaliser cette application, la stack est full Rails, soit
+ActionPack et ActiveRecord. J&#8217;ai juste utilisé <code>decent_exposure</code>,
+<code>simple_form</code> et <code>draper</code> comme gems. Je ne peux plus du tout me passer
+d&#8217;eux tellement ils sont devenus essentiel pour moi.</p>
+
+<p>Bien évidement, ce projet est complétement testé. J&#8217;ai une couverture de
+test de 99% selon
+<a href="https://coveralls.io/r/shingara/public_folder">coveralls</a>. Il a une note de 4
+sur <a href="http://codeclimate.com/github/shingara/public_folder">CodeClimate</a>. Vous pouvez le voir aussi sur <a href="https://travis-ci.org/shingara/public_folder">travis</a>.</p>
+
+<p>Je ne compte pas continuer le développement de cette application. Je
+n&#8217;en ai strictement aucun besoin. Par contre, je la laisse à la
+postérité et au lecteur de code en tout genre.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[pourquoi j'ai arrêté decent_exposure]]></title>
@@ -624,93 +665,7 @@ fichiers.</p>
 <p>Je vous le partage si vous en avez besoin un jour.</p>
 
 <div><script src='https://gist.github.com/2420838.js?file='></script>
-<noscript><pre><code>require 'faraday'
-require 'faraday_middleware'
-
-url_project = 'https://ciblonet.basecamphq.com'
-project_id = 3684800
-user_name = 'shingara'
-password = 'xxxx'
-
-class Attachment
-
-  def initialize(conn, attachment)
-    @conn = conn
-    @attachment = attachment
-  end
-
-  def collection
-    @attachment['collection'].to_s
-  end
-
-  def dir
-    Dir.mkdir(collection) unless Dir.exists?(collection)
-    collection
-  end
-
-  def fetch
-    File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
-  end
-end
-
-class Attachments
-  def initialize(conn, project_id, step=nil)
-    @conn = conn
-    @project_id = project_id
-    @attachments_index = 100
-    @step = step
-  end
-
-  def url
-    if @step
-      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
-    else
-      &quot;/projects/#{@project_id}/attachments.xml&quot;
-    end
-  end
-
-  def entries
-    @entries ||= @conn.get(url) do |req|
-      req.headers['Accept'] = 'application/xml'
-      req.headers['Content-Type'] = 'application/xml'
-    end.body['attachments']
-  end
-
-  def fetch
-    entries.each do |attachment|
-      Attachment.new(@conn, attachment).fetch
-    end
-  end
-
-  def more?
-    entries.size &gt; 99
-  end
-end
-
-
-class FetchAttachments
-
-  def self.execute(conn, project_id)
-    a = Attachments.new(conn, project_id)
-    a.fetch
-    step = 100
-    while a.more?
-      a = Attachments.new(conn, project_id, step)
-      a.fetch
-      step += 100
-    end
-  end
-end
-
-con = Faraday.new(:url =&gt; url_project) do |builder|
-  builder.use Faraday::Request::BasicAuthentication, user_name, password
-  builder.use Faraday::Response::Logger
-  builder.response :xml,  :content_type =&gt; /\bxml$/
-  builder.use Faraday::Adapter::NetHttp
-end
-
-FetchAttachments.execute(con, project_id)
-</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 
 
 <p>Dans ce script j&#8217;utilise
@@ -1428,23 +1383,6 @@ Merb/DataMapper comme sa dernière version. Toute aide est bien-sûr la
 bienvenue.</p>
 
 <p><a href="http://blog.shingara.fr/en/2009-11-19-oupsnow-from-merb-to-rails.html">English translation</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RabbitMQ ne marche pas avec Mac OS ?]]></title>
-    <link href="http://blog.shingara.fr/rabbitmq-ne-marche-pas-avec-mac-os.html"/>
-    <updated>2009-11-04T00:00:00+01:00</updated>
-    <id>http://blog.shingara.fr/rabbitmq-ne-marche-pas-avec-mac-os</id>
-    <content type="html"><![CDATA[<p>Il y a quelque semaine, alors que je me remettais tout simplement à l&#8217;utilisation de <a href="http://www.rabbitmq.com/">RabbitMQ</a>, j&#8217;ai eu un gros problème. Alors qu&#8217;il faut configurer les vhost et les utilisateurs de RabbitMQ, impossible de contacter mon service rabbitMQ avec la commande <code>rabbitmqctl</code>. Prévoyant une migration vers Mac OS Snow Leopard et n&#8217;ayant pas un besoin urgent de RabbitMQ, j&#8217;ai repoussé la recherche du problème.</p>
-
-<p>Mais voilà, maintenant que je suis sous Mac Os Snow Leopard, j&#8217;ai réinstaller RabbitMQ pour le réutiliser à nouveau. Et là, surprise toujours le même soucis. Après de longue recherche, je viens enfin de trouver la cause, le hostname.</p>
-
-<p>Que faire si votre noeud de contrôle rabbitMQ n&#8217;arrive pas à discuter avec le noeud maitre ?</p>
-
-<p>Très simple, faite un simple <code>hostname -s</code> et ajouter ce hostname en concordance de l&#8217;ip 127.0.0.1 dans votre fichier <code>/etc/hosts</code>. Ça y est tout fonctionne. C&#8217;est parfois tellement simple la résolution d&#8217;un problème.</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-11-18-rabbitmq-doesn-t-works-with-macosx.html">English translation</a></p>
 ]]></content>
   </entry>
   

@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Le logger ruby avec son bloc - Shiny happy people coding</title>
+  <title>Release de public folder - Shiny happy people coding</title>
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous : Logger.debug { "My &hellip;">
+  <meta name="description" content="Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
+Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html">
+  <link rel="canonical" href="http://blog.shingara.fr/release-public-folder.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Le logger ruby avec son bloc</h1>
+      <h1 class="entry-title">Release de public folder</h1>
     
     
       <p class="meta">
@@ -95,7 +96,7 @@
   
 
 
-<time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
+<time datetime="2013-04-06T09:49:00+02:00" pubdate data-updated="true">Apr 6<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,25 +105,39 @@
   </header>
 
 
-<div class="entry-content"><p>Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous :</p>
+<div class="entry-content"><p>Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
+Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&#8217;exercice en
+Ruby. Étant un convaincu de l&#8217;open source et étant globalement fier de
+ce que je peux produire, j&#8217;ai décidé de le sortir en open source.</p>
 
-<typo:code lang="ruby">
-Logger.debug { "My object is #{self.map(&:id)}" }
-</typo:code>
+<p>Voici donc <a href="http://github.com/shingara/public_folder">Public Folder</a></p>
 
-<p>Par défaut, on l'utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
+<p>Ce projet est extrêment simple, il s&#8217;agit d&#8217;une interface de gestion de
+répertoires. A partir de la racine, on peut ainsi naviguer à travers une
+arborescence que l&#8217;on peut créer soit même. On peut donc créer des
+répertoires et uploader des fichiers directement dans l&#8217;applications.</p>
 
-<p>La différence entre ces deux écritures ?</p>
+<p>Le stockage des fichiers se fait directement sur disque dans la même
+arborescence que celle défini dans l&#8217;application. Elle est juste comme
+git, si vous créez un dossier dans l&#8217;application et qu&#8217;il ne contient
+aucun fichier, le dossier ne sera pas créé sur le disque.</p>
 
-<p>La première permet d'éviter d'évaluer la chaine qui sera loggé si elle n'en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s'en faire ressentir.</p>
+<p>Au niveau de la navigation, l&#8217;url correspond à l&#8217;architecture du dossier
+et on peut trier chaque listings par date/type/poids ou noms.</p>
 
-<p>Grâce à ça, on peux facilement éviter les fameux :</p>
+<p>Pour réaliser cette application, la stack est full Rails, soit
+ActionPack et ActiveRecord. J&#8217;ai juste utilisé <code>decent_exposure</code>,
+<code>simple_form</code> et <code>draper</code> comme gems. Je ne peux plus du tout me passer
+d&#8217;eux tellement ils sont devenus essentiel pour moi.</p>
 
-<typo:code lang="ruby">
-Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
-</typo:code>
+<p>Bien évidement, ce projet est complétement testé. J&#8217;ai une couverture de
+test de 99% selon
+<a href="https://coveralls.io/r/shingara/public_folder">coveralls</a>. Il a une note de 4
+sur <a href="http://codeclimate.com/github/shingara/public_folder">CodeClimate</a>. Vous pouvez le voir aussi sur <a href="https://travis-ci.org/shingara/public_folder">travis</a>.</p>
 
-<p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
+<p>Je ne compte pas continuer le développement de cette application. Je
+n&#8217;en ai strictement aucun besoin. Par contre, je la laisse à la
+postérité et au lecteur de code en tout genre.</p>
 </div>
 
 
@@ -145,15 +160,21 @@ Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
   
 
 
-<time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
+<time datetime="2013-04-06T09:49:00+02:00" pubdate data-updated="true">Apr 6<span>th</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/public-folder/'>public_folder</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html" data-via="shingara" data-counturl="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/release-public-folder.html" data-via="shingara" data-counturl="http://blog.shingara.fr/release-public-folder.html" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -166,14 +187,18 @@ Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/pourquoi-rspec-au-lieu-de-test-unit.html" title="Previous Post: Pourquoi Rspec au lieu de Test::Unit?">&laquo; Pourquoi Rspec au lieu de Test::Unit?</a>
+        <a class="basic-alignment left" href="/pourquoi-jai-arrete-decent-exposure.html" title="Previous Post: pourquoi j'ai arrêté decent_exposure">&laquo; pourquoi j'ai arrêté decent_exposure</a>
       
-      
-        <a class="basic-alignment right" href="/rabbitmq-ne-marche-pas-avec-mac-os.html" title="Next Post: RabbitMQ ne marche pas avec Mac OS ?">RabbitMQ ne marche pas avec Mac OS ? &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -291,7 +316,10 @@ Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
       var disqus_shortname = 'shinydevblog';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.shingara.fr/release-public-folder.html';
+        var disqus_url = 'http://blog.shingara.fr/release-public-folder.html';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

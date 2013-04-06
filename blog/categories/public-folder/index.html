@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Le logger ruby avec son bloc - Shiny happy people coding</title>
+  <title>Category: public_folder - Shiny happy people coding</title>
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous : Logger.debug { "My &hellip;">
+  <meta name="description" content="Category: public_folder">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html">
+  <link rel="canonical" href="http://blog.shingara.frblog/categories/public-folder/index.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -75,104 +75,35 @@
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Le logger ruby avec son bloc</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
-        
-         | <a href="#disqus_thread">Comments</a>
-        
-      </p>
+    <h1 class="entry-title">Category: public_folder</h1>
     
   </header>
+  
+  <div id="blog-archives" class="category">
 
 
-<div class="entry-content"><p>Alors que je m'amusais à étendre le Logger de base de Ruby, j'ai découvert que l'on pouvait utiliser le Logger comme ci-dessous :</p>
 
-<typo:code lang="ruby">
-Logger.debug { "My object is #{self.map(&:id)}" }
-</typo:code>
+  
+  <h2>2013</h2>
 
-<p>Par défaut, on l'utilise en fournissant une string en paramètre comme ceci : <code>Logger.debug("My object is #{self.map(&:id)}")</code>.</p>
+<article>
+  
+<h1><a href="/release-public-folder.html">Release de public folder</a></h1>
+<time datetime="2013-04-06T09:49:00+02:00" pubdate><span class='month'>Apr</span> <span class='day'>06</span> <span class='year'>2013</span></time>
 
-<p>La différence entre ces deux écritures ?</p>
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/public-folder/'>public_folder</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a></span>
+</footer>
 
-<p>La première permet d'éviter d'évaluer la chaine qui sera loggé si elle n'en a pas besoin. Contrairement à la deuxième qui sera toujours évaluée même si vous ne la loggez pas. Ainsi le temps de traitement pourrais s'en faire ressentir.</p>
 
-<p>Grâce à ça, on peux facilement éviter les fameux :</p>
+</article>
 
-<typo:code lang="ruby">
-Logger.debug("My object is #{self.map(&:id)}") if Logger.level == Logger::DEBUG
-</typo:code>
-
-<p>En effet, ce genre de code est très fréquent en Java, pour gagner un petit peu en performance sans perdre ses logs.</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">Cyril Mougel</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-10-21T00:00:00+02:00" pubdate data-updated="true">Oct 21<span>st</span>, 2009</time>
-      
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html" data-via="shingara" data-counturl="http://blog.shingara.fr/le-logger-ruby-avec-son-bloc.html" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/pourquoi-rspec-au-lieu-de-test-unit.html" title="Previous Post: Pourquoi Rspec au lieu de Test::Unit?">&laquo; Pourquoi Rspec au lieu de Test::Unit?</a>
-      
-      
-        <a class="basic-alignment right" href="/rabbitmq-ne-marche-pas-avec-mac-os.html" title="Next Post: RabbitMQ ne marche pas avec Mac OS ?">RabbitMQ ne marche pas avec Mac OS ? &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
 </div>

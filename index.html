@@ -9,11 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="A la sortie de
-decent_exposure, j&#8217;ai été
-très enthousiaste. J&#8217;utilisais avant
-inherited_ressources, mais je
-commençais à découvrir les &hellip;">
+  <meta name="description" content="Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
+Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +77,76 @@ commençais à découvrir les &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/release-public-folder.html">Release de public folder</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-06T09:49:00+02:00" pubdate data-updated="true">Apr 6<span>th</span>, 2013</time>
+        
+         | <a href="/release-public-folder.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
+Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&#8217;exercice en
+Ruby. Étant un convaincu de l&#8217;open source et étant globalement fier de
+ce que je peux produire, j&#8217;ai décidé de le sortir en open source.</p>
+
+<p>Voici donc <a href="http://github.com/shingara/public_folder">Public Folder</a></p>
+
+<p>Ce projet est extrêment simple, il s&#8217;agit d&#8217;une interface de gestion de
+répertoires. A partir de la racine, on peut ainsi naviguer à travers une
+arborescence que l&#8217;on peut créer soit même. On peut donc créer des
+répertoires et uploader des fichiers directement dans l&#8217;applications.</p>
+
+<p>Le stockage des fichiers se fait directement sur disque dans la même
+arborescence que celle défini dans l&#8217;application. Elle est juste comme
+git, si vous créez un dossier dans l&#8217;application et qu&#8217;il ne contient
+aucun fichier, le dossier ne sera pas créé sur le disque.</p>
+
+<p>Au niveau de la navigation, l&#8217;url correspond à l&#8217;architecture du dossier
+et on peut trier chaque listings par date/type/poids ou noms.</p>
+
+<p>Pour réaliser cette application, la stack est full Rails, soit
+ActionPack et ActiveRecord. J&#8217;ai juste utilisé <code>decent_exposure</code>,
+<code>simple_form</code> et <code>draper</code> comme gems. Je ne peux plus du tout me passer
+d&#8217;eux tellement ils sont devenus essentiel pour moi.</p>
+
+<p>Bien évidement, ce projet est complétement testé. J&#8217;ai une couverture de
+test de 99% selon
+<a href="https://coveralls.io/r/shingara/public_folder">coveralls</a>. Il a une note de 4
+sur <a href="http://codeclimate.com/github/shingara/public_folder">CodeClimate</a>. Vous pouvez le voir aussi sur <a href="https://travis-ci.org/shingara/public_folder">travis</a>.</p>
+
+<p>Je ne compte pas continuer le développement de cette application. Je
+n&#8217;en ai strictement aucun besoin. Par contre, je la laisse à la
+postérité et au lecteur de code en tout genre.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -891,93 +958,7 @@ fichiers.</p>
 <p>Je vous le partage si vous en avez besoin un jour.</p>
 
 <div><script src='https://gist.github.com/2420838.js?file='></script>
-<noscript><pre><code>require 'faraday'
-require 'faraday_middleware'
-
-url_project = 'https://ciblonet.basecamphq.com'
-project_id = 3684800
-user_name = 'shingara'
-password = 'xxxx'
-
-class Attachment
-
-  def initialize(conn, attachment)
-    @conn = conn
-    @attachment = attachment
-  end
-
-  def collection
-    @attachment['collection'].to_s
-  end
-
-  def dir
-    Dir.mkdir(collection) unless Dir.exists?(collection)
-    collection
-  end
-
-  def fetch
-    File.new(File.join(dir, @attachment['name']), 'w').write(@conn.get(@attachment['download_url']).body)
-  end
-end
-
-class Attachments
-  def initialize(conn, project_id, step=nil)
-    @conn = conn
-    @project_id = project_id
-    @attachments_index = 100
-    @step = step
-  end
-
-  def url
-    if @step
-      &quot;/projects/#{@project_id}/attachments.xml?n=#{@step}&quot;
-    else
-      &quot;/projects/#{@project_id}/attachments.xml&quot;
-    end
-  end
-
-  def entries
-    @entries ||= @conn.get(url) do |req|
-      req.headers['Accept'] = 'application/xml'
-      req.headers['Content-Type'] = 'application/xml'
-    end.body['attachments']
-  end
-
-  def fetch
-    entries.each do |attachment|
-      Attachment.new(@conn, attachment).fetch
-    end
-  end
-
-  def more?
-    entries.size &gt; 99
-  end
-end
-
-
-class FetchAttachments
-
-  def self.execute(conn, project_id)
-    a = Attachments.new(conn, project_id)
-    a.fetch
-    step = 100
-    while a.more?
-      a = Attachments.new(conn, project_id, step)
-      a.fetch
-      step += 100
-    end
-  end
-end
-
-con = Faraday.new(:url =&gt; url_project) do |builder|
-  builder.use Faraday::Request::BasicAuthentication, user_name, password
-  builder.use Faraday::Response::Logger
-  builder.response :xml,  :content_type =&gt; /\bxml$/
-  builder.use Faraday::Adapter::NetHttp
-end
-
-FetchAttachments.execute(con, project_id)
-</code></pre></noscript></div>
+<noscript><pre><code></code></pre></noscript></div>
 
 
 <p>Dans ce script j&#8217;utilise
@@ -1194,55 +1175,6 @@ Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-19T00:00:00+02:00" pubdate data-updated="true">May 19<span>th</span>, 2010</time>
-        
-         | <a href="/une-journee-dediee-i-mongodb.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://blog.shingara.fr/files/badge-mongofr-large.png" alt="mongoFR badges"/></p>
-
-<p>Le 21 Juin se tiendra à Paris un événement auquel je vous invite à venir. Cet événement sera dédié à <a href="http://mongodb.com">MongoDB</a>, le <a href="http://www.10gen.com/conferences/event_mongofr_21june10">MongoFR</a>.</p>
-
-<p>J&#8217;ai la chance de pouvoir proposer une petite conférence sur un retour d&#8217;expérience : ma migration de SQL à MongoDB sur <a href="http://oupsnow.rubyforge.org">Oupsnow</a>.
-Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y aura que des Rubyists.</p>
-
-<p>Selon moi, cette nouvelle technologie qu&#8217;est MongoDB est assez prometteuse.</p>
-
-<p>Pour découvrir MongoDB, venez nombreux <a href="http://www.10gen.com/conferences/event_mongofr_21june10">le 21 Juin</a> !</p>
-
-<p><a href="http://blog-en.shingara.fr/one-day-dedicated-to-mongodb.html">English translation</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1256,6 +1188,10 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/release-public-folder.html">Release de public folder</a>
+      </li>
     
       <li class="post">
         <a href="/pourquoi-jai-arrete-decent-exposure.html">pourquoi j&#8217;ai arrêté decent_exposure</a>
@@ -1291,10 +1227,6 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
     
       <li class="post">
         <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
-      </li>
-    
-      <li class="post">
-        <a href="/une-journee-dediee-i-mongodb.html">Une journée dédiée à MongoDB</a>
       </li>
     
   </ul>
@@ -1353,7 +1285,7 @@ Hormis les développeurs de <a href="http://10gen.com">10Gen</a>, il n&#8217;y a
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Cyril Mougel -
+  Copyright &copy; 2013 - Cyril Mougel -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
