@@ -31,9 +31,9 @@ et on peut trier chaque liste par date/type/poids ou noms.
 Pour réaliser cette application, la stack est full Rails, soit
 ActionPack et ActiveRecord. J'ai juste utilisé `decent_exposure`,
 `simple_form` et `draper` comme gems. Je ne peux plus du tout me passer
-d'eux tellement ils sont devenus essentiel pour moi.
+d'eux tellement ils sont devenu essentiel pour moi.
 
-Bien évidement, ce projet est complétement testé. J'ai une couverture de
+Ce projet est complétement testé. J'ai une couverture de
 test de 99% selon
 [Coveralls](https://coveralls.io/r/shingara/public_folder). Il a une note de 4
 sur [CodeClimate](http://codeclimate.com/github/shingara/public_folder). Vous pouvez le voir aussi sur [Travis](https://travis-ci.org/shingara/public_folder).
