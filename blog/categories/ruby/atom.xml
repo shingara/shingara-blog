@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2013-04-06T16:26:07+02:00</updated>
+  <updated>2013-04-07T10:16:49+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -41,9 +41,9 @@ et on peut trier chaque liste par date/type/poids ou noms.</p>
 <p>Pour réaliser cette application, la stack est full Rails, soit
 ActionPack et ActiveRecord. J'ai juste utilisé <code>decent_exposure</code>,
 <code>simple_form</code> et <code>draper</code> comme gems. Je ne peux plus du tout me passer
-d'eux tellement ils sont devenus essentiel pour moi.</p>
+d'eux tellement ils sont devenu essentiel pour moi.</p>
 
-<p>Bien évidement, ce projet est complétement testé. J'ai une couverture de
+<p>Ce projet est complétement testé. J'ai une couverture de
 test de 99% selon
 <a href="https://coveralls.io/r/shingara/public_folder">Coveralls</a>. Il a une note de 4
 sur <a href="http://codeclimate.com/github/shingara/public_folder">CodeClimate</a>. Vous pouvez le voir aussi sur <a href="https://travis-ci.org/shingara/public_folder">Travis</a>.</p>
