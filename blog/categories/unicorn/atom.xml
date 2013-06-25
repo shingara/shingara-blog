@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: unicorn | Shiny happy people coding]]></title>
+  <link href="http://blog.shingara.fr/blog/categories/unicorn/atom.xml" rel="self"/>
+  <link href="http://blog.shingara.fr/"/>
+  <updated>2013-06-25T23:44:03+02:00</updated>
+  <id>http://blog.shingara.fr/</id>
+  <author>
+    <name><![CDATA[Cyril Mougel]]></name>
+    <email><![CDATA[cyril.mougel@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[0 Downtime avec Unicorn]]></title>
+    <link href="http://blog.shingara.fr/0-downtime-avec-unicorn.html"/>
+    <updated>2013-06-22T15:50:00+02:00</updated>
+    <id>http://blog.shingara.fr/0-downtime-avec-unicorn</id>
+    <content type="html"><![CDATA[<p>J'ai eu la chance de participer au premier <a href="http://ruby-paris-bbl.tumblr.com/">rendez vous BBL Paris</a>.
+Dans le cadre de cette rencontre, nous avons parlé de nos processus de déploiement.
+Je vais essayer de faire quelques billets sur mes processus de déploiement.</p>
+
+<h1>Le Server web</h1>
+
+<p>Pour déployer une application ruby, il nous faut un serveur web. Il en
+existe beaucoup dans l'écosystème ruby. Passenger, Thin,
+<a href="http://unicorn.bogomips.org/">Unicorn</a>, Puma
+sont les plus connus. J'utilise personnelement unicorn depuis plusieurs
+années. Mon choix a surtout été fait suite à la possbilité d'avoir un 0
+Downtime. J'utilisais précédement thin et la mise en place d'un 0
+downtime est assez compliqué. Pour Unicorn, tout est fait en interne.
+C'est une fonctionnalité de base.</p>
+
+<h1>Comment réaliser ce 0 downtime ?</h1>
+
+<p>Pour expliquer comment ceci est possible, il faut comprendre
+<a href="http://unicorn.bogomips.org/DESIGN.html">l'architecture de Unicorn</a>.
+Unicorn a un système maître / workers. Au démarrage de unicorn, un processus maitre se lance et
+lance une série de processus par fork(2) suivant la configuration. Tous
+ces processus seront ceux qui exécuteront réelement votre application.
+Le processus maitre ne sert qu'à gérer le dispatching entre les
+différents workers.</p>
+
+<p>L'avantage de cette architecture est que vous n'avez pas besoin de
+load-balancing devant votre unicorn. C'est unicorn lui-même qui gére le
+système.</p>
+
+<p>Mais ce qui est très pratique est que le processus maitre comprend très
+bien les <a href="http://unicorn.bogomips.org/SIGNALS.html">signaux UNIX</a>. Les signaux UNIX sont hélas très souvent
+sous-utilisé alors qu'ils sont très puissant.</p>
+
+<p>Le signal le plus utile pour notre 0 downtime est le USR2. D'après la
+documentation, "relance l'executable binaire. Un QUIT doit être envoyé
+au process original une fois que l'enfant a été constaté comme UP et lancé".
+En résumé, quand le processus maitre recoit le SIGNAUX USR2, il relance un
+nouveau process maitre. Par contre, la documentation explique bien qu'il
+faut penser à lancer un SIGNAUX QUIT au process initial pour qu'il
+s'arrête réelement.</p>
+
+<p>Pour réaliser ce dernier point, il faut donc penser à configurer
+correctement unicorn pour qu'il fasse ce QUIT. Voici donc la
+configuration que j'utilise pour ça.</p>
+
+<p>```
+before_fork do |server, worker|</p>
+
+<p>  old_pid = "pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) &amp;&amp; server.pid != old_pid</p>
+
+<pre><code>begin
+  Process.kill("QUIT", File.read(old_pid).to_i)
+rescue Errno::ENOENT, Errno::ESRCH
+  # someone else did our job for us
+end
+</code></pre>
+
+<p>  end</p>
+
+<p>end
+```</p>
+
+<p>le <code>before_fork</code> se lance une fois que le processus maitre est UP et
+qu'il va commencer a créer un fork pour avoir un travailleur.</p>
+
+<p>Le Signal QUI lancé durant le <code>before_fork</code> arrêtera les processus Unicorn
+une fois qu'il a fini de traiter toutes les requêtes en cours. C'est ce
+méchanisme qui nous permet le 0 downtime.</p>
+
+<h1>Le problème du Gemfile</h1>
+
+<p>Toutes les personnes qui n'utilise pas ce méchanisme, ne le font pas
+suite à un problème de configuration avec Bundler. Une
+<a href="http://unicorn.bogomips.org/Sandbox.html">documentation compléte existe à ce sujet</a>.</p>
+
+<p>En gros, la technique est simplement de penser à définir le PATH du
+Gemfile directement par la variable d'environement <code>BUNDLE_GEMFILE</code>.</p>
+
+<p>Soit lors du démarrage du process.</p>
+
+<p><code>
+BUNDLE_GEMFILE=./Gemfile unicorn -c config/unicorn.rb
+</code></p>
+
+<p>Soit directement dans le fichier de configuration de unicorn</p>
+
+<p><code>
+before_exec do |server|
+  ENV["BUNDLE_GEMFILE"] = "./Gemfile"
+end
+</code></p>
+
+<p>Une fois que vous avez configuré correctement votre Gemfile, vous
+n'avez plus de problèmes.</p>
+
+<p>Un moyen simple de détection de problème lors du reload, est de vérifier
+qu'un nouveau process unicor c'est bien lancé. Si ce nouveau process
+échoue, il n'enverra pas le signal QUIT. Le premier process reste donc
+vivant et UP. Cela évite entre autre d'avoir une indisponibilité à ce
+moment là. On peut vérifier cela avec un simple <code>ps</code> :</p>
+
+<p><code>
+ps o "start command" | grep unicorn
+</code></p>
+
+<p>Au pire, il suffit cette fois ci de faire un restart du
+processus.</p>
+
+<h1>Autre problèmes possible</h1>
+
+<p>Pour les malchanceux comme moi qui ont des applications qui ne sont pas
+encore en rails > 3.0, attention il faut penser à utiliser l'executable
+<code>unicorn_rails</code>.</p>
+
+<p>J'espére vous avoir faire découvrir mes petits astuces sur Unicorn et
+que cela vous sera utile.</p>
+]]></content>
+  </entry>
+  
+</feed>

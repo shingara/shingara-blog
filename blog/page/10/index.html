@@ -9,7 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Ca y est, j&#8217;ai enfin sortie une première version de Pictrails. Pictrails est une application réalisé avec Rails 2.0. Elle permet de gérer des &hellip;">
+  <meta name="description" content="Cas d&#8217;utilisation Dans l&#8217;administration de Typo, en fonction du controller appelé, voir de l&#8217;action, il faut modifier la partie &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,103 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/quand-la-vue-modifie-son-layout.html">quand la vue modifie son layout</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-02-26T00:00:00+01:00" pubdate data-updated="true">Feb 26<span>th</span>, 2008</time>
+        
+         | <a href="/quand-la-vue-modifie-son-layout.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Cas d&#8217;utilisation</h3>
+
+<p>Dans l&#8217;administration de Typo, en fonction du controller appelé, voir de l&#8217;action, il faut modifier la partie indiquant le sous-menu. On a donc 3 possibilités pour réaliser cette partie dynamique.</p>
+
+<ol>
+  <li>Mettre la partie variable directement dans la vue et l&#8217;enlever du template.</li>
+  <li>Mettre les informations directement dans le controller ou l&#8217;action et c&#8217;est cette information qui sera lu par le template</li>
+  <li>Utiliser content_for directement dans la vue en utilisant le yield dans le template</li>
+</ol>
+
+<p>Bien sûr la meilleur méthode est la troisième. Mais je vais expliquer pourquoi et comment on peux mettre en oeuvre.</p>
+
+<h3>Mettre la partie variable directement dans la vue et l&#8217;enlever du template</h3>
+
+<p>
+Cette méthode est de loin la plus simple qui soit. On sait que notre partie n&#8217;est pas toujours affiché pour le layout indiqué, donc on la met pas dans le template. Mais voilà, si on a du code entre notre partie dynamique et le vrai contenu de notre vue, on a pas le choix il faut dupliquer cette partie et ainsi on se retrouve à faire plein de copier coller et comme on sait le copier coller c&#8217;est pas DRY. Il faut donc essayer de proscrire cette méthode. Le cas le plus horrible est bien sur la modification de la partie que vous avez mis dans chaque vue et ceux sur vos 100 vues. Bonne chance.
+</p>
+
+<h3>Mettre les informations directement dans le controller</h3>
+
+<p>Cette technique est un peu plus évolué que la précédente car elle permet d&#8217;être plus DRY. En effet, si on a du code entre sa partie &#8220;dynamique&#8221; et sa vue, on est pas obligé de l&#8217;intégrer dans chaque vue. Ce qui permet d&#8217;avoir un template plus important et des vues plus légères. Mais l&#8217;inconvénient de cette technique et qu&#8217;il faut gérer l&#8217;affichage et des techniques visuel directement dans le controller. Par exemple le nom des liens, etc.. Ce n&#8217;est pas du tout dans la logique MVC, car une partie de la vue est généré et controllé par le controlleur. Le controlleur ne doit que définir quel vue utiliser et donner les variables issues d&#8217;une ressources externes.</p>
+
+<h3>Utiliser content_for directement dans la vue en utilisant le yield dans le template</h3>
+
+<p>Pour que ça soit la vue qui gère le contenu dans le template sans que le controller s&#8217;en mêle, la meilleur technique est d&#8217;utiliser content_for. Cette méthode permet de mettre en interne un bloc de code HTML. Ce bloc de code HTML n&#8217;est lu que par l&#8217;utilisation d&#8217;un yield :le_nom_du_bloc. On peux ainsi définir le bloc dans la vue et donner sa position directement dans le layout. Si ensuite vous voulez réutiliser le même bloc de code, un render :partial permettra de factoriser encore le code. Voici un exemple d&#8217;utilisation de cette méthode avec un template et une vue.</p>
+
+<p>Template :</p>
+
+<typo:code lang="html">
+<html>
+  <head>
+    <title>;Ma page</title>
+  </head>
+  <div id="menu">
+   <ul>
+    <%= yield :menu %>
+  </ul>
+  </div>
+  <p>un peu de texte au milieu</p>
+  <div id="content">
+    <%= yield %>
+  </div>
+</html>
+</typo:code>
+
+<p>Vue :</p>
+
+<typo:code lang="html">
+<% content_for :menu do %>
+  <li><% link_to 'Voir', page_url %></li>
+<% end %>
+
+<p>Ma vue compléte</p>
+
+</typo:code>
+
+
+<p>Vous trouvez pas ça génial ?</p>
+
+<p>Sinon pour les anciens qui connaissaient la technique avant Rails 2.0 et qui utilisait @content_for_mon_block cette technique est déprécié. Il faut utiliser plutôt le yield depuis la version 2.0.x</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -752,46 +849,6 @@ données personnelles sans que nous ayons aucun recours.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/sortie-de-whois-0-4-1.html">Sortie de Whois-0.4.1</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2007-11-23T00:00:00+01:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2007</time>
-        
-         | <a href="/sortie-de-whois-0-4-1.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Il faut croire que c&#8217;est le moment des <a href="http://blog.shingara.fr/articles/tag/annonce">releases</a> pour moi.</p>
-
-<p>Je viens de faire une toute petite mise à jour de ma petite librairie de <a href="http://rubyforge.org/projects/whois/">Whois Ruby</a>. La seule modification est la mise à jour de la liste de correspondance des serveurs Whois. J&#8217;ai mis à jour cette liste en concordance avec la liste de Marco d&#8217;Itri et son programme en ligne de commande <a href="http://ftp.debian.org/debian/pool/main/w/whois/">Whois-4.2.27</a>. Ça faisait longtemps que je devais mettre cette liste à jour. C&#8217;est enfin fait.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/11/">&larr; Older</a>
@@ -807,6 +864,10 @@ données personnelles sans que nous ayons aucun recours.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/0-downtime-avec-unicorn.html">0 Downtime avec Unicorn</a>
+      </li>
     
       <li class="post">
         <a href="/release-public-folder.html">Release de public folder</a>
@@ -842,10 +903,6 @@ données personnelles sans que nous ayons aucun recours.</p>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[Shiny happy people coding]]></title>
   <link href="http://blog.shingara.fr/atom.xml" rel="self"/>
   <link href="http://blog.shingara.fr/"/>
-  <updated>2013-04-07T10:16:49+02:00</updated>
+  <updated>2013-06-25T23:44:03+02:00</updated>
   <id>http://blog.shingara.fr/</id>
   <author>
     <name><![CDATA[Cyril Mougel]]></name>
@@ -12,6 +12,141 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[0 Downtime avec Unicorn]]></title>
+    <link href="http://blog.shingara.fr/0-downtime-avec-unicorn.html"/>
+    <updated>2013-06-22T15:50:00+02:00</updated>
+    <id>http://blog.shingara.fr/0-downtime-avec-unicorn</id>
+    <content type="html"><![CDATA[<p>J&#8217;ai eu la chance de participer au premier <a href="http://ruby-paris-bbl.tumblr.com/">rendez vous BBL Paris</a>.
+Dans le cadre de cette rencontre, nous avons parlé de nos processus de déploiement.
+Je vais essayer de faire quelques billets sur mes processus de déploiement.</p>
+
+<h1>Le Server web</h1>
+
+<p>Pour déployer une application ruby, il nous faut un serveur web. Il en
+existe beaucoup dans l&#8217;écosystème ruby. Passenger, Thin,
+<a href="http://unicorn.bogomips.org/">Unicorn</a>, Puma
+sont les plus connus. J&#8217;utilise personnelement unicorn depuis plusieurs
+années. Mon choix a surtout été fait suite à la possbilité d&#8217;avoir un 0
+Downtime. J&#8217;utilisais précédement thin et la mise en place d&#8217;un 0
+downtime est assez compliqué. Pour Unicorn, tout est fait en interne.
+C&#8217;est une fonctionnalité de base.</p>
+
+<h1>Comment réaliser ce 0 downtime ?</h1>
+
+<p>Pour expliquer comment ceci est possible, il faut comprendre
+<a href="http://unicorn.bogomips.org/DESIGN.html">l&#8217;architecture de Unicorn</a>.
+Unicorn a un système maître / workers. Au démarrage de unicorn, un processus maitre se lance et
+lance une série de processus par fork(2) suivant la configuration. Tous
+ces processus seront ceux qui exécuteront réelement votre application.
+Le processus maitre ne sert qu&#8217;à gérer le dispatching entre les
+différents workers.</p>
+
+<p>L&#8217;avantage de cette architecture est que vous n&#8217;avez pas besoin de
+load-balancing devant votre unicorn. C&#8217;est unicorn lui-même qui gére le
+système.</p>
+
+<p>Mais ce qui est très pratique est que le processus maitre comprend très
+bien les <a href="http://unicorn.bogomips.org/SIGNALS.html">signaux UNIX</a>. Les signaux UNIX sont hélas très souvent
+sous-utilisé alors qu&#8217;ils sont très puissant.</p>
+
+<p>Le signal le plus utile pour notre 0 downtime est le USR2. D&#8217;après la
+documentation, &#8220;relance l&#8217;executable binaire. Un QUIT doit être envoyé
+au process original une fois que l&#8217;enfant a été constaté comme UP et lancé&#8221;.
+En résumé, quand le processus maitre recoit le SIGNAUX USR2, il relance un
+nouveau process maitre. Par contre, la documentation explique bien qu&#8217;il
+faut penser à lancer un SIGNAUX QUIT au process initial pour qu&#8217;il
+s&#8217;arrête réelement.</p>
+
+<p>Pour réaliser ce dernier point, il faut donc penser à configurer
+correctement unicorn pour qu&#8217;il fasse ce QUIT. Voici donc la
+configuration que j&#8217;utilise pour ça.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>before_fork do |server, worker|
+</span><span class='line'>
+</span><span class='line'>  old_pid = "pids/unicorn.pid.oldbin"
+</span><span class='line'>  if File.exists?(old_pid) && server.pid != old_pid
+</span><span class='line'>    begin
+</span><span class='line'>      Process.kill("QUIT", File.read(old_pid).to_i)
+</span><span class='line'>    rescue Errno::ENOENT, Errno::ESRCH
+</span><span class='line'>      # someone else did our job for us
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>le <code>before_fork</code> se lance une fois que le processus maitre est UP et
+qu&#8217;il va commencer a créer un fork pour avoir un travailleur.</p>
+
+<p>Le Signal QUI lancé durant le <code>before_fork</code> arrêtera les processus Unicorn
+une fois qu&#8217;il a fini de traiter toutes les requêtes en cours. C&#8217;est ce
+méchanisme qui nous permet le 0 downtime.</p>
+
+<h1>Le problème du Gemfile</h1>
+
+<p>Toutes les personnes qui n&#8217;utilise pas ce méchanisme, ne le font pas
+suite à un problème de configuration avec Bundler. Une
+<a href="http://unicorn.bogomips.org/Sandbox.html">documentation compléte existe à ce sujet</a>.</p>
+
+<p>En gros, la technique est simplement de penser à définir le PATH du
+Gemfile directement par la variable d&#8217;environement <code>BUNDLE_GEMFILE</code>.</p>
+
+<p>Soit lors du démarrage du process.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BUNDLE_GEMFILE=./Gemfile unicorn -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Soit directement dans le fichier de configuration de unicorn</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>before_exec do |server|
+</span><span class='line'>  ENV["BUNDLE_GEMFILE"] = "./Gemfile"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Une fois que vous avez configuré correctement votre Gemfile, vous
+n&#8217;avez plus de problèmes.</p>
+
+<p>Un moyen simple de détection de problème lors du reload, est de vérifier
+qu&#8217;un nouveau process unicor c&#8217;est bien lancé. Si ce nouveau process
+échoue, il n&#8217;enverra pas le signal QUIT. Le premier process reste donc
+vivant et UP. Cela évite entre autre d&#8217;avoir une indisponibilité à ce
+moment là. On peut vérifier cela avec un simple <code>ps</code> :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ps o "start command" | grep unicorn</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Au pire, il suffit cette fois ci de faire un restart du
+processus.</p>
+
+<h1>Autre problèmes possible</h1>
+
+<p>Pour les malchanceux comme moi qui ont des applications qui ne sont pas
+encore en rails > 3.0, attention il faut penser à utiliser l&#8217;executable
+<code>unicorn_rails</code>.</p>
+
+<p>J&#8217;espére vous avoir faire découvrir mes petits astuces sur Unicorn et
+que cela vous sera utile.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Release de public folder]]></title>
@@ -1344,45 +1479,6 @@ end
 rendre ORM Agnostique et compatible avec <a href="http://github.com/jnunemaker/mongomapper/">MongoMapper</a>.</p>
 
 <p>EDIT du 30 Novembre 2009: la technique indiquée ici n&#8217;est pas optimum et ne marche pas avec les dernières versions de Devise. utilisez plutôt la technique décrite dans mon ticket <a href="http://blog.shingara.fr/comment-tester-devise-reelement.html">Comment tester devise ? réélement ?</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Oupsnow de Merb à Rails]]></title>
-    <link href="http://blog.shingara.fr/oupsnow-de-merb-i-rails.html"/>
-    <updated>2009-11-18T00:00:00+01:00</updated>
-    <id>http://blog.shingara.fr/oupsnow-de-merb-i-rails</id>
-    <content type="html"><![CDATA[<p>Dernièrement, j&#8217;ai fini par me décider de migrer <a
-href="http://oupsnow.rubyforge.org">Oupsnow</a>, de Merb à Rails.</p>
-
-<p>Alors que je
-finissais une migration de SQL à MongoDB, j&#8217;en entame une nouvelle. Celle-ci
-beaucoup plus profonde.</p>
-
-<p>La raison de ma migration ?</p>
-
-<p>Rails 3. En
-effet, depuis Décembre 2008, soit presque un an, Merb s&#8217;est figé.
-Certain me diront que la communauté Merb est en train de revivre et c&#8217;est tout
-à fait vrai. J&#8217;en suis même ravi. Mais Merb a pris un immense retard en
-presque un an. Même si Rails n&#8217;a pas vraiment avancé dans sa version stable,
-sa version Edge a elle énormément avancée.</p>
-
-<p>Voulant toujours tester les
-nouvelles technologies en Ruby, je voudrais tester Rails 3. Mais aucun système
-n&#8217;existe pour passer de Merb à Rails 3. Un rapide test m&#8217;a montré que la
-différence était par contre minime entre Rails 2.3.x et Rails 3. La
-migration de Rails 2.3.x à Rails 3 en sera donc d&#8217;autant plus simple.</p>
-
-<p>Voulant vraiment sortir une version stable le plus vite possible, j&#8217;ai
-donc pris la décision de migrer Oupsnow vers Rails 2.3.x pour ensuite migrer
-sur Rails 3 pour cette fois sortir une version de Oupsnow compatible Rails 3.</p>
-
-<p>Oupsnow devient donc un projet Rails/MongoMapper et non plus
-Merb/DataMapper comme sa dernière version. Toute aide est bien-sûr la
-bienvenue.</p>
-
-<p><a href="http://blog.shingara.fr/en/2009-11-19-oupsnow-from-merb-to-rails.html">English translation</a></p>
 ]]></content>
   </entry>
   

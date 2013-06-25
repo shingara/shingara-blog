@@ -9,8 +9,7 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Traduction de la <a
-href="http://blog.codefront.net/2008/05/25/living-on-the-edge-of-rails-22-pre-railsconf-2008-edition/">news #22 Aucun changement &hellip;">
+  <meta name="description" content="RubyInline est un joli petit gem qui permet de générer du code C a partir de code Ruby. Ce code C est ensuite compilé et réutilisé durant les appels &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,48 @@ href="http://blog.codefront.net/2008/05/25/living-on-the-edge-of-rails-22-pre-ra
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/ou-compiler-ses-fichiers-c-issue-de-rubyinline.html">Où compiler ses fichiers C issue de RubyInline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-06-13T00:00:00+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2008</time>
+        
+         | <a href="/ou-compiler-ses-fichiers-c-issue-de-rubyinline.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.zenspider.com/ZSS/Products/RubyInline/">RubyInline</a> est un joli petit gem qui permet de générer du code C a partir de code Ruby. Ce code C est ensuite compilé et réutilisé durant les appels futurs de la méthode.</p>
+
+<p>Par défaut, RubyInline compile tout dans votre dossier <code>$HOME/.inline</code>. Mais comment faire si l&#8217;utilisateur n&#8217;a pas de HOME par exemple, où tout simplement qu&#8217;il souhaite mettre la compilation dans le dossier <code>$RAILS_ROOT/tmp/inline</code> qui pourrait être une place tout à fait raisonnable.</p>
+
+<p>N&#8217;ayant pas trouvé l&#8217;information dans la documentation de ce gem, j&#8217;ai donc chercher un peu dans le code. J&#8217;ai ainsi découvert que le dossier de compilation des fichiers C est géré par la variable d&#8217;environnement INLINEDIR. Il suffit donc de définir cette variable dans votre fichier d&#8217;environnement.rb pour choisir où sera compilé les fichiers générés par RubyInline.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -769,92 +810,6 @@ Alors que <a href="http://blog.shingara.fr/articles/2008/04/18/activer-la-captur
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/suivi-des-evolutions-des-objets-model.html">Suivi des évolutions des objets Model</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-04-18T00:00:00+02:00" pubdate data-updated="true">Apr 18<span>th</span>, 2008</time>
-        
-         | <a href="/suivi-des-evolutions-des-objets-model.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Voici un nouveau billet rapportant quelques nouveautés de Rails edge futur 2.1 en cours de développement. Cette amélioration est du coté des Models. Désormais, ils arrivent à savoir quel attribut a changé ou non. Grâce à cette fonctionnalité, de nouvelles méthodes par introspection on été ajouté.</p>
-
-<typo:code lang="ruby">
-article = Article.find(:first)
-article.changed?  #=> false
-
-# Vérifie les changements des attributs individuellement
-# avec attr_name_changed? accessor
-article.title  #=> &#8220;Title&#8221;
-article.title = &#8220;New Title&#8221;
-article.title_changed? #=> true
-
-# Accès au valeur précédente avec attr_name_was accessor
-article.title_was  #=> &#8220;Title&#8221;
-
-# On peux voit l&#8217;ancienne et nouvelle valeur avec attr_name_change accessor
-article.title_change  #=> [&#8220;Title&#8221;, &#8220;New Title&#8221;]
-</typo:code>
-
-<p>On peux aussi savoir quel champs ont changé et suivant quel valeur :</p>
-
-<typo:code lang="ruby">
-# Recupere une liste des attribut qui ont changé
-article.changed  #=> [&#8216;title&#8217;]
-
-# Récupére un hash des attributs qui ont changé avec leur précédente et nouvelle valeurs
-article.changes  #=> { &#8216;title&#8217; => [&#8220;Title&#8221;, &#8220;New Title&#8221;] }
-</typo:code>
-
-<p>Dès que vous enregistrez votre enregistrement alors cette fonctionnalité est complètement réinitialisée.</p>
-
-<p>Un des grand avantage de cette fonctionnalité est l&#8217;ajout d&#8217;une nouvelle fonctionnalité possible au niveau de la mise à jour des données en Base de donnée. En effet, la requête généré peux être beaucoup plus faible. Actuellement, à chaque mise à jour, la requête SQL généré est composé de tous les champs de l&#8217;objet. Désormais on peux activer une option d&#8217;ActiveRecord pour permettre cela.</p>
-
-<typo:code lang="ruby">
-article = Article.find(:first)
-article.title  #=> &#8220;Title&#8221;
-article.subject  #=> &#8220;Edge Rails&#8221;
-
-# Mise a jour d&#8217;un seul attribut
-article.title = &#8220;New Title&#8221;
-
-# Seulement l&#8217;attribut mis à jour est updaté dans la Base de donnée
-article.save
-  #=>  &#8220;UPDATE articles SET title = &#8216;New Title&#8217; WHERE id = 1&#8221;
-</typo:code>
-
-<p>Pour activer cette option, il faut mettre : <code>ActiveRecord::Base.partial_updates = true</code></p>
-
-<p>Par contre pour les champs updated_at/on, ils ne seront modifié que dans le cas où un champs a réellement été modifié.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/9/">&larr; Older</a>
@@ -870,6 +825,10 @@ article.save
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/0-downtime-avec-unicorn.html">0 Downtime avec Unicorn</a>
+      </li>
     
       <li class="post">
         <a href="/release-public-folder.html">Release de public folder</a>
@@ -905,10 +864,6 @@ article.save
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
       </li>
     
   </ul>

@@ -9,8 +9,8 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Depuis maintenant 1 semaine, je suis à la recherche d&#8217;un nouvel emploi.
-Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&# &hellip;">
+  <meta name="description" content="J&#8217;ai eu la chance de participer au premier rendez vous BBL Paris.
+Dans le cadre de cette rencontre, nous avons parlé de nos processus de &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +77,170 @@ Durant ma recherche d&#8217;emploi, on m&#8217;a fait une demande d&# &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/0-downtime-avec-unicorn.html">0 Downtime avec Unicorn</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-22T15:50:00+02:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2013</time>
+        
+         | <a href="/0-downtime-avec-unicorn.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>J&#8217;ai eu la chance de participer au premier <a href="http://ruby-paris-bbl.tumblr.com/">rendez vous BBL Paris</a>.
+Dans le cadre de cette rencontre, nous avons parlé de nos processus de déploiement.
+Je vais essayer de faire quelques billets sur mes processus de déploiement.</p>
+
+<h1>Le Server web</h1>
+
+<p>Pour déployer une application ruby, il nous faut un serveur web. Il en
+existe beaucoup dans l&#8217;écosystème ruby. Passenger, Thin,
+<a href="http://unicorn.bogomips.org/">Unicorn</a>, Puma
+sont les plus connus. J&#8217;utilise personnelement unicorn depuis plusieurs
+années. Mon choix a surtout été fait suite à la possbilité d&#8217;avoir un 0
+Downtime. J&#8217;utilisais précédement thin et la mise en place d&#8217;un 0
+downtime est assez compliqué. Pour Unicorn, tout est fait en interne.
+C&#8217;est une fonctionnalité de base.</p>
+
+<h1>Comment réaliser ce 0 downtime ?</h1>
+
+<p>Pour expliquer comment ceci est possible, il faut comprendre
+<a href="http://unicorn.bogomips.org/DESIGN.html">l&#8217;architecture de Unicorn</a>.
+Unicorn a un système maître / workers. Au démarrage de unicorn, un processus maitre se lance et
+lance une série de processus par fork(2) suivant la configuration. Tous
+ces processus seront ceux qui exécuteront réelement votre application.
+Le processus maitre ne sert qu&#8217;à gérer le dispatching entre les
+différents workers.</p>
+
+<p>L&#8217;avantage de cette architecture est que vous n&#8217;avez pas besoin de
+load-balancing devant votre unicorn. C&#8217;est unicorn lui-même qui gére le
+système.</p>
+
+<p>Mais ce qui est très pratique est que le processus maitre comprend très
+bien les <a href="http://unicorn.bogomips.org/SIGNALS.html">signaux UNIX</a>. Les signaux UNIX sont hélas très souvent
+sous-utilisé alors qu&#8217;ils sont très puissant.</p>
+
+<p>Le signal le plus utile pour notre 0 downtime est le USR2. D&#8217;après la
+documentation, &#8220;relance l&#8217;executable binaire. Un QUIT doit être envoyé
+au process original une fois que l&#8217;enfant a été constaté comme UP et lancé&#8221;.
+En résumé, quand le processus maitre recoit le SIGNAUX USR2, il relance un
+nouveau process maitre. Par contre, la documentation explique bien qu&#8217;il
+faut penser à lancer un SIGNAUX QUIT au process initial pour qu&#8217;il
+s&#8217;arrête réelement.</p>
+
+<p>Pour réaliser ce dernier point, il faut donc penser à configurer
+correctement unicorn pour qu&#8217;il fasse ce QUIT. Voici donc la
+configuration que j&#8217;utilise pour ça.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>before_fork do |server, worker|
+</span><span class='line'>
+</span><span class='line'>  old_pid = "pids/unicorn.pid.oldbin"
+</span><span class='line'>  if File.exists?(old_pid) && server.pid != old_pid
+</span><span class='line'>    begin
+</span><span class='line'>      Process.kill("QUIT", File.read(old_pid).to_i)
+</span><span class='line'>    rescue Errno::ENOENT, Errno::ESRCH
+</span><span class='line'>      # someone else did our job for us
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>le <code>before_fork</code> se lance une fois que le processus maitre est UP et
+qu&#8217;il va commencer a créer un fork pour avoir un travailleur.</p>
+
+<p>Le Signal QUI lancé durant le <code>before_fork</code> arrêtera les processus Unicorn
+une fois qu&#8217;il a fini de traiter toutes les requêtes en cours. C&#8217;est ce
+méchanisme qui nous permet le 0 downtime.</p>
+
+<h1>Le problème du Gemfile</h1>
+
+<p>Toutes les personnes qui n&#8217;utilise pas ce méchanisme, ne le font pas
+suite à un problème de configuration avec Bundler. Une
+<a href="http://unicorn.bogomips.org/Sandbox.html">documentation compléte existe à ce sujet</a>.</p>
+
+<p>En gros, la technique est simplement de penser à définir le PATH du
+Gemfile directement par la variable d&#8217;environement <code>BUNDLE_GEMFILE</code>.</p>
+
+<p>Soit lors du démarrage du process.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>BUNDLE_GEMFILE=./Gemfile unicorn -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Soit directement dans le fichier de configuration de unicorn</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>before_exec do |server|
+</span><span class='line'>  ENV["BUNDLE_GEMFILE"] = "./Gemfile"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Une fois que vous avez configuré correctement votre Gemfile, vous
+n&#8217;avez plus de problèmes.</p>
+
+<p>Un moyen simple de détection de problème lors du reload, est de vérifier
+qu&#8217;un nouveau process unicor c&#8217;est bien lancé. Si ce nouveau process
+échoue, il n&#8217;enverra pas le signal QUIT. Le premier process reste donc
+vivant et UP. Cela évite entre autre d&#8217;avoir une indisponibilité à ce
+moment là. On peut vérifier cela avec un simple <code>ps</code> :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ps o "start command" | grep unicorn</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Au pire, il suffit cette fois ci de faire un restart du
+processus.</p>
+
+<h1>Autre problèmes possible</h1>
+
+<p>Pour les malchanceux comme moi qui ont des applications qui ne sont pas
+encore en rails > 3.0, attention il faut penser à utiliser l&#8217;executable
+<code>unicorn_rails</code>.</p>
+
+<p>J&#8217;espére vous avoir faire découvrir mes petits astuces sur Unicorn et
+que cela vous sera utile.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1029,152 +1193,6 @@ en lecture/écriture en fonction de la locale et la recherche</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-24T22:17:00+01:00" pubdate data-updated="true">Jan 24<span>th</span>, 2012</time>
-        
-         | <a href="/mailtrap-l-aide-au-staging.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Avant chaque mise en production d&#8217;un projet, il faut le test dans un
-environement de staging. Pour avoir un environement le plus proche de
-notre environement de production, une pratique courante est d&#8217;éffectuer
-un dump de la base de production pour avoir un jeu de donnée complet et
-valide. Ça nous permet aussi de vérifier que nos migrations ne posent
-pas de problème, tester quelques pages au niveau de leur performance.</p>
-
-<p>En gros faire plein de test comme si on jouait avec la prod mais sans
-toucher au donnée de production.</p>
-
-<p>Le plus gros soucis que l&#8217;on rencontre et beaucoup d&#8217;entre nous l&#8217;ont
-rencontré, c&#8217;est l&#8217;envoi d&#8217;email. Tous les emails copié de la production
-sont valide et posséde un utilisateur au bout. Si nous envoyons un email
-réellement cela peut vite être problèmatique. Les solutions utilisées
-généralement sont les suivantes.</p>
-
-<h2>Remplacement de tous les emails de la base de donnée.</h2>
-
-<p>Une pratique simple est courant est la tâche qui remplace tous les
-emails de la base de donnée par des emails possédés par la société.
-Cette technique marche parfaitement, mais pose quelques problèmes :</p>
-
-<ul>
-<li>Il faut penser a toujours faire la modification après chaque copie de
-la base de production.</li>
-<li>Il faut mettre à jour son script pour remplacer tous les nouveaux
-champs qui posséde des emails si on en ajoute</li>
-<li>Il devient difficile de savoir à qui était réelement destiné l&#8217;email
-initial. On peux ainsi passer à coté de quelques bugs.</li>
-</ul>
-
-
-<h2>Ne plus contacter de serveur SMTP et créer un fichier par email</h2>
-
-<p>Avec le framework Ruby on Rails, il est possible de définir que tous les
-emails envoyés sont mis dans un fichier plutôt qu&#8217;envoyer par SMTP. Il
-suffit de définir un nouveau smtp_delivery</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActionMailer</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">delivery_methods</span> <span class="o">=</span> <span class="ss">:file</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Cette technique permet d&#8217;être sûr qu&#8217;aucun email n&#8217;est envoyé au client
-finaux. L&#8217;inconvénient de cette technique est le stockage et la lecture
-des emails. Tous les emails sont stocké sous forme de fichier
-directement sur le serveur. Il peux donc être fastidieux de connaitre
-les nouveaux emails envoyés, car ils sont classé par destinataire. On
-peux ainsi ne pas constater qu&#8217;un email est envoyé sous certaine
-conditions. De même, si votre application est utilisé par des personnes
-n&#8217;ayant pas un accès shell à votre serveur, ils ne pourront pas lire les
-mails envoyés.</p>
-
-<h2>Le mock SMTP</h2>
-
-<p>Cette technique est selon moi la meilleure actuellement. Elle consiste
-tout simplement à emuler un vrai serveur SMTP. Par contre, ce serveur ne
-transmet pas les emails qu&#8217;il reçoit. Il les stocke et vous permet de
-les consulter dans un client mail classique. Ils sont conservé
-entièrement.</p>
-
-<p>L&#8217;avantage est que n&#8217;importe qui peux consulter les emails générés, sans
-aucune connaissance technique évolués et ils sont conservé entièrement.</p>
-
-<p>A ma connaissance, il existe 3 produits qui permettent cela.</p>
-
-<ul>
-<li><a href="http://mailcatcher.me/">Mailcatcher</a></li>
-<li><a href="http://mailtrap.io/">Mailtrap.io</a></li>
-<li><a href="http://mocksmtpapp.com/">MockSMTP.app</a></li>
-</ul>
-
-
-<h3>Mailcatcher</h3>
-
-<p>C&#8217;est un produit open source tres simple d&#8217;utilisation. Vous télécharger
-le gem, vous lancer la commande <code>mailcatcher</code> et c&#8217;est fini. Vous avez
-ainsi un serveur SMTP sur le port 1025 et un client mail sur le port
-1080.</p>
-
-<p>Je vous le conseille dans un environement de développement. Il a en plus
-quelques petits addons comme la notification growl.</p>
-
-<p>Le seul soucis que j&#8217;ai rencontré avec est le deployement dans un
-environement de staging. la commande <code>mailcatcher</code> ne permet pas
-d&#8217;écouter sur toutes les interfaces. Il faut donc mettre un proxy devant
-pour le rendre accessible à tout le monde. On doit donc le maintenir et
-le gérer. Cela peux être un peu compliqué juste pour un simple mock.
-Bien sûr rien ne vous empêche de le faire.</p>
-
-<h3>Mailtrap.io</h3>
-
-<p>Voici un projet que j&#8217;ai découvert que très récement. Le concept est
-exactement le même que celui de mailcatcher, sauf que vous n&#8217;avez plus à
-gérer l&#8217;hébergement vous même. Tout est géré par
-<a href="http://railsware.com/">railsware</a>, l&#8217;éditeur de ce service.</p>
-
-<p>Vous créer un compte sur leur site, vous créer un serveur SMTP fictif et
-c&#8217;est fini.</p>
-
-<p>Vous obtenez les informations de connection à ce SMTP. Une fois que vous
-définissez ces paramètres dans votre application, tous les emails seront
-envoyé directement à Mailtrap.</p>
-
-<p>Une gestion de collaboration sur les mailbox vous permet d&#8217;ajouter vos
-collaborateur à cette mailbox pour qu&#8217;ils puissent voir les emails.</p>
-
-<p>Cette solution est vraiment simple a mettre en oeuvre et très pratique.
-Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1188,6 +1206,10 @@ Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/0-downtime-avec-unicorn.html">0 Downtime avec Unicorn</a>
+      </li>
     
       <li class="post">
         <a href="/release-public-folder.html">Release de public folder</a>
@@ -1223,10 +1245,6 @@ Petit plus, c&#8217;est encore gratuit actuellement. Donc profitez en.</p>
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
       </li>
     
   </ul>

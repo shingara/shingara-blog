@@ -9,7 +9,9 @@
   <meta name="author" content="Cyril Mougel">
 
   
-  <meta name="description" content="Alors que je commence un nouvelle emploi, voici la nouvelle version de Pictrails. Cette version 0.4.0 sort assez rapidement après la version 0.3.x. &hellip;">
+  <meta name="description" content="traduction de <a
+href="http://weblog.rubyonrails.com/2008/7/6/living-on-the-edge-3">Vivre
+avec Edge #3 Il n&#8217;y a pas grand chose à noter comme &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,141 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-3.html">Vivre avec Edge (ou quoi de neuf dans Rails Edge) #3</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-08-04T00:00:00+02:00" pubdate data-updated="true">Aug 4<span>th</span>, 2008</time>
+        
+         | <a href="/vivre-avec-edge-ou-quoi-de-neuf-dans-rails-edge-3.html#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>traduction de <a
+href="http://weblog.rubyonrails.com/2008/7/6/living-on-the-edge-3">Vivre
+avec Edge #3</a></p>
+
+<p>Il n&#8217;y a pas grand chose à noter comme gros changements ou fonctionnalités
+dernièrement dans edge Rails, alors je vais parler des <a
+href="http://github.com/rails/rails/commits/master">commits
+rails</a>
+concernant quelques bugs fixes et changements mineurs que je n&#8217;ai pas indiqué
+précédement. Il y a eu un travail en cours avec un refactoring et
+multithreading de ActionPack ainsi qu&#8217;un peu d&#8217;activité sur <a
+href="http://github.com/rails/rails/tree/master/activemodel">ActiveModel</a>,
+mais rien de réelement concret encore (c&#8217;est toujours en cours de
+        travaux).</p>
+
+<p>Comme d&#8217;habitude n&#8217;hésitez pas à laisser des critiques ou suggestions dans
+les commentaires.</p>
+
+<h4>Support de Thin avec script/server</h4>
+
+<p><code>script/server</code> vérifie désormais la disponibilité de <a
+href="http://code.macournoyer.com/thin/">Thin</a> et l&#8217;utilise. Pratique si
+vous utilisez Thin comme serveur de production (et voulez lancer avec le même
+        serveur durant le développement). Vous devez ajouter <code>config.gem
+'hin'</code> en premier dans votre <code>environment.rb</code> pour que cela
+fonctionne.</p>
+
+<p>Ce patch est une contribution d&#8217;un des gars de <a
+href="http://fluxin.com/">fluxin</a>.</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/a93ea88c0623b4f65af98c0eb55924c335bb3ac1">Changeset</a></p>
+
+
+<h4>String#humanize peux être configurable par les régles d&#8217;inflection</h4>
+
+
+<p>La méthode d&#8217;extension du core <code>String#humanize</code> est utilisé
+pour convertir les string avec des underscores en texte lisible plus
+facilement (utilisé pour les noms des colonnes). Par exemple,</p>
+
+<typo:code lang="ruby">&#8220;actor_salary&#8221;.humanize
+=> &#8220;Actor salary&#8221;
+&#8220;anime_id&#8221;.humanize
+=> &#8220;Anime&#8221;</typo:code>
+
+<p>Parfois cela ne fonctionne pas aussi bien, quand vous avez des héritages de
+tables ou des noms de colonnes &#8220;inhumain&#8221; comme &#8220;act_sal_money&#8221; (qui est
+        réellement &#8220;Actor salary&#8221;, mais qui sera <code>#humaize-d</code> en
+        &#8220;Act Sal Money&#8221;).</p>
+
+<p>Vous pouvez désormais spécifier une régle d&#8217;inflection (exactement comme
+        pour les règles de mots pluriel/singulier/irrégulier/invariable).</p>
+
+
+<typo:code lang="ruby">Inflector.inflections do |inflect|
+  inflect.human /_cnt$/, &#8216;\1_count&#8217;
+  inflect.human &#8216;act_sal_money&#8217;, &#8216;Actor Salary&#8217;
+end</typo:code>
+
+<p>Remarquez que vous pouvez aussi utiliser une expression régulière pour
+convertir une colonne comme &#8220;click_cnt&#8221; en &#8220;Click count&#8221;.</p>
+
+<p>Merci à <a href="http://www.dcmanges.com/">Dan Manges</a> et <a
+href="http://rails.lighthouseapp.com/users/19954">Pascal Ehlert</a> pour ce
+patch.</p>
+
+    <p><a href="http://github.com/rails/rails/commit/4f75840d72b96fff34d65b59480da7d6c7494120">Changeset</a></p>
+
+<h4>Possibilité de spécifier des conditions sur des tables multiples en
+utilisant un hash.</h4>
+
+<p>Pratik a commité un petit (mais très pratique) changement d&#8217;ActiveRecord
+qui permet de spécifier des conditions sur les jointure dans leur propre hash.
+Un exemple sera plus explicite:</p>
+
+
+<typo:code lang="ruby">Anime.all(
+  :joins => :character,
+  :conditions => {
+    :active => true,
+    :characters => { :gender => &#8216;female&#8217; }
+  }
+)
+
+</typo:code>
+
+<p>La requête ActiveRecord précédent permet de trouver tous les anime &#8220;actif&#8221;
+qui comme charactère une &#8220;femme&#8221;.</p>
+
+
+    <p><a href="http://github.com/rails/rails/commit/cd994eff9a343df376bfaec59de5b24a2ab51256">Changeset</a></p>
+
+    <h4>Outro</h4>
+
+<p>C&#8217;est tout pour cette semaine dans &#8220;Living on the Edge&#8221;. Faites moi savoir
+si vous désirez voir plus d&#8217;information sur les changement et bug fixes
+mineurs que j&#8217;ai mis à l&#8217;écart cette semaine.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -706,48 +843,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ou-compiler-ses-fichiers-c-issue-de-rubyinline.html">Où compiler ses fichiers C issue de RubyInline</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2008-06-13T00:00:00+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2008</time>
-        
-         | <a href="/ou-compiler-ses-fichiers-c-issue-de-rubyinline.html#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.zenspider.com/ZSS/Products/RubyInline/">RubyInline</a> est un joli petit gem qui permet de générer du code C a partir de code Ruby. Ce code C est ensuite compilé et réutilisé durant les appels futurs de la méthode.</p>
-
-<p>Par défaut, RubyInline compile tout dans votre dossier <code>$HOME/.inline</code>. Mais comment faire si l&#8217;utilisateur n&#8217;a pas de HOME par exemple, où tout simplement qu&#8217;il souhaite mettre la compilation dans le dossier <code>$RAILS_ROOT/tmp/inline</code> qui pourrait être une place tout à fait raisonnable.</p>
-
-<p>N&#8217;ayant pas trouvé l&#8217;information dans la documentation de ce gem, j&#8217;ai donc chercher un peu dans le code. J&#8217;ai ainsi découvert que le dossier de compilation des fichiers C est géré par la variable d&#8217;environnement INLINEDIR. Il suffit donc de définir cette variable dans votre fichier d&#8217;environnement.rb pour choisir où sera compilé les fichiers générés par RubyInline.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -763,6 +858,10 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/0-downtime-avec-unicorn.html">0 Downtime avec Unicorn</a>
+      </li>
     
       <li class="post">
         <a href="/release-public-folder.html">Release de public folder</a>
@@ -798,10 +897,6 @@ permalinks = ActionController::Routing::Routes.routes.collect {|r|
     
       <li class="post">
         <a href="/translate-on-mongoid.html">Localize avec mongoid</a>
-      </li>
-    
-      <li class="post">
-        <a href="/mailtrap-l-aide-au-staging.html">Mailtrap l&#8217;aide au staging</a>
       </li>
     
   </ul>
